@@ -24,9 +24,9 @@ public class MoveInput : MonoBehaviour {
         Debug.DrawLine(ray.origin, hit.point);
           
         //Move The Pointer
-        unit1Pointer.position = new Vector3(hit.point.x, unit1Pointer.position.y, hit.point.z);
-       
-        if (Vector3.Distance(unit1Pointer.position, unit1Movement.transform.position) <= minMovRange)
+        Vector3 selectedPosition = new Vector3(hit.point.x, unit1Pointer.position.y, hit.point.z);
+
+        if (Vector3.Distance(selectedPosition, unit1Movement.transform.position) <= minMovRange)
         {
           isSelected = true;
         }
