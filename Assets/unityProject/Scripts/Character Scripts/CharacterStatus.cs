@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CharacterStatus : MonoBehaviour {
+    public int teamNum;
     public float maxAction;
     public float currentAction;
     public float maxHealth;
