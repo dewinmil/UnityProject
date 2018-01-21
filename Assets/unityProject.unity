@@ -2390,7 +2390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   usingAbility: 0
-  character: {fileID: 0}
+  character: {fileID: 924505664}
 --- !u!4 &385322899
 Transform:
   m_ObjectHideFlags: 0

@@ -43,7 +43,7 @@ public class MoveInput : MonoBehaviour
                             if (hit.collider.tag == "Unit")
                             {
                                 isSelected = true;
-                                if (character.usingAbility)
+                                if (character.usingAbility)//this boolean seems a bit gimmicky / sometimes changes first I think
                                 {
                                     hit.collider.gameObject.GetComponent<MoveInput>().isSelected = false;
                                 } 

@@ -54,7 +54,7 @@ public class Abilities : MonoBehaviour {
 
     void ability1(CharacterStatus status)
     {
-        if (status.currentAction >= 3)
+        if (character.currentAction >= 3)
         {
             character.currentAction -= 3;
             status.currentHealth -= 3;
@@ -73,7 +73,7 @@ public class Abilities : MonoBehaviour {
 
     void ability2(CharacterStatus status)
     {
-        if (status.currentAction >= 3)
+        if (character.currentAction >= 3)
         {
             character.currentAction -= 3;
             status.currentHealth += 3;
