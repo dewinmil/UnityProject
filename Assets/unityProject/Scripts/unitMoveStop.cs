@@ -23,13 +23,14 @@ public class unitMoveStop : MonoBehaviour {
   
   void OnTriggerEnter(Collider other)
   {
-    if(other.tag == unitMovement.tag)
+    //if(other.tag == unitMovement.tag)
     {
-      if (unitMovement.moving)
-      {
-        unitMovement.moving = false;
-        cursorSprite.enabled = false;
-      }
+            if (unitMovement.moving)
+            {
+                unitMovement.moving = false;
+                cursorSprite.enabled = false;
+            }
+            
     }
   }
 }
