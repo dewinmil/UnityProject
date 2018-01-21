@@ -7,7 +7,7 @@ public class Abilities : MonoBehaviour {
     public bool usingAbility;
     int abilityUsed;
     public Ray ray;
-    //public MoveInput character;
+    public CharacterStatus character;
 
     void Start()
     {
@@ -19,7 +19,6 @@ public class Abilities : MonoBehaviour {
 
     // Use this for initialization
     public void useAbility(int ability) {
-        print("used ability 1");
         usingAbility = true;
         abilityUsed = ability;
     }
@@ -57,7 +56,7 @@ public class Abilities : MonoBehaviour {
     {
         if (status.currentAction >= 3)
         {
-            status.currentAction -= 3;
+            character.currentAction -= 3;
             status.currentHealth -= 3;
             if (status.currentHealth <= 0)
             {
@@ -76,7 +75,7 @@ public class Abilities : MonoBehaviour {
     {
         if (status.currentAction >= 3)
         {
-            status.currentAction -= 3;
+            character.currentAction -= 3;
             status.currentHealth += 3;
             if (status.currentHealth >= status.maxHealth)
             {

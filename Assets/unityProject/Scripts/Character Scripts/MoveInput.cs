@@ -36,10 +36,25 @@ public class MoveInput : MonoBehaviour
                 }
                 else
                 {
-                    if(EventSystem.current.IsPointerOverGameObject() == false)
+                    if (isSelected)
                     {
-                        isSelected = false;
+                        if (EventSystem.current.IsPointerOverGameObject() == false)
+                        {
+                            if (hit.collider.tag == "Unit")
+                            {
+                                isSelected = true;
+                                if (character.usingAbility)
+                                {
+                                    hit.collider.gameObject.GetComponent<MoveInput>().isSelected = false;
+                                } 
+                            }
+                            else
+                            {
+                                isSelected = false;
+                            }
+                        }
                     }
+                    
                 }
             }
         }
