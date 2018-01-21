@@ -875,6 +875,8 @@ MonoBehaviour:
   minMovRange: 2
   cursor1: {fileID: 784272403}
   isSelected: 0
+  targetedBySpell: 0
+  castingSpell: 0
   character: {fileID: 1991541918}
 --- !u!54 &149237556
 Rigidbody:
@@ -2391,6 +2393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   usingAbility: 0
   character: {fileID: 924505664}
+  caster: {fileID: 924505666}
 --- !u!4 &385322899
 Transform:
   m_ObjectHideFlags: 0
@@ -6161,6 +6164,8 @@ MonoBehaviour:
   minMovRange: 2
   cursor1: {fileID: 784272403}
   isSelected: 0
+  targetedBySpell: 0
+  castingSpell: 0
   character: {fileID: 385322898}
 --- !u!54 &924505667
 Rigidbody:
@@ -12722,6 +12727,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   usingAbility: 0
   character: {fileID: 149237562}
+  caster: {fileID: 149237555}
 --- !u!4 &1991541919
 Transform:
   m_ObjectHideFlags: 0
