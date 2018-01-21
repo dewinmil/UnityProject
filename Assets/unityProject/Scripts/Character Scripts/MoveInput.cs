@@ -12,14 +12,19 @@ public class MoveInput : MonoBehaviour
     public SpriteRenderer cursor1;
     public Ray ray;
     public bool isSelected;
+    public bool targetedBySpell;
+    public bool castingSpell;
     public Abilities character;
 
     // Update is called once per frame
     void Update()
     {
         //Get Input
-
-        if (Input.GetButton("Fire1"))
+        if (targetedBySpell)
+        {
+            isSelected = false;
+        }
+        if (Input.GetButtonUp("Fire1"))
         {
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -32,7 +37,14 @@ public class MoveInput : MonoBehaviour
 
                 if (Vector3.Distance(selectedPosition, unit1Movement.transform.position) <= 2)
                 {
-                    isSelected = true;
+                    if(targetedBySpell == false)
+                    {
+                        isSelected = true;
+                    }
+                    else
+                    {
+                        targetedBySpell = false;
+                    }
                 }
                 else
                 {
@@ -42,11 +54,15 @@ public class MoveInput : MonoBehaviour
                         {
                             if (hit.collider.tag == "Unit")
                             {
-                                isSelected = true;
-                                if (character.usingAbility)//this boolean seems a bit gimmicky / sometimes changes first I think
+                                if (castingSpell)
                                 {
-                                    hit.collider.gameObject.GetComponent<MoveInput>().isSelected = false;
-                                } 
+                                    hit.collider.gameObject.GetComponent<MoveInput>().targetedBySpell = true;
+                                    castingSpell = false;
+                                }
+                                else
+                                {
+                                    isSelected = false;
+                                }
                             }
                             else
                             {
@@ -58,7 +74,7 @@ public class MoveInput : MonoBehaviour
                 }
             }
         }
-        if (Input.GetButton("Fire2"))
+        if (Input.GetButtonUp("Fire2"))
         {
             //Cast ray to get position of cursor on Terrain
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);

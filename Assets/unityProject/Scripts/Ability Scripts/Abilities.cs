@@ -8,6 +8,7 @@ public class Abilities : MonoBehaviour {
     int abilityUsed;
     public Ray ray;
     public CharacterStatus character;
+    public MoveInput caster;
 
     void Start()
     {
@@ -52,15 +53,17 @@ public class Abilities : MonoBehaviour {
         }
     }
 
-    void ability1(CharacterStatus status)
+    void ability1(CharacterStatus target)
     {
+        //note character and caster are the same unit / just different scripts
+        caster.castingSpell = true;
         if (character.currentAction >= 3)
         {
             character.currentAction -= 3;
-            status.currentHealth -= 3;
-            if (status.currentHealth <= 0)
+            target.currentHealth -= 3;
+            if (target.currentHealth <= 0)
             {
-                status.currentHealth = 0;
+                target.currentHealth = 0;
             }
             usingAbility = false;
         }
@@ -71,15 +74,17 @@ public class Abilities : MonoBehaviour {
         }
     }
 
-    void ability2(CharacterStatus status)
+    void ability2(CharacterStatus target)
     {
+        //note character and caster are the same unit / just different scripts
+        caster.castingSpell = true;
         if (character.currentAction >= 3)
         {
             character.currentAction -= 3;
-            status.currentHealth += 3;
-            if (status.currentHealth >= status.maxHealth)
+            target.currentHealth += 3;
+            if (target.currentHealth >= target.maxHealth)
             {
-                status.currentHealth = status.maxHealth;
+                target.currentHealth = target.maxHealth;
             }
             usingAbility = false;
         }
