@@ -12,5 +12,6 @@ public class ClickableTile : MonoBehaviour
     void OnMouseUp()
     {
         map.GeneratePathTo(tileX, tileZ);
+        map._selectedUnit.GetComponent<Unit>().BeginMovement();
     }
 }
