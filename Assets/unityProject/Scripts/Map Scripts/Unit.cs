@@ -8,6 +8,8 @@ public class Unit : MonoBehaviour
     public int tileZ;
     public TileMap map;
     private bool isMoving;
+    public MoveInput character;
+    public bool moveToggle;
 
     //variable to make the unit walk slower
     private int _waitCount = 0;
@@ -29,20 +31,23 @@ public class Unit : MonoBehaviour
 
     private void MoveUnitToTarget()
     {
-        int currNode = 0;
-
-        while (currNode < currentPath.Count - 1)
+        if (character.isSelected)
         {
-            MoveToNextTile();
-            currNode++;
-        }
+            int currNode = 0;
 
-        //if we get in this, we know we are at our destination
-        if (currentPath.Count == 1)
-        {
-            currentPath = null;
-            isMoving = false;
-            _waitCount = 0;
+            while (currNode < currentPath.Count - 1)
+            {
+                MoveToNextTile();
+                currNode++;
+            }
+
+            //if we get in this, we know we are at our destination
+            if (currentPath.Count == 1)
+            {
+                currentPath = null;
+                isMoving = false;
+                _waitCount = 0;
+            }
         }
     }
 
@@ -62,9 +67,24 @@ public class Unit : MonoBehaviour
 
     public void BeginMovement()
     {
-        if (currentPath == null)
-            return;
+        if (moveToggle)
+        {
+            if (currentPath == null)
+                return;
 
-        isMoving = true;
+            isMoving = true;
+        }
+    }
+
+    public void toggleMovement()
+    {
+        if(moveToggle == false)
+        {
+            moveToggle = true;
+        }
+        else
+        {
+            moveToggle = false;
+        }
     }
 }

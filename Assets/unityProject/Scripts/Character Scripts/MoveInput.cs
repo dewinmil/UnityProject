@@ -15,6 +15,7 @@ public class MoveInput : MonoBehaviour
     public bool targetedBySpell;
     public bool castingSpell;
     public Abilities character;
+    public Unit unit;
 
     // Update is called once per frame
     void Update()
@@ -61,12 +62,18 @@ public class MoveInput : MonoBehaviour
                                 }
                                 else
                                 {
-                                    isSelected = false;
+                                    if (unit.moveToggle == false)
+                                    {
+                                        isSelected = false;
+                                    }
                                 }
                             }
                             else
                             {
-                                isSelected = false;
+                                if (unit.moveToggle == false)
+                                {
+                                    isSelected = false;
+                                }
                             }
                         }
                     }

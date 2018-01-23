@@ -9,6 +9,7 @@ public class Abilities : MonoBehaviour {
     public Ray ray;
     public CharacterStatus character;
     public MoveInput caster;
+    public Unit unit;
 
     void Start()
     {
@@ -22,6 +23,11 @@ public class Abilities : MonoBehaviour {
     public void useAbility(int ability) {
         usingAbility = true;
         abilityUsed = ability;
+    }
+
+    public void toggleMovement()
+    {
+        unit.toggleMovement();
     }
 
     // Update is called once per frame
