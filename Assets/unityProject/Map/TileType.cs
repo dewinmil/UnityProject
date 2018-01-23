@@ -11,5 +11,4 @@ public class TileType
     public string Name;
     public GameObject TileVisuallPrefab;
     public bool IsWalkable;
-
 }
