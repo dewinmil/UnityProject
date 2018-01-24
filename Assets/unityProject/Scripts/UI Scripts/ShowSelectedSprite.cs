@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShowSprite : MonoBehaviour {
+public class ShowSelectedSprite : MonoBehaviour {
 
     public MoveInput _characterMoveInput;
 
