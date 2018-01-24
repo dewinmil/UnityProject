@@ -9,6 +9,8 @@ public class CharacterStatus : MonoBehaviour {
     public float currentAction;
     public float maxHealth;
     public float currentHealth;
+    public float physicalArmor;//a value of 1 is 100% resistance
+    public float magicArmor;//a value of 1 is 100% resistance
     public Image healthBar;
     public Image actionBar;
     public Text healthBarText;
