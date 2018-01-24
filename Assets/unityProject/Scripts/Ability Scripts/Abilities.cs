@@ -28,7 +28,7 @@ public class Abilities : MonoBehaviour {
 
     // Use this for initialization
     public void useAbility(int ability) {
-        usingAbility = true;
+        toggleCasting();
         abilityUsed = ability;
     }
 
@@ -41,39 +41,42 @@ public class Abilities : MonoBehaviour {
     void Update () {
         if (_casterMoveInput.isSelected)
         {
-            if (Input.GetKey(spellHotkey1))
+            if (Input.GetKeyUp(spellHotkey1))
             {
-                usingAbility = true;
+                toggleCasting();
                 abilityUsed = 1;
             }
-            else if (Input.GetKey(spellHotkey2))
+            else if (Input.GetKeyUp(spellHotkey2))
             {
-                usingAbility = true;
+                toggleCasting();
                 abilityUsed = 2;
             }
-            else if (Input.GetKey(spellHotkey3))
+            else if (Input.GetKeyUp(spellHotkey3))
             {
-                usingAbility = true;
+                toggleCasting();
                 abilityUsed = 3;
             }
-            else if (Input.GetKey(spellHotkey4))
+            else if (Input.GetKeyUp(spellHotkey4))
             {
-                usingAbility = true;
+                toggleCasting();
                 abilityUsed = 4;
             }
-            else if (Input.GetKey(spellHotkey5))
+            else if (Input.GetKeyUp(spellHotkey5))
             {
-                usingAbility = true;
+                toggleCasting();
                 abilityUsed = 5;
             }
-            else if (Input.GetKey(spellHotkey6))
+            else if (Input.GetKeyUp(spellHotkey6))
             {
                 toggleMovement();
             }
         }
+
+
+
         if (usingAbility == true)
         {
-            if (Input.GetButton("Fire1"))
+            if (Input.GetButtonUp("Fire1"))
             {
                 if (EventSystem.current.IsPointerOverGameObject() == false)
                 {
@@ -99,6 +102,20 @@ public class Abilities : MonoBehaviour {
                 }
                 
             }
+        }
+    }
+
+    void toggleCasting()
+    {
+        if (usingAbility)
+        {
+            usingAbility = false;
+            _casterMoveInput.castingSpell = false;
+        }
+        else
+        {
+            usingAbility = true;
+            _casterMoveInput.castingSpell = true;
         }
     }
 

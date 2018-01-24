@@ -71,9 +71,16 @@ public class MoveInput : MonoBehaviour
                             }
                             else
                             {
-                                if (_unit.moveToggle == false)
+                                if (castingSpell == false)
                                 {
-                                    isSelected = false;
+                                    if (_unit.moveToggle == false)
+                                    {
+                                        isSelected = false;
+                                    }
+                                }
+                                else
+                                {
+                                    castingSpell = false;
                                 }
                             }
 
