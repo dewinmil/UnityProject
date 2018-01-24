@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ShowSprite : MonoBehaviour {
 
-    public MoveInput character;
+    public MoveInput _characterMoveInput;
 
 
     // Update is called once per frame
     void Update()
     {
-        if (character.isSelected == true)
+        if (_characterMoveInput.isSelected == true)
         {
             if (gameObject.GetComponent<SpriteRenderer>().enabled == false)
             {

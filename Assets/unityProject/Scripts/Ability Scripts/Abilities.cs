@@ -7,9 +7,9 @@ public class Abilities : MonoBehaviour {
     public bool usingAbility;
     int abilityUsed;
     public Ray ray;
-    public CharacterStatus character;
-    public MoveInput caster;
-    public Unit unit;
+    public CharacterStatus _casterStatus;
+    public MoveInput _casterMoveInput;
+    public Unit _unit;
 
     void Start()
     {
@@ -27,7 +27,7 @@ public class Abilities : MonoBehaviour {
 
     public void toggleMovement()
     {
-        unit.toggleMovement();
+        _unit.toggleMovement();
     }
 
     // Update is called once per frame
@@ -62,10 +62,10 @@ public class Abilities : MonoBehaviour {
     void ability1(CharacterStatus target)
     {
         //note character and caster are the same unit / just different scripts
-        caster.castingSpell = true;
-        if (character.currentAction >= 3)
+        _casterMoveInput.castingSpell = true;
+        if (_casterStatus.currentAction >= 3)
         {
-            character.currentAction -= 3;
+            _casterStatus.currentAction -= 3;
             target.currentHealth -= 3;
             if (target.currentHealth <= 0)
             {
@@ -83,10 +83,10 @@ public class Abilities : MonoBehaviour {
     void ability2(CharacterStatus target)
     {
         //note character and caster are the same unit / just different scripts
-        caster.castingSpell = true;
-        if (character.currentAction >= 3)
+        _casterMoveInput.castingSpell = true;
+        if (_casterStatus.currentAction >= 3)
         {
-            character.currentAction -= 3;
+            _casterStatus.currentAction -= 3;
             target.currentHealth += 3;
             if (target.currentHealth >= target.maxHealth)
             {
