@@ -83,7 +83,15 @@ public class Abilities : MonoBehaviour {
 
     public void toggleMovement()
     {
-        _unit.toggleMovement();
+        if (usingAbility)
+        {
+            _unit.moveToggle = false;
+            usingAbility = false;
+        }
+        else
+        {
+            _unit.toggleMovement();
+        }
     }
 
     // Update is called once per frame
@@ -143,6 +151,18 @@ public class Abilities : MonoBehaviour {
                             {
                                 ability2(hit.collider.gameObject.GetComponent<CharacterStatus>());
                             }
+                            if (abilityUsed == 3)
+                            {
+                                ability3(hit.collider.gameObject.GetComponent<CharacterStatus>());
+                            }
+                            if (abilityUsed == 4)
+                            {
+                                ability4(hit.collider.gameObject.GetComponent<CharacterStatus>());
+                            }
+                            if (abilityUsed == 5)
+                            {
+                                ability5(hit.collider.gameObject.GetComponent<CharacterStatus>());
+                            }
 
                         }
                     }
@@ -156,16 +176,24 @@ public class Abilities : MonoBehaviour {
 
     void toggleCasting()
     {
-        if (usingAbility)
+        if (_unit.moveToggle)
         {
-            usingAbility = false;
-            _casterMoveInput.castingSpell = false;
+            _unit.moveToggle = false;
         }
         else
         {
-            usingAbility = true;
-            _casterMoveInput.castingSpell = true;
+            if (usingAbility)
+            {
+                usingAbility = false;
+                _casterMoveInput.castingSpell = false;
+            }
+            else
+            {
+                usingAbility = true;
+                _casterMoveInput.castingSpell = true;
+            }
         }
+        
     }
 
 
@@ -176,6 +204,21 @@ public class Abilities : MonoBehaviour {
 
 
     void ability2(CharacterStatus target)
+    {
+        castAbility(target, 0, 3, 3, 0, 0, 0, false);
+    }
+
+    void ability3(CharacterStatus target)
+    {
+        castAbility(target, 0, 3, 3, 0, 0, 0, false);
+    }
+
+    void ability4(CharacterStatus target)
+    {
+        castAbility(target, 0, 3, 3, 0, 0, 0, false);
+    }
+
+    void ability5(CharacterStatus target)
     {
         castAbility(target, 0, 3, 3, 0, 0, 0, false);
     }

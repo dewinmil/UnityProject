@@ -57,7 +57,7 @@ public class SpellIndicator : MonoBehaviour
             {
                 if (_selected.isSelected)
                 {
-                    if (_selected.GetComponentInChildren<Abilities>().usingAbility)
+                    if (_selected.GetComponentInChildren<Abilities>().usingAbility || _selected.GetComponent<Unit>().moveToggle == true)
                     {
 
                         transform.GetComponent<SpriteRenderer>().enabled = true;
@@ -121,6 +121,20 @@ public class SpellIndicator : MonoBehaviour
                             {
                                 list.Add(Instantiate(line));
                                 list.Add(Instantiate(line));
+                                if (_selected.GetComponent<Unit>().moveToggle)
+                                {
+                                    transform.GetComponent<SpriteRenderer>().material.color = Color.yellow;
+                                    list[0].GetComponent<Renderer>().material.color = Color.yellow;
+                                    list[list.Count - 1].GetComponent<Renderer>().material.color = Color.yellow;
+                                    list[list.Count - 2].GetComponent<Renderer>().material.color = Color.yellow;
+                                }
+                                else
+                                {
+                                    transform.GetComponent<SpriteRenderer>().material.color = Color.white;
+                                    list[0].GetComponent<Renderer>().material.color = Color.white;
+                                    list[list.Count - 1].GetComponent<Renderer>().material.color = Color.white;
+                                    list[list.Count - 2].GetComponent<Renderer>().material.color = Color.white;
+                                }
                             }
                             if (distance < list.Count + 2 && list.Count >=3)
                             {
@@ -151,6 +165,7 @@ public class SpellIndicator : MonoBehaviour
                                 }
                             }
                         }
+                        
                     }
                     else
                     {
