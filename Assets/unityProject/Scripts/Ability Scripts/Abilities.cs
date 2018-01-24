@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Abilities : MonoBehaviour {
 
@@ -36,25 +37,29 @@ public class Abilities : MonoBehaviour {
         {
             if (Input.GetButton("Fire1"))
             {
-                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                if (Physics.Raycast(ray, out hit, 100))
+                if (EventSystem.current.IsPointerOverGameObject() == false)
                 {
-                    if (hit.collider.tag == "Unit")
+                    ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit;
+                    if (Physics.Raycast(ray, out hit, 100))
                     {
-                        if (abilityUsed == 1)
+                        if (hit.collider.tag == "Unit")
                         {
-                            ability1(hit.collider.gameObject.GetComponent<CharacterStatus>());
-                        }
-                        if (abilityUsed == 2)
-                        {
-                            ability2(hit.collider.gameObject.GetComponent<CharacterStatus>());
-                        }
+                            if (abilityUsed == 1)
+                            {
+                                ability1(hit.collider.gameObject.GetComponent<CharacterStatus>());
+                            }
+                            if (abilityUsed == 2)
+                            {
+                                ability2(hit.collider.gameObject.GetComponent<CharacterStatus>());
+                            }
 
+                        }
                     }
+                    usingAbility = false;
+                    abilityUsed = 0;
                 }
-                usingAbility = false;
-                abilityUsed = 0;
+                
             }
         }
     }

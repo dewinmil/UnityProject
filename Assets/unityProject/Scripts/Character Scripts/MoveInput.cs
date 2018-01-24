@@ -27,32 +27,33 @@ public class MoveInput : MonoBehaviour
         }
         if (Input.GetButtonUp("Fire1"))
         {
-            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 100))
+            if (EventSystem.current.IsPointerOverGameObject() == false)
             {
-                //Debugging Ray
-                Debug.DrawLine(ray.origin, hit.point);
-
-                Vector3 selectedPosition = new Vector3(hit.point.x, hit.point.y, hit.point.z);
-
-                if (Vector3.Distance(selectedPosition, _characterAbilities.transform.position) <= 2)
+                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit, 100))
                 {
-                    if(targetedBySpell == false)
+                    //Debugging Ray
+                    Debug.DrawLine(ray.origin, hit.point);
+
+                    Vector3 selectedPosition = new Vector3(hit.point.x, hit.point.y, hit.point.z);
+
+                    if (Vector3.Distance(selectedPosition, _characterAbilities.transform.position) <= 2)
                     {
-                        isSelected = true;
+                        if (targetedBySpell == false)
+                        {
+                            isSelected = true;
+                        }
+                        else
+                        {
+                            targetedBySpell = false;
+                        }
                     }
                     else
                     {
-                        targetedBySpell = false;
-                    }
-                }
-                else
-                {
-                    if (isSelected)
-                    {
-                        if (EventSystem.current.IsPointerOverGameObject() == false)
+                        if (isSelected)
                         {
+
                             if (hit.collider.tag == "Unit")
                             {
                                 if (castingSpell)
@@ -75,11 +76,13 @@ public class MoveInput : MonoBehaviour
                                     isSelected = false;
                                 }
                             }
+
                         }
+
                     }
-                    
                 }
             }
+
         }
     }
 }
