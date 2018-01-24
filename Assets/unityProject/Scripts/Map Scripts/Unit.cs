@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 public class Unit : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class Unit : MonoBehaviour
     public int tileZ;
     public TileMap map;
     private bool isMoving;
-    public MoveInput character;
+    public MoveInput _characterMoveInput;
     public bool moveToggle;
 
     //variable to make the unit walk slower
@@ -31,7 +32,7 @@ public class Unit : MonoBehaviour
 
     private void MoveUnitToTarget()
     {
-        if (character.isSelected)
+        if (_characterMoveInput.isSelected)
         {
             int currNode = 0;
 
@@ -69,10 +70,13 @@ public class Unit : MonoBehaviour
     {
         if (moveToggle)
         {
-            if (currentPath == null)
-                return;
+            if (EventSystem.current.IsPointerOverGameObject() == false)
+            {
+                if (currentPath == null)
+                    return;
 
-            isMoving = true;
+                isMoving = true;
+            }
         }
     }
 
