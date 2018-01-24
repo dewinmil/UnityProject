@@ -17,19 +17,68 @@ public class Abilities : MonoBehaviour {
     private KeyCode spellHotkey4 = KeyCode.Alpha4;//number 4
     private KeyCode spellHotkey5 = KeyCode.Alpha5;//number 5
     private KeyCode spellHotkey6 = KeyCode.Space;//number spacebar
-
+    
     void Start()
     {
         abilityUsed = 0;
         usingAbility = false;
-        //print("used ability 1");
-        //character.isSelected = true;
+
     }
 
     // Use this for initialization
     public void useAbility(int ability) {
         toggleCasting();
         abilityUsed = ability;
+    }
+
+    // Use this for initialization
+    public void castAbility(CharacterStatus target, float damage, float healing, float apCost, float armorPen, float magicPen, float range, bool isMagic)
+    {
+        //toggleCasting();
+        if (usingAbility)
+        {
+            if(target.currentHealth > 0)
+            {
+                float resistance = 0;
+                if (_casterStatus.currentAction >= apCost)
+                {
+                    _casterStatus.currentAction -= apCost;
+
+                    if (isMagic)
+                    {
+                        resistance = target.magicArmor - magicPen;
+                        if (resistance < 0)
+                        {
+                            resistance = 0;
+                        }
+                        target.currentHealth -= damage * (1 - resistance);
+                    }
+                    else
+                    {
+                        resistance = target.physicalArmor - armorPen;
+                        if (resistance < 0)
+                        {
+                            resistance = 0;
+                        }
+                        target.currentHealth -= damage * (1 - resistance);
+                    }
+                    target.currentHealth += healing;
+
+                    if (target.currentHealth <= 0)
+                    {
+                        target.currentHealth = 0;
+                    }
+                    usingAbility = false;
+                }
+                else
+                {
+                    //print not enough AP
+                    usingAbility = false;
+                }
+            }
+            
+        }
+
     }
 
     public void toggleMovement()
@@ -122,44 +171,12 @@ public class Abilities : MonoBehaviour {
 
     void ability1(CharacterStatus target)
     {
-        //note character and caster are the same unit / just different scripts
-        _casterMoveInput.castingSpell = true;
-        if (_casterStatus.currentAction >= 3)
-        {
-            _casterStatus.currentAction -= 3;
-            target.currentHealth -= 3;
-            if (target.currentHealth <= 0)
-            {
-                target.currentHealth = 0;
-            }
-            usingAbility = false;
-        }
-        else
-        {
-            //print not enough AP
-            usingAbility = false;
-        }
+        castAbility(target, 3, 0, 3, 0, 0, 0, false);
     }
 
 
     void ability2(CharacterStatus target)
     {
-        //note character and caster are the same unit / just different scripts
-        _casterMoveInput.castingSpell = true;
-        if (_casterStatus.currentAction >= 3)
-        {
-            _casterStatus.currentAction -= 3;
-            target.currentHealth += 3;
-            if (target.currentHealth >= target.maxHealth)
-            {
-                target.currentHealth = target.maxHealth;
-            }
-            usingAbility = false;
-        }
-        else
-        {
-            //print not enough AP
-            usingAbility = false;
-        }
+        castAbility(target, 0, 3, 3, 0, 0, 0, false);
     }
 }
