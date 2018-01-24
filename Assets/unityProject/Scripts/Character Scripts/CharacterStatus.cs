@@ -13,6 +13,10 @@ public class CharacterStatus : MonoBehaviour {
     public Image actionBar;
     public Text healthBarText;
     public Text actionBarText;
+    public Image healthBarUI;
+    public Image actionBarUI;
+    public Text healthBarTextUI;
+    public Text actionBarTextUI;
 
 
     // Use this for initialization
@@ -36,6 +40,14 @@ public class CharacterStatus : MonoBehaviour {
         ratio = currentAction / maxAction;
         actionBar.rectTransform.localScale = new Vector3(ratio, 1, 1);
         actionBarText.text = currentAction.ToString() + " / " + maxAction.ToString();
+
+        ratio = currentHealth / maxHealth;
+        healthBarUI.rectTransform.localScale = new Vector3(ratio, 1, 1);
+        healthBarTextUI.text = currentHealth.ToString() + " / " + maxHealth.ToString();
+
+        ratio = currentAction / maxAction;
+        actionBarUI.rectTransform.localScale = new Vector3(ratio, 1, 1);
+        actionBarTextUI.text = currentAction.ToString() + " / " + maxAction.ToString();
     }
     
     public void loseHealth()
