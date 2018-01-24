@@ -46,8 +46,8 @@ public class Abilities : MonoBehaviour {
 
                     if (isMagic)
                     {
-                        resistance = target.magicArmor - magicPen;
-                        if (resistance < 0)
+                        resistance = target.magicArmor * magicPen;
+                        if (resistance < 0 || resistance >= 1) //bad spell
                         {
                             resistance = 0;
                         }
@@ -55,8 +55,8 @@ public class Abilities : MonoBehaviour {
                     }
                     else
                     {
-                        resistance = target.physicalArmor - armorPen;
-                        if (resistance < 0)
+                        resistance = target.physicalArmor * armorPen;
+                        if (resistance < 0 || resistance >= 1)//bad spell
                         {
                             resistance = 0;
                         }
@@ -171,7 +171,7 @@ public class Abilities : MonoBehaviour {
 
     void ability1(CharacterStatus target)
     {
-        castAbility(target, 3, 0, 3, 0, 0, 0, false);
+        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
     }
 
 
