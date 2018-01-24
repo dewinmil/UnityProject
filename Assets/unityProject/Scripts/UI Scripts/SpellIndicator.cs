@@ -59,7 +59,9 @@ public class SpellIndicator : MonoBehaviour
                 {
                     if (_selected.GetComponentInChildren<Abilities>().usingAbility)
                     {
+
                         transform.GetComponent<SpriteRenderer>().enabled = true;
+                        list[0].transform.GetComponent<MeshRenderer>().enabled = true;
                         if (Physics.Raycast(ray, out hit, 100))
                         {
                             transform.position = new Vector3(hit.point.x, hit.point.y + (float).02, hit.point.z);
@@ -141,8 +143,6 @@ public class SpellIndicator : MonoBehaviour
                             {
                                 for (int i = 0; i < list.Count; i++)
                                 {
-                                    print((float)(i / list.Count));
-
                                     list[i].transform.position = new Vector3(_selected.transform.position.x + (transform.position.x - _selected.transform.position.x) * ((float)i / (float)list.Count),
                                         transform.position.y,
                                         _selected.transform.position.z + (transform.position.z - _selected.transform.position.z) * ((float)i / (float)list.Count));
@@ -154,7 +154,15 @@ public class SpellIndicator : MonoBehaviour
                     }
                     else
                     {
-                        transform.GetComponent<SpriteRenderer>().enabled = false;
+                        int max = list.Count;
+                        for (int i = 1; i < max; i++)
+                        {
+                            transform.GetComponent<SpriteRenderer>().enabled = false;
+                            list[0].transform.GetComponent<MeshRenderer>().enabled = false;
+                            GameObject.Destroy(list[list.Count - 1]);
+                            list.RemoveAt(list.Count - 1);
+                        }
+
                     }
 
                 }
