@@ -159,14 +159,10 @@ public class Abilities : MonoBehaviour {
                             {
                                 ability4(hit.collider.gameObject.GetComponent<CharacterStatus>());
                             }
-<<<<<<< HEAD
-=======
                             if (abilityUsed == 5)
                             {
                                 ability5(hit.collider.gameObject.GetComponent<CharacterStatus>());
                             }
-
->>>>>>> 1bc1eff12ab54b897fa681f365c45821152dc3fe
                         }
                     }
                     usingAbility = false;
@@ -224,20 +220,5 @@ public class Abilities : MonoBehaviour {
     void ability5(CharacterStatus target)
     {
         castAbility(target, 0, 0, 0, 0, 0, 0, false);
-    }
-
-    void ability3(CharacterStatus target)
-    {
-        castAbility(target, 0, 3, 3, 0, 0, 0, false);
-    }
-
-    void ability4(CharacterStatus target)
-    {
-        castAbility(target, 0, 3, 3, 0, 0, 0, false);
-    }
-
-    void ability5(CharacterStatus target)
-    {
-        castAbility(target, 0, 3, 3, 0, 0, 0, false);
     }
 }
