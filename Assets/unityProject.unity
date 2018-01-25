@@ -290,7 +290,7 @@ MonoBehaviour:
     TileVisuallPrefab: {fileID: 1615529106632900, guid: 14bcb6f8d1cd23c499c5ae8dfd78b9f7,
       type: 2}
     IsWalkable: 0
-  _selectedUnit: {fileID: 1208804317}
+  _selectedUnit: {fileID: 0}
 --- !u!4 &102793257
 Transform:
   m_ObjectHideFlags: 0
@@ -2189,8 +2189,8 @@ MonoBehaviour:
   currentAction: 20
   maxHealth: 20
   currentHealth: 20
-  physicalArmor: 0.5
-  magicArmor: 0.5
+  physicalArmor: 0
+  magicArmor: 0
   healthBar: {fileID: 1539742593}
   actionBar: {fileID: 1043323741}
   healthBarText: {fileID: 1329109494}
@@ -2339,7 +2339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileX: 0
   tileZ: 0
-  map: {fileID: 102793256}
+  map: {fileID: 0}
   _characterMoveInput: {fileID: 926473170}
   moveToggle: 0
 --- !u!1 &1014215455
