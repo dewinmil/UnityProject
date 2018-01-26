@@ -42,7 +42,7 @@ public class Abilities : MonoBehaviour {
                 float resistance = 0;
                 if (_casterStatus.currentAction >= apCost)
                 {
-                    _casterStatus.currentAction -= apCost;
+                    _casterStatus.loseAction(apCost);
 
                     if (isMagic)
                     {
@@ -51,7 +51,7 @@ public class Abilities : MonoBehaviour {
                         {
                             resistance = 0;
                         }
-                        target.currentHealth -= damage * (1 - resistance);
+                        target.loseHealth(damage * (1 - resistance));
                     }
                     else
                     {
@@ -60,9 +60,9 @@ public class Abilities : MonoBehaviour {
                         {
                             resistance = 0;
                         }
-                        target.currentHealth -= damage * (1 - resistance);
+                        target.loseHealth(damage * (1 - resistance));
                     }
-                    target.currentHealth += healing;
+                    target.gainHealth(healing);
 
                     if (target.currentHealth <= 0)
                     {
