@@ -172,7 +172,7 @@ public class TileMap : MonoBehaviour
             {
 
                 //float alt = dist[u] + u.DistanceTo(node);
-                float alt = dist[u] + CostToEnterTile(node.x, node.z);
+                float alt = dist[u] + CostToEnterTile(node.x, node.z, u.x, u.z);
                 //if this distance is less than the current shortest distance
                 if (alt < dist[node])
                 {
@@ -234,9 +234,9 @@ public class TileMap : MonoBehaviour
         return new Vector3(x, 0, z);
     }
 
-    private float CostToEnterTile(int x, int z)
+    private float CostToEnterTile(int targetX, int targetZ, int sourceX, int sourceZ)
     {
-        TileType tt = _tileTypes[_tiles[x, z]];
+        TileType tt = _tileTypes[_tiles[targetX, targetZ]];
         float movementCost;
 
         //if the tile is walkable, the unit can move through it
@@ -246,6 +246,10 @@ public class TileMap : MonoBehaviour
         //else set the cost to be infinity so that the algorithm will avoid it
         else
             movementCost = Mathf.Infinity;
+
+        //make movement more linear, makes more sense
+        if (targetX != sourceX && targetZ != sourceZ)
+            movementCost += 0.001f;
 
         return movementCost;
     }
