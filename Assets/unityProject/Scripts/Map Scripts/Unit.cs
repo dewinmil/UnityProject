@@ -12,20 +12,26 @@ public class Unit : MonoBehaviour
     private bool isMoving;
     public MoveInput _characterMoveInput;
     public bool moveToggle;
+    public Animator anim;
 
     //variable to make the unit walk slower
     private int _waitCount = 0;
 
     public List<Node> currentPath = null;
 
+    void Start() {
+        anim = GetComponent<Animator>();
+    }
+
     void Update()
     {
         _waitCount++;
+        anim.SetBool("Moving", isMoving);
         //if the character is set to move, move it
         //unit will only 'walk' every 15 frames
         //this probably isn't a good way to do it, since framerate will depend on the computer 
         //best way would be to use Time.DeltaTime I believe, but that can be implemented later
-        if (currentPath != null && isMoving && (_waitCount % 15 == 0))
+        if (currentPath != null && isMoving && (_waitCount % 30 == 0))
         {
             MoveUnitToTarget();
         }
@@ -77,6 +83,8 @@ public class Unit : MonoBehaviour
                     return;
 
                 isMoving = true;
+                
+
             }
         }
     }
@@ -85,11 +93,14 @@ public class Unit : MonoBehaviour
     {
         if(moveToggle == false)
         {
+            
             moveToggle = true;
+            
         }
         else
         {
             moveToggle = false;
+            
         }
     }
 }

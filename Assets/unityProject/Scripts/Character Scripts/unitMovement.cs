@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI; //Contains NavMeshClasses
 
-
 public class unitMovement : MonoBehaviour
 {
     public bool moving;
@@ -11,17 +10,21 @@ public class unitMovement : MonoBehaviour
     public Transform pointer;
     public int tileX;
     public int tileY;
+    
 
+    void Start() {
+        
+    }
     // Update is called once per frame
     void Update()
     {
         //Activates the NavMeshAgent Movement
         if (moving)
         {
+            
             agent.SetDestination(pointer.position);
             agent.isStopped = false;
             //agent.Resume();
         }
-
     }
 }
