@@ -40,8 +40,12 @@ public class TileMap : MonoBehaviour
                 //get the type the tile should be
                 TileType tt = _tileTypes[_tiles[x, z]];
 
+                GameObject tile;
                 //add the tile to the map
-                GameObject tile = Instantiate(tt.TileVisuallPrefab, new Vector3(x, -.5f, z), Quaternion.identity);
+                if ((z % 2) == 0)
+                    tile = Instantiate(tt.TileVisuallPrefab, new Vector3(x * 2, -.5f, z * 2), Quaternion.Euler(90, 0, 0));
+                else
+                    tile = Instantiate(tt.TileVisuallPrefab, new Vector3((x * 2)-1, -.5f, z * 2), Quaternion.Euler(90, 0, 0));
 
                 //make the map clickable
                 ClickableTile ct = tile.GetComponent<ClickableTile>();
