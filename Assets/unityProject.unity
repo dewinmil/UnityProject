@@ -283,11 +283,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tileTypes:
   - Name: Floor
-    TileVisuallPrefab: {fileID: 1920521447872886, guid: 1608e3b9b1c2e054fbac03c9070ca0fd,
+    TileVisuallPrefab: {fileID: 1307318430440178, guid: b7aadb626814c1a4ba740cebb9b5ee31,
       type: 2}
     IsWalkable: 1
   - Name: OccupiedFloor
-    TileVisuallPrefab: {fileID: 1615529106632900, guid: 14bcb6f8d1cd23c499c5ae8dfd78b9f7,
+    TileVisuallPrefab: {fileID: 1984471404555616, guid: a25e0220899d3eb44b17cce916d21c67,
       type: 2}
     IsWalkable: 0
   _selectedUnit: {fileID: 1208804317}
