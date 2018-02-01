@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Security.Cryptography;
+using System.Text;
 
 
 public class TileMap : MonoBehaviour
 {
     //2-D array of tiles
     private int[,] _tiles;
+
+    private HashAlgorithm _hashAlgorithm;
+    private Dictionary<string, GameObject> _tileObjects;
     private int _mapSizeX = 20;
     private int _mapSizeZ = 20;
     public TileType[] _tileTypes;
@@ -20,6 +25,8 @@ public class TileMap : MonoBehaviour
 
     void Start()
     {
+        _hashAlgorithm = MD5.Create();
+        _tileObjects = new Dictionary<string, GameObject>();
         //set up selected unit vars
         _selectedUnit.GetComponent<Unit>().tileX = (int)_selectedUnit.transform.position.x;
         _selectedUnit.GetComponent<Unit>().tileZ = (int)_selectedUnit.transform.position.z;
@@ -69,18 +76,28 @@ public class TileMap : MonoBehaviour
                 //get the type the tile should be
                 TileType tt = _tileTypes[_tiles[x, z]];
 
+                var a = x.GetHashCode();
+                var d = z.GetHashCode();
+
                 GameObject tile;
                 //add the tile to the map
                 if ((z % 2) == 0)
                     tile = Instantiate(tt.TileVisuallPrefab, new Vector3(x * TILE_OFFSET, TILE_Y_POS, z * TILE_OFFSET), Quaternion.Euler(90, 0, 0));
                 else
-                    tile = Instantiate(tt.TileVisuallPrefab, new Vector3((x * TILE_OFFSET) - 1, TILE_Y_POS, z * TILE_OFFSET), Quaternion.Euler(90, 0, 0));
+                    tile = Instantiate(tt.TileVisuallPrefab, new Vector3(x * TILE_OFFSET - 1, TILE_Y_POS, z * TILE_OFFSET), Quaternion.Euler(90, 0, 0));
 
                 //make the map clickable
                 ClickableTile ct = tile.GetComponent<ClickableTile>();
                 ct.tileX = x;
                 ct.tileZ = z;
                 ct.map = this;
+
+                //give each tile its own hash as its identifier. To get the hash, you need to hash the string of the x coordinate plus the z coordinate
+                string coords = x.ToString() + z.ToString();
+                string hash = GetHashString(coords);
+                if(!_tileObjects.ContainsKey(hash))
+                    _tileObjects.Add(hash, tile);
+
             }
         }
     }
@@ -231,6 +248,14 @@ public class TileMap : MonoBehaviour
         {
             currentPath.Add(current);
             current = prev[current];
+
+            if (current != null)
+            {
+                //change the tile colors
+                string hash = GetHashString(current.x.ToString() + current.z.ToString());
+                MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
+                mesh.material.color = Color.yellow;
+            }
         }
 
         //right now the currentPath has a route from our target to our source
@@ -285,5 +310,20 @@ public class TileMap : MonoBehaviour
             movementCost += 0.001f;
 
         return movementCost;
+    }
+
+    public static byte[] GetHash(string inputString)
+    {
+        HashAlgorithm algorithm = MD5.Create();  //or use SHA256.Create();
+        return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
+    }
+
+    public static string GetHashString(string inputString)
+    {
+        StringBuilder sb = new StringBuilder();
+        foreach (byte b in GetHash(inputString))
+            sb.Append(b.ToString("X2"));
+
+        return sb.ToString();
     }
 }
