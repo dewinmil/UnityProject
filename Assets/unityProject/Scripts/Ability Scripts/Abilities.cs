@@ -42,7 +42,7 @@ public class Abilities : MonoBehaviour {
                 float resistance = 0;
                 if (_casterStatus.currentAction >= apCost)
                 {
-                    _casterStatus.currentAction -= apCost;
+                    _casterStatus.loseAction(apCost);
 
                     if (isMagic)
                     {
@@ -51,7 +51,7 @@ public class Abilities : MonoBehaviour {
                         {
                             resistance = 0;
                         }
-                        target.currentHealth -= damage * (1 - resistance);
+                        target.loseHealth(damage * (1 - resistance));
                     }
                     else
                     {
@@ -60,9 +60,9 @@ public class Abilities : MonoBehaviour {
                         {
                             resistance = 0;
                         }
-                        target.currentHealth -= damage * (1 - resistance);
+                        target.loseHealth(damage * (1 - resistance));
                     }
-                    target.currentHealth += healing;
+                    target.gainHealth(healing);
 
                     if (target.currentHealth <= 0)
                     {
@@ -163,7 +163,6 @@ public class Abilities : MonoBehaviour {
                             {
                                 ability5(hit.collider.gameObject.GetComponent<CharacterStatus>());
                             }
-
                         }
                     }
                     usingAbility = false;
@@ -205,21 +204,21 @@ public class Abilities : MonoBehaviour {
 
     void ability2(CharacterStatus target)
     {
-        castAbility(target, 0, 3, 3, 0, 0, 0, false);
+        castAbility(target, 3, 0, 5, 0, (float).5, 2, true);
     }
 
     void ability3(CharacterStatus target)
     {
-        castAbility(target, 0, 3, 3, 0, 0, 0, false);
+        castAbility(target, 0, 0, 3, 0, 0, 0, false);
     }
 
     void ability4(CharacterStatus target)
     {
-        castAbility(target, 0, 3, 3, 0, 0, 0, false);
+        castAbility(target, 0, 3, 3, 0, 0, 3, false);
     }
 
     void ability5(CharacterStatus target)
     {
-        castAbility(target, 0, 3, 3, 0, 0, 0, false);
+        castAbility(target, 0, 0, 0, 0, 0, 0, false);
     }
 }
