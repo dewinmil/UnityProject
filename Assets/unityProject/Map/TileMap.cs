@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 
 public class TileMap : MonoBehaviour
@@ -13,6 +14,9 @@ public class TileMap : MonoBehaviour
     public TileType[] _tileTypes;
     public GameObject _selectedUnit;
     Node[,] _graph;
+    public Ray ray;
+    private const int TILE_OFFSET = 2;
+    private const float TILE_Y_POS = -.5f;
 
     void Start()
     {
@@ -31,6 +35,31 @@ public class TileMap : MonoBehaviour
         GenerateMapObjects();
     }
 
+    private void Update()
+    {
+        if (Input.GetButtonUp("Fire1"))
+        {
+            if (EventSystem.current.IsPointerOverGameObject() == false)
+            {
+                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit, 100))
+                {
+                    if (hit.collider.tag == "Unit")
+                    {
+                        if (_selectedUnit.GetComponent<Unit>().moveToggle == false)
+                        {
+                            if (_selectedUnit.GetComponent<MoveInput>().castingSpell == false)
+                            {
+                                _selectedUnit = hit.collider.gameObject;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     void GenerateMapObjects()
     {
         for (int x = 0; x < _mapSizeX; x++)
@@ -43,9 +72,9 @@ public class TileMap : MonoBehaviour
                 GameObject tile;
                 //add the tile to the map
                 if ((z % 2) == 0)
-                    tile = Instantiate(tt.TileVisuallPrefab, new Vector3(x * 2, -.5f, z * 2), Quaternion.Euler(90, 0, 0));
+                    tile = Instantiate(tt.TileVisuallPrefab, new Vector3(x * TILE_OFFSET, TILE_Y_POS, z * TILE_OFFSET), Quaternion.Euler(90, 0, 0));
                 else
-                    tile = Instantiate(tt.TileVisuallPrefab, new Vector3((x * 2)-1, -.5f, z * 2), Quaternion.Euler(90, 0, 0));
+                    tile = Instantiate(tt.TileVisuallPrefab, new Vector3((x * TILE_OFFSET) - 1, TILE_Y_POS, z * TILE_OFFSET), Quaternion.Euler(90, 0, 0));
 
                 //make the map clickable
                 ClickableTile ct = tile.GetComponent<ClickableTile>();
@@ -88,9 +117,9 @@ public class TileMap : MonoBehaviour
                     //bottom left
                     if (z > 0)
                         _graph[x, z].neighbours.Add(_graph[x - 1, z - 1]);
-                    
+
                     //upper left
-                    if(z < _mapSizeZ - 1)
+                    if (z < _mapSizeZ - 1)
                         _graph[x, z].neighbours.Add(_graph[x - 1, z + 1]);
                 }
 
@@ -235,7 +264,7 @@ public class TileMap : MonoBehaviour
 
     public Vector3 TileCoordToWorldCoord(int x, int z)
     {
-        return new Vector3(x, 0, z);
+        return new Vector3(x * TILE_OFFSET, 0, z * TILE_OFFSET);
     }
 
     private float CostToEnterTile(int targetX, int targetZ, int sourceX, int sourceZ)
