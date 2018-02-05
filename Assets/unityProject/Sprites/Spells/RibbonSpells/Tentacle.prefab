@@ -208,7 +208,7 @@ GameObject:
   - component: {fileID: 4920297717707848}
   - component: {fileID: 198313640795591846}
   m_Layer: 0
-  m_Name: Spiral_02.5.1 Tentacle
+  m_Name: Tentacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 19869990}
   - component: {fileID: 9597664}
   m_Layer: 0
-  m_Name: Spiral_02.3 Domain
+  m_Name: Spiral-Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

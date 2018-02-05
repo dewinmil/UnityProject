@@ -63,7 +63,7 @@ GameObject:
   - component: {fileID: 19900728}
   - component: {fileID: 9569196}
   m_Layer: 0
-  m_Name: Spiral_02.2 Six
+  m_Name: Band
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

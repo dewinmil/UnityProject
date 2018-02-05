@@ -29,7 +29,7 @@ GameObject:
   - component: {fileID: 19926872}
   - component: {fileID: 114760037331381378}
   m_Layer: 0
-  m_Name: Spiral_02.1.2 Fairydust
+  m_Name: Spiral-Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

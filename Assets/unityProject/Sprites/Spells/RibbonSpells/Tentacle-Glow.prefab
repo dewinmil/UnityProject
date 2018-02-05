@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 449056}
   - component: {fileID: 19821636}
   m_Layer: 0
-  m_Name: Spiral_02.5 Tentacle
+  m_Name: Tentacle-Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
