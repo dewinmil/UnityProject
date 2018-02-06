@@ -11,6 +11,12 @@ public class Abilities : MonoBehaviour {
     public CharacterStatus _casterStatus;
     public MoveInput _casterMoveInput;
     public Unit _unit;
+    public CastSpell Button1Animation;
+    public CastSpell Button2Animation;
+    public CastSpell Button3Animation;
+    public CastSpell Button4Animation;
+    public CastSpell Button5Animation;
+    public CastSpell Button6Animation;
     private KeyCode spellHotkey1 = KeyCode.Alpha1;//number 1
     private KeyCode spellHotkey2 = KeyCode.Alpha2;//number 2
     private KeyCode spellHotkey3 = KeyCode.Alpha3;//number 3
@@ -198,12 +204,14 @@ public class Abilities : MonoBehaviour {
 
     void ability1(CharacterStatus target)
     {
+        Button1Animation.Cast();
         castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
     }
 
 
     void ability2(CharacterStatus target)
     {
+        Button2Animation.Cast();
         castAbility(target, 3, 0, 5, 0, (float).5, 2, true);
     }
 
