@@ -84,7 +84,44 @@ public class Abilities : MonoBehaviour {
             target.currentHealth += 3;
             if (target.currentHealth >= target.maxHealth)
             {
+<<<<<<< Updated upstream
                 target.currentHealth = target.maxHealth;
+=======
+                if (EventSystem.current.IsPointerOverGameObject() == false)
+                {
+                    ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit;
+                    if (Physics.Raycast(ray, out hit, 100))
+                    {
+                        if (hit.collider.tag == "Unit")
+                        {
+                            if (abilityUsed == 1)
+                            {
+                                ability1(hit.collider.gameObject.GetComponent<CharacterStatus>());
+                            }
+                            if (abilityUsed == 2)
+                            {
+                                ability2(hit.collider.gameObject.GetComponent<CharacterStatus>());
+                            }
+                            if (abilityUsed == 3)
+                            {
+                                ability3(hit.collider.gameObject.GetComponent<CharacterStatus>());
+                            }
+                            if (abilityUsed == 4)
+                            {
+                                ability4(hit.collider.gameObject.GetComponent<CharacterStatus>());
+                            }
+                            if (abilityUsed == 5)
+                            {
+                            //   ability5(hit.collider.gameObject.GetComponent<CharacterStatus>());
+                            }
+                        }
+                    }
+                    usingAbility = false;
+                    abilityUsed = 0;
+                }
+                
+>>>>>>> Stashed changes
             }
             usingAbility = false;
         }
