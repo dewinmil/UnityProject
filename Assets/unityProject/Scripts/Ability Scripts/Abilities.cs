@@ -1,89 +1,119 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Abilities : MonoBehaviour {
 
     public bool usingAbility;
     int abilityUsed;
     public Ray ray;
-    public CharacterStatus character;
-    public MoveInput caster;
-
+    public CharacterStatus _casterStatus;
+    public MoveInput _casterMoveInput;
+    public Unit _unit;
+    private KeyCode spellHotkey1 = KeyCode.Alpha1;//number 1
+    private KeyCode spellHotkey2 = KeyCode.Alpha2;//number 2
+    private KeyCode spellHotkey3 = KeyCode.Alpha3;//number 3
+    private KeyCode spellHotkey4 = KeyCode.Alpha4;//number 4
+    private KeyCode spellHotkey5 = KeyCode.Alpha5;//number 5
+    private KeyCode spellHotkey6 = KeyCode.Space;//number spacebar
+    public List<int> usedId = new List<int>();
+    
     void Start()
     {
         abilityUsed = 0;
         usingAbility = false;
-        //print("used ability 1");
-        //character.isSelected = true;
+
+        if (this._unit.getUnitId() == -1)
+        {
+            for (int i = 0; i < 50; i++)
+            {
+                if (! usedId.Contains(i))
+                {
+                    usedId.Add(i);
+                    this._unit.setUnitId(i);
+                    break;
+                }
+            }
+        }
     }
 
     // Use this for initialization
     public void useAbility(int ability) {
-        usingAbility = true;
+        toggleCasting();
         abilityUsed = ability;
     }
 
-    // Update is called once per frame
-    void Update () {
-        if(usingAbility == true)
+    // Use this for initialization
+    public void castAbility(CharacterStatus target, float damage, float healing, float apCost, float armorPen, float magicPen, float range, bool isMagic)
+    {
+        //toggleCasting();
+        if (usingAbility)
         {
-            if (Input.GetButton("Fire1"))
+            if(target.currentHealth > 0)
             {
-                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                if (Physics.Raycast(ray, out hit, 100))
+                float resistance = 0;
+                if (_casterStatus.currentAction >= apCost)
                 {
-                    if (hit.collider.tag == "Unit")
-                    {
-                        if (abilityUsed == 1)
-                        {
-                            ability1(hit.collider.gameObject.GetComponent<CharacterStatus>());
-                        }
-                        if (abilityUsed == 2)
-                        {
-                            ability2(hit.collider.gameObject.GetComponent<CharacterStatus>());
-                        }
+                    _casterStatus.loseAction(apCost);
 
+                    if (isMagic)
+                    {
+                        resistance = target.magicArmor * magicPen;
+                        if (resistance < 0 || resistance >= 1) //bad spell
+                        {
+                            resistance = 0;
+                        }
+                        target.loseHealth(damage * (1 - resistance));
                     }
+                    else
+                    {
+                        resistance = target.physicalArmor * armorPen;
+                        if (resistance < 0 || resistance >= 1)//bad spell
+                        {
+                            resistance = 0;
+                        }
+                        target.loseHealth(damage * (1 - resistance));
+                    }
+                    target.gainHealth(healing);
+
+                    if (target.currentHealth <= 0)
+                    {
+                        target.currentHealth = 0;
+                    }
+                    usingAbility = false;
                 }
-                usingAbility = false;
-                abilityUsed = 0;
+                else
+                {
+                    //print not enough AP
+                    usingAbility = false;
+                }
             }
+            
         }
+
     }
 
-    void ability1(CharacterStatus target)
+    public void toggleMovement()
     {
-        //note character and caster are the same unit / just different scripts
-        caster.castingSpell = true;
-        if (character.currentAction >= 3)
+        if (usingAbility)
         {
-            character.currentAction -= 3;
-            target.currentHealth -= 3;
-            if (target.currentHealth <= 0)
-            {
-                target.currentHealth = 0;
-            }
+            _unit.moveToggle = false;
             usingAbility = false;
         }
         else
         {
-            //print not enough AP
-            usingAbility = false;
+            _unit.toggleMovement();
         }
     }
 
-    void ability2(CharacterStatus target)
-    {
-        //note character and caster are the same unit / just different scripts
-        caster.castingSpell = true;
-        if (character.currentAction >= 3)
+    // Update is called once per frame
+    void Update () {
+        if (_casterMoveInput.isSelected)
         {
-            character.currentAction -= 3;
-            target.currentHealth += 3;
-            if (target.currentHealth >= target.maxHealth)
+            if (Input.GetKeyUp(spellHotkey1))
             {
+<<<<<<< HEAD
 <<<<<<< Updated upstream
                 target.currentHealth = target.maxHealth;
 =======
@@ -122,13 +152,126 @@ public class Abilities : MonoBehaviour {
                 }
                 
 >>>>>>> Stashed changes
+=======
+                toggleCasting();
+                abilityUsed = 1;
             }
-            usingAbility = false;
+            else if (Input.GetKeyUp(spellHotkey2))
+            {
+                toggleCasting();
+                abilityUsed = 2;
+            }
+            else if (Input.GetKeyUp(spellHotkey3))
+            {
+                toggleCasting();
+                abilityUsed = 3;
+            }
+            else if (Input.GetKeyUp(spellHotkey4))
+            {
+                toggleCasting();
+                abilityUsed = 4;
+            }
+            else if (Input.GetKeyUp(spellHotkey5))
+            {
+                toggleCasting();
+                abilityUsed = 5;
+            }
+            else if (Input.GetKeyUp(spellHotkey6))
+            {
+                toggleMovement();
+>>>>>>> merge
+            }
+        }
+
+
+
+        if (usingAbility == true)
+        {
+            if (Input.GetButtonUp("Fire1"))
+            {
+                if (EventSystem.current.IsPointerOverGameObject() == false)
+                {
+                    ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit;
+                    if (Physics.Raycast(ray, out hit, 100))
+                    {
+                        if (hit.collider.tag == "Unit")
+                        {
+                            if (abilityUsed == 1)
+                            {
+                                ability1(hit.collider.gameObject.GetComponent<CharacterStatus>());
+                            }
+                            if (abilityUsed == 2)
+                            {
+                                ability2(hit.collider.gameObject.GetComponent<CharacterStatus>());
+                            }
+                            if (abilityUsed == 3)
+                            {
+                                ability3(hit.collider.gameObject.GetComponent<CharacterStatus>());
+                            }
+                            if (abilityUsed == 4)
+                            {
+                                ability4(hit.collider.gameObject.GetComponent<CharacterStatus>());
+                            }
+                            if (abilityUsed == 5)
+                            {
+                                ability5(hit.collider.gameObject.GetComponent<CharacterStatus>());
+                            }
+                        }
+                    }
+                    usingAbility = false;
+                    abilityUsed = 0;
+                }
+                
+            }
+        }
+    }
+
+    void toggleCasting()
+    {
+        if (_unit.moveToggle)
+        {
+            _unit.moveToggle = false;
         }
         else
         {
-            //print not enough AP
-            usingAbility = false;
+            if (usingAbility)
+            {
+                usingAbility = false;
+                _casterMoveInput.castingSpell = false;
+            }
+            else
+            {
+                usingAbility = true;
+                _casterMoveInput.castingSpell = true;
+            }
         }
+        
     }
+
+    void ability1(CharacterStatus target)
+    {
+        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
+    }
+
+
+    void ability2(CharacterStatus target)
+    {
+        castAbility(target, 3, 0, 5, 0, (float).5, 2, true);
+    }
+
+    void ability3(CharacterStatus target)
+    {
+        castAbility(target, 0, 0, 3, 0, 0, 0, false);
+    }
+
+    void ability4(CharacterStatus target)
+    {
+        castAbility(target, 0, 3, 3, 0, 0, 3, false);
+    }
+
+    //void ability5(CharacterStatus target)
+    //{
+    //    castAbility(target, 0, 0, 0, 0, 0, 0, false);
+    //}
 }

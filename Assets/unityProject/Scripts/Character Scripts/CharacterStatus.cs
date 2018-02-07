@@ -9,10 +9,16 @@ public class CharacterStatus : MonoBehaviour {
     public float currentAction;
     public float maxHealth;
     public float currentHealth;
+    public float physicalArmor;//a value of 1 is 100% resistance
+    public float magicArmor;//a value of 1 is 100% resistance
     public Image healthBar;
     public Image actionBar;
     public Text healthBarText;
     public Text actionBarText;
+    public Image healthBarUI;
+    public Image actionBarUI;
+    public Text healthBarTextUI;
+    public Text actionBarTextUI;
 
 
     // Use this for initialization
@@ -36,23 +42,32 @@ public class CharacterStatus : MonoBehaviour {
         ratio = currentAction / maxAction;
         actionBar.rectTransform.localScale = new Vector3(ratio, 1, 1);
         actionBarText.text = currentAction.ToString() + " / " + maxAction.ToString();
+
+        ratio = currentHealth / maxHealth;
+        healthBarUI.rectTransform.localScale = new Vector3(ratio, 1, 1);
+        healthBarTextUI.text = currentHealth.ToString() + " / " + maxHealth.ToString();
+
+        ratio = currentAction / maxAction;
+        actionBarUI.rectTransform.localScale = new Vector3(ratio, 1, 1);
+        actionBarTextUI.text = currentAction.ToString() + " / " + maxAction.ToString();
     }
     
-    public void loseHealth()
+    public void loseHealth(float damage)
     {
-
+        currentHealth -= damage;
     }
-    public void gainHealth()
+    public void gainHealth(float healing)
     {
-
+        currentHealth += healing;
     }
-    public void loseAction()
+    public void loseAction(float apCost)
     {
-
+        currentAction -= apCost;
     }
     public void gainAction()
     {
-
+        // At the beginning of the turn
+        currentAction += 8;
     }
     
 }
