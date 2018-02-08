@@ -2,28 +2,64 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CastSpell : MonoBehaviour {
+public class CastSpell : MonoBehaviour
+{
 
     public GameObject abilityAnimation;
     public GameObject abilityHitAnimation;
     public Abilities _caster;
     public bool spellMoves;
+    private bool spellAlive;
     private GameObject currentAnimation;
     private GameObject onHitAnimation;
-    private CharacterStatus targetGlobal;
+    private CharacterStatus spellTarget;
+    private int abilityNum;
 
-	// Use this for initialization
-	void Start () {
-
+    // Use this for initialization
+    void Start()
+    {
+        spellAlive = false;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (!currentAnimation)
+        {
+            if (spellAlive)
+            {
+                spellAlive = false;
+                if (spellMoves)
+                {
+                    if (abilityNum == 1)
+                    {
+                        _caster.ability1(spellTarget);
+                    }
+                    else if (abilityNum == 2)
+                    {
+                        _caster.ability2(spellTarget);
+                    }
+                }
+
+            }
+        }
         if (currentAnimation)
         {
             if (currentAnimation.GetComponent<ParticleSystem>().isPlaying == false)
             {
+                spellAlive = false;
                 GameObject.Destroy(currentAnimation);
+                if (spellMoves)
+                {
+                    if (abilityNum == 1)
+                    {
+                        _caster.ability1(spellTarget);
+                    }
+                    else if (abilityNum == 2)
+                    {
+                        _caster.ability2(spellTarget);
+                    }
+                }
             }
         }
         if (onHitAnimation)
@@ -35,17 +71,19 @@ public class CastSpell : MonoBehaviour {
         }
     }
 
-    public void Cast(CharacterStatus target)
+    public void Cast(CharacterStatus target, int _abilityNum)
     {
-        targetGlobal = target;
-
+        abilityNum = _abilityNum;
+        spellTarget = target;
+        spellAlive = true;
 
         if (spellMoves)
         {
             currentAnimation = Instantiate(abilityAnimation, _caster.transform.position, Quaternion.identity);
+            Physics.IgnoreCollision(currentAnimation.GetComponent<Collider>(), gameObject.GetComponentInParent<Collider>());
             float rotation = getRotation(target);
             currentAnimation.transform.eulerAngles = new Vector3(currentAnimation.transform.eulerAngles.x,
-                rotation+ abilityAnimation.transform.eulerAngles.y, currentAnimation.transform.eulerAngles.z);
+                rotation + abilityAnimation.transform.eulerAngles.y, currentAnimation.transform.eulerAngles.z);
 
 
             Vector3 targetDirection = (target.transform.position - _caster.transform.position).normalized;
@@ -55,6 +93,16 @@ public class CastSpell : MonoBehaviour {
         else
         {
             currentAnimation = Instantiate(abilityAnimation, target.transform.position, Quaternion.identity);
+
+            if (abilityNum == 1)
+            {
+                _caster.ability1(spellTarget);
+            }
+            else if (abilityNum == 2)
+            {
+                _caster.ability2(spellTarget);
+            }
+
         }
     }
 
@@ -109,7 +157,7 @@ public class CastSpell : MonoBehaviour {
         }
 
         return rotation;
-        
+
     }
 
 }

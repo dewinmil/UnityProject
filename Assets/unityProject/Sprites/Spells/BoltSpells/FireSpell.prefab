@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 199046221652364822}
   - component: {fileID: 54940535268006992}
   - component: {fileID: 135879911564942820}
+  - component: {fileID: 114892064644649642}
   m_Layer: 0
   m_Name: FireSpell
   m_TagString: Untagged
@@ -120,6 +121,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114892064644649642
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1552241325217802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de0abd33870fefb4c9fc364fc0624a57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onHitAnimation: {fileID: 1764942340897686, guid: f212e4d8eb63da34899fabf511942b23,
+    type: 2}
 --- !u!135 &135879911564942820
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -127,7 +141,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1552241325217802}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
