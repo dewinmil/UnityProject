@@ -8,6 +8,7 @@ public class Unit : MonoBehaviour
 
     public int tileX;
     public int tileZ;
+    public int unitId;
     public TileMap map;
     private bool isMoving;
     public MoveInput _characterMoveInput;
@@ -17,6 +18,11 @@ public class Unit : MonoBehaviour
     private int _waitCount = 0;
 
     public List<Node> currentPath = null;
+
+    private void Start()
+    {
+        this.unitId = -1;
+    }
 
     void Update()
     {
@@ -29,6 +35,16 @@ public class Unit : MonoBehaviour
         {
             MoveUnitToTarget();
         }
+    }
+
+    public void setUnitId(int id)
+    {
+        this.unitId = id;
+    }
+
+    public int getUnitId()
+    {
+        return this.unitId;
     }
 
     private void MoveUnitToTarget()

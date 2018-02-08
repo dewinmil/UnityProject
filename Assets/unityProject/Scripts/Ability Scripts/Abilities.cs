@@ -23,12 +23,25 @@ public class Abilities : MonoBehaviour {
     private KeyCode spellHotkey4 = KeyCode.Alpha4;//number 4
     private KeyCode spellHotkey5 = KeyCode.Alpha5;//number 5
     private KeyCode spellHotkey6 = KeyCode.Space;//number spacebar
+    public List<int> usedId = new List<int>();
     
     void Start()
     {
         abilityUsed = 0;
         usingAbility = false;
 
+        if (this._unit.getUnitId() == -1)
+        {
+            for (int i = 0; i < 50; i++)
+            {
+                if (! usedId.Contains(i))
+                {
+                    usedId.Add(i);
+                    this._unit.setUnitId(i);
+                    break;
+                }
+            }
+        }
     }
 
     // Use this for initialization
@@ -227,4 +240,5 @@ public class Abilities : MonoBehaviour {
     {
         castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
     }
+
 }
