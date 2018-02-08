@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: a570274c690fe7a4682ea1a513d7ef48
 timeCreated: 1518047115
+=======
+guid: a1ad390f1e71bf743beb24bdf9ae9836
+timeCreated: 1518064306
+>>>>>>> miles
 licenseType: Free
 DefaultImporter:
   externalObjects: {}

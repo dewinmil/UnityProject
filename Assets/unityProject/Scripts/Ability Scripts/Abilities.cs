@@ -11,6 +11,12 @@ public class Abilities : MonoBehaviour {
     public CharacterStatus _casterStatus;
     public MoveInput _casterMoveInput;
     public Unit _unit;
+    public CastSpell Button1Animation;
+    public CastSpell Button2Animation;
+    public CastSpell Button3Animation;
+    public CastSpell Button4Animation;
+    public CastSpell Button5Animation;
+    public CastSpell Button6Animation;
     private KeyCode spellHotkey1 = KeyCode.Alpha1;//number 1
     private KeyCode spellHotkey2 = KeyCode.Alpha2;//number 2
     private KeyCode spellHotkey3 = KeyCode.Alpha3;//number 3
@@ -48,9 +54,9 @@ public class Abilities : MonoBehaviour {
     public void castAbility(CharacterStatus target, float damage, float healing, float apCost, float armorPen, float magicPen, float range, bool isMagic)
     {
         //toggleCasting();
-        if (usingAbility)
-        {
-            if(target.currentHealth > 0)
+        //if (usingAbility)
+        //{
+            if (target.currentHealth > 0)
             {
                 float resistance = 0;
                 if (_casterStatus.currentAction >= apCost)
@@ -90,7 +96,7 @@ public class Abilities : MonoBehaviour {
                 }
             }
             
-        }
+       // }
 
     }
 
@@ -194,23 +200,27 @@ public class Abilities : MonoBehaviour {
                         {
                             if (abilityUsed == 1)
                             {
-                                ability1(hit.collider.gameObject.GetComponent<CharacterStatus>());
+                                Button1Animation.Cast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 1);
                             }
                             if (abilityUsed == 2)
                             {
-                                ability2(hit.collider.gameObject.GetComponent<CharacterStatus>());
+                                Button2Animation.Cast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 2);
                             }
                             if (abilityUsed == 3)
                             {
-                                ability3(hit.collider.gameObject.GetComponent<CharacterStatus>());
+                                Button3Animation.Cast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 3);
                             }
                             if (abilityUsed == 4)
                             {
-                                ability4(hit.collider.gameObject.GetComponent<CharacterStatus>());
+                                Button4Animation.Cast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 4);
                             }
                             if (abilityUsed == 5)
                             {
+<<<<<<< HEAD
                             //    ability5(hit.collider.gameObject.GetComponent<CharacterStatus>());
+=======
+                                Button5Animation.Cast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 5);
+>>>>>>> miles
                             }
                         }
                     }
@@ -244,29 +254,31 @@ public class Abilities : MonoBehaviour {
         
     }
 
-    void ability1(CharacterStatus target)
+
+    public void ability1(CharacterStatus target)
     {
         castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
     }
 
 
-    void ability2(CharacterStatus target)
+    public void ability2(CharacterStatus target)
     {
-        castAbility(target, 3, 0, 5, 0, (float).5, 2, true);
+        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
     }
 
-    void ability3(CharacterStatus target)
+    public void ability3(CharacterStatus target)
     {
-        castAbility(target, 0, 0, 3, 0, 0, 0, false);
+        castAbility(target, 0, 3, 3, 0, 0, 0, false);
     }
 
-    void ability4(CharacterStatus target)
+    public void ability4(CharacterStatus target)
     {
-        castAbility(target, 0, 3, 3, 0, 0, 3, false);
+        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
     }
 
-    //void ability5(CharacterStatus target)
-    //{
-    //    castAbility(target, 0, 0, 0, 0, 0, 0, false);
-    //}
+    public void ability5(CharacterStatus target)
+    {
+        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
+    }
+
 }
