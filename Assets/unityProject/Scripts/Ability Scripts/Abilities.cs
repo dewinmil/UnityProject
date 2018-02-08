@@ -113,10 +113,8 @@ public class Abilities : MonoBehaviour {
         {
             if (Input.GetKeyUp(spellHotkey1))
             {
-<<<<<<< HEAD
-<<<<<<< Updated upstream
                 target.currentHealth = target.maxHealth;
-=======
+
                 if (EventSystem.current.IsPointerOverGameObject() == false)
                 {
                     ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -151,8 +149,6 @@ public class Abilities : MonoBehaviour {
                     abilityUsed = 0;
                 }
                 
->>>>>>> Stashed changes
-=======
                 toggleCasting();
                 abilityUsed = 1;
             }
@@ -179,7 +175,6 @@ public class Abilities : MonoBehaviour {
             else if (Input.GetKeyUp(spellHotkey6))
             {
                 toggleMovement();
->>>>>>> merge
             }
         }
 
@@ -215,7 +210,7 @@ public class Abilities : MonoBehaviour {
                             }
                             if (abilityUsed == 5)
                             {
-                                ability5(hit.collider.gameObject.GetComponent<CharacterStatus>());
+                            //    ability5(hit.collider.gameObject.GetComponent<CharacterStatus>());
                             }
                         }
                     }
