@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 4743415748509230}
   - component: {fileID: 198013155854149488}
   - component: {fileID: 199597972249673644}
+  - component: {fileID: 54462892533282216}
   m_Layer: 0
   m_Name: Flame Circle
   m_TagString: Untagged
@@ -414,6 +415,21 @@ Transform:
   m_Father: {fileID: 4273279983862942}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &54462892533282216
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1493963386524616}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &114286629016826558
 MonoBehaviour:
   m_ObjectHideFlags: 1

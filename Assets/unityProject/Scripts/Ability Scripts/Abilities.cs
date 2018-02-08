@@ -204,14 +204,17 @@ public class Abilities : MonoBehaviour {
 
     void ability1(CharacterStatus target)
     {
-        Button1Animation.Cast();
-        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
+        if(target.currentAction >= 3)
+        {
+            Button1Animation.Cast(target);
+            castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
+        }
     }
 
 
     void ability2(CharacterStatus target)
     {
-        Button2Animation.Cast();
+        Button2Animation.Cast(target);
         castAbility(target, 3, 0, 5, 0, (float).5, 2, true);
     }
 
