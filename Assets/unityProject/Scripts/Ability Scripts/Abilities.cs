@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Abilities : MonoBehaviour {
-
+public class Abilities : MonoBehaviour
+{
     public bool usingAbility;
     int abilityUsed;
     public Ray ray;
@@ -45,7 +45,8 @@ public class Abilities : MonoBehaviour {
     }
 
     // Use this for initialization
-    public void useAbility(int ability) {
+    public void useAbility(int ability)
+    {
         toggleCasting();
         abilityUsed = ability;
     }
@@ -114,47 +115,12 @@ public class Abilities : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update ()
+    {
         if (_casterMoveInput.isSelected)
         {
             if (Input.GetKeyUp(spellHotkey1))
-            {
-                target.currentHealth = target.maxHealth;
-
-                if (EventSystem.current.IsPointerOverGameObject() == false)
-                {
-                    ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    RaycastHit hit;
-                    if (Physics.Raycast(ray, out hit, 100))
-                    {
-                        if (hit.collider.tag == "Unit")
-                        {
-                            if (abilityUsed == 1)
-                            {
-                                ability1(hit.collider.gameObject.GetComponent<CharacterStatus>());
-                            }
-                            if (abilityUsed == 2)
-                            {
-                                ability2(hit.collider.gameObject.GetComponent<CharacterStatus>());
-                            }
-                            if (abilityUsed == 3)
-                            {
-                                ability3(hit.collider.gameObject.GetComponent<CharacterStatus>());
-                            }
-                            if (abilityUsed == 4)
-                            {
-                                ability4(hit.collider.gameObject.GetComponent<CharacterStatus>());
-                            }
-                            if (abilityUsed == 5)
-                            {
-                            //   ability5(hit.collider.gameObject.GetComponent<CharacterStatus>());
-                            }
-                        }
-                    }
-                    usingAbility = false;
-                    abilityUsed = 0;
-                }
-                
+            {           
                 toggleCasting();
                 abilityUsed = 1;
             }
@@ -183,8 +149,6 @@ public class Abilities : MonoBehaviour {
                 toggleMovement();
             }
         }
-
-
 
         if (usingAbility == true)
         {
@@ -216,11 +180,7 @@ public class Abilities : MonoBehaviour {
                             }
                             if (abilityUsed == 5)
                             {
-<<<<<<< HEAD
-                            //    ability5(hit.collider.gameObject.GetComponent<CharacterStatus>());
-=======
                                 Button5Animation.Cast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 5);
->>>>>>> miles
                             }
                         }
                     }
@@ -250,16 +210,13 @@ public class Abilities : MonoBehaviour {
                 usingAbility = true;
                 _casterMoveInput.castingSpell = true;
             }
-        }
-        
+        } 
     }
-
 
     public void ability1(CharacterStatus target)
     {
         castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
     }
-
 
     public void ability2(CharacterStatus target)
     {
