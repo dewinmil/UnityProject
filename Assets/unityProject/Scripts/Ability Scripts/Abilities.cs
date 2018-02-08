@@ -152,24 +152,22 @@ public class Abilities : MonoBehaviour {
                             if (abilityUsed == 1)
                             {
                                 Button1Animation.Cast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 1);
-                                //ability1(hit.collider.gameObject.GetComponent<CharacterStatus>());
                             }
                             if (abilityUsed == 2)
                             {
                                 Button2Animation.Cast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 2);
-                                //ability2(hit.collider.gameObject.GetComponent<CharacterStatus>());
                             }
                             if (abilityUsed == 3)
                             {
-                                ability3(hit.collider.gameObject.GetComponent<CharacterStatus>());
+                                Button3Animation.Cast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 3);
                             }
                             if (abilityUsed == 4)
                             {
-                                ability4(hit.collider.gameObject.GetComponent<CharacterStatus>());
+                                Button4Animation.Cast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 4);
                             }
                             if (abilityUsed == 5)
                             {
-                                ability5(hit.collider.gameObject.GetComponent<CharacterStatus>());
+                                Button5Animation.Cast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 5);
                             }
                         }
                     }
@@ -206,9 +204,7 @@ public class Abilities : MonoBehaviour {
 
     public void ability1(CharacterStatus target)
     {
-
         castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
-
     }
 
 
@@ -219,16 +215,16 @@ public class Abilities : MonoBehaviour {
 
     public void ability3(CharacterStatus target)
     {
-        castAbility(target, 0, 0, 3, 0, 0, 0, false);
+        castAbility(target, 0, 3, 3, 0, 0, 0, false);
     }
 
     public void ability4(CharacterStatus target)
     {
-        castAbility(target, 0, 3, 3, 0, 0, 3, false);
+        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
     }
 
     public void ability5(CharacterStatus target)
     {
-        castAbility(target, 0, 0, 0, 0, 0, 0, false);
+        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
     }
 }

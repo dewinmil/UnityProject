@@ -39,6 +39,18 @@ public class CastSpell : MonoBehaviour
                     {
                         _caster.ability2(spellTarget);
                     }
+                    else if (abilityNum == 3)
+                    {
+                        _caster.ability3(spellTarget);
+                    }
+                    else if (abilityNum == 4)
+                    {
+                        _caster.ability4(spellTarget);
+                    }
+                    else if (abilityNum == 5)
+                    {
+                        _caster.ability5(spellTarget);
+                    }
                 }
 
             }
@@ -58,6 +70,18 @@ public class CastSpell : MonoBehaviour
                     else if (abilityNum == 2)
                     {
                         _caster.ability2(spellTarget);
+                    }
+                    else if (abilityNum == 3)
+                    {
+                        _caster.ability3(spellTarget);
+                    }
+                    else if (abilityNum == 4)
+                    {
+                        _caster.ability4(spellTarget);
+                    }
+                    else if (abilityNum == 5)
+                    {
+                        _caster.ability5(spellTarget);
                     }
                 }
             }
@@ -93,6 +117,7 @@ public class CastSpell : MonoBehaviour
         else
         {
             currentAnimation = Instantiate(abilityAnimation, target.transform.position, Quaternion.identity);
+            currentAnimation.transform.position = new Vector3(currentAnimation.transform.position.x, 0, currentAnimation.transform.position.z);
 
             if (abilityNum == 1)
             {
@@ -101,6 +126,18 @@ public class CastSpell : MonoBehaviour
             else if (abilityNum == 2)
             {
                 _caster.ability2(spellTarget);
+            }
+            else if (abilityNum == 3)
+            {
+                _caster.ability3(spellTarget);
+            }
+            else if (abilityNum == 4)
+            {
+                _caster.ability4(spellTarget);
+            }
+            else if (abilityNum == 5)
+            {
+                _caster.ability5(spellTarget);
             }
 
         }
