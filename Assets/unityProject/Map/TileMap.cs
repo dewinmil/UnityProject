@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.AI;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -18,10 +19,10 @@ public class TileMap : MonoBehaviour
     private int _mapSizeZ = 20;
     public TileType[] _tileTypes;
     public GameObject _selectedUnit;
-    Node[,] _graph;
+    private Node[,] _graph;
     public Ray ray;
-    private const int TILE_OFFSET = 2;
-    private const float TILE_Y_POS = -.5f;
+    private const float TILE_OFFSET = 1.80f;
+    private const float TILE_Y_POS = -.5f; 
 
     void Start()
     {
@@ -76,15 +77,12 @@ public class TileMap : MonoBehaviour
                 //get the type the tile should be
                 TileType tt = _tileTypes[_tiles[x, z]];
 
-                var a = x.GetHashCode();
-                var d = z.GetHashCode();
-
                 GameObject tile;
                 //add the tile to the map
                 if ((z % 2) == 0)
-                    tile = Instantiate(tt.TileVisuallPrefab, new Vector3(x * TILE_OFFSET, TILE_Y_POS, z * TILE_OFFSET), Quaternion.Euler(90, 0, 0));
+                    tile = Instantiate(tt.TileVisuallPrefab, new Vector3(x * TILE_OFFSET, TILE_Y_POS, z * (TILE_OFFSET-.15f)), Quaternion.Euler(90, 0, 0));
                 else
-                    tile = Instantiate(tt.TileVisuallPrefab, new Vector3(x * TILE_OFFSET - 1, TILE_Y_POS, z * TILE_OFFSET), Quaternion.Euler(90, 0, 0));
+                    tile = Instantiate(tt.TileVisuallPrefab, new Vector3((x * TILE_OFFSET) + (TILE_OFFSET/2), TILE_Y_POS, z * (TILE_OFFSET - .15f)), Quaternion.Euler(90, 0, 0));
 
                 //make the map clickable
                 ClickableTile ct = tile.GetComponent<ClickableTile>();
@@ -97,9 +95,9 @@ public class TileMap : MonoBehaviour
                 string hash = GetHashString(coords);
                 if(!_tileObjects.ContainsKey(hash))
                     _tileObjects.Add(hash, tile);
-
             }
         }
+
     }
 
     private void GeneratePathGraph()
