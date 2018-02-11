@@ -25,7 +25,7 @@ public class TileMap : MonoBehaviour
     private const float TILE_OFFSET = 1.80f;
     private const float TILE_Y_POS = -.5f; 
 
-    void Start()
+    private void Start()
     {
         _hashAlgorithm = MD5.Create();
         _tileObjects = new Dictionary<string, GameObject>();
@@ -69,7 +69,14 @@ public class TileMap : MonoBehaviour
         }
     }
 
-    void GenerateMapObjects()
+    //method should be called when selected unit is changed
+    //ideally this would be an event
+    public void SelectedUnitChanged(GameObject selectedUnit)
+    {
+        _selectedUnit = selectedUnit;
+    }
+
+    private void GenerateMapObjects()
     {
         for (int x = 0; x < _mapSizeX; x++)
         {

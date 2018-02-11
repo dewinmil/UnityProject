@@ -62,9 +62,11 @@ public class Unit : MonoBehaviour
             //if we get in this, we know we are at our destination
             if (currentPath.Count == 1)
             {
+                //why are there two variables for when the unit is moving?
                 currentPath = null;
                 isMoving = false;
                 _waitCount = 0;
+                moveToggle = false;
             }
         }
     }
@@ -107,5 +109,10 @@ public class Unit : MonoBehaviour
         {
             moveToggle = false;
         }
+    }
+
+    public void SelectedUnitChanged()
+    {
+        map.SelectedUnitChanged(this.gameObject);
     }
 }

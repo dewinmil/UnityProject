@@ -43,6 +43,7 @@ public class MoveInput : MonoBehaviour
                         if (targetedBySpell == false)
                         {
                             isSelected = true;
+                            _unit.SelectedUnitChanged();
                         }
                         else
                         {
