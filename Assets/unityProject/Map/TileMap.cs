@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -91,8 +92,7 @@ public class TileMap : MonoBehaviour
                 ct.map = this;
 
                 //give each tile its own hash as its identifier. To get the hash, you need to hash the string of the x coordinate plus the z coordinate
-                string coords = x.ToString() + z.ToString();
-                string hash = GetHashString(coords);
+                string hash = GetHashString(x, z);
                 if(!_tileObjects.ContainsKey(hash))
                     _tileObjects.Add(hash, tile);
             }
@@ -130,12 +130,18 @@ public class TileMap : MonoBehaviour
                     _graph[x, z].neighbours.Add(_graph[x - 1, z]);
 
                     //bottom left
-                    if (z > 0)
+                    //if it's an even z row, the neighbors will be different due to the offset of the hex tiles
+                    if (z > 0 && z % 2 == 0)
                         _graph[x, z].neighbours.Add(_graph[x - 1, z - 1]);
+                    else if (z > 0)
+                        _graph[x, z].neighbours.Add(_graph[x, z - 1]);
 
                     //upper left
-                    if (z < _mapSizeZ - 1)
+                    //if it's an even z row, the neighbors will be different due to the offset of the hex tiles
+                    if (z < _mapSizeZ - 1 && z % 2 == 0)
                         _graph[x, z].neighbours.Add(_graph[x - 1, z + 1]);
+                    else if (z < _mapSizeZ - 1)
+                        _graph[x, z].neighbours.Add(_graph[x, z + 1]);
                 }
 
                 //right neighbors
@@ -145,21 +151,19 @@ public class TileMap : MonoBehaviour
                     _graph[x, z].neighbours.Add(_graph[x + 1, z]);
 
                     //bottom right
-                    if (z > 0)
+                    //if it's an even z row, the neighbors will be different due to the offset of the hex tiles
+                    if (z > 0 && z % 2 == 0)
+                        _graph[x, z].neighbours.Add(_graph[x, z - 1]);
+                    else if(z > 0)
                         _graph[x, z].neighbours.Add(_graph[x + 1, z - 1]);
 
                     //upper right
-                    if (z < _mapSizeZ - 1)
+                    //if it's an even z row, the neighbors will be different due to the offset of the hex tiles
+                    if (z < _mapSizeZ - 1 && z % 2 == 0)
+                        _graph[x, z].neighbours.Add(_graph[x, z + 1]);
+                    else if(z < _mapSizeZ - 1)
                         _graph[x, z].neighbours.Add(_graph[x + 1, z + 1]);
                 }
-
-                //lower neighbor
-                if (z > 0)
-                    _graph[x, z].neighbours.Add(_graph[x, z - 1]);
-
-                //upper neighbor
-                if (z < _mapSizeZ - 1)
-                    _graph[x, z].neighbours.Add(_graph[x, z + 1]);
             }
         }
     }
@@ -250,7 +254,7 @@ public class TileMap : MonoBehaviour
             if (current != null)
             {
                 //change the tile colors
-                string hash = GetHashString(current.x.ToString() + current.z.ToString());
+                string hash = GetHashString(current.x, current.z);
                 MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
                 mesh.material.color = Color.yellow;
             }
@@ -287,7 +291,10 @@ public class TileMap : MonoBehaviour
 
     public Vector3 TileCoordToWorldCoord(int x, int z)
     {
-        return new Vector3(x * TILE_OFFSET, 0, z * TILE_OFFSET);
+        string hash = GetHashString(x, z);
+        GameObject targetTile = _tileObjects[hash];
+
+        return targetTile.transform.localPosition;
     }
 
     private float CostToEnterTile(int targetX, int targetZ, int sourceX, int sourceZ)
@@ -316,8 +323,9 @@ public class TileMap : MonoBehaviour
         return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
     }
 
-    public static string GetHashString(string inputString)
+    public static string GetHashString(int x, int z)
     {
+        string inputString = String.Format("{0}:{1}", x.ToString(), z.ToString());
         StringBuilder sb = new StringBuilder();
         foreach (byte b in GetHash(inputString))
             sb.Append(b.ToString("X2"));
