@@ -31,7 +31,7 @@ public class Unit : MonoBehaviour
         //unit will only 'walk' every 15 frames
         //this probably isn't a good way to do it, since framerate will depend on the computer 
         //best way would be to use Time.DeltaTime I believe, but that can be implemented later
-        if (currentPath != null && isMoving && (_waitCount % 15 == 0))
+        if (currentPath != null && isMoving && (_waitCount % 60 == 0))
         {
             MoveUnitToTarget();
         }
