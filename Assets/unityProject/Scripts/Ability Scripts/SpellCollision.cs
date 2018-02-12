@@ -16,19 +16,28 @@ public class SpellCollision : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //if the spell animation is no longer playing destroy it
         if (this.GetComponent<ParticleSystem>().isPlaying == false)
         {
-            GameObject.Destroy(this);
+            GameObject.Destroy(gameObject);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (onHitAnimation)
+        //if the spell animation collided with a Unit
+        if (other.tag == "Unit")
         {
-            Instantiate(onHitAnimation, transform.position, Quaternion.identity);
+            //if the script has a second animation for when it hits the target
+            if (onHitAnimation)
+            {
+                //create the hit animation on top of the target
+                Instantiate(onHitAnimation, transform.position, Quaternion.identity);
+            }
+
+            //destroy the original spell animation to which this script belongs
+            GameObject.Destroy(gameObject);
         }
-        GameObject.Destroy(gameObject);
     }
 
 
