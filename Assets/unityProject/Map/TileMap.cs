@@ -46,6 +46,7 @@ public class TileMap : MonoBehaviour
 
     private void Update()
     {
+
         if (Input.GetButtonUp("Fire1"))
         {
             if (EventSystem.current.IsPointerOverGameObject() == false)
