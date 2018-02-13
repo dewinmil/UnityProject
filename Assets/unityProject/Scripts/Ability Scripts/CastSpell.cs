@@ -44,30 +44,8 @@ public class CastSpell : MonoBehaviour
                 //the spell effect IE: damage, healing, etc to the target.
                 if (spellMoves)
                 {
-                    //check what ability was used / apply appropriate spell effect
-                    //from the abilities class
-                    if (abilityNum == 1)
-                    {
-                        _caster.ability1(spellTarget);
-                    }
-                    else if (abilityNum == 2)
-                    {
-                        _caster.ability2(spellTarget);
-                    }
-                    else if (abilityNum == 3)
-                    {
-                        _caster.ability3(spellTarget);
-                    }
-                    else if (abilityNum == 4)
-                    {
-                        _caster.ability4(spellTarget);
-                    }
-                    else if (abilityNum == 5)
-                    {
-                        _caster.ability5(spellTarget);
-                    }
+                    applyAbilityEffect(abilityNum);
                 }
-
             }
         }
         //there is currently a spell effect in the scene.
@@ -84,28 +62,7 @@ public class CastSpell : MonoBehaviour
                 //we need to apply the spell effect now
                 if (spellMoves)
                 {
-
-                    //apply appropriate spell effect from abilities class
-                    if (abilityNum == 1)
-                    {
-                        _caster.ability1(spellTarget);
-                    }
-                    else if (abilityNum == 2)
-                    {
-                        _caster.ability2(spellTarget);
-                    }
-                    else if (abilityNum == 3)
-                    {
-                        _caster.ability3(spellTarget);
-                    }
-                    else if (abilityNum == 4)
-                    {
-                        _caster.ability4(spellTarget);
-                    }
-                    else if (abilityNum == 5)
-                    {
-                        _caster.ability5(spellTarget);
-                    }
+                    applyAbilityEffect(abilityNum);
                 }
             }
         }
@@ -156,26 +113,7 @@ public class CastSpell : MonoBehaviour
 
             //as the spell is at the target immediately apply appropriate spell effect
             //from the abilities class
-            if (abilityNum == 1)
-            {
-                _caster.ability1(spellTarget);
-            }
-            else if (abilityNum == 2)
-            {
-                _caster.ability2(spellTarget);
-            }
-            else if (abilityNum == 3)
-            {
-                _caster.ability3(spellTarget);
-            }
-            else if (abilityNum == 4)
-            {
-                _caster.ability4(spellTarget);
-            }
-            else if (abilityNum == 5)
-            {
-                _caster.ability5(spellTarget);
-            }
+            applyAbilityEffect(abilityNum);
 
         }
     }
@@ -232,6 +170,32 @@ public class CastSpell : MonoBehaviour
         }
 
         return rotation;
+
+    }
+
+    public void applyAbilityEffect(int abilityUsed)
+    {
+
+        if (abilityUsed == 1)
+        {
+            _caster.ability1(spellTarget);
+        }
+        else if (abilityUsed == 2)
+        {
+            _caster.ability2(spellTarget);
+        }
+        else if (abilityUsed == 3)
+        {
+            _caster.ability3(spellTarget);
+        }
+        else if (abilityUsed == 4)
+        {
+            _caster.ability4(spellTarget);
+        }
+        else if (abilityUsed == 5)
+        {
+            _caster.ability5(spellTarget);
+        }
 
     }
 
