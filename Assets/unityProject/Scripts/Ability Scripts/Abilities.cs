@@ -107,6 +107,10 @@ public class Abilities : MonoBehaviour
                 {
                     //if alive heal the target
                     target.gainHealth(healing);
+                    if(target.currentHealth > target.maxHealth)
+                    {
+                        target.currentHealth = target.maxHealth;
+                    }
                 }
 
                 //ability is finished set boolean
