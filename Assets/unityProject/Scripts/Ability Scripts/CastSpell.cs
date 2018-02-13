@@ -88,33 +88,41 @@ public class CastSpell : MonoBehaviour
         //check if spell moves towards and applies effect upon reaching target
         if (spellMoves)
         {
-            //create spell effect on the castors position and ignore collisions with the caster so it does not instantly detonate
-            Vector3 startPos = new Vector3(_caster.transform.position.x, _caster.transform.position.y + (float).5, _caster.transform.position.z);
-            currentAnimation = Instantiate(abilityAnimation, _caster.transform.position, Quaternion.identity);
-            Physics.IgnoreCollision(currentAnimation.GetComponent<Collider>(), gameObject.GetComponentInParent<Collider>());
+            //check if we have enough ap to cast the ability
+            if (canCast(abilityNum))
+            {
+                //create spell effect on the castors position and ignore collisions with the caster so it does not instantly detonate
+                Vector3 startPos = new Vector3(_caster.transform.position.x, _caster.transform.position.y + (float).5, _caster.transform.position.z);
+                currentAnimation = Instantiate(abilityAnimation, _caster.transform.position, Quaternion.identity);
+                Physics.IgnoreCollision(currentAnimation.GetComponent<Collider>(), gameObject.GetComponentInParent<Collider>());
 
-            //rotate the spell in the direction of the target
-            float rotation = getRotation(target);
-            currentAnimation.transform.eulerAngles = new Vector3(currentAnimation.transform.eulerAngles.x,
-                rotation + abilityAnimation.transform.eulerAngles.y, currentAnimation.transform.eulerAngles.z);
+                //rotate the spell in the direction of the target
+                float rotation = getRotation(target);
+                currentAnimation.transform.eulerAngles = new Vector3(currentAnimation.transform.eulerAngles.x,
+                    rotation + abilityAnimation.transform.eulerAngles.y, currentAnimation.transform.eulerAngles.z);
 
-            //find the direction of target
-            Vector3 targetDirection = (target.transform.position - _caster.transform.position).normalized;
+                //find the direction of target
+                Vector3 targetDirection = (target.transform.position - _caster.transform.position).normalized;
 
-            //accelerate the spell animation towards the target
-            currentAnimation.GetComponent<Rigidbody>().AddForce(targetDirection * 1000);
+                //accelerate the spell animation towards the target
+                currentAnimation.GetComponent<Rigidbody>().AddForce(targetDirection * 1000);
+            }
         }
         //this spell appears on the targets location
         else
         {
-            //create spell effect on the target location
-            currentAnimation = Instantiate(abilityAnimation, target.transform.position, Quaternion.identity);
-            currentAnimation.transform.position = new Vector3(currentAnimation.transform.position.x, 0, currentAnimation.transform.position.z);
+            //check if we have enough ap to cast the ability
+            if (canCast(abilityNum))
+            {
+                //create spell effect on the target location
+                currentAnimation = Instantiate(abilityAnimation, target.transform.position, Quaternion.identity);
+                currentAnimation.transform.position = new Vector3(currentAnimation.transform.position.x, 0, currentAnimation.transform.position.z);
 
-            //as the spell is at the target immediately apply appropriate spell effect
-            //from the abilities class
-            applyAbilityEffect(abilityNum);
+                //as the spell is at the target immediately apply appropriate spell effect
+                //from the abilities class
 
+                applyAbilityEffect(abilityNum);
+            }
         }
     }
 
@@ -173,30 +181,94 @@ public class CastSpell : MonoBehaviour
 
     }
 
+    //applies the spell effect to the target
     public void applyAbilityEffect(int abilityUsed)
     {
 
         if (abilityUsed == 1)
         {
-            _caster.ability1(spellTarget);
+            _caster.castAbility(spellTarget, 3, 0, 3, 0, (float).5, 0, true);
         }
         else if (abilityUsed == 2)
         {
-            _caster.ability2(spellTarget);
+            _caster.castAbility(spellTarget, 7, 0, 6, 0, 0, 0, true);
         }
         else if (abilityUsed == 3)
         {
-            _caster.ability3(spellTarget);
+            _caster.castAbility(spellTarget, 0, 5, 5, 0, 0, 0, true);
         }
         else if (abilityUsed == 4)
         {
-            _caster.ability4(spellTarget);
+            _caster.castAbility(spellTarget, 5, 0, 4, (float).25, 0, 0, false);
         }
         else if (abilityUsed == 5)
         {
-            _caster.ability5(spellTarget);
+            _caster.castAbility(spellTarget, 5, 0, 6, 0, 1, 0, true);
         }
+    }
 
+    //determines if the caster has enough ability points to cast a spell
+    public bool canCast(int abilityUsed)
+    {
+        if (abilityUsed == 1)
+        {
+            if (_caster._casterStatus.currentAction > 3 && spellTarget.currentHealth > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else if (abilityUsed == 2)
+        {
+            if (_caster._casterStatus.currentAction > 6 && spellTarget.currentHealth > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else if (abilityUsed == 3)
+        {
+            if (_caster._casterStatus.currentAction > 5 && spellTarget.currentHealth > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else if (abilityUsed == 4)
+        {
+            if (_caster._casterStatus.currentAction > 4 && spellTarget.currentHealth > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else if (abilityUsed == 5)
+        {
+            if (_caster._casterStatus.currentAction > 6 && spellTarget.currentHealth > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
     }
 
 }
