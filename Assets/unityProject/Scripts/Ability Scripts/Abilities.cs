@@ -257,32 +257,4 @@ public class Abilities : MonoBehaviour
 
     }
 
-
-    //methods to apply different spell effects on a target - these are your spells
-    public void ability1(CharacterStatus target)
-    {
-        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
-    }
-
-
-    public void ability2(CharacterStatus target)
-    {
-        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
-    }
-
-    public void ability3(CharacterStatus target)
-    {
-        castAbility(target, 0, 3, 3, 0, 0, 0, false);
-    }
-
-    public void ability4(CharacterStatus target)
-    {
-        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
-    }
-
-    public void ability5(CharacterStatus target)
-    {
-        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
-    }
-
 }
