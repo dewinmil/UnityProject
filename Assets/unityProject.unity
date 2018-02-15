@@ -1018,6 +1018,16 @@ Prefab:
       propertyPath: map
       value: 
       objectReference: {fileID: 102793256}
+    - target: {fileID: 224585791961182044, guid: 7279a4900f3bcb44f8bc16cf957e0158,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 16.199951
+      objectReference: {fileID: 0}
+    - target: {fileID: 114424602898638038, guid: 7279a4900f3bcb44f8bc16cf957e0158,
+        type: 2}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: AP Cost - 5    Healing - 5           Type - Magic Targeted
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7279a4900f3bcb44f8bc16cf957e0158, type: 2}
   m_IsPrefabParent: 0
