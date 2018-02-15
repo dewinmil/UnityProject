@@ -608,6 +608,73 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1080998725}
+--- !u!1001 &1277967744
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4217046828761750, guid: 7279a4900f3bcb44f8bc16cf957e0158, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 9.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 4217046828761750, guid: 7279a4900f3bcb44f8bc16cf957e0158, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4217046828761750, guid: 7279a4900f3bcb44f8bc16cf957e0158, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4217046828761750, guid: 7279a4900f3bcb44f8bc16cf957e0158, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4217046828761750, guid: 7279a4900f3bcb44f8bc16cf957e0158, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4217046828761750, guid: 7279a4900f3bcb44f8bc16cf957e0158, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4217046828761750, guid: 7279a4900f3bcb44f8bc16cf957e0158, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4217046828761750, guid: 7279a4900f3bcb44f8bc16cf957e0158, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114721314491544636, guid: 7279a4900f3bcb44f8bc16cf957e0158,
+        type: 2}
+      propertyPath: map
+      value: 
+      objectReference: {fileID: 102793256}
+    - target: {fileID: 224585791961182044, guid: 7279a4900f3bcb44f8bc16cf957e0158,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 16.199951
+      objectReference: {fileID: 0}
+    - target: {fileID: 114424602898638038, guid: 7279a4900f3bcb44f8bc16cf957e0158,
+        type: 2}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: AP Cost - 5    Healing - 5           Type - Magic Targeted
+      objectReference: {fileID: 0}
+    - target: {fileID: 114120790940553424, guid: 7279a4900f3bcb44f8bc16cf957e0158,
+        type: 2}
+      propertyPath: abilityAnimation
+      value: 
+      objectReference: {fileID: 1000012600307132, guid: 20c0f7e297297fc468f9740f6bb08cb1,
+        type: 2}
+    - target: {fileID: 1614440243317872, guid: 7279a4900f3bcb44f8bc16cf957e0158, type: 2}
+      propertyPath: m_Name
+      value: Unit1 (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 7279a4900f3bcb44f8bc16cf957e0158, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1378841714
 GameObject:
   m_ObjectHideFlags: 0
@@ -1028,6 +1095,18 @@ Prefab:
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: AP Cost - 5    Healing - 5           Type - Magic Targeted
       objectReference: {fileID: 0}
+    - target: {fileID: 114120790940553424, guid: 7279a4900f3bcb44f8bc16cf957e0158,
+        type: 2}
+      propertyPath: abilityAnimation
+      value: 
+      objectReference: {fileID: 1000012600307132, guid: 20c0f7e297297fc468f9740f6bb08cb1,
+        type: 2}
+    - target: {fileID: 114524989411338248, guid: 7279a4900f3bcb44f8bc16cf957e0158,
+        type: 2}
+      propertyPath: abilityAnimation
+      value: 
+      objectReference: {fileID: 1136787235978610, guid: 897f427469fcfca46acd1fb1a8f6ec6a,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7279a4900f3bcb44f8bc16cf957e0158, type: 2}
   m_IsPrefabParent: 0
