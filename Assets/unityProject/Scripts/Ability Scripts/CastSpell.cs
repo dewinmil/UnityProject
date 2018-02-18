@@ -56,6 +56,7 @@ public class CastSpell : MonoBehaviour
             {
                 //the spell effect is dead / complete so set to false and remove it from scene
                 spellAlive = false;
+                print("killed it");
                 GameObject.Destroy(currentAnimation);
 
                 //if the spell was of the type that moves to and detonates on the target
@@ -74,6 +75,7 @@ public class CastSpell : MonoBehaviour
             if (onHitAnimation.GetComponent<ParticleSystem>().isPlaying == false)
             {
                 //remove "dead" animation from scene
+                print("killed it2");
                 GameObject.Destroy(onHitAnimation);
             }
         }
