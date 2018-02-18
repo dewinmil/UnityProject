@@ -335,6 +335,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4105785829802482}
   - component: {fileID: 114214570768054452}
+  - component: {fileID: 114835371703147048}
   m_Layer: 0
   m_Name: CharacerEventManager
   m_TagString: Untagged
@@ -1057,6 +1058,7 @@ MonoBehaviour:
   Button4Animation: {fileID: 114294729563458714}
   Button5Animation: {fileID: 114381542872263398}
   Button6Animation: {fileID: 114427957408117092}
+  usedId: 
 --- !u!114 &114237197915542896
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1997,6 +1999,21 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114835371703147048
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1587875926139316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5e12ed6890274a4587a3bd75e7fa997, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unit: {fileID: 0}
+  unitStatus: {fileID: 0}
+  unitMoveInput: {fileID: 0}
+  currUnit: {fileID: 0}
 --- !u!114 &114850895708457572
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2027,6 +2044,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileX: 0
   tileZ: 0
+  unitId: 0
   map: {fileID: 0}
   _characterMoveInput: {fileID: 114912023885420982}
   moveToggle: 0
