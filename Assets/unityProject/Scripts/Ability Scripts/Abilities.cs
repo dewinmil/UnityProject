@@ -72,7 +72,15 @@ public class Abilities : MonoBehaviour
                 //check if the spell effect is reduced by magic resistance or armor
                 if (isMagic)
                 {
-                    resistance = target.magicArmor * magicPen;
+
+                    if(magicPen == 0)
+                    {
+                        resistance = target.magicArmor;
+                    }
+                    else
+                    {
+                        resistance = target.magicArmor * (1 - magicPen);
+                    }
 
                     //ensure penetration doesnt add damage and that resistance doesn't cause healing
                     if (resistance < 0 || resistance >= 1) //bad spell
@@ -85,7 +93,14 @@ public class Abilities : MonoBehaviour
                 }
                 else
                 {
-                    resistance = target.physicalArmor * armorPen;
+                    if (armorPen == 0)
+                    {
+                        resistance = target.physicalArmor;
+                    }
+                    else
+                    {
+                        resistance = target.physicalArmor * (1 - armorPen);
+                    }
 
                     //ensure penetration doesnt add damage and that resistance doesn't cause healing
                     if (resistance < 0 || resistance >= 1)//bad spell
@@ -115,6 +130,7 @@ public class Abilities : MonoBehaviour
 
                 //ability is finished set boolean
                 usingAbility = false;
+
             }
             else
             {
@@ -146,7 +162,7 @@ public class Abilities : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         //check if the unit is selected
         if (_casterMoveInput.isSelected)
         {
@@ -201,6 +217,7 @@ public class Abilities : MonoBehaviour
                         if (hit.collider.tag == "Unit")
                         {
                             _unit.abil = abilityUsed;
+
                             //cast an ability
                             if (abilityUsed == 1)
                             {
@@ -239,6 +256,7 @@ public class Abilities : MonoBehaviour
         //if a unit had movement selected set state to deselected it
         if (_unit.moveToggle)
         {
+            FindObjectOfType<SpellIndicator>().clearList();
             _unit.moveToggle = false;
         }
         else
@@ -246,6 +264,7 @@ public class Abilities : MonoBehaviour
             //if a unit had an ability selected - set state to deselected
             if (usingAbility)
             {
+                FindObjectOfType<SpellIndicator>().clearList();
                 usingAbility = false;
                 _casterMoveInput.castingSpell = false;
             }

@@ -83,7 +83,6 @@ public class CastSpell : MonoBehaviour
     {
         abilityNum = _abilityNum;
         spellTarget = target;
-        spellAlive = true;
 
         //check if spell moves towards and applies effect upon reaching target
         if (spellMoves)
@@ -91,6 +90,7 @@ public class CastSpell : MonoBehaviour
             //check if we have enough ap to cast the ability
             if (canCast(abilityNum))
             {
+
                 //create spell effect on the castors position and ignore collisions with the caster so it does not instantly detonate
                 Vector3 startPos = new Vector3(_caster.transform.position.x, _caster.transform.position.y + (float).5, _caster.transform.position.z);
                 currentAnimation = Instantiate(abilityAnimation, _caster.transform.position, Quaternion.identity);
@@ -114,6 +114,7 @@ public class CastSpell : MonoBehaviour
             //check if we have enough ap to cast the ability
             if (canCast(abilityNum))
             {
+
                 //create spell effect on the target location
                 currentAnimation = Instantiate(abilityAnimation, target.transform.position, Quaternion.identity);
                 currentAnimation.transform.position = new Vector3(currentAnimation.transform.position.x, 0, currentAnimation.transform.position.z);
@@ -212,7 +213,9 @@ public class CastSpell : MonoBehaviour
     {
         if (abilityUsed == 1)
         {
-            if (_caster._casterStatus.currentAction > 3 && spellTarget.currentHealth > 0)
+
+            if (_caster._casterStatus.currentAction > 3 && spellTarget.currentHealth > 0 &&_caster._casterStatus.currentHealth > 0)
+
             {
                 return true;
             }
@@ -223,7 +226,8 @@ public class CastSpell : MonoBehaviour
         }
         else if (abilityUsed == 2)
         {
-            if (_caster._casterStatus.currentAction > 6 && spellTarget.currentHealth > 0)
+
+            if (_caster._casterStatus.currentAction > 6 && spellTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
             {
                 return true;
             }
@@ -234,7 +238,8 @@ public class CastSpell : MonoBehaviour
         }
         else if (abilityUsed == 3)
         {
-            if (_caster._casterStatus.currentAction > 5 && spellTarget.currentHealth > 0)
+
+            if (_caster._casterStatus.currentAction > 5 && spellTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
             {
                 return true;
             }
@@ -245,7 +250,8 @@ public class CastSpell : MonoBehaviour
         }
         else if (abilityUsed == 4)
         {
-            if (_caster._casterStatus.currentAction > 4 && spellTarget.currentHealth > 0)
+
+            if (_caster._casterStatus.currentAction > 4 && spellTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
             {
                 return true;
             }
@@ -256,7 +262,8 @@ public class CastSpell : MonoBehaviour
         }
         else if (abilityUsed == 5)
         {
-            if (_caster._casterStatus.currentAction > 6 && spellTarget.currentHealth > 0)
+
+            if (_caster._casterStatus.currentAction > 6 && spellTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
             {
                 return true;
             }
