@@ -5,6 +5,10 @@ using UnityEngine.EventSystems;
 
 public class Abilities : MonoBehaviour
 {
+<<<<<<< HEAD
+=======
+
+>>>>>>> merge
     public bool usingAbility;
     int abilityUsed;
     public Ray ray;
@@ -24,7 +28,7 @@ public class Abilities : MonoBehaviour
     private KeyCode spellHotkey5 = KeyCode.Alpha5;//number 5
     private KeyCode spellHotkey6 = KeyCode.Space;//number spacebar
     public List<int> usedId = new List<int>();
-    
+
     void Start()
     {
         abilityUsed = 0;
@@ -34,7 +38,7 @@ public class Abilities : MonoBehaviour
         {
             for (int i = 0; i < 50; i++)
             {
-                if (! usedId.Contains(i))
+                if (!usedId.Contains(i))
                 {
                     usedId.Add(i);
                     this._unit.setUnitId(i);
@@ -47,78 +51,130 @@ public class Abilities : MonoBehaviour
     // Use this for initialization
     public void useAbility(int ability)
     {
+<<<<<<< HEAD
+=======
+        //toggle casting determins whether your next click will cast a spell or not
+        //it is a toggle so you can reselect a spell to cancel casting
+>>>>>>> merge
         toggleCasting();
+
+        //sets the last ability selected
         abilityUsed = ability;
     }
 
-    // Use this for initialization
+    //this function actually applies the spell effect to the target
     public void castAbility(CharacterStatus target, float damage, float healing, float apCost, float armorPen, float magicPen, float range, bool isMagic)
     {
-        //toggleCasting();
-        //if (usingAbility)
-        //{
-            if (target.currentHealth > 0)
+        //if the target is not dead
+        if (target.currentHealth > 0)
+        {
+            float resistance = 0;
+            //check if the caster has enough AP to cast a spell - currently redundant
+            if (_casterStatus.currentAction >= apCost)
             {
-                float resistance = 0;
-                if (_casterStatus.currentAction >= apCost)
-                {
-                    _casterStatus.loseAction(apCost);
+                //use casters ability points
+                _casterStatus.loseAction(apCost);
 
-                    if (isMagic)
+                //check if the spell effect is reduced by magic resistance or armor
+                if (isMagic)
+                {
+                    if(magicPen == 0)
                     {
-                        resistance = target.magicArmor * magicPen;
-                        if (resistance < 0 || resistance >= 1) //bad spell
-                        {
-                            resistance = 0;
-                        }
-                        target.loseHealth(damage * (1 - resistance));
+                        resistance = target.magicArmor;
                     }
                     else
                     {
-                        resistance = target.physicalArmor * armorPen;
-                        if (resistance < 0 || resistance >= 1)//bad spell
-                        {
-                            resistance = 0;
-                        }
-                        target.loseHealth(damage * (1 - resistance));
+                        resistance = target.magicArmor * (1 - magicPen);
                     }
-                    target.gainHealth(healing);
 
-                    if (target.currentHealth <= 0)
+                    //ensure penetration doesnt add damage and that resistance doesn't cause healing
+                    if (resistance < 0 || resistance >= 1) //bad spell
                     {
-                        target.currentHealth = 0;
+                        resistance = 0;
                     }
-                    usingAbility = false;
+
+                    //deal damage wieghted by resistance
+                    target.loseHealth(damage * (1 - resistance));
                 }
                 else
                 {
-                    //print not enough AP
-                    usingAbility = false;
+                    if (armorPen == 0)
+                    {
+                        resistance = target.physicalArmor;
+                    }
+                    else
+                    {
+                        resistance = target.physicalArmor * (1 - armorPen);
+                    }
+
+                    //ensure penetration doesnt add damage and that resistance doesn't cause healing
+                    if (resistance < 0 || resistance >= 1)//bad spell
+                    {
+                        resistance = 0;
+                    }
+
+                    //deal damage weighted by resistance
+                    target.loseHealth(damage * (1 - resistance));
                 }
+
+
+                //check if target is dead - may have received damage before healing
+                if (target.currentHealth <= 0)
+                {
+                    target.currentHealth = 0;
+                }
+                else
+                {
+                    //if alive heal the target
+                    target.gainHealth(healing);
+                    if(target.currentHealth > target.maxHealth)
+                    {
+                        target.currentHealth = target.maxHealth;
+                    }
+                }
+
+                //ability is finished set boolean
+                usingAbility = false;
             }
-            
-       // }
+            else
+            {
+                //print not enough AP - set boolean
+                usingAbility = false;
+            }
+        }
 
     }
 
     public void toggleMovement()
     {
+        //if an ability is being used cancel the ability
         if (usingAbility)
         {
             _unit.moveToggle = false;
             usingAbility = false;
         }
+
+        //otherwise toggle moement on the unity -
         else
         {
+            //NOTE - THIS IS A DIFFERENT TOGGLE MOVEMENT FUNCTION BELONGING TO THE UNIT CLASS
+            //toggles movement boolean between true or false
             _unit.toggleMovement();
         }
     }
 
     // Update is called once per frame
+<<<<<<< HEAD
     void Update ()
     {
+=======
+    void Update()
+    {
+        //check if the unit is selected
+>>>>>>> merge
         if (_casterMoveInput.isSelected)
         {
+            //enable or disable spellcast on keypress
             if (Input.GetKeyUp(spellHotkey1))
             {           
                 toggleCasting();
@@ -150,18 +206,28 @@ public class Abilities : MonoBehaviour
             }
         }
 
+<<<<<<< HEAD
+=======
+
+        //if the caster has an ability selected
+>>>>>>> merge
         if (usingAbility == true)
         {
+            //if the left mouse button is pressed
             if (Input.GetButtonUp("Fire1"))
             {
+                //if the mouse is not over a UI element 
                 if (EventSystem.current.IsPointerOverGameObject() == false)
                 {
+                    //cast a ray from the main camera to the mouse
                     ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                     RaycastHit hit;
                     if (Physics.Raycast(ray, out hit, 100))
                     {
+                        //if the ray hits an object with the Unit tag
                         if (hit.collider.tag == "Unit")
                         {
+                            //cast an ability
                             if (abilityUsed == 1)
                             {
                                 Button1Animation.Cast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 1);
@@ -184,32 +250,40 @@ public class Abilities : MonoBehaviour
                             }
                         }
                     }
+                    //ability has been cast so de-select it
                     usingAbility = false;
                     abilityUsed = 0;
                 }
-                
+
             }
         }
     }
 
+    //toggles whether or not a spell is selected
     void toggleCasting()
     {
+        //if a unit had movement selected set state to deselected it
         if (_unit.moveToggle)
         {
+            FindObjectOfType<SpellIndicator>().clearList();
             _unit.moveToggle = false;
         }
         else
         {
+            //if a unit had an ability selected - set state to deselected
             if (usingAbility)
             {
+                FindObjectOfType<SpellIndicator>().clearList();
                 usingAbility = false;
                 _casterMoveInput.castingSpell = false;
             }
+            //if the unit did not have an ability selected - set state to casting / selected
             else
             {
                 usingAbility = true;
                 _casterMoveInput.castingSpell = true;
             }
+<<<<<<< HEAD
         } 
     }
 
@@ -236,6 +310,10 @@ public class Abilities : MonoBehaviour
     public void ability5(CharacterStatus target)
     {
         castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
+=======
+        }
+
+>>>>>>> merge
     }
 
 }

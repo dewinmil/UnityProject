@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * This is a class that upon having a spell selected or the movement toggle active
+ * creates a pointer rotated towards the target
+ */ 
 public class SpellIndicator : MonoBehaviour
 {
 
@@ -61,7 +65,12 @@ public class SpellIndicator : MonoBehaviour
                     {
 
                         transform.GetComponent<SpriteRenderer>().enabled = true;
-                        list[0].transform.GetComponent<MeshRenderer>().enabled = true;
+                        int max = list.Count;
+                        for (int i = 0; i < max; i++)
+                        {
+                            list[i].transform.GetComponent<MeshRenderer>().enabled = true;
+                        }
+                        //list[0].transform.GetComponent<MeshRenderer>().enabled = true;
                         if (Physics.Raycast(ray, out hit, 100))
                         {
                             transform.position = new Vector3(hit.point.x, hit.point.y + (float).02, hit.point.z);
@@ -169,19 +178,27 @@ public class SpellIndicator : MonoBehaviour
                     }
                     else
                     {
-                        int max = list.Count;
-                        for (int i = 1; i < max; i++)
-                        {
-                            transform.GetComponent<SpriteRenderer>().enabled = false;
-                            list[0].transform.GetComponent<MeshRenderer>().enabled = false;
-                            GameObject.Destroy(list[list.Count - 1]);
-                            list.RemoveAt(list.Count - 1);
-                        }
-
+                        clearList();
                     }
 
                 }
+                else
+                {
+                    clearList();
+                }
             }
+        }
+    }
+
+    public void clearList()
+    {
+        int max = list.Count;
+        for (int i = 1; i < max; i++)
+        {
+            transform.GetComponent<SpriteRenderer>().enabled = false;
+            list[0].transform.GetComponent<MeshRenderer>().enabled = false;
+            GameObject.Destroy(list[list.Count - 1]);
+            list.RemoveAt(list.Count - 1);
         }
     }
 }

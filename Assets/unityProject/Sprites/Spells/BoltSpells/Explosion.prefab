@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 198469390120036712}
   - component: {fileID: 199944421668937064}
   - component: {fileID: 54185003028542210}
-  - component: {fileID: 114456771954214030}
+  - component: {fileID: 114089163698589538}
   m_Layer: 0
   m_Name: Explosion
   m_TagString: Untagged
@@ -89,7 +89,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114456771954214030
+--- !u!114 &114089163698589538
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onHitAnimation: {fileID: 0}
+  spellSound: {fileID: 8300000, guid: 5543cefa2f8fc9e40bb3b5af6eac40ad, type: 3}
 --- !u!198 &198469390120036712
 ParticleSystem:
   m_ObjectHideFlags: 1
