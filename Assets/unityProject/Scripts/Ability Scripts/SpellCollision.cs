@@ -19,7 +19,7 @@ public class SpellCollision : MonoBehaviour
         timeToKill = false;
         source = gameObject.AddComponent<AudioSource>();
         source.clip = spellSound;
-        source.volume = (float).5;
+        source.volume = (float).75;
         maxVolume = source.volume;
         source.loop = true;
         source.Play();
