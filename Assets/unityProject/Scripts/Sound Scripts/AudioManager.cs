@@ -65,6 +65,8 @@ public class AudioManager : MonoBehaviour
         String sound = "";
         if (songPlaying != 0)
         {
+            if (music == null)
+                return;
             if (music.isPlaying())
             {
                 if(music.source.time < 5)
@@ -90,6 +92,8 @@ public class AudioManager : MonoBehaviour
                     songPlaying = 1;
                 }
                 music = Array.Find(sounds, item => item.name == sound);
+                if (music == null)
+                    return;
                 if (songPlaying == 1)
                 {
                     sound = "Song1";

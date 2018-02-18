@@ -47,6 +47,7 @@ public class MoveInput : MonoBehaviour
                         {
                             //select the unit
                             isSelected = true;
+                            _unit.SelectedUnitChanged();
                         }
                         //someone just cast an ability on this unit - do not select this unit
                         //and the spell has been cast so we are no longer being targeted by an ability
