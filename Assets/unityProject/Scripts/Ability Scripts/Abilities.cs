@@ -237,6 +237,7 @@ public class Abilities : MonoBehaviour
         //if a unit had movement selected set state to deselected it
         if (_unit.moveToggle)
         {
+            FindObjectOfType<SpellIndicator>().clearList();
             _unit.moveToggle = false;
         }
         else
@@ -244,6 +245,7 @@ public class Abilities : MonoBehaviour
             //if a unit had an ability selected - set state to deselected
             if (usingAbility)
             {
+                FindObjectOfType<SpellIndicator>().clearList();
                 usingAbility = false;
                 _casterMoveInput.castingSpell = false;
             }
