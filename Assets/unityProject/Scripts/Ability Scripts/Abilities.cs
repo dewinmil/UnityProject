@@ -72,7 +72,14 @@ public class Abilities : MonoBehaviour
                 //check if the spell effect is reduced by magic resistance or armor
                 if (isMagic)
                 {
-                    resistance = target.magicArmor * magicPen;
+                    if(magicPen == 0)
+                    {
+                        resistance = target.magicArmor;
+                    }
+                    else
+                    {
+                        resistance = target.magicArmor * (1 - magicPen);
+                    }
 
                     //ensure penetration doesnt add damage and that resistance doesn't cause healing
                     if (resistance < 0 || resistance >= 1) //bad spell
@@ -85,7 +92,14 @@ public class Abilities : MonoBehaviour
                 }
                 else
                 {
-                    resistance = target.physicalArmor * armorPen;
+                    if (armorPen == 0)
+                    {
+                        resistance = target.physicalArmor;
+                    }
+                    else
+                    {
+                        resistance = target.physicalArmor * (1 - armorPen);
+                    }
 
                     //ensure penetration doesnt add damage and that resistance doesn't cause healing
                     if (resistance < 0 || resistance >= 1)//bad spell
