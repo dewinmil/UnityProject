@@ -25,6 +25,10 @@ public class TileMap : MonoBehaviour
     private const float TILE_OFFSET = 1.80f;
     private const float TILE_Y_POS = -.5f;
     private bool wasCasting;
+    private Node[] _currentPath;
+    private Color CURRENT_PATH_TILE_COLOR = Color.yellow;
+    private Color UNOCCUPIED_TILE_COLOR = new Color(0.49f, 1.0f, 0.47f);
+    private Color OCCUPIED_TILE_COLOR = new Color(1.0f, 0.47f, 0.47f);
 
     private void Start()
     {
@@ -261,7 +265,6 @@ public class TileMap : MonoBehaviour
         List<Node> currentPath = new List<Node>();
 
         Node current = target;
-
         //step through the prev chain and add it to the path
         while (current != null)
         {
@@ -273,13 +276,16 @@ public class TileMap : MonoBehaviour
                 //change the tile colors
                 string hash = GetHashString(current.x, current.z);
                 MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
-                mesh.material.color = Color.yellow;
+                mesh.material.color = CURRENT_PATH_TILE_COLOR;
             }
         }
 
         //right now the currentPath has a route from our target to our source
         //needs to be inverted so that we can traverse the path
         currentPath.Reverse();
+        //copy the path to the global so that we can remember what it was
+        _currentPath = new Node[currentPath.Count];
+        currentPath.CopyTo(_currentPath);
 
         _selectedUnit.GetComponent<Unit>().currentPath = currentPath;
     }
@@ -348,5 +354,24 @@ public class TileMap : MonoBehaviour
             sb.Append(b.ToString("X2"));
 
         return sb.ToString();
+    }
+
+    public void UnhighlightTilesInCurrentPath()
+    {
+        if(_currentPath == null)
+            return;
+
+        int count = 0;
+        foreach (Node tile in _currentPath)
+        {
+            string hash = GetHashString(tile.x, tile.z);
+            MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
+            if (count == _currentPath.Length-1)
+                mesh.material.color = OCCUPIED_TILE_COLOR;
+            else
+               mesh.material.color = UNOCCUPIED_TILE_COLOR;
+
+            count++;
+        }
     }
 }
