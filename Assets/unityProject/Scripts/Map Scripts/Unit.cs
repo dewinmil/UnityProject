@@ -8,33 +8,55 @@ public class Unit : MonoBehaviour
 
     public int tileX;
     public int tileZ;
+    public int unitId;
     public TileMap map;
     private bool isMoving;
     public MoveInput _characterMoveInput;
     public bool moveToggle;
     public Animator anim;
+    public int abil;
+    public bool react;
 
     //variable to make the unit walk slower
     private int _waitCount = 0;
 
     public List<Node> currentPath = null;
 
-    void Start() {
+    private void Start()
+    {
+        this.unitId = -1;
         anim = GetComponent<Animator>();
+        abil = 0;
+        react = false;
     }
 
     void Update()
     {
         _waitCount++;
-        anim.SetBool("Moving", isMoving);
         //if the character is set to move, move it
         //unit will only 'walk' every 15 frames
         //this probably isn't a good way to do it, since framerate will depend on the computer 
         //best way would be to use Time.DeltaTime I believe, but that can be implemented later
-        if (currentPath != null && isMoving && (_waitCount % 30 == 0))
+        if (currentPath != null && isMoving && (_waitCount % 60 == 0))
         {
             MoveUnitToTarget();
         }
+        anim.SetBool("Moving", isMoving);
+        anim.SetInteger("Ability", abil);
+        abil = 0;
+        anim.SetBool("React", react);
+        react = false;
+        
+    }
+
+    public void setUnitId(int id)
+    {
+        this.unitId = id;
+    }
+
+    public int getUnitId()
+    {
+        return this.unitId;
     }
 
     private void MoveUnitToTarget()
@@ -83,8 +105,6 @@ public class Unit : MonoBehaviour
                     return;
 
                 isMoving = true;
-                
-
             }
         }
     }
@@ -93,14 +113,11 @@ public class Unit : MonoBehaviour
     {
         if(moveToggle == false)
         {
-            
             moveToggle = true;
-            
         }
         else
         {
             moveToggle = false;
-            
         }
     }
 }

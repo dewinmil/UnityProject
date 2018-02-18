@@ -1,0 +1,14 @@
+diff a/Assets/unityProject/Scripts/Ability Scripts/Abilities.cs b/Assets/unityProject/Scripts/Ability Scripts/Abilities.cs	(rejected hunks)
+@@ -11,6 +11,12 @@
+     public CharacterStatus _casterStatus;
+     public MoveInput _casterMoveInput;
+     public Unit _unit;
++    public CastSpell Button1Animation;
++    public CastSpell Button2Animation;
++    public CastSpell Button3Animation;
++    public CastSpell Button4Animation;
++    public CastSpell Button5Animation;
++    public CastSpell Button6Animation;
+     private KeyCode spellHotkey1 = KeyCode.Alpha1;//number 1
+     private KeyCode spellHotkey2 = KeyCode.Alpha2;//number 2
+     private KeyCode spellHotkey3 = KeyCode.Alpha3;//number 3

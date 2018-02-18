@@ -19,6 +19,7 @@ public class CharacterStatus : MonoBehaviour {
     public Image actionBarUI;
     public Text healthBarTextUI;
     public Text actionBarTextUI;
+    public Unit _unit;
 
 
     // Use this for initialization
@@ -35,6 +36,7 @@ public class CharacterStatus : MonoBehaviour {
 
     public void updateStatusBars()
     {
+        //update the size of the healthbars on screen depending upon how "full" they are
         float ratio = currentHealth / maxHealth;
         healthBar.rectTransform.localScale  = new Vector3(ratio, 1, 1);
         healthBarText.text = currentHealth.ToString() + " / " + maxHealth.ToString();
@@ -52,21 +54,23 @@ public class CharacterStatus : MonoBehaviour {
         actionBarTextUI.text = currentAction.ToString() + " / " + maxAction.ToString();
     }
     
-    public void loseHealth()
+    public void loseHealth(float damage)
     {
-
+        currentHealth -= damage;
+        _unit.react = true;
     }
-    public void gainHealth()
+    public void gainHealth(float healing)
     {
-
+        currentHealth += healing;
     }
-    public void loseAction()
+    public void loseAction(float apCost)
     {
-
+        currentAction -= apCost;
     }
     public void gainAction()
     {
-
+        // At the beginning of the turn
+        currentAction += 8;
     }
     
 }

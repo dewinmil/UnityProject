@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * This is a class that upon having a spell selected or the movement toggle active
+ * creates a pointer rotated towards the target
+ */ 
 public class SpellIndicator : MonoBehaviour
 {
 
