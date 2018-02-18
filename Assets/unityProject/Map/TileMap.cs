@@ -23,10 +23,12 @@ public class TileMap : MonoBehaviour
     private Node[,] _graph;
     public Ray ray;
     private const float TILE_OFFSET = 1.80f;
-    private const float TILE_Y_POS = -.5f; 
+    private const float TILE_Y_POS = -.5f;
+    private bool wasCasting;
 
     private void Start()
     {
+        wasCasting = false;
         _hashAlgorithm = MD5.Create();
         _tileObjects = new Dictionary<string, GameObject>();
         //set up selected unit vars
@@ -46,6 +48,10 @@ public class TileMap : MonoBehaviour
 
     private void Update()
     {
+        if (_selectedUnit.GetComponent<MoveInput>().castingSpell)
+        {
+            wasCasting = true;
+        }
         if (Input.GetButtonUp("Fire1"))
         {
             if (EventSystem.current.IsPointerOverGameObject() == false)
@@ -58,9 +64,13 @@ public class TileMap : MonoBehaviour
                     {
                         if (_selectedUnit.GetComponent<Unit>().moveToggle == false)
                         {
-                            if (_selectedUnit.GetComponent<MoveInput>().castingSpell == false)
+                            if (wasCasting == false)
                             {
                                 _selectedUnit = hit.collider.gameObject;
+                            }
+                            else
+                            {
+                                wasCasting = false;
                             }
                         }
                     }
