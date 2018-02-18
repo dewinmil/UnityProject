@@ -1,5 +1,6 @@
 using UnityEngine.Audio;
 using System;
+using System.Collections;
 using UnityEngine;
 
 //This Classes Awake and play methods taken from Brackeys
@@ -62,21 +63,6 @@ public class AudioManager : MonoBehaviour
     public void Update()
     {
         String sound = "";
-        if (songPlaying == 1)
-        {
-            sound = "Song1";
-        }else if (songPlaying == 2)
-        {
-            sound = "Song2";
-        }
-        else if (songPlaying == 3)
-        {
-            sound = "Song3";
-        }
-        else if (songPlaying == 4)
-        {
-            sound = "Song4";
-        }
         if (songPlaying != 0)
         {
             if (music.isPlaying())
@@ -89,7 +75,6 @@ public class AudioManager : MonoBehaviour
                     }
                     music.source.volume = music.source.time * (maxVolume / 5);
                 }
-                print(music.source.time);
                 float timeRemaining = music.clip.length - music.source.time;
                 if(timeRemaining < 5)
                 {
@@ -105,6 +90,22 @@ public class AudioManager : MonoBehaviour
                     songPlaying = 1;
                 }
                 music = Array.Find(sounds, item => item.name == sound);
+                if (songPlaying == 1)
+                {
+                    sound = "Song1";
+                }
+                else if (songPlaying == 2)
+                {
+                    sound = "Song2";
+                }
+                else if (songPlaying == 3)
+                {
+                    sound = "Song3";
+                }
+                else if (songPlaying == 4)
+                {
+                    sound = "Song4";
+                }
                 Play(music.name);
             }
         }

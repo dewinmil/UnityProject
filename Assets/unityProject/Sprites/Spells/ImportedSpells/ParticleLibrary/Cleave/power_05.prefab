@@ -24152,6 +24152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onHitAnimation: {fileID: 153390, guid: 3c2d41265118fc14f8065fbfc45391d0, type: 2}
+  spellSound: {fileID: 8300000, guid: 32a085624b9f652458773be29e8fc6c1, type: 3}
 --- !u!135 &135838173227692814
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 199597972249673644}
   - component: {fileID: 54462892533282216}
   - component: {fileID: 82715040259986922}
+  - component: {fileID: 114370105961636066}
   m_Layer: 0
   m_Name: Flame Circle
   m_TagString: Untagged
@@ -525,6 +526,19 @@ MonoBehaviour:
   x: 0
   y: 1
   z: 0
+--- !u!114 &114370105961636066
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1493963386524616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de0abd33870fefb4c9fc364fc0624a57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onHitAnimation: {fileID: 0}
+  spellSound: {fileID: 8300000, guid: c6236786972bc63468a551df46a2515f, type: 3}
 --- !u!198 &198013155854149488
 ParticleSystem:
   m_ObjectHideFlags: 1

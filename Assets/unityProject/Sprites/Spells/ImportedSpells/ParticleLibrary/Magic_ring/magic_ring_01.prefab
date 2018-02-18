@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 4506904024045790}
   - component: {fileID: 198356065919435462}
   - component: {fileID: 199788273422609864}
+  - component: {fileID: 114679268985363198}
   m_Layer: 0
   m_Name: magic_ring_01
   m_TagString: Untagged
@@ -196,6 +197,19 @@ Transform:
   m_Father: {fileID: 4506904024045790}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &114679268985363198
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1578231811263146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de0abd33870fefb4c9fc364fc0624a57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onHitAnimation: {fileID: 0}
+  spellSound: {fileID: 8300000, guid: 3a7e3ee195b047a42aedb63329649a55, type: 3}
 --- !u!198 &198317454341936920
 ParticleSystem:
   m_ObjectHideFlags: 1

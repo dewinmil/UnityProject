@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 198000012777718758}
   - component: {fileID: 199000010553669322}
   - component: {fileID: 82144548244289020}
+  - component: {fileID: 114711527670392648}
   m_Layer: 0
   m_Name: BigExplosionEffect
   m_TagString: Untagged
@@ -339,6 +340,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114711527670392648
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011797152326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de0abd33870fefb4c9fc364fc0624a57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onHitAnimation: {fileID: 0}
+  spellSound: {fileID: 8300000, guid: ae143492ebcfa344d89463a25ffeb64f, type: 3}
 --- !u!198 &198000010667505060
 ParticleSystem:
   m_ObjectHideFlags: 1

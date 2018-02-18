@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 198000013227194214}
   - component: {fileID: 199000010346745340}
   - component: {fileID: 82611863292343098}
+  - component: {fileID: 114172661907696812}
   m_Layer: 0
   m_Name: FlamesParticleEffect
   m_TagString: Untagged
@@ -184,6 +185,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114172661907696812
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010823978654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de0abd33870fefb4c9fc364fc0624a57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onHitAnimation: {fileID: 0}
+  spellSound: {fileID: 8300000, guid: c6236786972bc63468a551df46a2515f, type: 3}
 --- !u!198 &198000012351162682
 ParticleSystem:
   m_ObjectHideFlags: 1
