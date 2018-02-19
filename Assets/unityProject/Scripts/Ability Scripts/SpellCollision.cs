@@ -19,7 +19,7 @@ public class SpellCollision : MonoBehaviour
         timeToKill = false;
         source = gameObject.AddComponent<AudioSource>();
         source.clip = spellSound;
-        source.volume = (float).5;
+        source.volume = (float).75;
         maxVolume = source.volume;
         source.loop = true;
         source.Play();
@@ -28,6 +28,7 @@ public class SpellCollision : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (source.clip.length - source.time <= 1)
         {
             source.volume = maxVolume * (source.clip.length - source.time);
@@ -58,6 +59,7 @@ public class SpellCollision : MonoBehaviour
         if (other.tag == "Unit")
         {
             //if the script has a second animation for when it hits the target
+
             if (hitOnce == false)
             {
                 if (onHitAnimation)

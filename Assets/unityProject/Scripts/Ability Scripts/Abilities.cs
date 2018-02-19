@@ -5,9 +5,8 @@ using UnityEngine.EventSystems;
 
 public class Abilities : MonoBehaviour
 {
-
     public bool usingAbility;
-    int abilityUsed;
+    public int abilityUsed;
     public Ray ray;
     public CharacterStatus _casterStatus;
     public MoveInput _casterMoveInput;
@@ -72,6 +71,7 @@ public class Abilities : MonoBehaviour
                 //check if the spell effect is reduced by magic resistance or armor
                 if (isMagic)
                 {
+
                     if(magicPen == 0)
                     {
                         resistance = target.magicArmor;
@@ -129,6 +129,7 @@ public class Abilities : MonoBehaviour
 
                 //ability is finished set boolean
                 usingAbility = false;
+
             }
             else
             {
@@ -160,12 +161,13 @@ public class Abilities : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         //check if the unit is selected
         if (_casterMoveInput.isSelected)
         {
             //enable or disable spellcast on keypress
             if (Input.GetKeyUp(spellHotkey1))
-            {
+            {           
                 toggleCasting();
                 abilityUsed = 1;
             }
@@ -195,7 +197,6 @@ public class Abilities : MonoBehaviour
             }
         }
 
-
         //if the caster has an ability selected
         if (usingAbility == true)
         {
@@ -213,6 +214,8 @@ public class Abilities : MonoBehaviour
                         //if the ray hits an object with the Unit tag
                         if (hit.collider.tag == "Unit")
                         {
+                            _unit.abil = abilityUsed;
+
                             //cast an ability
                             if (abilityUsed == 1)
                             {
@@ -269,8 +272,32 @@ public class Abilities : MonoBehaviour
                 usingAbility = true;
                 _casterMoveInput.castingSpell = true;
             }
-        }
+        } 
+    }
 
+    public void ability1(CharacterStatus target)
+    {
+        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
+    }
+
+    public void ability2(CharacterStatus target)
+    {
+        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
+    }
+
+    public void ability3(CharacterStatus target)
+    {
+        castAbility(target, 0, 3, 3, 0, 0, 0, false);
+    }
+
+    public void ability4(CharacterStatus target)
+    {
+        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
+    }
+
+    public void ability5(CharacterStatus target)
+    {
+        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
     }
 
 }
