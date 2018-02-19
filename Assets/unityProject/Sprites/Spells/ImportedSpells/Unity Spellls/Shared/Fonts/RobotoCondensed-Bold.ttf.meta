@@ -1,9 +1,8 @@
 fileFormatVersion: 2
-guid: b288c503b67a9204a99e78317211a518
+guid: fae067962e5934395be31c8aba4a3455
 timeCreated: 1474535799
 licenseType: Store
 TrueTypeFontImporter:
-  externalObjects: {}
   serializedVersion: 4
   fontSize: 16
   forceTextureCase: -2
@@ -13,12 +12,10 @@ TrueTypeFontImporter:
   fontName: Roboto Condensed
   fontNames:
   - Roboto Condensed
-  fallbackFontReferences:
-  - {fileID: 12800000, guid: fae067962e5934395be31c8aba4a3455, type: 3}
+  fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
-  useLegacyBoundsCalculation: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

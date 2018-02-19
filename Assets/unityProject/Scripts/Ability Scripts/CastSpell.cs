@@ -91,10 +91,11 @@ public class CastSpell : MonoBehaviour
             if (canCast(abilityNum))
             {
 
+                spellAlive = true;
                 //create spell effect on the castors position and ignore collisions with the caster so it does not instantly detonate
                 Vector3 startPos = new Vector3(_caster.transform.position.x, _caster.transform.position.y + (float).5, _caster.transform.position.z);
                 currentAnimation = Instantiate(abilityAnimation, _caster.transform.position, Quaternion.identity);
-                Physics.IgnoreCollision(currentAnimation.GetComponent<Collider>(), gameObject.GetComponentInParent<Collider>());
+                Physics.IgnoreCollision(currentAnimation.GetComponent<SphereCollider>(), gameObject.GetComponentInParent<CapsuleCollider>());
 
                 //rotate the spell in the direction of the target
                 float rotation = getRotation(target);
