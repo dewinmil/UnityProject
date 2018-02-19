@@ -41,6 +41,8 @@ public class Unit : MonoBehaviour
         {
             MoveUnitToTarget();
         }
+
+        //Character animations for moving, ability use, and hit reaction.
         anim.SetBool("Moving", isMoving);
         anim.SetInteger("Ability", abil);
         abil = 0;
