@@ -5,10 +5,6 @@ using UnityEngine.EventSystems;
 
 public class Abilities : MonoBehaviour
 {
-<<<<<<< HEAD
-=======
-
->>>>>>> merge
     public bool usingAbility;
     int abilityUsed;
     public Ray ray;
@@ -51,16 +47,8 @@ public class Abilities : MonoBehaviour
     // Use this for initialization
     public void useAbility(int ability)
     {
-<<<<<<< HEAD
         //toggle casting determins whether your next click will cast a spell or not
         //it is a toggle so you can reselect a spell to cancel casting
-=======
-<<<<<<< HEAD
-=======
-        //toggle casting determins whether your next click will cast a spell or not
-        //it is a toggle so you can reselect a spell to cancel casting
->>>>>>> merge
->>>>>>> 156e231137ec011e41e6631556018d29a5945305
         toggleCasting();
 
         //sets the last ability selected
@@ -169,20 +157,9 @@ public class Abilities : MonoBehaviour
     }
 
     // Update is called once per frame
-<<<<<<< HEAD
     void Update()
     {
         //check if the unit is selected
-=======
-<<<<<<< HEAD
-    void Update ()
-    {
-=======
-    void Update()
-    {
-        //check if the unit is selected
->>>>>>> merge
->>>>>>> 156e231137ec011e41e6631556018d29a5945305
         if (_casterMoveInput.isSelected)
         {
             //enable or disable spellcast on keypress
@@ -217,15 +194,7 @@ public class Abilities : MonoBehaviour
             }
         }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> merge
         //if the caster has an ability selected
-<<<<<<< HEAD
-=======
->>>>>>> merge
->>>>>>> 156e231137ec011e41e6631556018d29a5945305
         if (usingAbility == true)
         {
             //if the left mouse button is pressed
@@ -298,7 +267,6 @@ public class Abilities : MonoBehaviour
                 usingAbility = true;
                 _casterMoveInput.castingSpell = true;
             }
-<<<<<<< HEAD
         } 
     }
 
@@ -325,10 +293,6 @@ public class Abilities : MonoBehaviour
     public void ability5(CharacterStatus target)
     {
         castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
-=======
-        }
-
->>>>>>> merge
     }
 
 }
