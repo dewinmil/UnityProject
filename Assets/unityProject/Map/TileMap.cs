@@ -13,7 +13,6 @@ public class TileMap : MonoBehaviour
 {
     //2-D array of tiles
     private int[,] _tiles;
-
     private HashAlgorithm _hashAlgorithm;
     private Dictionary<string, GameObject> _tileObjects;
     private int _mapSizeX = 20;
