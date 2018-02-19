@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 
@@ -13,6 +12,9 @@ public class Unit : MonoBehaviour
     private bool isMoving;
     public MoveInput _characterMoveInput;
     public bool moveToggle;
+    public Animator anim;
+    public int abil;
+    public bool react;
 
     //variable to make the unit walk slower
     private int _waitCount = 0;
@@ -22,6 +24,9 @@ public class Unit : MonoBehaviour
     private void Start()
     {
         this.unitId = -1;
+        anim = GetComponent<Animator>();
+        abil = 0;
+        react = false;
     }
 
     void Update()
@@ -35,6 +40,12 @@ public class Unit : MonoBehaviour
         {
             MoveUnitToTarget();
         }
+        anim.SetBool("Moving", isMoving);
+        anim.SetInteger("Ability", abil);
+        abil = 0;
+        anim.SetBool("React", react);
+        react = false;
+        
     }
 
     public void setUnitId(int id)
@@ -62,9 +73,12 @@ public class Unit : MonoBehaviour
             //if we get in this, we know we are at our destination
             if (currentPath.Count == 1)
             {
+                //why are there two variables for when the unit is moving?
+                map.UnhighlightTilesInCurrentPath();
                 currentPath = null;
                 isMoving = false;
                 _waitCount = 0;
+                moveToggle = false;
             }
         }
     }
@@ -107,5 +121,10 @@ public class Unit : MonoBehaviour
         {
             moveToggle = false;
         }
+    }
+
+    public void SelectedUnitChanged()
+    {
+        map.SelectedUnitChanged(this.gameObject);
     }
 }

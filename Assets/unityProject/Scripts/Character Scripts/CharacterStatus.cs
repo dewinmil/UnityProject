@@ -19,6 +19,7 @@ public class CharacterStatus : MonoBehaviour {
     public Image actionBarUI;
     public Text healthBarTextUI;
     public Text actionBarTextUI;
+    public Unit _unit;
 
 
     // Use this for initialization
@@ -56,6 +57,7 @@ public class CharacterStatus : MonoBehaviour {
     public void loseHealth(float damage)
     {
         currentHealth -= damage;
+        //_unit.react = true;
     }
     public void gainHealth(float healing)
     {
