@@ -337,22 +337,31 @@ GameObject:
   m_Component:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 156e231137ec011e41e6631556018d29a5945305
   - component: {fileID: 4105785829802482}
   - component: {fileID: 114214570768054452}
   - component: {fileID: 114835371703147048}
   m_Layer: 0
   m_Name: CharacerEventManager
 =======
+<<<<<<< HEAD
 =======
 >>>>>>> merge
+=======
+>>>>>>> 156e231137ec011e41e6631556018d29a5945305
   - component: {fileID: 224353317077829076}
   - component: {fileID: 222701683522679112}
   - component: {fileID: 114329317089253358}
   m_Layer: 5
   m_Name: Tooltip Text
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> merge
 =======
+=======
+>>>>>>> 156e231137ec011e41e6631556018d29a5945305
 >>>>>>> merge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1285,6 +1294,9 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 156e231137ec011e41e6631556018d29a5945305
 --- !u!114 &114214570768054452
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1369,9 +1381,12 @@ MonoBehaviour:
   m_FillOrigin: 0
 --- !u!114 &114247051531393312
 =======
+<<<<<<< HEAD
 --- !u!114 &114275434555545620
 >>>>>>> merge
 =======
+=======
+>>>>>>> 156e231137ec011e41e6631556018d29a5945305
 --- !u!114 &114275434555545620
 >>>>>>> merge
 MonoBehaviour:
@@ -3170,6 +3185,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 156e231137ec011e41e6631556018d29a5945305
   m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
   m_BlockingMask:
@@ -3196,11 +3214,14 @@ MonoBehaviour:
   delegates: []
 --- !u!114 &114983256129106832
 >>>>>>> merge
+<<<<<<< HEAD
 =======
   m_Delegates: []
   delegates: []
 --- !u!114 &114983256129106832
 >>>>>>> merge
+=======
+>>>>>>> 156e231137ec011e41e6631556018d29a5945305
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -3219,6 +3240,9 @@ MonoBehaviour:
   spellMoves: 1
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 156e231137ec011e41e6631556018d29a5945305
 --- !u!114 &114885715290455322
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3238,9 +3262,12 @@ MonoBehaviour:
   moveToggle: 0
 --- !u!114 &114912023885420982
 =======
+<<<<<<< HEAD
 --- !u!114 &114988493625246304
 >>>>>>> merge
 =======
+=======
+>>>>>>> 156e231137ec011e41e6631556018d29a5945305
 --- !u!114 &114988493625246304
 >>>>>>> merge
 MonoBehaviour:
