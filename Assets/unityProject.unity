@@ -296,6 +296,26 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1468481980}
   m_Script: {fileID: 11500000, guid: 12774a59f2774f942832b6d61455543c, type: 3}
+--- !u!1 &522135736 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1853990749785178, guid: d98022e13ff268e41a314f6f303d8f46,
+    type: 2}
+  m_PrefabInternal: {fileID: 1468481980}
+--- !u!54 &522135743
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 522135736}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &916485984
 GameObject:
   m_ObjectHideFlags: 0
@@ -880,15 +900,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4373449969078108, guid: d98022e13ff268e41a314f6f303d8f46, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 9
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 4373449969078108, guid: d98022e13ff268e41a314f6f303d8f46, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.05
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4373449969078108, guid: d98022e13ff268e41a314f6f303d8f46, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4373449969078108, guid: d98022e13ff268e41a314f6f303d8f46, type: 2}
       propertyPath: m_LocalRotation.x
@@ -920,6 +940,26 @@ Prefab:
       propertyPath: _unit
       value: 
       objectReference: {fileID: 264068444}
+    - target: {fileID: 143711194736821034, guid: d98022e13ff268e41a314f6f303d8f46,
+        type: 2}
+      propertyPath: m_Radius
+      value: 0.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 143711194736821034, guid: d98022e13ff268e41a314f6f303d8f46,
+        type: 2}
+      propertyPath: m_Center.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 143711194736821034, guid: d98022e13ff268e41a314f6f303d8f46,
+        type: 2}
+      propertyPath: m_SkinWidth
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 143711194736821034, guid: d98022e13ff268e41a314f6f303d8f46,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d98022e13ff268e41a314f6f303d8f46, type: 2}
   m_IsPrefabParent: 0
