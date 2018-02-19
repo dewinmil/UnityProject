@@ -5,7 +5,6 @@ using UnityEngine.EventSystems;
 
 public class Abilities : MonoBehaviour
 {
-
     public bool usingAbility;
     public int abilityUsed;
     public Ray ray;
@@ -168,7 +167,7 @@ public class Abilities : MonoBehaviour
         {
             //enable or disable spellcast on keypress
             if (Input.GetKeyUp(spellHotkey1))
-            {
+            {           
                 toggleCasting();
                 abilityUsed = 1;
             }
@@ -197,7 +196,6 @@ public class Abilities : MonoBehaviour
                 toggleMovement();
             }
         }
-
 
         //if the caster has an ability selected
         if (usingAbility == true)
@@ -274,8 +272,32 @@ public class Abilities : MonoBehaviour
                 usingAbility = true;
                 _casterMoveInput.castingSpell = true;
             }
-        }
+        } 
+    }
 
+    public void ability1(CharacterStatus target)
+    {
+        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
+    }
+
+    public void ability2(CharacterStatus target)
+    {
+        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
+    }
+
+    public void ability3(CharacterStatus target)
+    {
+        castAbility(target, 0, 3, 3, 0, 0, 0, false);
+    }
+
+    public void ability4(CharacterStatus target)
+    {
+        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
+    }
+
+    public void ability5(CharacterStatus target)
+    {
+        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
     }
 
 }
