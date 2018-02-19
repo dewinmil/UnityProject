@@ -23,6 +23,4 @@ public class GameMaster : MonoBehaviour
     {
         activeTeam = (activeTeam + 1) % 2;
     }
-
-    public void 
 }

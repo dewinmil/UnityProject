@@ -30,7 +30,7 @@ public class Unit : MonoBehaviour
         //unit will only 'walk' every 15 frames
         //this probably isn't a good way to do it, since framerate will depend on the computer 
         //best way would be to use Time.DeltaTime I believe, but that can be implemented later
-        if (currentPath != null && isMoving && (_waitCount % 15 == 0))
+        if (currentPath != null && isMoving && (_waitCount % 60 == 0))
         {
             MoveUnitToTarget();
         }
@@ -61,9 +61,12 @@ public class Unit : MonoBehaviour
             //if we get in this, we know we are at our destination
             if (currentPath.Count == 1)
             {
+                //why are there two variables for when the unit is moving?
+                map.UnhighlightTilesInCurrentPath();
                 currentPath = null;
                 isMoving = false;
                 _waitCount = 0;
+                moveToggle = false;
             }
         }
     }
@@ -106,5 +109,10 @@ public class Unit : MonoBehaviour
         {
             moveToggle = false;
         }
+    }
+
+    public void SelectedUnitChanged()
+    {
+        map.SelectedUnitChanged(this.gameObject);
     }
 }

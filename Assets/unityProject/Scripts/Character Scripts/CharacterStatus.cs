@@ -35,6 +35,7 @@ public class CharacterStatus : MonoBehaviour {
 
     public void updateStatusBars()
     {
+        //update the size of the healthbars on screen depending upon how "full" they are
         float ratio = currentHealth / maxHealth;
         healthBar.rectTransform.localScale  = new Vector3(ratio, 1, 1);
         healthBarText.text = currentHealth.ToString() + " / " + maxHealth.ToString();
