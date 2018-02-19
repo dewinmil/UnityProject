@@ -288,14 +288,17 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 --- !u!114 &264068444 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114361755356421264, guid: d98022e13ff268e41a314f6f303d8f46,
     type: 2}
   m_PrefabInternal: {fileID: 1468481980}
   m_Script: {fileID: 11500000, guid: 12774a59f2774f942832b6d61455543c, type: 3}
+=======
+>>>>>>> merge
 --- !u!1 &916485984
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,8 +642,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56c706b4891341b4380e093684f35323, type: 3}
+<<<<<<< HEAD
   m_Name:
   m_EditorClassIdentifier:
+=======
+  m_Name: 
+  m_EditorClassIdentifier: 
+>>>>>>> merge
   mixerGroup: {fileID: 0}
   sounds:
   - name: Menu Music
@@ -708,6 +716,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+<<<<<<< HEAD
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1172754786 stripped
@@ -732,6 +741,10 @@ Animator:
   m_WarningMessage:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+=======
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+>>>>>>> merge
 --- !u!1001 &1277967744
 Prefab:
   m_ObjectHideFlags: 0
@@ -997,6 +1010,7 @@ GameObject:
   m_PrefabParentObject: {fileID: 1927011813885476, guid: 7279a4900f3bcb44f8bc16cf957e0158,
     type: 2}
   m_PrefabInternal: {fileID: 2083483216}
+<<<<<<< HEAD
 --- !u!95 &1543989751
 Animator:
   serializedVersion: 3
@@ -1014,6 +1028,8 @@ Animator:
   m_WarningMessage:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+=======
+>>>>>>> merge
 --- !u!1 &1769402210
 GameObject:
   m_ObjectHideFlags: 0
@@ -1256,12 +1272,20 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4247720239049760, guid: 7279a4900f3bcb44f8bc16cf957e0158, type: 2}
       propertyPath: m_RootOrder
+<<<<<<< HEAD
       value: 0
+=======
+      value: 7
+>>>>>>> merge
       objectReference: {fileID: 0}
     - target: {fileID: 114149436278454434, guid: 7279a4900f3bcb44f8bc16cf957e0158,
         type: 2}
       propertyPath: map
+<<<<<<< HEAD
       value:
+=======
+      value: 
+>>>>>>> merge
       objectReference: {fileID: 102793256}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7279a4900f3bcb44f8bc16cf957e0158, type: 2}

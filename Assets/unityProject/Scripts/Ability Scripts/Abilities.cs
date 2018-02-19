@@ -5,6 +5,10 @@ using UnityEngine.EventSystems;
 
 public class Abilities : MonoBehaviour
 {
+<<<<<<< HEAD
+=======
+
+>>>>>>> merge
     public bool usingAbility;
     int abilityUsed;
     public Ray ray;
@@ -194,6 +198,10 @@ public class Abilities : MonoBehaviour
             }
         }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> merge
         //if the caster has an ability selected
         if (usingAbility == true)
         {
@@ -267,6 +275,7 @@ public class Abilities : MonoBehaviour
                 usingAbility = true;
                 _casterMoveInput.castingSpell = true;
             }
+<<<<<<< HEAD
         } 
     }
 
@@ -293,6 +302,10 @@ public class Abilities : MonoBehaviour
     public void ability5(CharacterStatus target)
     {
         castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
+=======
+        }
+
+>>>>>>> merge
     }
 
 }
