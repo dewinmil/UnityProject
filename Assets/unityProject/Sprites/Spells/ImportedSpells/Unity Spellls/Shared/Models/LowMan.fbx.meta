@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f22f8faf24adb0e41af0d617587de2c2
+guid: 7e15121f5f042ed46aba81406403f2d2
 timeCreated: 1506938147
 licenseType: Store
 ModelImporter:
@@ -140,7 +140,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: MazeLowMan
-    second: {fileID: 2100000, guid: 812f250b66c69b645b3ba563d1de4d19, type: 2}
+    second: {fileID: 2100000, guid: d695529081158d44f84e349bd501fde6, type: 2}
   materials:
     importMaterials: 1
     materialName: 1
@@ -184,8 +184,6 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
-    preserveHierarchy: 0
-    indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88

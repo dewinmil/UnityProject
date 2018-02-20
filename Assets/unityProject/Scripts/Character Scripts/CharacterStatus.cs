@@ -57,7 +57,7 @@ public class CharacterStatus : MonoBehaviour {
     public void loseHealth(float damage)
     {
         currentHealth -= damage;
-        _unit.react = true;
+        //_unit.react = true;
     }
     public void gainHealth(float healing)
     {
