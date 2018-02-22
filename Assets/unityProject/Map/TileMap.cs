@@ -13,7 +13,6 @@ public class TileMap : MonoBehaviour
 {
     //2-D array of tiles
     private int[,] _tiles;
-
     private HashAlgorithm _hashAlgorithm;
     private Dictionary<string, GameObject> _tileObjects;
     private int _mapSizeX = 20;
@@ -38,7 +37,7 @@ public class TileMap : MonoBehaviour
         //set up selected unit vars
         _selectedUnit.GetComponent<Unit>().tileX = (int)_selectedUnit.transform.position.x;
         _selectedUnit.GetComponent<Unit>().tileZ = (int)_selectedUnit.transform.position.z;
-        _selectedUnit.GetComponent<Unit>().map = this;
+        _selectedUnit.GetComponent<Unit>()._map = this;
 
         //Generate the data for the map 
         GenerateMapData();
@@ -193,7 +192,7 @@ public class TileMap : MonoBehaviour
     public void GeneratePathTo(int x, int z)
     {
         //remove old path on selected unit
-        _selectedUnit.GetComponent<Unit>().currentPath = null;
+        _selectedUnit.GetComponent<Unit>()._currentPath = null;
 
         Dictionary<Node, float> dist = new Dictionary<Node, float>();
         Dictionary<Node, Node> prev = new Dictionary<Node, Node>();
@@ -287,7 +286,7 @@ public class TileMap : MonoBehaviour
         _currentPath = new Node[currentPath.Count];
         currentPath.CopyTo(_currentPath);
 
-        _selectedUnit.GetComponent<Unit>().currentPath = currentPath;
+        _selectedUnit.GetComponent<Unit>()._currentPath = currentPath;
     }
 
     void GenerateMapData()
