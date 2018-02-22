@@ -2,14 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
-public class CharacterStatus : MonoBehaviour {
+public class CharacterStatus : NetworkBehaviour {
+    [SyncVar]
     public int teamNum;
+    [SyncVar]
     public float maxAction;
+    [SyncVar]
     public float currentAction;
+    [SyncVar]
     public float maxHealth;
+    [SyncVar]
     public float currentHealth;
+    [SyncVar]
     public float physicalArmor;//a value of 1 is 100% resistance
+    [SyncVar]
     public float magicArmor;//a value of 1 is 100% resistance
     public Image healthBar;
     public Image actionBar;
@@ -56,19 +64,35 @@ public class CharacterStatus : MonoBehaviour {
     
     public void loseHealth(float damage)
     {
+        if (!isServer)
+        {
+            return;
+        }
         currentHealth -= damage;
         //_unit.react = true;
     }
     public void gainHealth(float healing)
     {
+        if (!isServer)
+        {
+            return;
+        }
         currentHealth += healing;
     }
     public void loseAction(float apCost)
     {
+        if (!isServer)
+        {
+            return;
+        }
         currentAction -= apCost;
     }
     public void gainAction()
     {
+        if (!isServer)
+        {
+            return;
+        }
         // At the beginning of the turn
         currentAction += 8;
     }

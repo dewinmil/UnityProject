@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Networking;
 
-public class GameMaster : MonoBehaviour
+public class GameMaster : NetworkBehaviour
 {
     public List<Abilities> unitList = new List<Abilities>();
     public int activeTeam;

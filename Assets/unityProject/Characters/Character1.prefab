@@ -563,6 +563,8 @@ GameObject:
   - component: {fileID: 195803282818879492}
   - component: {fileID: 54581050148387690}
   - component: {fileID: 136244550582252306}
+  - component: {fileID: 114529613952429612}
+  - component: {fileID: 114814930660348710}
   m_Layer: 0
   m_Name: Character1
   m_TagString: Unit
@@ -3920,6 +3922,38 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 
+--- !u!114 &114529613952429612
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1318518631321092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 217
+    i1: 128
+    i2: 34
+    i3: 225
+    i4: 63
+    i5: 242
+    i6: 104
+    i7: 228
+    i8: 26
+    i9: 49
+    i10: 79
+    i11: 111
+    i12: 48
+    i13: 61
+    i14: 143
+    i15: 70
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114530485439521800
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4213,12 +4247,34 @@ MonoBehaviour:
   tileX: 0
   tileZ: 0
   unitId: 0
-  map: {fileID: 0}
+  _map: {fileID: 0}
   _characterMoveInput: {fileID: 114547878120859502}
   moveToggle: 0
   anim: {fileID: 0}
   abil: 0
   react: 0
+  _rigidbody: {fileID: 54581050148387690}
+--- !u!114 &114814930660348710
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1318518631321092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.033333335
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &114842810691213966
 MonoBehaviour:
   m_ObjectHideFlags: 1

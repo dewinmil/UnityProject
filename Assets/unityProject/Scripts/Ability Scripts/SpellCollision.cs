@@ -1,7 +1,9 @@
 ﻿using System;
 using UnityEngine.Audio;
 using UnityEngine;
-public class SpellCollision : MonoBehaviour
+using UnityEngine.Networking;
+
+public class SpellCollision : NetworkBehaviour
 {
 
     public GameObject onHitAnimation;
@@ -65,7 +67,8 @@ public class SpellCollision : MonoBehaviour
                 if (onHitAnimation)
                 {
                     //create the hit animation on top of the target
-                    Instantiate(onHitAnimation, transform.position, Quaternion.identity);
+                    NetworkServer.Spawn(Instantiate(onHitAnimation, transform.position, Quaternion.identity));
+
                 }
                 hitOnce = true;
             }

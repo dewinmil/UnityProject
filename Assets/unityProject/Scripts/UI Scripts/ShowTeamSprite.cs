@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class ShowTeamSprite : MonoBehaviour {
+public class ShowTeamSprite : NetworkBehaviour {
 
     public MoveInput _characterMoveInput;
 

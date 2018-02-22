@@ -56,6 +56,8 @@ GameObject:
   - component: {fileID: 198000010585806678}
   - component: {fileID: 199000012270651464}
   - component: {fileID: 114889228501574372}
+  - component: {fileID: 114464929782217458}
+  - component: {fileID: 114825279326396136}
   m_Layer: 0
   m_Name: PlasmaExplosionEffect
   m_TagString: Untagged
@@ -166,6 +168,59 @@ Transform:
   m_Father: {fileID: 4000011693693590}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114464929782217458
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011128802252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 150
+    i1: 115
+    i2: 15
+    i3: 134
+    i4: 64
+    i5: 89
+    i6: 9
+    i7: 52
+    i8: 234
+    i9: 203
+    i10: 111
+    i11: 134
+    i12: 0
+    i13: 88
+    i14: 231
+    i15: 249
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+--- !u!114 &114825279326396136
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011128802252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &114889228501574372
 MonoBehaviour:
   m_ObjectHideFlags: 1

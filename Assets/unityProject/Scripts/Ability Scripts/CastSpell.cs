@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 /*
  * A class that instantiates a spell animation and directs it to the target
  * before calling the abilities class to deal the spell effect (damage,etc)
  * to the target
  */
-public class CastSpell : MonoBehaviour
+public class CastSpell : NetworkBehaviour
 {
 
     public GameObject abilityAnimation;
@@ -19,7 +20,7 @@ public class CastSpell : MonoBehaviour
     private GameObject onHitAnimation;
     private CharacterStatus spellTarget;
     private int abilityNum;
-
+    
     // Use this for initialization
     void Start()
     {
@@ -79,6 +80,7 @@ public class CastSpell : MonoBehaviour
         }
     }
 
+
     public void Cast(CharacterStatus target, int _abilityNum)
     {
         abilityNum = _abilityNum;
@@ -107,6 +109,7 @@ public class CastSpell : MonoBehaviour
 
                 //accelerate the spell animation towards the target
                 currentAnimation.GetComponent<Rigidbody>().AddForce(targetDirection * 1000);
+                NetworkServer.Spawn(currentAnimation);
             }
         }
         //this spell appears on the targets location
@@ -119,7 +122,7 @@ public class CastSpell : MonoBehaviour
                 //create spell effect on the target location
                 currentAnimation = Instantiate(abilityAnimation, target.transform.position, Quaternion.identity);
                 currentAnimation.transform.position = new Vector3(currentAnimation.transform.position.x, 0, currentAnimation.transform.position.z);
-
+                NetworkServer.Spawn(currentAnimation);
                 //as the spell is at the target immediately apply appropriate spell effect
                 //from the abilities class
 

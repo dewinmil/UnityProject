@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Networking;
 
-public class Abilities : MonoBehaviour
+public class Abilities : NetworkBehaviour
 {
     public bool usingAbility;
     public int abilityUsed;
