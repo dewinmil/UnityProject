@@ -8,18 +8,18 @@ public class Unit : MonoBehaviour
     public int tileX;
     public int tileZ;
     public int unitId;
-    public TileMap map;
-    private bool isMoving;
+    public TileMap _map;
+    private bool _isMoving;
     public MoveInput _characterMoveInput;
     public bool moveToggle;
     public Animator anim;
     public int abil;
     public bool react;
+    public Rigidbody _rigidbody;
+    private Vector3 _nextTile;
+    private const float MOVEMENT_SPEED = 100f;
 
-    //variable to make the unit walk slower
-    private int _waitCount = 0;
-
-    public List<Node> currentPath = null;
+    public List<Node> _currentPath = null;
 
     private void Start()
     {
@@ -31,23 +31,30 @@ public class Unit : MonoBehaviour
 
     void Update()
     {
-        _waitCount++;
-        //if the character is set to move, move it
-        //unit will only 'walk' every 15 frames
-        //this probably isn't a good way to do it, since framerate will depend on the computer 
-        //best way would be to use Time.DeltaTime I believe, but that can be implemented later
-        if (currentPath != null && isMoving && (_waitCount % 60 == 0))
-        {
-            MoveUnitToTarget();
-        }
 
-        //Character animations for moving, ability use, and hit reaction.
-        anim.SetBool("Moving", isMoving);
+        anim.SetBool("Moving", _isMoving);
         anim.SetInteger("Ability", abil);
         abil = 0;
         anim.SetBool("React", react);
         react = false;
-        
+    }
+
+    void FixedUpdate()
+    {
+        if (_currentPath != null && _isMoving)
+        {
+            //if we are pretty damn close to the center of the next tile, move to the next one
+            float currDistance = Vector3.Distance(this.transform.position, _nextTile);
+            if (currDistance > 0 && currDistance < 0.2)
+            {
+                MoveToNextTile();  
+            }
+            //else keep moving towards the current targeted tile
+            else
+            {
+                _rigidbody.AddRelativeForce(Vector3.forward * MOVEMENT_SPEED, ForceMode.Force);
+            }
+        }
     }
 
     public void setUnitId(int id)
@@ -60,43 +67,38 @@ public class Unit : MonoBehaviour
         return this.unitId;
     }
 
-    private void MoveUnitToTarget()
-    {
-        if (_characterMoveInput.isSelected)
-        {
-            int currNode = 0;
-
-            while (currNode < currentPath.Count - 1)
-            {
-                MoveToNextTile();
-                currNode++;
-            }
-
-            //if we get in this, we know we are at our destination
-            if (currentPath.Count == 1)
-            {
-                //why are there two variables for when the unit is moving?
-                map.UnhighlightTilesInCurrentPath();
-                currentPath = null;
-                isMoving = false;
-                _waitCount = 0;
-                moveToggle = false;
-            }
-        }
-    }
-
     private void MoveToNextTile()
     {
-        if (currentPath == null)
+        if (_currentPath == null)
             return;
 
-        //remove the old current/first node from the path
-        currentPath.RemoveAt(0);
+        _rigidbody.velocity = Vector3.zero;
+        this.transform.position = _nextTile;
 
-        //grab the new first node and move to that position
-        this.transform.position = map.TileCoordToWorldCoord(currentPath[0].x, currentPath[0].z);
-        this.tileX = currentPath[0].x;
-        this.tileZ = currentPath[0].z;
+        //if we get in this, we know we are at our destination
+        if (_currentPath.Count == 1)
+        {
+            //update the units X/Y
+            this.tileX = _currentPath[0].x;
+            this.tileZ = _currentPath[0].z;
+            //why are there two variables for when the unit is moving?
+            _map.UnhighlightTilesInCurrentPath();
+            _currentPath = null;
+            _isMoving = false;
+            moveToggle = false;
+        }
+        else
+        {
+            //remove the tile we are standing on
+            _currentPath.RemoveAt(0);
+            //global coordinates for the next tile
+            _nextTile = _map.TileCoordToWorldCoord(_currentPath[0].x, _currentPath[0].z);
+            this.transform.LookAt(_nextTile);
+            //update the units X/Y
+            this.tileX = _currentPath[0].x;
+            this.tileZ = _currentPath[0].z;
+        }
+
     }
 
     public void BeginMovement()
@@ -105,10 +107,11 @@ public class Unit : MonoBehaviour
         {
             if (EventSystem.current.IsPointerOverGameObject() == false)
             {
-                if (currentPath == null)
+                if (_currentPath == null)
                     return;
-
-                isMoving = true;
+                
+                MoveToNextTile();
+                _isMoving = true;
             }
         }
     }
@@ -127,6 +130,6 @@ public class Unit : MonoBehaviour
 
     public void SelectedUnitChanged()
     {
-        map.SelectedUnitChanged(this.gameObject);
+        _map.SelectedUnitChanged(this.gameObject);
     }
 }
