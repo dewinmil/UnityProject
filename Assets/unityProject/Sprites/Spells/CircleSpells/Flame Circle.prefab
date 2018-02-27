@@ -562,6 +562,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onHitAnimation: {fileID: 0}
   spellSound: {fileID: 8300000, guid: c6236786972bc63468a551df46a2515f, type: 3}
+  abilityUsed: 0
+  isOriginal: 0
 --- !u!114 &114493222862382482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -593,7 +595,7 @@ MonoBehaviour:
     i14: 142
     i15: 94
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  m_LocalPlayerAuthority: 1
 --- !u!198 &198013155854149488
 ParticleSystem:
   m_ObjectHideFlags: 1

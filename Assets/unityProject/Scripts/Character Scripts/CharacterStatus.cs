@@ -64,37 +64,42 @@ public class CharacterStatus : NetworkBehaviour {
     
     public void loseHealth(float damage)
     {
-        if (!isServer)
-        {
-            return;
-        }
         currentHealth -= damage;
         //_unit.react = true;
     }
     public void gainHealth(float healing)
     {
-        if (!isServer)
-        {
-            return;
-        }
         currentHealth += healing;
     }
     public void loseAction(float apCost)
     {
-        if (!isServer)
-        {
-            return;
-        }
         currentAction -= apCost;
     }
     public void gainAction()
     {
-        if (!isServer)
-        {
-            return;
-        }
         // At the beginning of the turn
         currentAction += 8;
+    }
+    
+    [Command]
+    public void CmdSyncValues(int teamNumVal, float maxActionVal, float currentActionVal,
+        float maxHealthVal, float currentHealthVal, float physicalArmorVal, float magicArmorVal)
+    {
+        if (isServer)
+        {
+            print(maxHealth);
+        }
+        teamNum = teamNumVal;
+        maxAction = maxActionVal;
+        currentAction = currentActionVal;
+        maxHealth = maxHealthVal;
+        currentHealth = currentHealthVal;
+        physicalArmor = physicalArmorVal;
+        magicArmor = magicArmorVal;
+        if (isServer)
+        {
+            print(maxHealth);
+        }
     }
     
 }
