@@ -85,10 +85,6 @@ public class CharacterStatus : NetworkBehaviour {
     public void CmdSyncValues(int teamNumVal, float maxActionVal, float currentActionVal,
         float maxHealthVal, float currentHealthVal, float physicalArmorVal, float magicArmorVal)
     {
-        if (isServer)
-        {
-            print(maxHealth);
-        }
         teamNum = teamNumVal;
         maxAction = maxActionVal;
         currentAction = currentActionVal;
@@ -96,10 +92,6 @@ public class CharacterStatus : NetworkBehaviour {
         currentHealth = currentHealthVal;
         physicalArmor = physicalArmorVal;
         magicArmor = magicArmorVal;
-        if (isServer)
-        {
-            print(maxHealth);
-        }
     }
     
 }

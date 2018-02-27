@@ -301,6 +301,7 @@ public class Abilities : NetworkBehaviour
         //copiedSpell._caster = gameObject.GetComponent<Abilities>();
         gameObject.GetComponentInParent<CastSpell>().abilityAnimation = copiedSpell.abilityAnimation;
         gameObject.GetComponentInParent<CastSpell>().abilityHitAnimation = copiedSpell.abilityHitAnimation;
+        gameObject.GetComponentInParent<CastSpell>().spellMoves = copiedSpell.spellMoves;
         //gameObject.GetComponentInParent<CastSpell>()._caster = gameObject.GetComponent<Abilities>();
     }
 
