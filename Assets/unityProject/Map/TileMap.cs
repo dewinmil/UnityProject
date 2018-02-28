@@ -25,9 +25,9 @@ public class TileMap : MonoBehaviour
     private const float TILE_Y_POS = -.5f;
     private bool wasCasting;
     private Node[] _currentPath;
-    private Color CURRENT_PATH_TILE_COLOR = Color.yellow;
-    private Color UNOCCUPIED_TILE_COLOR = new Color(0.49f, 1.0f, 0.47f);
-    private Color OCCUPIED_TILE_COLOR = new Color(1.0f, 0.47f, 0.47f);
+    private readonly Color CURRENT_PATH_TILE_COLOR = Color.yellow;
+    private readonly Color WALKABLE_TILE_COLOR = new Color(0.49f, 1.0f, 0.47f);
+    private readonly Color UNWALKABLE_TILE_COLOR = new Color(1.0f, 0.47f, 0.47f);
 
     private void Start()
     {
@@ -140,51 +140,56 @@ public class TileMap : MonoBehaviour
         for (int x = 0; x < _mapSizeX; x++)
         {
             for (int z = 0; z < _mapSizeZ; z++)
-            {
-                //Find all neighbors in a hex direction
-
-                //left neighbors
-                if (x > 0)
-                {
-                    //left neighbor
-                    _graph[x, z].neighbours.Add(_graph[x - 1, z]);
-
-                    //bottom left
-                    //if it's an even z row, the neighbors will be different due to the offset of the hex tiles
-                    if (z > 0 && z % 2 == 0)
-                        _graph[x, z].neighbours.Add(_graph[x - 1, z - 1]);
-                    else if (z > 0)
-                        _graph[x, z].neighbours.Add(_graph[x, z - 1]);
-
-                    //upper left
-                    //if it's an even z row, the neighbors will be different due to the offset of the hex tiles
-                    if (z < _mapSizeZ - 1 && z % 2 == 0)
-                        _graph[x, z].neighbours.Add(_graph[x - 1, z + 1]);
-                    else if (z < _mapSizeZ - 1)
-                        _graph[x, z].neighbours.Add(_graph[x, z + 1]);
-                }
-
-                //right neighbors
-                if (x < _mapSizeX - 1)
-                {
-                    //right neighbor
-                    _graph[x, z].neighbours.Add(_graph[x + 1, z]);
-
-                    //bottom right
-                    //if it's an even z row, the neighbors will be different due to the offset of the hex tiles
-                    if (z > 0 && z % 2 == 0)
-                        _graph[x, z].neighbours.Add(_graph[x, z - 1]);
-                    else if(z > 0)
-                        _graph[x, z].neighbours.Add(_graph[x + 1, z - 1]);
-
-                    //upper right
-                    //if it's an even z row, the neighbors will be different due to the offset of the hex tiles
-                    if (z < _mapSizeZ - 1 && z % 2 == 0)
-                        _graph[x, z].neighbours.Add(_graph[x, z + 1]);
-                    else if(z < _mapSizeZ - 1)
-                        _graph[x, z].neighbours.Add(_graph[x + 1, z + 1]);
-                }
+            {                
+                CalculateNeighbors(x, z);
             }
+        }
+    }
+
+    public void CalculateNeighbors(int x, int z)
+    {
+        //Find all neighbors in a hex direction
+
+        //left neighbors
+        if (x > 0)
+        {
+            //left neighbor
+            _graph[x, z].neighbours.Add(_graph[x - 1, z]);
+
+            //bottom left
+            //if it's an even z row, the neighbors will be different due to the offset of the hex tiles
+            if (z > 0 && z % 2 == 0)
+                _graph[x, z].neighbours.Add(_graph[x - 1, z - 1]);
+            else if (z > 0)
+                _graph[x, z].neighbours.Add(_graph[x, z - 1]);
+
+            //upper left
+            //if it's an even z row, the neighbors will be different due to the offset of the hex tiles
+            if (z < _mapSizeZ - 1 && z % 2 == 0)
+                _graph[x, z].neighbours.Add(_graph[x - 1, z + 1]);
+            else if (z < _mapSizeZ - 1)
+                _graph[x, z].neighbours.Add(_graph[x, z + 1]);
+        }
+
+        //right neighbors
+        if (x < _mapSizeX - 1)
+        {
+            //right neighbor
+            _graph[x, z].neighbours.Add(_graph[x + 1, z]);
+
+            //bottom right
+            //if it's an even z row, the neighbors will be different due to the offset of the hex tiles
+            if (z > 0 && z % 2 == 0)
+                _graph[x, z].neighbours.Add(_graph[x, z - 1]);
+            else if (z > 0)
+                _graph[x, z].neighbours.Add(_graph[x + 1, z - 1]);
+
+            //upper right
+            //if it's an even z row, the neighbors will be different due to the offset of the hex tiles
+            if (z < _mapSizeZ - 1 && z % 2 == 0)
+                _graph[x, z].neighbours.Add(_graph[x, z + 1]);
+            else if (z < _mapSizeZ - 1)
+                _graph[x, z].neighbours.Add(_graph[x + 1, z + 1]);
         }
     }
 
@@ -366,11 +371,23 @@ public class TileMap : MonoBehaviour
             string hash = GetHashString(tile.x, tile.z);
             MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
             if (count == _currentPath.Length-1)
-                mesh.material.color = OCCUPIED_TILE_COLOR;
+                mesh.material.color = UNWALKABLE_TILE_COLOR;
             else
-               mesh.material.color = UNOCCUPIED_TILE_COLOR;
+               mesh.material.color = WALKABLE_TILE_COLOR;
 
             count++;
         }
     }
+
+    public void SetTileWalkable(int x, int z, bool isWalkable)
+    {
+        //if we pass in true, make the tile walkable (0)
+        //if we pass in false, make the tile unwalkable (1)
+        _tiles[x, z] = isWalkable ? 0 : 1;
+
+        string hash = GetHashString(x, z);
+        MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
+        mesh.material.color = isWalkable ? WALKABLE_TILE_COLOR : UNWALKABLE_TILE_COLOR;
+    }
+
 }
