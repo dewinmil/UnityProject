@@ -62,6 +62,8 @@ GameObject:
   - component: {fileID: 19819286}
   - component: {fileID: 19994424}
   - component: {fileID: 114844658438877994}
+  - component: {fileID: 114954627240034530}
+  - component: {fileID: 114638599468913072}
   m_Layer: 0
   m_Name: Tornado
   m_TagString: Untagged
@@ -13763,6 +13765,27 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 197712}
   m_IsPrefabParent: 1
+--- !u!114 &114638599468913072
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 197712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 0
+  m_SendInterval: 0
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &114844658438877994
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13777,3 +13800,35 @@ MonoBehaviour:
   x: 0
   y: 1
   z: 0
+--- !u!114 &114954627240034530
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 197712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 29
+    i1: 189
+    i2: 17
+    i3: 210
+    i4: 202
+    i5: 63
+    i6: 41
+    i7: 100
+    i8: 11
+    i9: 107
+    i10: 210
+    i11: 29
+    i12: 123
+    i13: 99
+    i14: 147
+    i15: 210
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0

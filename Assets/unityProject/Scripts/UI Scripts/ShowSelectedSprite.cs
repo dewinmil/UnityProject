@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class ShowSelectedSprite : MonoBehaviour {
+public class ShowSelectedSprite : NetworkBehaviour {
 
     public MoveInput _characterMoveInput;
 

@@ -207,6 +207,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4920297717707848}
   - component: {fileID: 198313640795591846}
+  - component: {fileID: 114072400852645934}
+  - component: {fileID: 114633188534779122}
   m_Layer: 0
   m_Name: Tentacle
   m_TagString: Untagged
@@ -567,6 +569,59 @@ Transform:
   m_Father: {fileID: 4920297717707848}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114072400852645934
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1592711153756366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 178
+    i1: 156
+    i2: 28
+    i3: 9
+    i4: 43
+    i5: 43
+    i6: 52
+    i7: 20
+    i8: 56
+    i9: 171
+    i10: 193
+    i11: 242
+    i12: 179
+    i13: 111
+    i14: 18
+    i15: 19
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+--- !u!114 &114633188534779122
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1592711153756366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 0
+  m_SendInterval: 0
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!198 &198041415873647910
 ParticleSystem:
   m_ObjectHideFlags: 1

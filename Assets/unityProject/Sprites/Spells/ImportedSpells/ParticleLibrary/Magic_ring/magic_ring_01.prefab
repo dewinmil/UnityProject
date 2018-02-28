@@ -56,6 +56,8 @@ GameObject:
   - component: {fileID: 198356065919435462}
   - component: {fileID: 199788273422609864}
   - component: {fileID: 114679268985363198}
+  - component: {fileID: 114887793327170968}
+  - component: {fileID: 114646644791826582}
   m_Layer: 0
   m_Name: magic_ring_01
   m_TagString: Untagged
@@ -197,6 +199,27 @@ Transform:
   m_Father: {fileID: 4506904024045790}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &114646644791826582
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1578231811263146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 0
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &114679268985363198
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -210,6 +233,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onHitAnimation: {fileID: 0}
   spellSound: {fileID: 8300000, guid: 3a7e3ee195b047a42aedb63329649a55, type: 3}
+--- !u!114 &114887793327170968
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1578231811263146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 55
+    i1: 232
+    i2: 3
+    i3: 57
+    i4: 70
+    i5: 36
+    i6: 165
+    i7: 196
+    i8: 138
+    i9: 229
+    i10: 241
+    i11: 63
+    i12: 210
+    i13: 18
+    i14: 172
+    i15: 11
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!198 &198317454341936920
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
 
-public class StatusBars : MonoBehaviour {
+public class StatusBars : NetworkBehaviour {
 
     CharacterStatus playerHealth;
 
