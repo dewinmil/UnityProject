@@ -80,8 +80,10 @@ public class Unit : MonoBehaviour
             //update the units X/Y
             this.tileX = _currentPath[0].x;
             this.tileZ = _currentPath[0].z;
-            //why are there two variables for when the unit is moving?
+            //remove the path highlight
             _map.UnhighlightTilesInCurrentPath();
+            //set the tile to be unwalkable since the unit is on top of it
+            _map.SetTileWalkable(this.tileX, this.tileZ, false);
             _currentPath = null;
             _isMoving = false;
             moveToggle = false;
@@ -95,7 +97,7 @@ public class Unit : MonoBehaviour
             this.transform.LookAt(_nextTile);
             //update the units X/Y
             this.tileX = _currentPath[0].x;
-            this.tileZ = _currentPath[0].z;
+            this.tileZ = _currentPath[0].z; 
         }
 
     }
@@ -108,7 +110,7 @@ public class Unit : MonoBehaviour
             {
                 if (_currentPath == null)
                     return;
-                
+                _map.SetTileWalkable(this.tileX, this.tileZ, true);
                 MoveToNextTile();
                 _isMoving = true;
             }
