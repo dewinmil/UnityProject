@@ -276,12 +276,7 @@ public class TileMap : MonoBehaviour
             current = prev[current];
 
             if (current != null)
-            {
-                //change the tile colors
-                string hash = GetHashString(current.x, current.z);
-                MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
-                mesh.material.color = CURRENT_PATH_TILE_COLOR;
-            }
+                HighlightSelectedTile(current.x, current.z, CURRENT_PATH_TILE_COLOR);
         }
 
         //right now the currentPath has a route from our target to our source
@@ -368,15 +363,24 @@ public class TileMap : MonoBehaviour
         int count = 0;
         foreach (Node tile in _currentPath)
         {
-            string hash = GetHashString(tile.x, tile.z);
-            MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
+            Color color;
             if (count == _currentPath.Length-1)
-                mesh.material.color = UNWALKABLE_TILE_COLOR;
+                color = UNWALKABLE_TILE_COLOR;
             else
-               mesh.material.color = WALKABLE_TILE_COLOR;
+                color = WALKABLE_TILE_COLOR;
 
+            HighlightSelectedTile(tile.x, tile.z, color);
             count++;
         }
+    }
+
+    public void HighlightSelectedTile(int x, int z, Color color)
+    {
+        string hash = GetHashString(x, z);
+        MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
+        if (mesh == null)
+            return;
+        mesh.material.color = color;
     }
 
     public void SetTileWalkable(int x, int z, bool isWalkable)
@@ -385,9 +389,37 @@ public class TileMap : MonoBehaviour
         //if we pass in false, make the tile unwalkable (1)
         _tiles[x, z] = isWalkable ? 0 : 1;
 
-        string hash = GetHashString(x, z);
-        MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
-        mesh.material.color = isWalkable ? WALKABLE_TILE_COLOR : UNWALKABLE_TILE_COLOR;
+        Color color = isWalkable ? WALKABLE_TILE_COLOR : UNWALKABLE_TILE_COLOR;
+        HighlightSelectedTile(x, z, color);
+    }
+
+    //NOTE the bool highlight here determines if we are highlighting the tiles around the unit, or unhighlighting them
+    public int[,] HighlightWalkableTiles(int maxDistance, bool highight)
+    {
+        Unit unit = _selectedUnit.GetComponent<Unit>();
+        Color color = highight ? CURRENT_PATH_TILE_COLOR : WALKABLE_TILE_COLOR;
+        //int[,]
+        for (int x = unit.tileX; x < (maxDistance + unit.tileX); x++)
+        {
+            for (int z = unit.tileZ; z < (maxDistance + unit.tileZ); z++)
+            {
+                for (int i = 0; i < maxDistance; i++)
+                {
+                    if(x-i > 0 && z - i > 0)
+                    HighlightSelectedTile(x - i, z - i, color);
+
+                    if(x + i < _mapSizeX && z + i < _mapSizeZ)
+                        HighlightSelectedTile(x + i, z + i, color);
+
+                    if (x + i < _mapSizeX && z - i > 0)
+                        HighlightSelectedTile(x + i, z - i, color);
+
+                    if (x - i > 0 && z + i < _mapSizeZ)
+                        HighlightSelectedTile(x - i, z + i, color);
+                }
+            }
+        }
+        return new int[1,1];
     }
 
 }

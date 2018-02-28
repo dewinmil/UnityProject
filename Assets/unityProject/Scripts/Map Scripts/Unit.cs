@@ -18,6 +18,7 @@ public class Unit : MonoBehaviour
     public Rigidbody _rigidbody;
     private Vector3 _nextTile;
     private const float MOVEMENT_SPEED = 100f;
+    public CharacterStatus _characterStatus;
 
     public List<Node> _currentPath = null;
 
@@ -25,6 +26,7 @@ public class Unit : MonoBehaviour
     {
         this.unitId = -1;
         anim = GetComponent<Animator>();
+        _characterStatus = GetComponent<CharacterStatus>();
         abil = 0;
         react = false;
     }
@@ -110,6 +112,7 @@ public class Unit : MonoBehaviour
             {
                 if (_currentPath == null)
                     return;
+                _map.HighlightWalkableTiles(_characterStatus.MaxMovement, false);
                 _map.SetTileWalkable(this.tileX, this.tileZ, true);
                 MoveToNextTile();
                 _isMoving = true;
@@ -122,6 +125,7 @@ public class Unit : MonoBehaviour
         if(moveToggle == false)
         {
             moveToggle = true;
+            _map.HighlightWalkableTiles(_characterStatus.MaxMovement, true);
         }
         else
         {

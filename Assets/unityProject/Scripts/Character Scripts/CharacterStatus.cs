@@ -9,6 +9,7 @@ public class CharacterStatus : MonoBehaviour {
     public float currentAction;
     public float maxHealth;
     public float currentHealth;
+    public int MaxMovement;
     public float physicalArmor;//a value of 1 is 100% resistance
     public float magicArmor;//a value of 1 is 100% resistance
     public Image healthBar;
@@ -20,6 +21,7 @@ public class CharacterStatus : MonoBehaviour {
     public Text healthBarTextUI;
     public Text actionBarTextUI;
     public Unit _unit;
+    private bool statusBarsNeedUpdate = true;
 
 
     // Use this for initialization
@@ -31,7 +33,12 @@ public class CharacterStatus : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        updateStatusBars();
+        if (statusBarsNeedUpdate) 
+        {
+            updateStatusBars();
+            statusBarsNeedUpdate = false;
+        } 
+        
     }
 
     public void updateStatusBars()
@@ -58,19 +65,24 @@ public class CharacterStatus : MonoBehaviour {
     {
         currentHealth -= damage;
         //_unit.react = true;
+        statusBarsNeedUpdate = true;
     }
     public void gainHealth(float healing)
     {
         currentHealth += healing;
+        statusBarsNeedUpdate = true;
     }
     public void loseAction(float apCost)
     {
         currentAction -= apCost;
+        statusBarsNeedUpdate = true;
     }
+
     public void gainAction()
     {
         // At the beginning of the turn
         currentAction += 8;
+        statusBarsNeedUpdate = true;
     }
     
 }
