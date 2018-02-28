@@ -176,7 +176,39 @@ public class CastSpell : NetworkBehaviour
         serverAnimation.transform.parent = gameObject.transform;
         NetworkServer.Spawn(serverAnimation);
 
-        //applyAbilityEffect(_abilityNum);
+        Ray ray = Camera.main.ScreenPointToRay(casterPosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 100))
+        {
+            if (hit.collider.tag == "Unit") 
+            {
+                //serverAnimation.transform.parent = hit.collider.gameObject.transform;
+                //gameObject.transform.parent = hit.collider.gameObject.transform;
+                CastSpell temp = gameObject.GetComponent<CastSpell>();
+                temp = hit.collider.gameObject.GetComponent<CastSpell>();
+                temp._caster = hit.collider.gameObject.GetComponent<Abilities>();
+            }
+        }
+        ray = Camera.main.ScreenPointToRay(targetPosition);
+        print("before raycast");
+        if (Physics.Raycast(ray, out hit, 100))
+        {
+            print("raycast");
+            if (hit.collider.tag == "Unit")
+            {
+                print("tagged as unit");
+                //serverAnimation.transform.parent = hit.collider.gameObject.transform;
+                //gameObject.transform.parent = hit.collider.gameObject.transform;
+                spellTarget = hit.collider.gameObject.GetComponent<CharacterStatus>();
+                //CastSpell temp = gameObject.GetComponent<CastSpell>();
+                //temp = hit.collider.gameObject.GetComponent<CastSpell>();
+                //temp.spellTarget = hit.collider.gameObject.GetComponent<CharacterStatus>();
+            }
+        }
+
+
+        applyAbilityEffect(_abilityNum);
     }
 
     public void callCast(CharacterStatus theTarget, int _abilityNum, int _buttonNum)
@@ -372,7 +404,19 @@ public class CastSpell : NetworkBehaviour
     //applies the spell effect to the target
     public void applyAbilityEffect(int abilityUsed)
     {
+        /*
+        Ray ray = Camera.main.ScreenPointToRay(targetPosition);
+        RaycastHit hit;
 
+        if (Physics.Raycast(ray, out hit, 100))
+        {
+            if (hit.collider.tag == "Unit")
+            {
+                print("set spell target");
+                spellTarget = hit.collider.gameObject.GetComponent<CharacterStatus>();
+            }
+        }
+        */
         if (abilityUsed == 1)
         {
             _caster.castAbility(spellTarget, 3, 0, 3, 0, (float).5, 0, true);
