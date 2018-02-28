@@ -73,6 +73,8 @@ GameObject:
   - component: {fileID: 198284536503526548}
   - component: {fileID: 199575655751440330}
   - component: {fileID: 114934455341055420}
+  - component: {fileID: 114311295349797038}
+  - component: {fileID: 114764683991349712}
   m_Layer: 0
   m_Name: magic_ring_02
   m_TagString: Untagged
@@ -197,6 +199,59 @@ Transform:
   m_Father: {fileID: 4080203401927944}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &114311295349797038
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1787567818718692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 129
+    i1: 14
+    i2: 183
+    i3: 113
+    i4: 128
+    i5: 155
+    i6: 165
+    i7: 100
+    i8: 9
+    i9: 221
+    i10: 41
+    i11: 234
+    i12: 185
+    i13: 55
+    i14: 221
+    i15: 178
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+--- !u!114 &114764683991349712
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1787567818718692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &114934455341055420
 MonoBehaviour:
   m_ObjectHideFlags: 1

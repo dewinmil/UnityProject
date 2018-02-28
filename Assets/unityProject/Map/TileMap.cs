@@ -28,6 +28,7 @@ public class TileMap : MonoBehaviour
     private readonly Color CURRENT_PATH_TILE_COLOR = Color.yellow;
     private readonly Color WALKABLE_TILE_COLOR = new Color(0.49f, 1.0f, 0.47f);
     private readonly Color UNWALKABLE_TILE_COLOR = new Color(1.0f, 0.47f, 0.47f);
+    public GameObject _gameMasterObject;
 
     private void Start()
     {
@@ -117,7 +118,8 @@ public class TileMap : MonoBehaviour
                     _tileObjects.Add(hash, tile);
             }
         }
-
+        //enable the game master after the tiles have been created
+        _gameMasterObject.SetActive(true);
     }
 
     private void GeneratePathGraph()

@@ -91,6 +91,8 @@ GameObject:
   - component: {fileID: 199629538316279020}
   - component: {fileID: 54924698771877482}
   - component: {fileID: 114429803106835894}
+  - component: {fileID: 114661927551118450}
+  - component: {fileID: 114141744264227844}
   m_Layer: 0
   m_Name: WaterfallSmallEffect Adjusted 1
   m_TagString: Untagged
@@ -275,6 +277,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114141744264227844
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1537348692840730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 0
+  m_SendInterval: 0
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &114429803106835894
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -288,6 +311,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onHitAnimation: {fileID: 0}
   spellSound: {fileID: 8300000, guid: 8f14c9f162be18344b908f4a8d56bc93, type: 3}
+--- !u!114 &114661927551118450
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1537348692840730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 128
+    i1: 70
+    i2: 200
+    i3: 127
+    i4: 43
+    i5: 221
+    i6: 151
+    i7: 52
+    i8: 57
+    i9: 106
+    i10: 91
+    i11: 252
+    i12: 184
+    i13: 130
+    i14: 152
+    i15: 224
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!198 &198100814992232888
 ParticleSystem:
   m_ObjectHideFlags: 1

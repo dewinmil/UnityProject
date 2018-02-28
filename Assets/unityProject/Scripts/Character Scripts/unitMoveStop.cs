@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class unitMoveStop : MonoBehaviour {
+public class unitMoveStop : NetworkBehaviour {
   
   
   public float rotoSpeed;

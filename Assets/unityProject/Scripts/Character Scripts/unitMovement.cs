@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI; //Contains NavMeshClasses
+using UnityEngine.Networking;
 
-public class unitMovement : MonoBehaviour
+public class unitMovement : NetworkBehaviour
 {
     public bool moving;
     public NavMeshAgent agent;
