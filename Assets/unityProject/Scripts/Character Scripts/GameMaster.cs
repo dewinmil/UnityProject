@@ -39,7 +39,9 @@ public class GameMaster : NetworkBehaviour
             GameObject unit = Instantiate(_baseCharacter, _map.TileCoordToWorldCoord(x, 0), new Quaternion());
             unit.GetComponent<Unit>().tileX = x;
             unit.GetComponent<Unit>().tileZ = 0;
+            unit.GetComponent<CharacterStatus>().teamNum = 1;
             _team1Units.Add(unit);
+            _map.SetTileWalkable(x, 0, false);
         }
 
         //spawn team 2's units
@@ -49,7 +51,9 @@ public class GameMaster : NetworkBehaviour
             GameObject unit = Instantiate(_baseCharacter, _map.TileCoordToWorldCoord(x, 19), Quaternion.Euler(0, 180, 0));
             unit.GetComponent<Unit>().tileX = x;
             unit.GetComponent<Unit>().tileZ = 19;
+            unit.GetComponent<CharacterStatus>().teamNum = 2;
             _team2Units.Add(unit);
+            _map.SetTileWalkable(x, 19, false);
         }
     }
 

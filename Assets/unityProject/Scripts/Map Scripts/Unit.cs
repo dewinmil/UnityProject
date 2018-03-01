@@ -74,6 +74,7 @@ public class Unit : MonoBehaviour
             return;
 
         _rigidbody.velocity = Vector3.zero;
+        _nextTile = _map.TileCoordToWorldCoord(_currentPath[0].x, _currentPath[0].z);
         this.transform.position = _nextTile;
 
         //if we get in this, we know we are at our destination

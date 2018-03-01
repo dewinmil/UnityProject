@@ -280,6 +280,8 @@ public class TileMap : MonoBehaviour
             if (current != null)
                 HighlightSelectedTile(current.x, current.z, CURRENT_PATH_TILE_COLOR);
         }
+        //highlight the destination as red
+        HighlightSelectedTile(x, z, UNWALKABLE_TILE_COLOR);
 
         //right now the currentPath has a route from our target to our source
         //needs to be inverted so that we can traverse the path
