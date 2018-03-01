@@ -393,6 +393,7 @@ MonoBehaviour:
     IsWalkable: 0
   _selectedUnit: {fileID: 1911081117460322, guid: e936ef159399d4e4a93f9fee8e5b443c,
     type: 2}
+  _gameMasterObject: {fileID: 1268765601}
 --- !u!4 &102793257
 Transform:
   m_ObjectHideFlags: 0
@@ -1893,8 +1894,8 @@ MonoBehaviour:
   _team1Units: []
   _team2Units: []
   activeTeam: 0
-  BaseCharacter: {fileID: 1911081117460322, guid: e936ef159399d4e4a93f9fee8e5b443c,
-    type: 2}
+  _baseCharacter: {fileID: 0}
+  _mapObject: {fileID: 0}
 --- !u!4 &1268765604
 Transform:
   m_ObjectHideFlags: 0
