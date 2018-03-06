@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class ShowSelectedSprite : NetworkBehaviour {
+public class ShowSelectedSprite : MonoBehaviour {
 
     public MoveInput _characterMoveInput;
 

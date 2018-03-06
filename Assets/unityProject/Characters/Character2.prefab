@@ -3033,6 +3033,8 @@ MonoBehaviour:
   abilityHitAnimation: {fileID: 0}
   _caster: {fileID: 114364509948496710}
   spellMoves: 0
+  abilityNum: 0
+  buttonNum: 0
 --- !u!114 &114213917492860504
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3442,7 +3444,7 @@ MonoBehaviour:
   _map: {fileID: 0}
   _characterMoveInput: {fileID: 114687351984267844}
   moveToggle: 0
-  anim: {fileID: 0}
+  anim: {fileID: 95864445651345748}
   abil: 0
   react: 0
   _rigidbody: {fileID: 54821017995208448}
@@ -3958,6 +3960,8 @@ MonoBehaviour:
   abilityHitAnimation: {fileID: 0}
   _caster: {fileID: 114364509948496710}
   spellMoves: 0
+  abilityNum: 0
+  buttonNum: 0
 --- !u!114 &114651412783367130
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4054,6 +4058,8 @@ MonoBehaviour:
   abilityHitAnimation: {fileID: 123640, guid: 9242b15a276bc5a4babd09239e5fa709, type: 2}
   _caster: {fileID: 114364509948496710}
   spellMoves: 1
+  abilityNum: 0
+  buttonNum: 0
 --- !u!114 &114713135725790170
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4070,6 +4076,8 @@ MonoBehaviour:
   abilityHitAnimation: {fileID: 0}
   _caster: {fileID: 114364509948496710}
   spellMoves: 0
+  abilityNum: 0
+  buttonNum: 0
 --- !u!114 &114718705303813304
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4174,6 +4182,8 @@ MonoBehaviour:
     type: 2}
   _caster: {fileID: 114364509948496710}
   spellMoves: 1
+  abilityNum: 0
+  buttonNum: 0
 --- !u!114 &114811069020923172
 MonoBehaviour:
   m_ObjectHideFlags: 1

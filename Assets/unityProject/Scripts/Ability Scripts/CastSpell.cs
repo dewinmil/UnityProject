@@ -15,72 +15,26 @@ public class CastSpell : NetworkBehaviour
     public GameObject abilityHitAnimation;
     public Abilities _caster;
     public bool spellMoves;
-    private bool spellAlive;
     private GameObject currentAnimation;
     private GameObject onHitAnimation;
     private CharacterStatus spellTarget;
-    private int abilityNum;
+    [SyncVar]
+    public int abilityNum;
     private CharacterStatus target;
     private bool iCast;
     public int buttonNum;
+    private bool deltEffect;
 
     // Use this for initialization
     void Start()
     {
-        //no spell has been cast
-        spellAlive = false;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        //checks to see whether a spell animation exists in the scene
-        if (!currentAnimation)
-        {
-            //checks whether a spell animation used to exist in the scene
-            if (spellAlive)
-            {
-                //spell animation was destroyed so set to false
-                spellAlive = false;
-
-                //check whether this spell was supposed to move towards the target
-                //if so it was just arrived and was destroyed / we need to deal
-                //the spell effect IE: damage, healing, etc to the target.
-                if (spellMoves)
-                {
-                    applyAbilityEffect(abilityNum);
-                }
-            }
-        }
-        //there is currently a spell effect in the scene.
-        if (currentAnimation)
-        {
-            //if the spell effect is no longer playing
-            if (currentAnimation.GetComponent<ParticleSystem>().isPlaying == false)
-            {
-                //the spell effect is dead / complete so set to false and remove it from scene
-                spellAlive = false;
-                GameObject.Destroy(currentAnimation);
-
-                //if the spell was of the type that moves to and detonates on the target
-                //we need to apply the spell effect now
-                if (spellMoves)
-                {
-                    applyAbilityEffect(abilityNum);
-                }
-            }
-        }
-
-        //if an onHitAnimation exists
-        if (onHitAnimation)
-        {
-            //checkif the animation is no longer running / finished
-            if (onHitAnimation.GetComponent<ParticleSystem>().isPlaying == false)
-            {
-                //remove "dead" animation from scene
-                GameObject.Destroy(onHitAnimation);
-            }
-        }
+      
     }
 
     [Command]
@@ -89,12 +43,15 @@ public class CastSpell : NetworkBehaviour
     {
         GameObject serverAnimation;
         float yAngle;
+        Vector3 moveSpellPostion = new Vector3(casterPosition.x, casterPosition.y + (float).5, casterPosition.z);
+        spellMoves = moves;
+        abilityNum = _abilityNum;
         if (_buttonNum == 1)
         {
             if (moves)
             {
                 serverAnimation = Instantiate(_caster.GetComponent<Abilities>().Button1Animation.abilityAnimation,
-                    casterPosition, Quaternion.identity);
+                    moveSpellPostion, Quaternion.identity);
             }
             else
             {
@@ -108,7 +65,7 @@ public class CastSpell : NetworkBehaviour
             if (moves)
             {
                 serverAnimation = Instantiate(_caster.GetComponent<Abilities>().Button2Animation.abilityAnimation,
-                    casterPosition, Quaternion.identity);
+                    moveSpellPostion, Quaternion.identity);
             }
             else
             {
@@ -122,7 +79,7 @@ public class CastSpell : NetworkBehaviour
             if (moves)
             {
                 serverAnimation = Instantiate(_caster.GetComponent<Abilities>().Button3Animation.abilityAnimation,
-                    casterPosition, Quaternion.identity);
+                    moveSpellPostion, Quaternion.identity);
             }
             else
             {
@@ -136,7 +93,7 @@ public class CastSpell : NetworkBehaviour
             if (moves)
             {
                 serverAnimation = Instantiate(_caster.GetComponent<Abilities>().Button4Animation.abilityAnimation,
-                    casterPosition, Quaternion.identity);
+                    moveSpellPostion, Quaternion.identity);
             }
             else
             {
@@ -150,7 +107,7 @@ public class CastSpell : NetworkBehaviour
             if (moves)
             {
                 serverAnimation = Instantiate(_caster.GetComponent<Abilities>().Button5Animation.abilityAnimation,
-                    casterPosition, Quaternion.identity);
+                    moveSpellPostion, Quaternion.identity);
             }
             else
             {
@@ -161,54 +118,29 @@ public class CastSpell : NetworkBehaviour
         }
         if (moves)
         {
-            Physics.IgnoreCollision(serverAnimation.GetComponent<SphereCollider>(), gameObject.GetComponentInParent<CapsuleCollider>());
             serverAnimation.transform.eulerAngles = theEulerAngles;
             serverAnimation.GetComponent<Rigidbody>().AddForce(targetDirection * 1000);
-            serverAnimation.transform.position = new Vector3(serverAnimation.transform.position.x, serverAnimation.transform.position.y + (float).5, serverAnimation.transform.position.z);
         }
         else
         {
             serverAnimation.transform.position = new Vector3(serverAnimation.transform.position.x, 0, serverAnimation.transform.position.z);
         }
-
-        //serverAnimation.GetComponent<SpellCollision>().isOriginal = true;
-        //Instantiate(_caster.GetComponent<Abilities>().Button1Animation.abilityAnimation, _caster.transform.localPosition, Quaternion.identity);
         serverAnimation.transform.parent = gameObject.transform;
+
         NetworkServer.Spawn(serverAnimation);
+        serverAnimation.GetComponent<SpellCollision>().serverSpell = true;
 
-        Ray ray = Camera.main.ScreenPointToRay(casterPosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, 100))
+        Collider[] c = Physics.OverlapSphere(targetPosition, 1f);
+        foreach (var collider in c)
         {
-            if (hit.collider.tag == "Unit") 
+            var obj = collider.gameObject; //This is the game object you collided with
+            if (obj == gameObject) continue; //Skip the object itself
+            if(obj.tag == "Unit")
             {
-                //serverAnimation.transform.parent = hit.collider.gameObject.transform;
-                //gameObject.transform.parent = hit.collider.gameObject.transform;
-                CastSpell temp = gameObject.GetComponent<CastSpell>();
-                temp = hit.collider.gameObject.GetComponent<CastSpell>();
-                temp._caster = hit.collider.gameObject.GetComponent<Abilities>();
-            }
-        }
-        ray = Camera.main.ScreenPointToRay(targetPosition);
-        print("before raycast");
-        if (Physics.Raycast(ray, out hit, 100))
-        {
-            print("raycast");
-            if (hit.collider.tag == "Unit")
-            {
-                print("tagged as unit");
-                //serverAnimation.transform.parent = hit.collider.gameObject.transform;
-                //gameObject.transform.parent = hit.collider.gameObject.transform;
-                spellTarget = hit.collider.gameObject.GetComponent<CharacterStatus>();
-                //CastSpell temp = gameObject.GetComponent<CastSpell>();
-                //temp = hit.collider.gameObject.GetComponent<CastSpell>();
-                //temp.spellTarget = hit.collider.gameObject.GetComponent<CharacterStatus>();
+                spellTarget = obj.GetComponent<CharacterStatus>();
             }
         }
 
-
-        applyAbilityEffect(_abilityNum);
     }
 
     public void callCast(CharacterStatus theTarget, int _abilityNum, int _buttonNum)
@@ -218,8 +150,6 @@ public class CastSpell : NetworkBehaviour
         cast(_abilityNum);
     }
 
-
-    /*
     public void cast(int _abilityNum)
     {
         abilityNum = _abilityNum;
@@ -229,91 +159,8 @@ public class CastSpell : NetworkBehaviour
         if (spellMoves)
         {
             //check if we have enough ap to cast the ability
-            if (canCast(abilityNum))
+            if (canCast(_abilityNum))
             {
-
-                spellAlive = true;
-                //create spell effect on the castors position and ignore collisions with the caster so it does not instantly detonate
-                currentAnimation = Instantiate(abilityAnimation, _caster.transform.localPosition, Quaternion.identity);
-                currentAnimation.GetComponent<SpellCollision>().abilityUsed = _abilityNum;
-                Physics.IgnoreCollision(currentAnimation.GetComponent<SphereCollider>(), gameObject.GetComponentInParent<CapsuleCollider>());
-
-                //rotate the spell in the direction of the target
-                float rotation = getRotation(target);
-                currentAnimation.transform.eulerAngles = new Vector3(currentAnimation.transform.eulerAngles.x,
-                    rotation + abilityAnimation.transform.eulerAngles.y, currentAnimation.transform.eulerAngles.z);
-
-                //find the direction of target
-                Vector3 targetDirection = (target.transform.position - _caster.transform.position).normalized;
-
-                //accelerate the spell animation towards the target
-                currentAnimation.GetComponent<Rigidbody>().AddForce(targetDirection * 1000);
-
-                if (gameObject.GetComponent<NetworkIdentity>().isServer)
-                {
-                    print("does think it is host");
-                    NetworkServer.Spawn(currentAnimation);
-                }
-                else
-                {
-                    print("Doesn't think it is host");
-                    CmdSpawn();
-                }
-                currentAnimation.GetComponent<SpellCollision>().isOriginal = true;
-            }
-        }
-        //this spell appears on the targets location
-        else
-        {
-            //check if we have enough ap to cast the ability
-            if (_caster.Equals(null))
-            {
-                //do nothing
-            }
-            else
-            {
-                if (canCast(abilityNum))
-                {
-                    //create spell effect on the target location
-                    currentAnimation = Instantiate(abilityAnimation, target.transform.position, Quaternion.identity);
-                    currentAnimation.transform.position = new Vector3(currentAnimation.transform.position.x, 0, currentAnimation.transform.position.z);
-                    currentAnimation.GetComponent<SpellCollision>().abilityUsed = abilityNum;
-
-                    if (gameObject.GetComponent<NetworkIdentity>().isServer)
-                    {
-                        print("does think it is host");
-                        NetworkServer.Spawn(currentAnimation);
-                    }
-                    else
-                    {
-                        print("Doesn't think it is host");
-                        CmdSpawn();
-                    }
-                    currentAnimation.GetComponent<SpellCollision>().isOriginal = true;
-                    //as the spell is at the target immediately apply appropriate spell effect
-                    //from the abilities class
-
-                    applyAbilityEffect(abilityNum);
-                }
-            }
-        }
-    }
-    */
-
-    public void cast(int _abilityNum)
-    {
-        abilityNum = _abilityNum;
-        spellTarget = target;
-
-        //check if spell moves towards and applies effect upon reaching target
-        if (spellMoves)
-        {
-            //check if we have enough ap to cast the ability
-            if (canCast(abilityNum))
-            {
-
-                spellAlive = true;
-
                 //rotate the spell in the direction of the target
                 float rotation = getRotation(target);
 
@@ -324,7 +171,6 @@ public class CastSpell : NetworkBehaviour
                     rotation + abilityAnimation.transform.eulerAngles.y, currentAnimation.transform.eulerAngles.z);
                 GameObject.Destroy(currentAnimation);
                 CmdSpawn(spellMoves, rotation, targetDirection, _caster.transform.position, target.transform.position, theEulerAngles, Quaternion.identity, _abilityNum, buttonNum);
-
             }
         }
         //this spell appears on the targets location
@@ -341,7 +187,6 @@ public class CastSpell : NetworkBehaviour
                 {
                     Vector3 empty = new Vector3(0, 0, 0);
                     CmdSpawn(spellMoves, 0, empty, _caster.transform.position, target.transform.position, empty, Quaternion.identity, _abilityNum, buttonNum);
-
                 }
             }
         }
@@ -404,19 +249,6 @@ public class CastSpell : NetworkBehaviour
     //applies the spell effect to the target
     public void applyAbilityEffect(int abilityUsed)
     {
-        /*
-        Ray ray = Camera.main.ScreenPointToRay(targetPosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, 100))
-        {
-            if (hit.collider.tag == "Unit")
-            {
-                print("set spell target");
-                spellTarget = hit.collider.gameObject.GetComponent<CharacterStatus>();
-            }
-        }
-        */
         if (abilityUsed == 1)
         {
             _caster.castAbility(spellTarget, 3, 0, 3, 0, (float).5, 0, true);
