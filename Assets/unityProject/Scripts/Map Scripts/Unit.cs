@@ -18,19 +18,39 @@ public class Unit : MonoBehaviour
     public Rigidbody _rigidbody;
     private Vector3 _nextTile;
     private const float MOVEMENT_SPEED = 100f;
+    private bool first = true;
 
     public List<Node> _currentPath = null;
 
     private void Start()
     {
         this.unitId = -1;
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         abil = 0;
         react = false;
+        
+        
+        
+    }
+
+    void quickUpdate() {
+        foreach (KeyValuePair<string, GameObject> entry in _map._tileObjects)
+        {
+            if (((int) entry.Value.transform.position.x == (int)this.transform.position.x) && ((int)entry.Value.transform.position.z == (int)this.transform.position.z))
+            {
+                tileX = (int)entry.Value.transform.position.x;
+                tileZ = (int)entry.Value.transform.position.z;
+                _nextTile = entry.Value.transform.localPosition;
+            }
+        }
     }
 
     void Update()
     {
+        if ((first == true) && (_map.genDone == true)) {
+            quickUpdate();
+            first = false;
+        }
 
         anim.SetBool("Moving", _isMoving);
         anim.SetInteger("Ability", abil);

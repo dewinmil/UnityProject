@@ -14,7 +14,7 @@ public class TileMap : MonoBehaviour
     //2-D array of tiles
     private int[,] _tiles;
     private HashAlgorithm _hashAlgorithm;
-    private Dictionary<string, GameObject> _tileObjects;
+    public Dictionary<string, GameObject> _tileObjects;
     private int _mapSizeX = 20;
     private int _mapSizeZ = 20;
     public TileType[] _tileTypes;
@@ -28,15 +28,17 @@ public class TileMap : MonoBehaviour
     private readonly Color CURRENT_PATH_TILE_COLOR = Color.yellow;
     private readonly Color WALKABLE_TILE_COLOR = new Color(0.49f, 1.0f, 0.47f);
     private readonly Color UNWALKABLE_TILE_COLOR = new Color(1.0f, 0.47f, 0.47f);
+    public bool genDone = false;
 
     private void Start()
     {
+        //genDone = false;
         wasCasting = false;
         _hashAlgorithm = MD5.Create();
         _tileObjects = new Dictionary<string, GameObject>();
         //set up selected unit vars
-        _selectedUnit.GetComponent<Unit>().tileX = (int)_selectedUnit.transform.position.x;
-        _selectedUnit.GetComponent<Unit>().tileZ = (int)_selectedUnit.transform.position.z;
+        //_selectedUnit.GetComponent<Unit>().tileX = (int)_selectedUnit.transform.position.x;
+        //_selectedUnit.GetComponent<Unit>().tileZ = (int)_selectedUnit.transform.position.z;
         _selectedUnit.GetComponent<Unit>()._map = this;
 
         //Generate the data for the map 
@@ -47,6 +49,7 @@ public class TileMap : MonoBehaviour
 
         //Spawn the prefabs
         GenerateMapObjects();
+        genDone = true;
     }
 
     private void Update()
@@ -101,9 +104,9 @@ public class TileMap : MonoBehaviour
                 GameObject tile;
                 //add the tile to the map
                 if ((z % 2) == 0)
-                    tile = Instantiate(tt.TileVisuallPrefab, new Vector3(x * TILE_OFFSET, TILE_Y_POS, z * (TILE_OFFSET-.15f)), Quaternion.Euler(90, 0, 0));
+                    tile = Instantiate(tt.TileVisuallPrefab, new Vector3(x * TILE_OFFSET, TILE_Y_POS, z * (TILE_OFFSET - .15f)), Quaternion.Euler(90, 0, 0));
                 else
-                    tile = Instantiate(tt.TileVisuallPrefab, new Vector3((x * TILE_OFFSET) + (TILE_OFFSET/2), TILE_Y_POS, z * (TILE_OFFSET - .15f)), Quaternion.Euler(90, 0, 0));
+                    tile = Instantiate(tt.TileVisuallPrefab, new Vector3((x * TILE_OFFSET) + (TILE_OFFSET / 2), TILE_Y_POS, z * (TILE_OFFSET - .15f)), Quaternion.Euler(90, 0, 0));
 
                 //make the map clickable
                 ClickableTile ct = tile.GetComponent<ClickableTile>();
@@ -113,10 +116,11 @@ public class TileMap : MonoBehaviour
 
                 //give each tile its own hash as its identifier. To get the hash, you need to hash the string of the x coordinate plus the z coordinate
                 string hash = GetHashString(x, z);
-                if(!_tileObjects.ContainsKey(hash))
+                if (!_tileObjects.ContainsKey(hash))
                     _tileObjects.Add(hash, tile);
             }
         }
+
 
     }
 

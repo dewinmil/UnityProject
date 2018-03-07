@@ -101,7 +101,7 @@ public class CastSpell : MonoBehaviour
                 float rotation = getRotation(target);
                 currentAnimation.transform.eulerAngles = new Vector3(currentAnimation.transform.eulerAngles.x,
                     rotation + abilityAnimation.transform.eulerAngles.y, currentAnimation.transform.eulerAngles.z);
-
+                
                 //find the direction of target
                 Vector3 targetDirection = (target.transform.position - _caster.transform.position).normalized;
 
