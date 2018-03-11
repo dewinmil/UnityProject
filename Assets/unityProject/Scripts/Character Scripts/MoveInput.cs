@@ -17,8 +17,8 @@ public class MoveInput : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (isLocalPlayer)
-        //{
+        if (isLocalPlayer)
+        {
             //check whether a spell has been cast upon the owner of this script and if so
             //ensure that they were not selected as the spell was cast
             if (targetedBySpell)
@@ -117,5 +117,5 @@ public class MoveInput : NetworkBehaviour
 
             }
         }
-    //}
+    }
 }

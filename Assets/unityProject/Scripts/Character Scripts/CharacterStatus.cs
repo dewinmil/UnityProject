@@ -16,7 +16,6 @@ public class CharacterStatus : NetworkBehaviour {
     [SyncVar]
     public float currentHealth;
     [SyncVar]
-    public int MaxMovement;
     public float physicalArmor;//a value of 1 is 100% resistance
     [SyncVar]
     public float magicArmor;//a value of 1 is 100% resistance
@@ -29,7 +28,6 @@ public class CharacterStatus : NetworkBehaviour {
     public Text healthBarTextUI;
     public Text actionBarTextUI;
     public Unit _unit;
-    private bool statusBarsNeedUpdate = true;
 
 
     // Use this for initialization
@@ -41,12 +39,7 @@ public class CharacterStatus : NetworkBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (statusBarsNeedUpdate) 
-        {
-            updateStatusBars();
-            statusBarsNeedUpdate = false;
-        } 
-        
+        updateStatusBars();
     }
 
     public void updateStatusBars()
@@ -73,24 +66,19 @@ public class CharacterStatus : NetworkBehaviour {
     {
         currentHealth -= damage;
         //_unit.react = true;
-        statusBarsNeedUpdate = true;
     }
     public void gainHealth(float healing)
     {
         currentHealth += healing;
-        statusBarsNeedUpdate = true;
     }
     public void loseAction(float apCost)
     {
         currentAction -= apCost;
-        statusBarsNeedUpdate = true;
     }
-
     public void gainAction()
     {
         // At the beginning of the turn
         currentAction += 8;
-        statusBarsNeedUpdate = true;
     }
     
     [Command]
