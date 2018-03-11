@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Terrain
   - Unit
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX

@@ -382,6 +382,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66824be740a3b9c448917d40df9da202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mapSizeX: 20
+  _mapSizeZ: 20
   _tileTypes:
   - Name: Floor
     TileVisuallPrefab: {fileID: 1473012770865222, guid: b7aadb626814c1a4ba740cebb9b5ee31,
@@ -477,7 +479,7 @@ GameObject:
   - component: {fileID: 154635847}
   m_Layer: 0
   m_Name: Network Start Position 4
-  m_TagString: Untagged
+  m_TagString: SpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -902,7 +904,7 @@ GameObject:
   - component: {fileID: 233055320}
   m_Layer: 0
   m_Name: Network Start Position 5
-  m_TagString: Untagged
+  m_TagString: SpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -942,7 +944,7 @@ GameObject:
   - component: {fileID: 386231971}
   m_Layer: 0
   m_Name: Network Start Position 2
-  m_TagString: Untagged
+  m_TagString: SpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1186,7 +1188,7 @@ GameObject:
   - component: {fileID: 635293751}
   m_Layer: 0
   m_Name: Network Start Position 3
-  m_TagString: Untagged
+  m_TagString: SpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1687,9 +1689,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1010440195}
   - component: {fileID: 1010440194}
+  - component: {fileID: 1010440196}
   m_Layer: 0
   m_Name: Network Start Position 1
-  m_TagString: Untagged
+  m_TagString: SpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1718,6 +1721,17 @@ Transform:
   m_Father: {fileID: 516322660}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1010440196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1010440193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebf58a85f4e41614ab2d995636f4f8d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1014215455
 GameObject:
   m_ObjectHideFlags: 0
@@ -2079,7 +2093,7 @@ GameObject:
   - component: {fileID: 1098781241}
   m_Layer: 0
   m_Name: Network Start Position 7
-  m_TagString: Untagged
+  m_TagString: SpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2119,7 +2133,7 @@ GameObject:
   - component: {fileID: 1110769100}
   m_Layer: 0
   m_Name: Network Start Position 6
-  m_TagString: Untagged
+  m_TagString: SpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2447,11 +2461,12 @@ MonoBehaviour:
   matchSize: 4
   isNetworkActive: 0
   matchMaker: {fileID: 0}
-  Unit1: {fileID: 1911081117460322, guid: e936ef159399d4e4a93f9fee8e5b443c, type: 2}
-  Unit2: {fileID: 1416233602259218, guid: 6b06b825041626349a39ca38c54f0594, type: 2}
-  Unit3: {fileID: 0}
-  Unit4: {fileID: 0}
-  playerID: 0
+  Team1Prefab: {fileID: 1911081117460322, guid: e936ef159399d4e4a93f9fee8e5b443c,
+    type: 2}
+  Team2Prefab: {fileID: 1416233602259218, guid: 6b06b825041626349a39ca38c54f0594,
+    type: 2}
+  _playerID: 0
+  _map: {fileID: 102793256}
 --- !u!4 &1451940021
 Transform:
   m_ObjectHideFlags: 0
@@ -2556,7 +2571,7 @@ GameObject:
   - component: {fileID: 1484680514}
   m_Layer: 0
   m_Name: Network Start Position 8
-  m_TagString: Untagged
+  m_TagString: SpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2676,7 +2691,7 @@ GameObject:
   - component: {fileID: 1696687474}
   m_Layer: 0
   m_Name: Network Start Position 10
-  m_TagString: Untagged
+  m_TagString: SpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2796,7 +2811,7 @@ GameObject:
   - component: {fileID: 1759200803}
   m_Layer: 0
   m_Name: Network Start Position 9
-  m_TagString: Untagged
+  m_TagString: SpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

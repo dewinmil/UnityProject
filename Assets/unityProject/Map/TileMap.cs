@@ -15,8 +15,8 @@ public class TileMap : MonoBehaviour
     private int[,] _tiles;
     private HashAlgorithm _hashAlgorithm;
     private Dictionary<string, GameObject> _tileObjects;
-    private int _mapSizeX = 20;
-    private int _mapSizeZ = 20;
+    public int _mapSizeX = 20;
+    public int _mapSizeZ = 20;
     public TileType[] _tileTypes;
     public GameObject _selectedUnit;
     private Node[,] _graph;
@@ -25,6 +25,7 @@ public class TileMap : MonoBehaviour
     private const float TILE_Y_POS = -.5f;
     private bool wasCasting;
     private Node[] _currentPath;
+    private List<GameObject> _highlightedTiles;
     private readonly Color CURRENT_PATH_TILE_COLOR = Color.yellow;
     private readonly Color WALKABLE_TILE_COLOR = new Color(0.49f, 1.0f, 0.47f);
     private readonly Color UNWALKABLE_TILE_COLOR = new Color(1.0f, 0.47f, 0.47f);
@@ -34,6 +35,7 @@ public class TileMap : MonoBehaviour
         wasCasting = false;
         _hashAlgorithm = MD5.Create();
         _tileObjects = new Dictionary<string, GameObject>();
+        _highlightedTiles = new List<GameObject>();
         //set up selected unit vars
         _selectedUnit.GetComponent<Unit>().tileX = (int)_selectedUnit.transform.position.x;
         _selectedUnit.GetComponent<Unit>().tileZ = (int)_selectedUnit.transform.position.z;
@@ -101,9 +103,9 @@ public class TileMap : MonoBehaviour
                 GameObject tile;
                 //add the tile to the map
                 if ((z % 2) == 0)
-                    tile = Instantiate(tt.TileVisuallPrefab, new Vector3(x * TILE_OFFSET, TILE_Y_POS, z * (TILE_OFFSET-.15f)), Quaternion.Euler(90, 0, 0));
+                    tile = Instantiate(tt.TileVisuallPrefab, new Vector3(x * TILE_OFFSET, TILE_Y_POS, z * (TILE_OFFSET - .15f)), Quaternion.Euler(90, 0, 0));
                 else
-                    tile = Instantiate(tt.TileVisuallPrefab, new Vector3((x * TILE_OFFSET) + (TILE_OFFSET/2), TILE_Y_POS, z * (TILE_OFFSET - .15f)), Quaternion.Euler(90, 0, 0));
+                    tile = Instantiate(tt.TileVisuallPrefab, new Vector3((x * TILE_OFFSET) + (TILE_OFFSET / 2), TILE_Y_POS, z * (TILE_OFFSET - .15f)), Quaternion.Euler(90, 0, 0));
 
                 //make the map clickable
                 ClickableTile ct = tile.GetComponent<ClickableTile>();
@@ -113,7 +115,7 @@ public class TileMap : MonoBehaviour
 
                 //give each tile its own hash as its identifier. To get the hash, you need to hash the string of the x coordinate plus the z coordinate
                 string hash = GetHashString(x, z);
-                if(!_tileObjects.ContainsKey(hash))
+                if (!_tileObjects.ContainsKey(hash))
                     _tileObjects.Add(hash, tile);
             }
         }
@@ -140,7 +142,7 @@ public class TileMap : MonoBehaviour
         for (int x = 0; x < _mapSizeX; x++)
         {
             for (int z = 0; z < _mapSizeZ; z++)
-            {                
+            {
                 CalculateNeighbors(x, z);
             }
         }
@@ -291,6 +293,9 @@ public class TileMap : MonoBehaviour
         _currentPath = new Node[currentPath.Count];
         currentPath.CopyTo(_currentPath);
 
+        //set destination to be occupied
+        SetTileWalkable(currentPath[currentPath.Count - 1].x, currentPath[currentPath.Count - 1].z, false);
+
         _selectedUnit.GetComponent<Unit>()._currentPath = currentPath;
     }
 
@@ -362,7 +367,7 @@ public class TileMap : MonoBehaviour
 
     public void UnhighlightTilesInCurrentPath()
     {
-        if(_currentPath == null)
+        if (_currentPath == null)
             return;
 
         int count = 0;
@@ -370,10 +375,10 @@ public class TileMap : MonoBehaviour
         {
             string hash = GetHashString(tile.x, tile.z);
             MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
-            if (count == _currentPath.Length-1)
+            if (count == _currentPath.Length - 1)
                 mesh.material.color = UNWALKABLE_TILE_COLOR;
             else
-               mesh.material.color = WALKABLE_TILE_COLOR;
+                mesh.material.color = WALKABLE_TILE_COLOR;
 
             count++;
         }
@@ -390,4 +395,39 @@ public class TileMap : MonoBehaviour
         mesh.material.color = isWalkable ? WALKABLE_TILE_COLOR : UNWALKABLE_TILE_COLOR;
     }
 
+    //Params are current units x/z coords and the number of tiles the unit can move
+    public void HighlightWalkableTiles(int playerX, int playerZ, int numMoves)
+    {
+        int xMax = playerX + numMoves;
+        int xMin = playerX - numMoves;
+
+        int zMin = playerZ - numMoves;
+        int zMax = playerZ + numMoves;
+
+        for (int x = xMin; x < xMax; x++)
+        {
+            for (int z = zMin; z < zMax; z++)
+            {
+                if ((x >= 0 && x <= _mapSizeX - 1) && (z >= 0 && z <= _mapSizeZ))
+                {
+                    if (_tiles[x, z] == 0)
+                    {
+                        string hash = GetHashString(x, z);
+                        MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
+                        mesh.material.color = CURRENT_PATH_TILE_COLOR;
+                        _highlightedTiles.Add(_tileObjects[hash]);
+                    }
+                }
+            }
+        }
+    }
+
+    public void UnhighlightWalkableTiles()
+    {
+        foreach (var tile in _highlightedTiles)
+        {
+            MeshRenderer mesh = tile.GetComponent<MeshRenderer>();
+            mesh.material.color = WALKABLE_TILE_COLOR;
+        }
+    }
 }

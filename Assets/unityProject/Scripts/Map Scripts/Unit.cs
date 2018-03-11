@@ -15,6 +15,8 @@ public class Unit : MonoBehaviour
     public Animator anim;
     public int abil;
     public bool react;
+    //number of tiles the unit can move
+    public int _numMoves;
     public Rigidbody _rigidbody;
     private Vector3 _nextTile;
     private const float MOVEMENT_SPEED = 100f;
@@ -110,6 +112,7 @@ public class Unit : MonoBehaviour
             {
                 if (_currentPath == null)
                     return;
+                _nextTile = _map.TileCoordToWorldCoord(_currentPath[0].x, _currentPath[0].z);
                 _map.SetTileWalkable(this.tileX, this.tileZ, true);
                 MoveToNextTile();
                 _isMoving = true;
@@ -133,4 +136,17 @@ public class Unit : MonoBehaviour
     {
         _map.SelectedUnitChanged(this.gameObject);
     }
+
+    public void HighlightWalkableTiles()
+    {
+        if(moveToggle == false)
+            _map.UnhighlightWalkableTiles();
+        else
+            _map.HighlightWalkableTiles(this.tileX, this.tileZ, _numMoves);
+    }
+    public void UnhighlightWalkableTiles()
+    {
+        _map.UnhighlightWalkableTiles();
+    }
+
 }

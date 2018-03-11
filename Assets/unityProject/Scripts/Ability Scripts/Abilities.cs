@@ -165,6 +165,7 @@ public class Abilities : MonoBehaviour
             //NOTE - THIS IS A DIFFERENT TOGGLE MOVEMENT FUNCTION BELONGING TO THE UNIT CLASS
             //toggles movement boolean between true or false
             _unit.toggleMovement();
+            _unit.HighlightWalkableTiles();
         }
     }
 
