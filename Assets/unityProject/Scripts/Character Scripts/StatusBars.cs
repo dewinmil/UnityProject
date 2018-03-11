@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 
 
-public class StatusBars : NetworkBehaviour {
+public class StatusBars : MonoBehaviour {
 
     CharacterStatus playerHealth;
 

@@ -168,6 +168,7 @@ MonoBehaviour:
   onHitAnimation: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1,
     type: 2}
   spellSound: {fileID: 8300000, guid: c6236786972bc63468a551df46a2515f, type: 3}
+  spellMoves: 1
 --- !u!114 &114741258491568084
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -180,7 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 3
-  m_SendInterval: 0
+  m_SendInterval: 0.033333335
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
   m_SyncSpin: 0

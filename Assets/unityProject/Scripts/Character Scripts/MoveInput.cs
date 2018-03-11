@@ -6,7 +6,6 @@ using UnityEngine.Networking;
 
 public class MoveInput : NetworkBehaviour
 {
-    public float minMovRange;
     public Ray ray;
     public bool isSelected;
     public bool targetedBySpell;
@@ -40,10 +39,10 @@ public class MoveInput : NetworkBehaviour
                     {
 
                         Debug.DrawLine(ray.origin, hit.point);
-                        Vector3 selectedPosition = new Vector3(hit.point.x, hit.point.y, hit.point.z);
+                        Vector3 selectedPosition = new Vector3(hit.point.x, hit.point.y - hit.point.y -.416f, hit.point.z);
 
                         //if we did selected an area right on top of / near the owner of this script
-                        if (Vector3.Distance(selectedPosition, _characterAbilities.transform.position) <= 2)
+                        if (Vector3.Distance(selectedPosition, _characterAbilities.transform.position) <= 1)
                         {
                             //if they are not having an ability cast upon them
                             if (targetedBySpell == false)
@@ -82,7 +81,7 @@ public class MoveInput : NetworkBehaviour
                                     else
                                     {
                                         //if we were not attempting to move
-                                        if (_unit.moveToggle == false)
+                                        if (_unit._isMoving == false)
                                         {
                                             //de-select this unit
                                             isSelected = false;
@@ -96,7 +95,7 @@ public class MoveInput : NetworkBehaviour
                                     if (castingSpell == false)
                                     {
                                         //if we were not trying to move
-                                        if (_unit.moveToggle == false)
+                                        if (_unit._isMoving == false)
                                         {
                                             //de-select this unit
                                             isSelected = false;
