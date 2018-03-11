@@ -15,10 +15,11 @@ public class Unit : MonoBehaviour
     public Animator anim;
     public int abil;
     public bool react;
+    //number of tiles the unit can move
+    public int _numMoves;
     public Rigidbody _rigidbody;
     private Vector3 _nextTile;
     private const float MOVEMENT_SPEED = 100f;
-    public CharacterStatus _characterStatus;
 
     public List<Node> _currentPath = null;
 
@@ -26,7 +27,6 @@ public class Unit : MonoBehaviour
     {
         this.unitId = -1;
         anim = GetComponent<Animator>();
-        _characterStatus = GetComponent<CharacterStatus>();
         abil = 0;
         react = false;
     }
@@ -74,7 +74,6 @@ public class Unit : MonoBehaviour
             return;
 
         _rigidbody.velocity = Vector3.zero;
-        _nextTile = _map.TileCoordToWorldCoord(_currentPath[0].x, _currentPath[0].z);
         this.transform.position = _nextTile;
 
         //if we get in this, we know we are at our destination
@@ -113,7 +112,7 @@ public class Unit : MonoBehaviour
             {
                 if (_currentPath == null)
                     return;
-                _map.HighlightWalkableTiles(_characterStatus.MaxMovement, false);
+                _nextTile = _map.TileCoordToWorldCoord(_currentPath[0].x, _currentPath[0].z);
                 _map.SetTileWalkable(this.tileX, this.tileZ, true);
                 MoveToNextTile();
                 _isMoving = true;
@@ -126,7 +125,6 @@ public class Unit : MonoBehaviour
         if(moveToggle == false)
         {
             moveToggle = true;
-            _map.HighlightWalkableTiles(_characterStatus.MaxMovement, true);
         }
         else
         {
@@ -138,4 +136,17 @@ public class Unit : MonoBehaviour
     {
         _map.SelectedUnitChanged(this.gameObject);
     }
+
+    public void HighlightWalkableTiles()
+    {
+        if(moveToggle == false)
+            _map.UnhighlightWalkableTiles();
+        else
+            _map.HighlightWalkableTiles(this.tileX, this.tileZ, _numMoves);
+    }
+    public void UnhighlightWalkableTiles()
+    {
+        _map.UnhighlightWalkableTiles();
+    }
+
 }
