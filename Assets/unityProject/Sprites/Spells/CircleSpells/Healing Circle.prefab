@@ -438,6 +438,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onHitAnimation: {fileID: 0}
   spellSound: {fileID: 8300000, guid: dc4d8126919b8144c8fb2976f2a10301, type: 3}
+  spellMoves: 0
 --- !u!114 &114836896588508000
 MonoBehaviour:
   m_ObjectHideFlags: 1

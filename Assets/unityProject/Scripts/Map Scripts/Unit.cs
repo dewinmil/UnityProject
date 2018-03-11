@@ -9,7 +9,7 @@ public class Unit : MonoBehaviour
     public int tileZ;
     public int unitId;
     public TileMap _map;
-    private bool _isMoving;
+    public bool _isMoving;
     public MoveInput _characterMoveInput;
     public bool moveToggle;
     public Animator anim;

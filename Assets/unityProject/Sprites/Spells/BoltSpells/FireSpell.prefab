@@ -154,7 +154,7 @@ MonoBehaviour:
     i14: 200
     i15: 224
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114634315832396236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 1
-  m_SendInterval: 0
+  m_SendInterval: 0.033333335
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
@@ -190,6 +190,7 @@ MonoBehaviour:
   onHitAnimation: {fileID: 1764942340897686, guid: f212e4d8eb63da34899fabf511942b23,
     type: 2}
   spellSound: {fileID: 8300000, guid: 32a085624b9f652458773be29e8fc6c1, type: 3}
+  spellMoves: 1
 --- !u!135 &135879911564942820
 SphereCollider:
   m_ObjectHideFlags: 1

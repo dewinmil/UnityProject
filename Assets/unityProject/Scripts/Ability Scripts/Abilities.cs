@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Networking;
 
-public class Abilities : NetworkBehaviour
+public class Abilities : MonoBehaviour
 {
     public bool usingAbility;
     public int abilityUsed;

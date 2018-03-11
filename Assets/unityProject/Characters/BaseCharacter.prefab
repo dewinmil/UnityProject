@@ -522,7 +522,6 @@ GameObject:
   - component: {fileID: 4695105951410272}
   - component: {fileID: 212478291938251896}
   - component: {fileID: 114088722187806496}
-  - component: {fileID: 114987194999359370}
   m_Layer: 0
   m_Name: TeamSprite
   m_TagString: Untagged
@@ -781,7 +780,6 @@ GameObject:
   - component: {fileID: 114957351954460086}
   - component: {fileID: 114625074022892018}
   - component: {fileID: 114412570324472108}
-  - component: {fileID: 114745716112520498}
   m_Layer: 5
   m_Name: SatusBars
   m_TagString: Untagged
@@ -1394,7 +1392,6 @@ GameObject:
   - component: {fileID: 4831345822678990}
   - component: {fileID: 212515402871796920}
   - component: {fileID: 114811019609211712}
-  - component: {fileID: 114189862459058812}
   m_Layer: 0
   m_Name: SelctedSprite
   m_TagString: Untagged
@@ -1601,7 +1598,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4498570952643828}
   - component: {fileID: 114759372869338348}
-  - component: {fileID: 114230837754514708}
   m_Layer: 0
   m_Name: CharacerEventManager
   m_TagString: Untagged
@@ -2918,38 +2914,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114189862459058812
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1867173964064514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 233
-    i1: 54
-    i2: 239
-    i3: 21
-    i4: 147
-    i5: 153
-    i6: 212
-    i7: 228
-    i8: 169
-    i9: 63
-    i10: 159
-    i11: 238
-    i12: 142
-    i13: 91
-    i14: 68
-    i15: 60
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!114 &114218618541366696
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3019,38 +2983,6 @@ MonoBehaviour:
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
---- !u!114 &114230837754514708
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1986681654213150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 233
-    i1: 54
-    i2: 239
-    i3: 21
-    i4: 147
-    i5: 153
-    i6: 212
-    i7: 228
-    i8: 169
-    i9: 63
-    i10: 159
-    i11: 238
-    i12: 142
-    i13: 91
-    i14: 68
-    i15: 60
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!114 &114232297370903392
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3408,7 +3340,7 @@ MonoBehaviour:
   _map: {fileID: 0}
   _characterMoveInput: {fileID: 114960460334594500}
   moveToggle: 0
-  anim: {fileID: 0}
+  anim: {fileID: 95003774997702724}
   abil: 0
   react: 0
   _rigidbody: {fileID: 54923971777578346}
@@ -3821,6 +3753,7 @@ MonoBehaviour:
   abilityHitAnimation: {fileID: 0}
   _caster: {fileID: 114759372869338348}
   spellMoves: 0
+  abilityNum: 0
   buttonNum: 0
 --- !u!114 &114641547828644110
 MonoBehaviour:
@@ -3838,6 +3771,7 @@ MonoBehaviour:
   abilityHitAnimation: {fileID: 0}
   _caster: {fileID: 114759372869338348}
   spellMoves: 0
+  abilityNum: 0
   buttonNum: 0
 --- !u!114 &114650550279054814
 MonoBehaviour:
@@ -4045,6 +3979,7 @@ MonoBehaviour:
   abilityHitAnimation: {fileID: 123640, guid: 9242b15a276bc5a4babd09239e5fa709, type: 2}
   _caster: {fileID: 114759372869338348}
   spellMoves: 1
+  abilityNum: 0
   buttonNum: 0
 --- !u!114 &114736346909076830
 MonoBehaviour:
@@ -4131,38 +4066,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 
---- !u!114 &114745716112520498
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1461405113864058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 233
-    i1: 54
-    i2: 239
-    i3: 21
-    i4: 147
-    i5: 153
-    i6: 212
-    i7: 228
-    i8: 169
-    i9: 63
-    i10: 159
-    i11: 238
-    i12: 142
-    i13: 91
-    i14: 68
-    i15: 60
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!114 &114759372869338348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4391,6 +4294,7 @@ MonoBehaviour:
   abilityHitAnimation: {fileID: 0}
   _caster: {fileID: 114759372869338348}
   spellMoves: 0
+  abilityNum: 0
   buttonNum: 0
 --- !u!114 &114897299289222372
 MonoBehaviour:
@@ -4441,6 +4345,7 @@ MonoBehaviour:
   abilityHitAnimation: {fileID: 0}
   _caster: {fileID: 114759372869338348}
   spellMoves: 0
+  abilityNum: 0
   buttonNum: 0
 --- !u!114 &114907481134417220
 MonoBehaviour:
@@ -4459,6 +4364,7 @@ MonoBehaviour:
     type: 2}
   _caster: {fileID: 114759372869338348}
   spellMoves: 1
+  abilityNum: 0
   buttonNum: 0
 --- !u!114 &114909517639519462
 MonoBehaviour:
@@ -4672,38 +4578,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114987194999359370
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1248110912746112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 233
-    i1: 54
-    i2: 239
-    i3: 21
-    i4: 147
-    i5: 153
-    i6: 212
-    i7: 228
-    i8: 169
-    i9: 63
-    i10: 159
-    i11: 238
-    i12: 142
-    i13: 91
-    i14: 68
-    i15: 60
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!136 &136698545988046814
 CapsuleCollider:
   m_ObjectHideFlags: 1
