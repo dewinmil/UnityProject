@@ -11,6 +11,7 @@ public class CharacterStatus : MonoBehaviour {
     public float currentHealth;
     public float physicalArmor;//a value of 1 is 100% resistance
     public float magicArmor;//a value of 1 is 100% resistance
+    public bool dotAffected;
     public Image healthBar;
     public Image actionBar;
     public Text healthBarText;
@@ -72,5 +73,5 @@ public class CharacterStatus : MonoBehaviour {
         // At the beginning of the turn
         currentAction += 8;
     }
-    
+
 }

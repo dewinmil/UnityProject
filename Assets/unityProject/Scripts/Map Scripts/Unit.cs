@@ -8,6 +8,7 @@ public class Unit : MonoBehaviour
     public int tileX;
     public int tileZ;
     public int unitId;
+    public int teamNum;
     public TileMap _map;
     private bool _isMoving;
     public MoveInput _characterMoveInput;
@@ -18,7 +19,9 @@ public class Unit : MonoBehaviour
     public Rigidbody _rigidbody;
     private Vector3 _nextTile;
     private const float MOVEMENT_SPEED = 100f;
+    public Node[,] _unit;
 
+    public List<Node> _unitList = null;
     public List<Node> _currentPath = null;
 
     private void Start()
@@ -27,6 +30,7 @@ public class Unit : MonoBehaviour
         anim = GetComponent<Animator>();
         abil = 0;
         react = false;
+        _unit = new Node[unitId, teamNum];
     }
 
     void Update()
@@ -132,5 +136,10 @@ public class Unit : MonoBehaviour
     public void SelectedUnitChanged()
     {
         _map.SelectedUnitChanged(this.gameObject);
+    }
+
+    public void GetNumUnits()
+    {
+        
     }
 }
