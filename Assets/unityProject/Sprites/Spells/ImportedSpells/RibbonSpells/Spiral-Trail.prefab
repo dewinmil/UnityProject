@@ -28,6 +28,8 @@ GameObject:
   - component: {fileID: 19862544}
   - component: {fileID: 19926872}
   - component: {fileID: 114760037331381378}
+  - component: {fileID: 114696872264611008}
+  - component: {fileID: 114875270084367202}
   m_Layer: 0
   m_Name: Spiral-Trail
   m_TagString: Untagged
@@ -13817,6 +13819,38 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 124582}
   m_IsPrefabParent: 1
+--- !u!114 &114696872264611008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 114
+    i1: 16
+    i2: 255
+    i3: 52
+    i4: 81
+    i5: 43
+    i6: 58
+    i7: 84
+    i8: 123
+    i9: 184
+    i10: 40
+    i11: 81
+    i12: 248
+    i13: 216
+    i14: 17
+    i15: 114
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114760037331381378
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13831,3 +13865,24 @@ MonoBehaviour:
   x: 0
   y: 1
   z: 0
+--- !u!114 &114875270084367202
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 0
+  m_SendInterval: 0
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1

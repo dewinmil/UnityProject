@@ -2,14 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
-public class CharacterStatus : MonoBehaviour {
+public class CharacterStatus : NetworkBehaviour {
+    [SyncVar]
     public int teamNum;
+    [SyncVar]
     public float maxAction;
+    [SyncVar]
     public float currentAction;
+    [SyncVar]
     public float maxHealth;
+    [SyncVar]
     public float currentHealth;
+    [SyncVar]
     public float physicalArmor;//a value of 1 is 100% resistance
+    [SyncVar]
     public float magicArmor;//a value of 1 is 100% resistance
     public bool dotAffected;
     public Image healthBar;
@@ -74,4 +82,18 @@ public class CharacterStatus : MonoBehaviour {
         currentAction += 8;
     }
 
+    
+    [Command]
+    public void CmdSyncValues(int teamNumVal, float maxActionVal, float currentActionVal,
+        float maxHealthVal, float currentHealthVal, float physicalArmorVal, float magicArmorVal)
+    {
+        teamNum = teamNumVal;
+        maxAction = maxActionVal;
+        currentAction = currentActionVal;
+        maxHealth = maxHealthVal;
+        currentHealth = currentHealthVal;
+        physicalArmor = physicalArmorVal;
+        magicArmor = magicArmorVal;
+    }
+    
 }

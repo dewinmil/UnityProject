@@ -76,6 +76,8 @@ GameObject:
   - component: {fileID: 54580214685867232}
   - component: {fileID: 82957115002723578}
   - component: {fileID: 114530499309374736}
+  - component: {fileID: 114836896588508000}
+  - component: {fileID: 114027470119730264}
   m_Layer: 0
   m_Name: Healing Circle
   m_TagString: Untagged
@@ -388,6 +390,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114027470119730264
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1247905195130762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &114142640425672818
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -415,6 +438,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onHitAnimation: {fileID: 0}
   spellSound: {fileID: 8300000, guid: dc4d8126919b8144c8fb2976f2a10301, type: 3}
+  spellMoves: 0
+--- !u!114 &114836896588508000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1247905195130762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 213
+    i1: 166
+    i2: 95
+    i3: 115
+    i4: 225
+    i5: 118
+    i6: 236
+    i7: 212
+    i8: 152
+    i9: 132
+    i10: 229
+    i11: 231
+    i12: 125
+    i13: 30
+    i14: 158
+    i15: 190
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!198 &198081994914205314
 ParticleSystem:
   m_ObjectHideFlags: 1
