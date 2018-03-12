@@ -382,6 +382,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66824be740a3b9c448917d40df9da202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mapSizeX: 20
+  _mapSizeZ: 20
   _tileTypes:
   - Name: Floor
     TileVisuallPrefab: {fileID: 1473012770865222, guid: b7aadb626814c1a4ba740cebb9b5ee31,
@@ -2447,11 +2449,13 @@ MonoBehaviour:
   matchSize: 4
   isNetworkActive: 0
   matchMaker: {fileID: 0}
-  Unit1: {fileID: 1911081117460322, guid: e936ef159399d4e4a93f9fee8e5b443c, type: 2}
-  Unit2: {fileID: 1416233602259218, guid: 6b06b825041626349a39ca38c54f0594, type: 2}
-  Unit3: {fileID: 0}
-  Unit4: {fileID: 0}
-  playerID: 0
+  Team1Prefab: {fileID: 1911081117460322, guid: 01272521893dbcc4d8c71a0a9bd13143,
+    type: 2}
+  Team2Prefab: {fileID: 1416233602259218, guid: 6b06b825041626349a39ca38c54f0594,
+    type: 2}
+  _playerID: 0
+  _map: {fileID: 102793256}
+  _units: []
 --- !u!4 &1451940021
 Transform:
   m_ObjectHideFlags: 0

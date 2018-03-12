@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine.EventSystems;
 
 public class Unit : MonoBehaviour
@@ -20,6 +21,7 @@ public class Unit : MonoBehaviour
     public Rigidbody _rigidbody;
     private Vector3 _nextTile;
     private const float MOVEMENT_SPEED = 100f;
+    private List<Node> _tilesToMove;
 
     public List<Node> _currentPath = null;
 
@@ -139,14 +141,25 @@ public class Unit : MonoBehaviour
 
     public void HighlightWalkableTiles()
     {
-        if(moveToggle == false)
+        if (moveToggle == false)
             _map.UnhighlightWalkableTiles();
+
         else
-            _map.HighlightWalkableTiles(this.tileX, this.tileZ, _numMoves);
+            _tilesToMove = _map.HighlightWalkableTiles(this.tileX, this.tileZ, _numMoves);
     }
     public void UnhighlightWalkableTiles()
     {
         _map.UnhighlightWalkableTiles();
     }
 
+    public bool InRangeOfSelectedTile(int x, int z)
+    {
+        if (_tilesToMove == null)
+            return false;
+
+        if (_tilesToMove.Any(n => n.x == x && n.z == z))
+            return true;
+
+        return false;
+    }
 }

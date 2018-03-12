@@ -3343,7 +3343,7 @@ MonoBehaviour:
   anim: {fileID: 95003774997702724}
   abil: 0
   react: 0
-  _numMoves: 3
+  _numMoves: 2
   _rigidbody: {fileID: 54923971777578346}
 --- !u!114 &114505201574765932
 MonoBehaviour:
@@ -3650,22 +3650,22 @@ MonoBehaviour:
   m_SceneId:
     m_Value: 0
   m_AssetId:
-    i0: 233
-    i1: 54
-    i2: 239
-    i3: 21
-    i4: 147
-    i5: 153
-    i6: 212
-    i7: 228
-    i8: 169
-    i9: 63
-    i10: 159
-    i11: 238
-    i12: 142
-    i13: 91
-    i14: 68
-    i15: 60
+    i0: 1
+    i1: 39
+    i2: 37
+    i3: 33
+    i4: 137
+    i5: 61
+    i6: 188
+    i7: 196
+    i8: 216
+    i9: 199
+    i10: 26
+    i11: 10
+    i12: 155
+    i13: 209
+    i14: 49
+    i15: 67
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
 --- !u!114 &114625074022892018

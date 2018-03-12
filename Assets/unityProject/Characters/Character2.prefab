@@ -3448,7 +3448,7 @@ MonoBehaviour:
   anim: {fileID: 95864445651345748}
   abil: 0
   react: 0
-  _numMoves: 3
+  _numMoves: 2
   _rigidbody: {fileID: 54821017995208448}
 --- !u!114 &114388094563014982
 MonoBehaviour:

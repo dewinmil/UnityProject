@@ -331,21 +331,24 @@ public class TileMap : MonoBehaviour
 
     private float CostToEnterTile(int targetX, int targetZ, int sourceX, int sourceZ)
     {
-        TileType tt = _tileTypes[_tiles[targetX, targetZ]];
         float movementCost;
+        try
+        {
 
-        //if the tile is walkable, the unit can move through it
-        if (tt.IsWalkable)
-            movementCost = 1;
+            TileType tt = _tileTypes[_tiles[targetX, targetZ]];
 
-        //else set the cost to be infinity so that the algorithm will avoid it
-        else
-            movementCost = Mathf.Infinity;
+            //if the tile is walkable, the unit can move through it
+            if (tt.IsWalkable)
+                movementCost = 1;
 
-        //make movement more linear, makes more sense
-        if (targetX != sourceX && targetZ != sourceZ)
-            movementCost += 0.001f;
-
+            //else set the cost to be infinity so that the algorithm will avoid it
+            else
+                movementCost = Mathf.Infinity;
+        }
+        catch (IndexOutOfRangeException ex)
+        {
+            movementCost = -1;
+        }
         return movementCost;
     }
 
@@ -396,30 +399,50 @@ public class TileMap : MonoBehaviour
     }
 
     //Params are current units x/z coords and the number of tiles the unit can move
-    public void HighlightWalkableTiles(int playerX, int playerZ, int numMoves)
+    public List<Node> HighlightWalkableTiles(int playerX, int playerZ, int numMoves)
     {
         int xMax = playerX + numMoves;
         int xMin = playerX - numMoves;
 
         int zMin = playerZ - numMoves;
         int zMax = playerZ + numMoves;
+            
 
-        for (int x = xMin; x < xMax; x++)
+
+        List<Node> neighbors = new List<Node>();
+        for (int x = xMin; x <= xMax; x++)
         {
-            for (int z = zMin; z < zMax; z++)
+            for (int z = zMin; z <= zMax; z++)
             {
-                if ((x >= 0 && x <= _mapSizeX - 1) && (z >= 0 && z <= _mapSizeZ))
-                {
-                    if (_tiles[x, z] == 0)
-                    {
-                        string hash = GetHashString(x, z);
-                        MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
-                        mesh.material.color = CURRENT_PATH_TILE_COLOR;
-                        _highlightedTiles.Add(_tileObjects[hash]);
-                    }
-                }
+                //these checks remove additional tiles from being added due to the horizontal shift of the board
+                //if the row we are on is even (not shifted)
+                if(playerZ % 2 == 0 && z % 2 == 0 && x == xMax && z != playerZ)
+                    continue;
+
+                if (playerZ % 2 != 0 && z % 2 != 0 && x == xMin && z != playerZ)
+                    continue;
+
+                if (z % 2 == 0 && x == xMin && z != playerZ)
+                    continue;
+
+                if (z % 2 != 0 && x == xMax && z != playerZ)
+                    continue;
+
+                float cost = CostToEnterTile(x, z, playerX, playerZ);
+                if (cost > -1f && cost < Mathf.Infinity)
+                    neighbors.Add(new Node(x, z));       
             }
         }
+
+        foreach (Node node in neighbors)
+        {
+            string hash = GetHashString(node.x, node.z);
+            MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
+            mesh.material.color = CURRENT_PATH_TILE_COLOR;
+            _highlightedTiles.Add(_tileObjects[hash]);
+        }
+
+        return neighbors;
     }
 
     public void UnhighlightWalkableTiles()
