@@ -65,6 +65,11 @@ public class GameMaster : NetworkManager
         ClientScene.AddPlayer(conn, playerID);
         playerID++;
     }
+
+    public void SwitchTeam()
+    {
+        //NetworkIdentity.ClientAuthorityCallback();
+    }
 }
 /*
 using UnityEngine;

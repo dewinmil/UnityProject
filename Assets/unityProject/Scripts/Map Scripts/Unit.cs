@@ -30,7 +30,7 @@ public class Unit : MonoBehaviour
         anim = GetComponent<Animator>();
         abil = 0;
         react = false;
-        _unit = new Node[unitId, teamNum];
+     //   _unit = new Node[unitId, teamNum];
     }
 
     void Update()

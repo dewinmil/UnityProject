@@ -12,12 +12,14 @@ public class EndTurn : NetworkBehaviour
     //public int currTeam;
     public List<Abilities> turnUsed = new List<Abilities>();
     public List<Abilities> unitList = new List<Abilities>();
+    public GameMaster master;
 
     // Use this for initialization
     void Start()
     {
-        this.currUnit._unit.unitId = 0;
-    //    currTeam = 0;
+        currUnit._unit.unitId = 0;
+        //    currTeam = 0;
+        master = new GameMaster();
     }
 
     // Update is called once per frame
@@ -26,9 +28,10 @@ public class EndTurn : NetworkBehaviour
 
     }
 
-    public void switchTeam(int currTeam)
+    public void SwitchTeam()
     {
-        foreach (Abilities unit in unitList)
+        master.SwitchTeam();
+    /*    foreach (Abilities unit in unitList)
         {
             if (unit._casterStatus.teamNum == currTeam)
             {
@@ -37,9 +40,10 @@ public class EndTurn : NetworkBehaviour
         }
         // switch control to other player.
         currTeam = (currTeam + 1) % 2;
+    */
     }
 
-    public void switchUnit(int currTeam)
+    public void SwitchUnit(int currTeam)
     {
         // switch control to different unit on the same team.
         turnUsed.Add(currUnit);
