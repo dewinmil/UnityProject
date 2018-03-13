@@ -12,6 +12,12 @@ public class Node
         neighbours = new List<Node>();
     }
 
+    public Node(int x, int z)
+    {
+        this.x = x;
+        this.z = z;
+    }
+
     public float DistanceTo(Node n)
     {
         if (n == null)
