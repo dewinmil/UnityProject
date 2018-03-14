@@ -23,6 +23,8 @@ public class GameMaster : NetworkManager
         _playerID = 0;
         _units = new List<Unit>();
         _prevX = 0;
+        ClientScene.RegisterPrefab(Unit1);
+        ClientScene.RegisterPrefab(Unit2);
     }
 
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
@@ -31,11 +33,10 @@ public class GameMaster : NetworkManager
         GameObject player;
 
         //if this is the host client, spawn them on the other side of the map
-        if (!Network.isServer)
+        if (_playerID < NUM_UNITS_PER_TEAM)
             player = Instantiate(Unit1, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
         else
-            player = Instantiate(Unit2, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1),
-                Quaternion.identity) as GameObject;
+            player = Instantiate(Unit2, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
 
         Unit unit = CreateUnit(player.GetComponent<Unit>());
         _units.Add(unit);
