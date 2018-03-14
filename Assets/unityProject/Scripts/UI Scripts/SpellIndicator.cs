@@ -193,6 +193,11 @@ public class SpellIndicator : MonoBehaviour
     public void clearList()
     {
         int max = list.Count;
+        if(max == 1)
+        {
+            transform.GetComponent<SpriteRenderer>().enabled = false;
+            list[0].transform.GetComponent<MeshRenderer>().enabled = false;
+        }
         for (int i = 1; i < max; i++)
         {
             transform.GetComponent<SpriteRenderer>().enabled = false;
