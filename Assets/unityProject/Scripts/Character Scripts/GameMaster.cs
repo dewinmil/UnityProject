@@ -63,6 +63,7 @@ public class GameMaster : NetworkManager
     }
 */
     public void SwitchTeam()
+    {   
         _units = new List<Unit>();
         _prevX = 0;
         ClientScene.RegisterPrefab(Unit1);
@@ -74,7 +75,6 @@ public class GameMaster : NetworkManager
         
     }
 
-}
 /*
 using UnityEngine;
 using UnityEngine.Networking;
