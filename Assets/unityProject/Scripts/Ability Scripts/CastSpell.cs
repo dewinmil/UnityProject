@@ -127,8 +127,17 @@ public class CastSpell : NetworkBehaviour
         }
         serverAnimation.transform.parent = gameObject.transform;
 
-        NetworkServer.Spawn(serverAnimation);
-        serverAnimation.GetComponent<SpellCollision>().serverSpell = true;
+        //don't cast a moving spell onto self
+        if(moves && Vector3.Distance(casterPosition, targetPosition) <= .5)
+        {
+            //don't want to cast
+            GameObject.Destroy(serverAnimation);
+        }
+        else
+        {
+            NetworkServer.Spawn(serverAnimation);
+            serverAnimation.GetComponent<SpellCollision>().serverSpell = true;
+        }
 
         Collider[] c = Physics.OverlapSphere(targetPosition, 1f);
         foreach (var collider in c)
