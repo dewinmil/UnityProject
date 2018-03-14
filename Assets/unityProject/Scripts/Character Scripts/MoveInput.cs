@@ -45,9 +45,8 @@ public class MoveInput : NetworkBehaviour
                     RaycastHit hit;
                     if (Physics.Raycast(ray, out hit, 100))
                     {
-
                         Debug.DrawLine(ray.origin, hit.point);
-                        Vector3 selectedPosition = new Vector3(hit.point.x, hit.point.y - hit.point.y -.416f, hit.point.z);
+                        Vector3 selectedPosition = new Vector3(hit.point.x, hit.point.y - hit.point.y - .416f, hit.point.z);
 
                         //if we did selected an area right on top of / near the owner of this script
                         if (Vector3.Distance(selectedPosition, _characterAbilities.transform.position) <= 1)
@@ -56,7 +55,7 @@ public class MoveInput : NetworkBehaviour
                             if (targetedBySpell == false)
                             {
                                 //only select unit if it is their turn
-                                if(FindObjectOfType<GameMaster>().turn == gameObject.GetComponent<CharacterStatus>().teamNum)
+                                if (FindObjectOfType<GameMaster>().turn == gameObject.GetComponent<CharacterStatus>().teamNum)
                                 {
                                     //select the unit
                                     isSelected = true;
