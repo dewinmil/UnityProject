@@ -247,27 +247,31 @@ public class CastSpell : NetworkBehaviour
     }
 
     //applies the spell effect to the target
-    public void applyAbilityEffect(int abilityUsed)
+    public void applyAbilityEffect(int abilityUsed, CharacterStatus targetCharacterStatus = null)
     {
+        if(targetCharacterStatus == null)
+        {
+            targetCharacterStatus = spellTarget;
+        }
         if (abilityUsed == 1)
         {
-            _caster.castAbility(spellTarget, 3, 0, 3, 0, (float).5, 0, true);
+            _caster.castAbility(targetCharacterStatus, 3, 0, 3, 0, (float).5, 0, true);
         }
         else if (abilityUsed == 2)
         {
-            _caster.castAbility(spellTarget, 7, 0, 6, 0, 0, 0, true);
+            _caster.castAbility(targetCharacterStatus, 7, 0, 6, 0, 0, 0, true);
         }
         else if (abilityUsed == 3)
         {
-            _caster.castAbility(spellTarget, 0, 5, 5, 0, 0, 0, true);
+            _caster.castAbility(targetCharacterStatus, 0, 5, 5, 0, 0, 0, true);
         }
         else if (abilityUsed == 4)
         {
-            _caster.castAbility(spellTarget, 5, 0, 4, (float).25, 0, 0, false);
+            _caster.castAbility(targetCharacterStatus, 5, 0, 4, (float).25, 0, 0, false);
         }
         else if (abilityUsed == 5)
         {
-            _caster.castAbility(spellTarget, 5, 0, 6, 0, 1, 0, true);
+            _caster.castAbility(targetCharacterStatus, 5, 0, 6, 0, 1, 0, true);
         }
     }
 

@@ -19,6 +19,14 @@ public class MoveInput : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
+            //deselect unit if it is not their turn
+            if (!(FindObjectOfType<GameMaster>().turn == gameObject.GetComponent<CharacterStatus>().teamNum))
+            {
+                //select the unit
+                isSelected = false;
+                _unit.SelectedUnitChanged();
+            }
+
             //check whether a spell has been cast upon the owner of this script and if so
             //ensure that they were not selected as the spell was cast
             if (targetedBySpell)
@@ -47,9 +55,13 @@ public class MoveInput : NetworkBehaviour
                             //if they are not having an ability cast upon them
                             if (targetedBySpell == false)
                             {
-                                //select the unit
-                                isSelected = true;
-                                _unit.SelectedUnitChanged();
+                                //only select unit if it is their turn
+                                if(FindObjectOfType<GameMaster>().turn == gameObject.GetComponent<CharacterStatus>().teamNum)
+                                {
+                                    //select the unit
+                                    isSelected = true;
+                                    _unit.SelectedUnitChanged();
+                                }
                             }
                             //someone just cast an ability on this unit - do not select this unit
                             //and the spell has been cast so we are no longer being targeted by an ability
