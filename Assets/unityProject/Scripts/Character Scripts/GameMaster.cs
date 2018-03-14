@@ -5,11 +5,7 @@ using UnityEngine.Networking.NetworkSystem;
 
 public class GameMaster : NetworkManager
 {
-    //public List<Abilities> unitList = new List<Abilities>();
-    //public int activeTeam;
-    //public Abilities acitveUnit;
     public GameObject Unit1;
-
     public GameObject Unit2;
     public GameObject Unit3;
     public GameObject Unit4;
@@ -18,25 +14,16 @@ public class GameMaster : NetworkManager
     private const int NUM_UNITS_PER_TEAM = 5;
     public List<Unit> _units;
     private int _prevX;
+    public int turn;
 
     // Use this for initialization
     void Start()
     {
+        turn = 1;
         _playerID = 0;
         _units = new List<Unit>();
         _prevX = 0;
     }
-    /*
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void ChangeTeam()
-    {
-        activeTeam = (activeTeam + 1) % 2;
-    }*/
 
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
     {
@@ -80,5 +67,17 @@ public class GameMaster : NetworkManager
 
         _prevX++;
         return unit;
+    }
+
+    public void endTurn()
+    {
+        if (turn == 1)
+        {
+            turn = 2;
+        }
+        else
+        {
+            turn = 1;
+        }
     }
 }

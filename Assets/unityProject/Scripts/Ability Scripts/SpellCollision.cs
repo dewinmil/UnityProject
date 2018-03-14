@@ -114,7 +114,7 @@ public class SpellCollision : NetworkBehaviour
                     //destroy the original spell animation to which this script belongs
                     if (serverSpell)
                     {
-                        gameObject.GetComponentInParent<CastSpell>().applyAbilityEffect(gameObject.GetComponentInParent<CastSpell>().abilityNum);
+                        gameObject.GetComponentInParent<CastSpell>().applyAbilityEffect(gameObject.GetComponentInParent<CastSpell>().abilityNum, other.GetComponent<CharacterStatus>());
                     }
                     GameObject.Destroy(gameObject);
                 }

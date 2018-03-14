@@ -393,7 +393,7 @@ MonoBehaviour:
     TileVisuallPrefab: {fileID: 1041883840204490, guid: a25e0220899d3eb44b17cce916d21c67,
       type: 2}
     IsWalkable: 0
-  _selectedUnit: {fileID: 1911081117460322, guid: e936ef159399d4e4a93f9fee8e5b443c,
+  _selectedUnit: {fileID: 1168899850188936, guid: bcd95e4f493990646a97fa2c762a383f,
     type: 2}
 --- !u!4 &102793257
 Transform:
@@ -2449,13 +2449,14 @@ MonoBehaviour:
   matchSize: 4
   isNetworkActive: 0
   matchMaker: {fileID: 0}
-  Unit1: {fileID: 1911081117460322, guid: e936ef159399d4e4a93f9fee8e5b443c, type: 2}
-  Unit2: {fileID: 1416233602259218, guid: 6b06b825041626349a39ca38c54f0594, type: 2}
+  Unit1: {fileID: 1168899850188936, guid: bcd95e4f493990646a97fa2c762a383f, type: 2}
+  Unit2: {fileID: 1526278685324472, guid: 6b06b825041626349a39ca38c54f0594, type: 2}
   Unit3: {fileID: 0}
   Unit4: {fileID: 0}
   _playerID: 0
   _map: {fileID: 102793256}
   _units: []
+  turn: 0
 --- !u!4 &1451940021
 Transform:
   m_ObjectHideFlags: 0
@@ -3048,7 +3049,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1769402213}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1451940020}
+        m_MethodName: endTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1769402213
