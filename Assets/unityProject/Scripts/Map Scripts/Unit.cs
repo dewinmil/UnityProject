@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine.EventSystems;
 
 public class Unit : MonoBehaviour
@@ -16,10 +17,13 @@ public class Unit : MonoBehaviour
     public Animator anim;
     public int abil;
     public bool react;
+    //number of tiles the unit can move
+    public int _numMoves;
     public Rigidbody _rigidbody;
     private Vector3 _nextTile;
     private const float MOVEMENT_SPEED = 100f;
     public Node[,] _unit;
+    private List<Node> _tilesToMove;
 
     public List<Node> _unitList = null;
     public List<Node> _currentPath = null;
@@ -50,7 +54,7 @@ public class Unit : MonoBehaviour
             float currDistance = Vector3.Distance(this.transform.position, _nextTile);
             if (currDistance > 0 && currDistance < 0.2)
             {
-                MoveToNextTile();  
+                MoveToNextTile();
             }
             //else keep moving towards the current targeted tile
             else
@@ -101,7 +105,7 @@ public class Unit : MonoBehaviour
             this.transform.LookAt(_nextTile);
             //update the units X/Y
             this.tileX = _currentPath[0].x;
-            this.tileZ = _currentPath[0].z; 
+            this.tileZ = _currentPath[0].z;
         }
 
     }
@@ -114,6 +118,7 @@ public class Unit : MonoBehaviour
             {
                 if (_currentPath == null)
                     return;
+                _nextTile = _map.TileCoordToWorldCoord(_currentPath[0].x, _currentPath[0].z);
                 _map.SetTileWalkable(this.tileX, this.tileZ, true);
                 MoveToNextTile();
                 _isMoving = true;
@@ -123,7 +128,7 @@ public class Unit : MonoBehaviour
 
     public void toggleMovement()
     {
-        if(moveToggle == false)
+        if (moveToggle == false)
         {
             moveToggle = true;
         }
@@ -141,5 +146,27 @@ public class Unit : MonoBehaviour
     public void GetNumUnits()
     {
         
+    public void HighlightWalkableTiles()
+    {
+        if (moveToggle == false)
+            _map.UnhighlightWalkableTiles();
+
+        else
+            _tilesToMove = _map.HighlightWalkableTiles(this.tileX, this.tileZ, _numMoves);
+    }
+    public void UnhighlightWalkableTiles()
+    {
+        _map.UnhighlightWalkableTiles();
+    }
+
+    public bool InRangeOfSelectedTile(int x, int z)
+    {
+        if (_tilesToMove == null)
+            return false;
+
+        if (_tilesToMove.Any(n => n.x == x && n.z == z))
+            return true;
+
+        return false;
     }
 }

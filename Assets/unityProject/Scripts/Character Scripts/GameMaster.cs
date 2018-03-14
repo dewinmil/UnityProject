@@ -14,6 +14,21 @@ public class GameMaster : NetworkManager
     public GameObject Unit4;
     public short playerID;
 
+public class GameMaster : NetworkManager
+{
+    //public List<Abilities> unitList = new List<Abilities>();
+    //public int activeTeam;
+    //public Abilities acitveUnit;
+    public GameObject Unit1;
+
+    public GameObject Unit2;
+    public GameObject Unit3;
+    public GameObject Unit4;
+    public short _playerID;
+    public TileMap _map;
+    private const int NUM_UNITS_PER_TEAM = 5;
+    public List<Unit> _units;
+    private int _prevX;
 
     // Use this for initialization
     void Start()
@@ -34,23 +49,13 @@ public class GameMaster : NetworkManager
 
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId, NetworkReader extraMessageReader)
     {
-        Transform startPos = GetStartPosition();
-        GameObject player;
-
-        if (startPos != null)
-        {
-            player = Instantiate(Unit1, startPos.position, startPos.rotation) as GameObject;
-        }
-        else
-        {
-            player = Instantiate(Unit2, Vector3.zero, Quaternion.identity) as GameObject;
-        }
-
-        NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
-        //NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
+        _playerID = 0;
+        _units = new List<Unit>();
+        _prevX = 0;
     }
-
-    public override void OnClientConnect(NetworkConnection conn)
+    /*
+    // Update is called once per frame
+    void Update()
     {
         //NetworkMessage test = new NetworkMessage();
         //test.chosenClass = chosenCharacter;

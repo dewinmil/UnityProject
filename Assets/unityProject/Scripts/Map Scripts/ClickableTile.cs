@@ -14,8 +14,13 @@ public class ClickableTile : MonoBehaviour
         Unit selectedUnit = map._selectedUnit.GetComponent<Unit>();
         if (selectedUnit.moveToggle)
         {
-            map.GeneratePathTo(tileX, tileZ);
-            selectedUnit.BeginMovement();
+            //see if this tile is withing the moveable range of the unit
+            if (selectedUnit.InRangeOfSelectedTile(tileX, tileZ))
+            {
+                map.GeneratePathTo(tileX, tileZ);
+                selectedUnit.BeginMovement();
+                selectedUnit.UnhighlightWalkableTiles();
+            }
         }
     }
 }

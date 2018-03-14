@@ -3442,11 +3442,13 @@ MonoBehaviour:
   tileZ: 0
   unitId: 0
   _map: {fileID: 0}
+  _isMoving: 0
   _characterMoveInput: {fileID: 114687351984267844}
   moveToggle: 0
   anim: {fileID: 95864445651345748}
   abil: 0
   react: 0
+  _numMoves: 2
   _rigidbody: {fileID: 54821017995208448}
 --- !u!114 &114388094563014982
 MonoBehaviour:
@@ -4025,7 +4027,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8162a006436944bd58b111e2457e4508, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minMovRange: 2
   isSelected: 0
   targetedBySpell: 0
   castingSpell: 0
