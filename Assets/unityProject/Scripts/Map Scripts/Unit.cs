@@ -145,7 +145,8 @@ public class Unit : MonoBehaviour
 
     public void GetNumUnits()
     {
-        
+
+    }
     public void HighlightWalkableTiles()
     {
         if (moveToggle == false)
