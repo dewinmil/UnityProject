@@ -17,10 +17,12 @@ public class GameMaster : NetworkManager
     private const int NUM_UNITS_PER_TEAM = 5;
     public List<Unit> _units;
     private int _prevX;
+    public int turn;
 
     // Use this for initialization
     void Start()
     {
+        turn = 1;
         _playerID = 0;
     }
     /*
@@ -61,6 +63,13 @@ public class GameMaster : NetworkManager
     }
 */
     public void SwitchTeam()
+        _units = new List<Unit>();
+        _prevX = 0;
+        ClientScene.RegisterPrefab(Unit1);
+        ClientScene.RegisterPrefab(Unit2);
+    }
+
+    public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
     {
         
     }
@@ -99,6 +108,11 @@ public class NetworkCustom : NetworkManager
         else
         {
             player = Instantiate(characters[chosenCharacter], Vector3.zero, Quaternion.identity) as GameObject;
+        //if this is the host client, spawn them on the other side of the map
+        if (_playerID < NUM_UNITS_PER_TEAM)
+            player = Instantiate(Unit1, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
+        else
+            player = Instantiate(Unit2, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
 
         }
 
@@ -131,3 +145,16 @@ public class NetworkCustom : NetworkManager
     }
 }
 */
+
+    public void endTurn()
+    {
+        if (turn == 1)
+        {
+            turn = 2;
+        }
+        else
+        {
+            turn = 1;
+        }
+    }
+}

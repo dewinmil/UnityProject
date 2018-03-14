@@ -89,7 +89,6 @@ public class Abilities : MonoBehaviour
                     {
                         resistance = 0;
                     }
-
                     //deal damage wieghted by resistance
                     target.loseHealth(damage * (1 - resistance));
                 }
@@ -114,10 +113,10 @@ public class Abilities : MonoBehaviour
                     target.loseHealth(damage * (1 - resistance));
                 }
 
-
                 //check if target is dead - may have received damage before healing
                 if (target.currentHealth <= 0)
                 {
+                    target.GetComponent<CapsuleCollider>().enabled = false;
                     target.currentHealth = 0;
                 }
                 else
