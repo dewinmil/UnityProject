@@ -135,6 +135,7 @@ public class CastSpell : NetworkBehaviour
         }
         else
         {
+            //serverAnimation.GetComponent<SpellCollision>()._parentCastSpell = gameObject.GetComponent<CastSpell>();
             NetworkServer.Spawn(serverAnimation);
             serverAnimation.GetComponent<SpellCollision>().serverSpell = true;
         }

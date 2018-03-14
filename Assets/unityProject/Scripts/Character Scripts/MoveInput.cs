@@ -20,7 +20,8 @@ public class MoveInput : NetworkBehaviour
         if (isLocalPlayer)
         {
             //deselect unit if it is not their turn
-            if (!(FindObjectOfType<GameMaster>().turn == gameObject.GetComponent<CharacterStatus>().teamNum))
+            if (!(FindObjectOfType<GameMaster>().turn == gameObject.GetComponent<CharacterStatus>().teamNum)
+                || gameObject.GetComponent<CharacterStatus>().currentHealth < 0)
             {
                 //select the unit
                 isSelected = false;
@@ -49,13 +50,14 @@ public class MoveInput : NetworkBehaviour
                         Vector3 selectedPosition = new Vector3(hit.point.x, hit.point.y - hit.point.y - .416f, hit.point.z);
 
                         //if we did selected an area right on top of / near the owner of this script
-                        if (Vector3.Distance(selectedPosition, _characterAbilities.transform.position) <= 1)
+                        if (Vector3.Distance(selectedPosition, _characterAbilities.transform.position) <= .9)
                         {
                             //if they are not having an ability cast upon them
                             if (targetedBySpell == false)
                             {
                                 //only select unit if it is their turn
-                                if (FindObjectOfType<GameMaster>().turn == gameObject.GetComponent<CharacterStatus>().teamNum)
+                                if (FindObjectOfType<GameMaster>().turn == gameObject.GetComponent<CharacterStatus>().teamNum
+                                    && gameObject.GetComponent<CharacterStatus>().currentHealth > 0)
                                 {
                                     //select the unit
                                     isSelected = true;
