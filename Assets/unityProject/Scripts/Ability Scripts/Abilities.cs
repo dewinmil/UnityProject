@@ -59,7 +59,7 @@ public class Abilities : MonoBehaviour
     }
 
     //this function actually applies the spell effect to the target
-    public void castAbility(CharacterStatus target, float damage, float healing, float apCost, float armorPen, float magicPen, float range, bool isMagic, bool isDot)
+    public void castAbility(CharacterStatus target, float damage, float healing, float apCost, float armorPen, float magicPen, float range, bool isMagic)
     {
         //if the target is not dead
         if (target.currentHealth > 0)
@@ -147,12 +147,6 @@ public class Abilities : MonoBehaviour
                 _casterStatus.currentAction, _casterStatus.maxHealth, _casterStatus.currentHealth,
                 _casterStatus.physicalArmor, _casterStatus.magicArmor);
                 */
-        }
-
-        if (isDot)
-        {
-            //mark target as affected by a DOT attack
-            target.dotAffected = true;
         }
 
     }
@@ -315,27 +309,27 @@ public class Abilities : MonoBehaviour
 
     public void ability1(CharacterStatus target)
     {
-        castAbility(target, 3, 0, 3, (float).5, 0, 0, false, false);
+        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
     }
 
     public void ability2(CharacterStatus target)
     {
-        castAbility(target, 3, 0, 3, (float).5, 0, 0, false, false);
+        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
     }
 
     public void ability3(CharacterStatus target)
     {
-        castAbility(target, 0, 3, 3, 0, 0, 0, false, false);
+        castAbility(target, 0, 3, 3, 0, 0, 0, false);
     }
 
     public void ability4(CharacterStatus target)
     {
-        castAbility(target, 3, 0, 3, (float).5, 0, 0, false, false);
+        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
     }
 
     public void ability5(CharacterStatus target)
     {
-        castAbility(target, 3, 0, 3, (float).5, 0, 0, false, false);
+        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
     }
 
 

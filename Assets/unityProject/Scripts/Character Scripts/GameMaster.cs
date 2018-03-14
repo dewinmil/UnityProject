@@ -7,20 +7,8 @@ public class GameMaster : NetworkManager
 {
     //public List<Abilities> unitList = new List<Abilities>();
     //public int activeTeam;
-    //public Abilities acitveUnit;
+    //public Abilities abil;
     public GameObject Unit1;
-    public GameObject Unit2;
-    public GameObject Unit3;
-    public GameObject Unit4;
-    public short playerID;
-
-public class GameMaster : NetworkManager
-{
-    //public List<Abilities> unitList = new List<Abilities>();
-    //public int activeTeam;
-    //public Abilities acitveUnit;
-    public GameObject Unit1;
-
     public GameObject Unit2;
     public GameObject Unit3;
     public GameObject Unit4;
@@ -33,7 +21,7 @@ public class GameMaster : NetworkManager
     // Use this for initialization
     void Start()
     {
-        playerID = 0;
+        _playerID = 0;
     }
     /*
     // Update is called once per frame
@@ -41,17 +29,18 @@ public class GameMaster : NetworkManager
     {
 
     }
-
+    
     public void ChangeTeam()
     {
         activeTeam = (activeTeam + 1) % 2;
-    }*/
-
+    }
+    */
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId, NetworkReader extraMessageReader)
     {
         _playerID = 0;
         _units = new List<Unit>();
         _prevX = 0;
+
     }
     /*
     // Update is called once per frame
@@ -70,11 +59,12 @@ public class GameMaster : NetworkManager
         ClientScene.AddPlayer(conn, playerID);
         playerID++;
     }
-
+*/
     public void SwitchTeam()
     {
-        //NetworkIdentity.ClientAuthorityCallback();
+        
     }
+
 }
 /*
 using UnityEngine;
