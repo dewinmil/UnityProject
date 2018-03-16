@@ -28,6 +28,7 @@ public class CharacterStatus : NetworkBehaviour {
     public Text healthBarTextUI;
     public Text actionBarTextUI;
     public Unit _unit;
+    public EndTurn endTurn;
     [SyncVar]
     public bool startOfTurn;
 
@@ -35,13 +36,14 @@ public class CharacterStatus : NetworkBehaviour {
     // Use this for initialization
     void Start()
     {
+        endTurn = FindObjectOfType<EndTurn>();
         startOfTurn = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (FindObjectOfType<GameMaster>().turn == teamNum)
+        if (endTurn.turn == teamNum)
         {
             if(startOfTurn == true)
             {

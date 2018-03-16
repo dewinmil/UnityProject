@@ -70,15 +70,4 @@ public class GameMaster : NetworkManager
         return unit;
     }
 
-    public void endTurn()
-    {
-        if (turn == 1)
-        {
-            turn = 2;
-        }
-        else
-        {
-            turn = 1;
-        }
-    }
 }

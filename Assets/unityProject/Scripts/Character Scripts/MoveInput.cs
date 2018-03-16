@@ -12,15 +12,19 @@ public class MoveInput : NetworkBehaviour
     public bool castingSpell;
     public Abilities _characterAbilities;
     public Unit _unit;
+    public EndTurn endTurn;
 
-
+    public void Start()
+    {
+        endTurn = FindObjectOfType<EndTurn>();
+    }
     // Update is called once per frame
     void Update()
     {
         if (isLocalPlayer)
         {
             //deselect unit if it is not their turn
-            if (!(FindObjectOfType<GameMaster>().turn == gameObject.GetComponent<CharacterStatus>().teamNum)
+            if (endTurn.turn != gameObject.GetComponent<CharacterStatus>().teamNum
                 || gameObject.GetComponent<CharacterStatus>().currentHealth < 0)
             {
                 //select the unit
@@ -56,7 +60,7 @@ public class MoveInput : NetworkBehaviour
                             if (targetedBySpell == false)
                             {
                                 //only select unit if it is their turn
-                                if (FindObjectOfType<GameMaster>().turn == gameObject.GetComponent<CharacterStatus>().teamNum
+                                if (endTurn.turn == gameObject.GetComponent<CharacterStatus>().teamNum
                                     && gameObject.GetComponent<CharacterStatus>().currentHealth > 0)
                                 {
                                     //select the unit
