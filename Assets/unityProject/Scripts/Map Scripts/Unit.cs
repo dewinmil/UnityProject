@@ -9,7 +9,7 @@ public class Unit : MonoBehaviour
     public int tileZ;
     public int unitId;
     public TileMap _map;
-    private bool _isMoving;
+    public bool _isMoving;
     public MoveInput _characterMoveInput;
     public bool moveToggle;
     public Animator anim;
@@ -19,6 +19,7 @@ public class Unit : MonoBehaviour
     private Vector3 _nextTile;
     private const float MOVEMENT_SPEED = 100f;
     private bool first = true;
+    
 
     public List<Node> _currentPath = null;
 
@@ -57,6 +58,10 @@ public class Unit : MonoBehaviour
         abil = 0;
         anim.SetBool("React", react);
         react = false;
+    }
+
+    public void DeathAnim() {
+        anim.SetBool("Dead", true);
     }
 
     void FixedUpdate()

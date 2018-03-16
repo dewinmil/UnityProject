@@ -58,6 +58,8 @@ GameObject:
   - component: {fileID: 54940535268006992}
   - component: {fileID: 135879911564942820}
   - component: {fileID: 114892064644649642}
+  - component: {fileID: 114295068811750240}
+  - component: {fileID: 114634315832396236}
   m_Layer: 0
   m_Name: FireSpell
   m_TagString: Untagged
@@ -121,6 +123,59 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114295068811750240
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1552241325217802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 37
+    i1: 107
+    i2: 49
+    i3: 218
+    i4: 23
+    i5: 255
+    i6: 101
+    i7: 52
+    i8: 27
+    i9: 2
+    i10: 114
+    i11: 235
+    i12: 98
+    i13: 118
+    i14: 200
+    i15: 224
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
+--- !u!114 &114634315832396236
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1552241325217802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.033333335
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 4.9
+  m_InterpolateMovement: 1
 --- !u!114 &114892064644649642
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -135,6 +190,7 @@ MonoBehaviour:
   onHitAnimation: {fileID: 1764942340897686, guid: f212e4d8eb63da34899fabf511942b23,
     type: 2}
   spellSound: {fileID: 8300000, guid: 32a085624b9f652458773be29e8fc6c1, type: 3}
+  spellMoves: 1
 --- !u!135 &135879911564942820
 SphereCollider:
   m_ObjectHideFlags: 1

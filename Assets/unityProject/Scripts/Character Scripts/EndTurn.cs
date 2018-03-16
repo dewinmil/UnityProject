@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using UnityEngine.Networking;
 
-public class EndTurn : MonoBehaviour
+public class EndTurn : NetworkBehaviour
 {
     public Unit unit;
     public CharacterStatus unitStatus;

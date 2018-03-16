@@ -29,6 +29,7 @@ public class TileMap : MonoBehaviour
     private readonly Color WALKABLE_TILE_COLOR = new Color(0.49f, 1.0f, 0.47f);
     private readonly Color UNWALKABLE_TILE_COLOR = new Color(1.0f, 0.47f, 0.47f);
     public bool genDone = false;
+    public bool charSelect = false;
 
     private void Start()
     {

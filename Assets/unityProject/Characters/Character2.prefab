@@ -652,6 +652,8 @@ GameObject:
   - component: {fileID: 195572766342944234}
   - component: {fileID: 54821017995208448}
   - component: {fileID: 136694403002145280}
+  - component: {fileID: 114849652109922914}
+  - component: {fileID: 114845864092017598}
   m_Layer: 0
   m_Name: Character2
   m_TagString: Unit
@@ -3031,6 +3033,8 @@ MonoBehaviour:
   abilityHitAnimation: {fileID: 0}
   _caster: {fileID: 114364509948496710}
   spellMoves: 0
+  abilityNum: 0
+  buttonNum: 0
 --- !u!114 &114213917492860504
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3437,12 +3441,13 @@ MonoBehaviour:
   tileX: 0
   tileZ: 0
   unitId: 0
-  map: {fileID: 0}
+  _map: {fileID: 0}
   _characterMoveInput: {fileID: 114687351984267844}
   moveToggle: 0
-  anim: {fileID: 0}
+  anim: {fileID: 95864445651345748}
   abil: 0
   react: 0
+  _rigidbody: {fileID: 54821017995208448}
 --- !u!114 &114388094563014982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3955,6 +3960,8 @@ MonoBehaviour:
   abilityHitAnimation: {fileID: 0}
   _caster: {fileID: 114364509948496710}
   spellMoves: 0
+  abilityNum: 0
+  buttonNum: 0
 --- !u!114 &114651412783367130
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4051,6 +4058,8 @@ MonoBehaviour:
   abilityHitAnimation: {fileID: 123640, guid: 9242b15a276bc5a4babd09239e5fa709, type: 2}
   _caster: {fileID: 114364509948496710}
   spellMoves: 1
+  abilityNum: 0
+  buttonNum: 0
 --- !u!114 &114713135725790170
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4067,6 +4076,8 @@ MonoBehaviour:
   abilityHitAnimation: {fileID: 0}
   _caster: {fileID: 114364509948496710}
   spellMoves: 0
+  abilityNum: 0
+  buttonNum: 0
 --- !u!114 &114718705303813304
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4171,6 +4182,8 @@ MonoBehaviour:
     type: 2}
   _caster: {fileID: 114364509948496710}
   spellMoves: 1
+  abilityNum: 0
+  buttonNum: 0
 --- !u!114 &114811069020923172
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4198,6 +4211,59 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114845864092017598
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1416233602259218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.033333335
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
+--- !u!114 &114849652109922914
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1416233602259218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 107
+    i1: 6
+    i2: 184
+    i3: 37
+    i4: 4
+    i5: 22
+    i6: 38
+    i7: 52
+    i8: 154
+    i9: 57
+    i10: 202
+    i11: 56
+    i12: 197
+    i13: 79
+    i14: 5
+    i15: 148
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114866992765718136
 MonoBehaviour:
   m_ObjectHideFlags: 1
