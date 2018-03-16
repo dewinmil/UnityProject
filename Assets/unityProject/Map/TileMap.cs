@@ -7,9 +7,10 @@ using UnityEngine.EventSystems;
 using UnityEngine.AI;
 using System.Security.Cryptography;
 using System.Text;
+using UnityEngine.Networking;
 
 
-public class TileMap : MonoBehaviour
+public class TileMap : NetworkBehaviour
 {
     //2-D array of tiles
     private int[,] _tiles;
@@ -30,7 +31,7 @@ public class TileMap : MonoBehaviour
     private readonly Color WALKABLE_TILE_COLOR = new Color(0.49f, 1.0f, 0.47f);
     private readonly Color UNWALKABLE_TILE_COLOR = new Color(1.0f, 0.47f, 0.47f);
 
-    private void Start()
+    private void Awake()
     {
         wasCasting = false;
         _hashAlgorithm = MD5.Create();
@@ -120,6 +121,13 @@ public class TileMap : MonoBehaviour
             }
         }
 
+        //team 1's unit spawn
+        for (int x = 0; x < 5; x++)
+            SetTileWalkable(x, 0, false);
+
+        //team 2's unit spawn
+        for (int x = 5; x < 10; x++)
+            SetTileWalkable(x, _mapSizeZ - 1, false);
     }
 
     private void GeneratePathGraph()
@@ -312,13 +320,6 @@ public class TileMap : MonoBehaviour
                 _tiles[x, z] = 0;
             }
         }
-
-        //Init some unwalkable floor for fun
-        _tiles[4, 4] = 1;
-        _tiles[5, 4] = 1;
-        _tiles[6, 4] = 1;
-        _tiles[7, 4] = 1;
-        _tiles[8, 4] = 1;
     }
 
     public Vector3 TileCoordToWorldCoord(int x, int z)
@@ -387,7 +388,7 @@ public class TileMap : MonoBehaviour
         }
     }
 
-    public void SetTileWalkable(int x, int z, bool isWalkable)
+    private void SetTileWalkable(int x, int z, bool isWalkable)
     {
         //if we pass in true, make the tile walkable (0)
         //if we pass in false, make the tile unwalkable (1)
@@ -451,6 +452,32 @@ public class TileMap : MonoBehaviour
         {
             MeshRenderer mesh = tile.GetComponent<MeshRenderer>();
             mesh.material.color = WALKABLE_TILE_COLOR;
+        }
+    }
+
+    //This is called by the client when they move
+    [Command]
+    public void CmdSetTileWalkable(int x, int z, bool isWalkable)
+    {
+        SetTileWalkable(x, z, isWalkable);
+        RpcUnitMoved(x, z, isWalkable);
+    }
+
+    //this sends the message to the other client about their unit moving
+    [ClientRpc]
+    public void RpcUnitMoved(int x, int z, bool isWalkable)
+    {
+        SetTileWalkable(x, z, isWalkable);
+    }
+
+    //command used to update the current clients map
+    [Command]
+    public void CmdUpdateMap()
+    {
+        GameMaster gm = FindObjectOfType<GameMaster>();
+        foreach (Unit unit in gm._units)
+        {
+            RpcUnitMoved(unit.tileX, unit.tileZ, false);
         }
     }
 }
