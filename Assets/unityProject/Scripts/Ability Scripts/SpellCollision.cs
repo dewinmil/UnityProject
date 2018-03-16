@@ -5,7 +5,6 @@ using UnityEngine.Networking;
 
 public class SpellCollision : NetworkBehaviour
 {
-
     public GameObject onHitAnimation;
     private AudioSource source;
     public AudioClip spellSound;
@@ -14,10 +13,16 @@ public class SpellCollision : NetworkBehaviour
     private bool hitParent;
     public bool spellMoves;
     public bool serverSpell;
+    public CastSpell _parentCastSpell;
 
     // Use this for initialization
     void Start()
     {
+        if (gameObject.transform.parent != null)
+        {
+            _parentCastSpell = gameObject.transform.parent.GetComponent<CastSpell>();
+        }
+        gameObject.transform.parent = null;
         hitOnce = false;
         hitParent = false;
         source = gameObject.AddComponent<AudioSource>();
@@ -38,7 +43,8 @@ public class SpellCollision : NetworkBehaviour
                 if (serverSpell)
                 {
                     hitOnce = true;
-                    gameObject.GetComponentInParent<CastSpell>().applyAbilityEffect(gameObject.GetComponentInParent<CastSpell>().abilityNum);
+                    _parentCastSpell.applyAbilityEffect(_parentCastSpell.abilityNum);
+                    //gameObject.transform.parent = null;
                 }
             }
         }
@@ -114,7 +120,7 @@ public class SpellCollision : NetworkBehaviour
                     //destroy the original spell animation to which this script belongs
                     if (serverSpell)
                     {
-                        gameObject.GetComponentInParent<CastSpell>().applyAbilityEffect(gameObject.GetComponentInParent<CastSpell>().abilityNum);
+                        _parentCastSpell.applyAbilityEffect(_parentCastSpell.abilityNum, other.GetComponent<CharacterStatus>());
                     }
                     GameObject.Destroy(gameObject);
                 }

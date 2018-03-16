@@ -74,7 +74,7 @@ public class Abilities : MonoBehaviour
                 if (isMagic)
                 {
 
-                    if(magicPen == 0)
+                    if (magicPen == 0)
                     {
                         resistance = target.magicArmor;
                     }
@@ -88,7 +88,6 @@ public class Abilities : MonoBehaviour
                     {
                         resistance = 0;
                     }
-
                     //deal damage wieghted by resistance
                     target.loseHealth(damage * (1 - resistance));
                 }
@@ -113,17 +112,17 @@ public class Abilities : MonoBehaviour
                     target.loseHealth(damage * (1 - resistance));
                 }
 
-
                 //check if target is dead - may have received damage before healing
                 if (target.currentHealth <= 0)
                 {
+                    target.GetComponent<CapsuleCollider>().enabled = false;
                     target.currentHealth = 0;
                 }
                 else
                 {
                     //if alive heal the target
                     target.gainHealth(healing);
-                    if(target.currentHealth > target.maxHealth)
+                    if (target.currentHealth > target.maxHealth)
                     {
                         target.currentHealth = target.maxHealth;
                     }
@@ -165,6 +164,7 @@ public class Abilities : MonoBehaviour
             //NOTE - THIS IS A DIFFERENT TOGGLE MOVEMENT FUNCTION BELONGING TO THE UNIT CLASS
             //toggles movement boolean between true or false
             _unit.toggleMovement();
+            _unit.HighlightWalkableTiles();
         }
     }
 
@@ -177,7 +177,7 @@ public class Abilities : MonoBehaviour
         {
             //enable or disable spellcast on keypress
             if (Input.GetKeyUp(spellHotkey1))
-            {           
+            {
                 toggleCasting();
                 abilityUsed = 1;
             }
@@ -293,7 +293,7 @@ public class Abilities : MonoBehaviour
                 usingAbility = true;
                 _casterMoveInput.castingSpell = true;
             }
-        } 
+        }
     }
 
     public void copyInfo(CastSpell copiedSpell)
