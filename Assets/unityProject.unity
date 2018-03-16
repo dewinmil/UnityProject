@@ -391,7 +391,7 @@ MonoBehaviour:
     TileVisuallPrefab: {fileID: 1041883840204490, guid: a25e0220899d3eb44b17cce916d21c67,
       type: 2}
     IsWalkable: 0
-  _selectedUnit: {fileID: 1211030468313144, guid: 371018ce323ecec46ae2ae34abad593e,
+  _selectedUnit: {fileID: 1362151556817716, guid: 4ff7c1f0543b6894983c748131b73025,
     type: 2}
   genDone: 0
   charSelect: 0
@@ -2470,7 +2470,7 @@ MonoBehaviour:
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
   m_LogLevel: 2
-  m_PlayerPrefab: {fileID: 1211030468313144, guid: 371018ce323ecec46ae2ae34abad593e,
+  m_PlayerPrefab: {fileID: 1362151556817716, guid: 4ff7c1f0543b6894983c748131b73025,
     type: 2}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 1
