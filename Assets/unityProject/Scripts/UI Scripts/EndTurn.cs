@@ -10,12 +10,6 @@ public class EndTurn : NetworkBehaviour
     public int turn;
 
     public void endTurn()
-    {   
-        CmdEndTurn();
-    }
-
-    [Command]
-    public void CmdEndTurn()
     {
         if (turn == 1)
         {
@@ -25,6 +19,5 @@ public class EndTurn : NetworkBehaviour
         {
             turn = 1;
         }
-        print(turn);
     }
 }

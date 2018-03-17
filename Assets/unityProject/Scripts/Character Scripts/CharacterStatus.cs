@@ -29,6 +29,7 @@ public class CharacterStatus : NetworkBehaviour {
     public Text actionBarTextUI;
     public Unit _unit;
     public EndTurn endTurn;
+    private int previousTurn;
     [SyncVar]
     public bool startOfTurn;
 
@@ -36,6 +37,7 @@ public class CharacterStatus : NetworkBehaviour {
     // Use this for initialization
     void Start()
     {
+        previousTurn = 1;
         endTurn = FindObjectOfType<EndTurn>();
         startOfTurn = false;
     }
@@ -43,6 +45,14 @@ public class CharacterStatus : NetworkBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if(endTurn.turn != previousTurn)
+        {
+            previousTurn = endTurn.turn;
+            if (hasAuthority)
+            {
+                CmdUpdateTurn(endTurn.turn);
+            }
+        }
         if (endTurn.turn == teamNum)
         {
             if(startOfTurn == true)
@@ -115,6 +125,13 @@ public class CharacterStatus : NetworkBehaviour {
         currentHealth = currentHealthVal;
         physicalArmor = physicalArmorVal;
         magicArmor = magicArmorVal;
+    }
+
+    [Command]
+    public void CmdUpdateTurn(int turn)
+    {
+        endTurn.turn = turn;
+        previousTurn = turn;
     }
     
 }
