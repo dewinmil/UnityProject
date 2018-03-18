@@ -22,27 +22,36 @@ public class Unit : NetworkBehaviour
     public Rigidbody _rigidbody;
     private Vector3 _nextTile;
     private const float MOVEMENT_SPEED = 100f;
+    
+
     private List<Node> _tilesToMove;
+
 
     public List<Node> _currentPath = null;
 
     private void Start()
     {
         this.unitId = -1;
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         abil = 0;
         react = false;
         if (_map == null)
             _map = FindObjectOfType<TileMap>();
     }
 
+
     void Update()
     {
+
         anim.SetBool("Moving", _isMoving);
         anim.SetInteger("Ability", abil);
         abil = 0;
         anim.SetBool("React", react);
         react = false;
+    }
+
+    public void DeathAnim() {
+        anim.SetBool("Dead", true);
     }
 
     void FixedUpdate()

@@ -173,7 +173,15 @@ public class CastSpell : NetworkBehaviour
             {
                 //rotate the spell in the direction of the target
                 float rotation = getRotation(target);
+                /*
+<<<<<<< HEAD
+                currentAnimation.transform.eulerAngles = new Vector3(currentAnimation.transform.eulerAngles.x,
+                    rotation + abilityAnimation.transform.eulerAngles.y, currentAnimation.transform.eulerAngles.z);
+                
+=======
 
+>>>>>>> be71b1aee366d0d19e2858636aba6db4bd5dc20c
+*/
                 //find the direction of target
                 currentAnimation = Instantiate(abilityAnimation, target.transform.position, Quaternion.identity);
                 Vector3 targetDirection = (target.transform.position - _caster.transform.position).normalized;

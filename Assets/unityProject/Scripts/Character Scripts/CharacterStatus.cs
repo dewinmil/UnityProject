@@ -73,6 +73,10 @@ public class CharacterStatus : NetworkBehaviour {
             startOfTurn = true;
         }
         updateStatusBars();
+        if(currentHealth <= 0)
+        {
+            _unit.DeathAnim();
+        }
     }
 
     public void updateStatusBars()
@@ -98,7 +102,7 @@ public class CharacterStatus : NetworkBehaviour {
     public void loseHealth(float damage)
     {
         currentHealth -= damage;
-        //_unit.react = true;
+        _unit.react = true;
     }
     public void gainHealth(float healing)
     {
