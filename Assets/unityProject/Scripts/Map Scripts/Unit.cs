@@ -6,8 +6,9 @@ using UnityEngine.Networking;
 
 public class Unit : NetworkBehaviour
 {
-
+    [SyncVar]
     public int tileX;
+    [SyncVar]
     public int tileZ;
     public int unitId;
     public TileMap _map;

@@ -59,17 +59,13 @@ public class MoveInput : NetworkBehaviour
                             //if they are not having an ability cast upon them
                             if (targetedBySpell == false)
                             {
-                                //select the unit
-                                isSelected = true;
-                                _unit._map.charSelect = true;
-                                _unit.SelectedUnitChanged();
-                                //only select unit if it is their turn
                                 if (endTurn.turn == gameObject.GetComponent<CharacterStatus>().teamNum
                                     && gameObject.GetComponent<CharacterStatus>().currentHealth > 0)
                                 {
                                     //select the unit
                                     isSelected = true;
                                     _unit.SelectedUnitChanged();
+                                    _unit._map.charSelect = true;
                                 }
                             }
                             //someone just cast an ability on this unit - do not select this unit

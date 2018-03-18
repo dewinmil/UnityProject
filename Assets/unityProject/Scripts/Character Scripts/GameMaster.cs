@@ -39,11 +39,13 @@ public class GameMaster : NetworkManager
         {
             player = Instantiate(Unit1, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
             unit = CreateUnit(player.GetComponent<Unit>(), _prevX, 0);
+            UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 1);
         }
         else
         {
             player = Instantiate(Unit2, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
             unit = CreateUnit(player.GetComponent<Unit>(), _prevX, _map._mapSizeZ - 1);
+            UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 2);
         }
         
         _units.Add(unit);
@@ -77,6 +79,11 @@ public class GameMaster : NetworkManager
 
         _prevX++;
         return unit;
+    }
+
+    private void UpdateCharacterStatus(CharacterStatus status, int teamNum)
+    {
+        status.teamNum = teamNum;
     }
 
 }
