@@ -28,17 +28,38 @@ public class CharacterStatus : NetworkBehaviour {
     public Text healthBarTextUI;
     public Text actionBarTextUI;
     public Unit _unit;
+    [SyncVar]
+    public bool startOfTurn;
 
 
     // Use this for initialization
     void Start()
     {
-        
+        startOfTurn = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (FindObjectOfType<GameMaster>().turn == teamNum)
+        {
+            if(startOfTurn == true)
+            {
+                startOfTurn = false;
+                if (currentHealth > 0)
+                {
+                    currentAction = currentAction + 5;
+                    if(currentAction > maxAction)
+                    {
+                        currentAction = maxAction;
+                    }
+                }
+            }
+        }
+        else
+        {
+            startOfTurn = true;
+        }
         updateStatusBars();
         if(currentHealth <= 0)
         {

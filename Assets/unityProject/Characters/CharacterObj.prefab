@@ -4816,6 +4816,7 @@ MonoBehaviour:
   healthBarTextUI: {fileID: 114880727852683226}
   actionBarTextUI: {fileID: 114083774353807364}
   _unit: {fileID: 114959528214614768}
+  startOfTurn: 0
 --- !u!114 &114583693451767644
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4837,6 +4838,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   abil: 0
   react: 0
+  _numMoves: 2
   _rigidbody: {fileID: 54670664768516474}
 --- !u!114 &114601448621366946
 MonoBehaviour:
@@ -5007,6 +5009,7 @@ MonoBehaviour:
   healthBarTextUI: {fileID: 114880727852683226}
   actionBarTextUI: {fileID: 114083774353807364}
   _unit: {fileID: 114583693451767644}
+  startOfTurn: 0
 --- !u!114 &114716281927016628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5319,7 +5322,7 @@ MonoBehaviour:
     i14: 89
     i15: 62
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114913139926696808
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5514,6 +5517,7 @@ MonoBehaviour:
   anim: {fileID: 95849961175116018}
   abil: 0
   react: 0
+  _numMoves: 0
   _rigidbody: {fileID: 54144961189851442}
 --- !u!114 &114984607701235116
 MonoBehaviour:

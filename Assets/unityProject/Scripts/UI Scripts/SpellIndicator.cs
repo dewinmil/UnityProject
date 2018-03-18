@@ -126,6 +126,19 @@ public class SpellIndicator : MonoBehaviour
                             float zPos = Mathf.Pow(transform.position.z - _selected.transform.position.z, 2);
                             float xPos = Mathf.Pow(transform.position.x - _selected.transform.position.x, 2);
                             float distance = Mathf.Sqrt(zPos + xPos);
+                            if (list.Count >= 1)
+                            {
+                                if (_selected.GetComponent<Unit>().moveToggle)
+                                {
+                                    transform.GetComponent<SpriteRenderer>().material.color = Color.yellow;
+                                    list[0].transform.GetComponent<Renderer>().material.color = Color.yellow;
+                                }
+                                else
+                                {
+                                    transform.GetComponent<SpriteRenderer>().material.color = Color.white;
+                                    list[0].transform.GetComponent<Renderer>().material.color = Color.white;
+                                }
+                            }
                             if (distance >= list.Count + 5)
                             {
                                 list.Add(Instantiate(line));
@@ -193,6 +206,11 @@ public class SpellIndicator : MonoBehaviour
     public void clearList()
     {
         int max = list.Count;
+        if(max == 1)
+        {
+            transform.GetComponent<SpriteRenderer>().enabled = false;
+            list[0].transform.GetComponent<MeshRenderer>().enabled = false;
+        }
         for (int i = 1; i < max; i++)
         {
             transform.GetComponent<SpriteRenderer>().enabled = false;
