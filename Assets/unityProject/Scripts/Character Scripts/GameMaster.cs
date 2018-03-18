@@ -5,9 +5,6 @@ using UnityEngine.Networking.NetworkSystem;
 
 public class GameMaster : NetworkManager
 {
-    //public List<Abilities> unitList = new List<Abilities>();
-    //public int activeTeam;
-    //public Abilities abil;
     public GameObject Unit1;
     public GameObject Unit2;
     public GameObject Unit3;
@@ -18,52 +15,13 @@ public class GameMaster : NetworkManager
     public List<Unit> _units;
     private int _prevX;
     public int turn;
+    public CharacterStatus _currentStatus;
 
     // Use this for initialization
     void Start()
     {
         turn = 1;
         _playerID = 0;
-    }
-    /*
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-    
-    public void ChangeTeam()
-    {
-        activeTeam = (activeTeam + 1) % 2;
-    }
-    */
-    public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId, NetworkReader extraMessageReader)
-    {
-        _playerID = 0;
-        _units = new List<Unit>();
-        _prevX = 0;
-
-    }
-    /*
-    // Update is called once per frame
-    void Update()
-    {
-        //NetworkMessage test = new NetworkMessage();
-        //test.chosenClass = chosenCharacter;
-        ClientScene.AddPlayer(conn, playerID);
-        playerID++;
-        ClientScene.AddPlayer(conn, playerID);
-        playerID++;
-        ClientScene.AddPlayer(conn, playerID);
-        playerID++;
-        ClientScene.AddPlayer(conn, playerID);
-        playerID++;
-        ClientScene.AddPlayer(conn, playerID);
-        playerID++;
-    }
-*/
-    public void SwitchTeam()
-    {   
         _units = new List<Unit>();
         _prevX = 0;
         ClientScene.RegisterPrefab(Unit1);
@@ -72,89 +30,60 @@ public class GameMaster : NetworkManager
 
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
     {
-        
-    }
-
-/*
-using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.Networking.NetworkSystem;
- 
-public class NetworkCustom : NetworkManager
-{
-
-    public int chosenCharacter = 0;
-    public GameObject[] characters;
-
-    //subclass for sending network messages
-    public class NetworkMessage : MessageBase
-    {
-        public int chosenClass;
-    }
-
-    public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId, NetworkReader extraMessageReader)
-    {
-        NetworkMessage message = extraMessageReader.ReadMessage<NetworkMessage>();
-        int selectedClass = message.chosenClass;
-        Debug.Log("server add with message " + selectedClass);
 
         GameObject player;
-        Transform startPos = GetStartPosition();
 
-        if (startPos != null)
-        {
-            player = Instantiate(characters[chosenCharacter], startPos.position, startPos.rotation) as GameObject;
-        }
-        else
-        {
-            player = Instantiate(characters[chosenCharacter], Vector3.zero, Quaternion.identity) as GameObject;
         //if this is the host client, spawn them on the other side of the map
         if (_playerID < NUM_UNITS_PER_TEAM)
             player = Instantiate(Unit1, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
         else
             player = Instantiate(Unit2, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
 
-        }
+        Unit unit = CreateUnit(player.GetComponent<Unit>());
+        _units.Add(unit);
+        _map.SetTileWalkable(unit.tileX, unit.tileZ, false);
 
         NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
-
     }
 
     public override void OnClientConnect(NetworkConnection conn)
     {
-        NetworkMessage test = new NetworkMessage();
-        test.chosenClass = chosenCharacter;
-
-        ClientScene.AddPlayer(conn, 0, test);
+        AddPlayers(conn, NUM_UNITS_PER_TEAM);
     }
 
-
-    public override void OnClientSceneChanged(NetworkConnection conn)
+    private void AddPlayers(NetworkConnection conn, int numPlayers)
     {
-        //base.OnClientSceneChanged(conn);
+        for (int i = 0; i < numPlayers; i++)
+        {
+            ClientScene.AddPlayer(conn, _playerID);
+            _playerID++;
+        }
     }
 
-    public void btn1()
+    //method used for creating the unit. Set all values here
+    private Unit CreateUnit(Unit unit)
     {
-        chosenCharacter = 0;
-    }
+        unit.tileX = _prevX;
+        unit.tileZ = 0;
+        unit._map = _map;
 
-    public void btn2()
-    {
-        chosenCharacter = 1;
+        _prevX++;
+        return unit;
     }
-}
-*/
-
+    
     public void endTurn()
     {
-        if (turn == 1)
-        {
-            turn = 2;
-        }
-        else
-        {
-            turn = 1;
-        }
+        //CharacterStatus _currentStatus = GetComponent("CharacterStatus") as CharacterStatus;
+        //if (_currentStatus.getTeamNum() == turn)
+        //{
+            if (turn == 1)
+            {
+                turn = 2;
+            }
+            else
+            {
+                turn = 1;
+            }
+        //}
     }
 }

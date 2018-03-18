@@ -30,8 +30,8 @@ public class EndTurn : NetworkBehaviour
 
     public void SwitchTeam()
     {
-        master.SwitchTeam();
-    /*    foreach (Abilities unit in unitList)
+    /*    master.SwitchTeam();
+        foreach (Abilities unit in unitList)
         {
             if (unit._casterStatus.teamNum == currTeam)
             {

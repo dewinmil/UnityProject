@@ -49,7 +49,7 @@ public class CharacterStatus : NetworkBehaviour {
                 startOfTurn = false;
                 if (currentHealth > 0)
                 {
-                    currentAction = currentAction + 5;
+                    gainAction();
                     if(currentAction > maxAction)
                     {
                         currentAction = maxAction;
@@ -100,7 +100,12 @@ public class CharacterStatus : NetworkBehaviour {
     public void gainAction()
     {
         // At the beginning of the turn
-        currentAction += 8;
+        currentAction += 5;
+    }
+
+    public int getTeamNum()
+    {
+        return teamNum;
     }
 
     
