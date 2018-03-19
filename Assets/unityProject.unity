@@ -8729,7 +8729,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Song1
     clip: {fileID: 8300000, guid: 58373c397420bf243b32d274a38f72c8, type: 3}
-    volume: 0
+    volume: 0.15
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
@@ -8738,7 +8738,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Song2
     clip: {fileID: 8300000, guid: 610e8d1ba6c503040950a7e96659c759, type: 3}
-    volume: 0.25
+    volume: 0.15
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
@@ -8747,7 +8747,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Song3
     clip: {fileID: 8300000, guid: 379c9a2d1ec083e479a56925838e5732, type: 3}
-    volume: 0.25
+    volume: 0.15
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
@@ -8756,16 +8756,16 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Song4
     clip: {fileID: 8300000, guid: 74547fb283ae4fb4396c0ed973b6d719, type: 3}
-    volume: 0.25
+    volume: 0.15
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  - name: Song5
-    clip: {fileID: 0}
-    volume: 0.25
+  - name: endTurnSound
+    clip: {fileID: 8300000, guid: 28e9b4a6c3d32174983bf47e70dcb41b, type: 3}
+    volume: 0.15
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
@@ -11206,7 +11206,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -497, y: 207.16753}
+  m_AnchoredPosition: {x: -497, y: 247.63}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1470201232
@@ -13411,6 +13411,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1097226108}
+        m_MethodName: endTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1769402213
@@ -14840,7 +14851,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
