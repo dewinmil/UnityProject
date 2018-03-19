@@ -102,7 +102,6 @@ public class MoveInput : NetworkBehaviour
                                         {
                                             //de-select this unit
                                             isSelected = false;
-                                            _unit._map.charSelect = false;
                                         }
                                     }
                                 }
