@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.EventSystems;
+using UnityEngine.Networking;
 
-public class Unit : MonoBehaviour
+public class Unit : NetworkBehaviour
 {
-
+    [SyncVar]
     public int tileX;
+    [SyncVar]
     public int tileZ;
     public int unitId;
     public TileMap _map;
@@ -21,25 +23,36 @@ public class Unit : MonoBehaviour
     public Rigidbody _rigidbody;
     private Vector3 _nextTile;
     private const float MOVEMENT_SPEED = 100f;
+    
+
     private List<Node> _tilesToMove;
+
 
     public List<Node> _currentPath = null;
 
     private void Start()
     {
         this.unitId = -1;
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         abil = 0;
         react = false;
+        if (_map == null)
+            _map = FindObjectOfType<TileMap>();
     }
+
 
     void Update()
     {
+
         anim.SetBool("Moving", _isMoving);
         anim.SetInteger("Ability", abil);
         abil = 0;
         anim.SetBool("React", react);
         react = false;
+    }
+
+    public void DeathAnim() {
+        anim.SetBool("Dead", true);
     }
 
     void FixedUpdate()
@@ -87,7 +100,8 @@ public class Unit : MonoBehaviour
             //remove the path highlight
             _map.UnhighlightTilesInCurrentPath();
             //set the tile to be unwalkable since the unit is on top of it
-            _map.SetTileWalkable(this.tileX, this.tileZ, false);
+            //_map.SetTileWalkable(this.tileX, this.tileZ, false);
+            _map.CmdSetTileWalkable(this.tileX, this.tileZ, false);
             _currentPath = null;
             _isMoving = false;
             moveToggle = false;
@@ -115,7 +129,7 @@ public class Unit : MonoBehaviour
                 if (_currentPath == null)
                     return;
                 _nextTile = _map.TileCoordToWorldCoord(_currentPath[0].x, _currentPath[0].z);
-                _map.SetTileWalkable(this.tileX, this.tileZ, true);
+                _map.CmdSetTileWalkable(this.tileX, this.tileZ, true);
                 MoveToNextTile();
                 _isMoving = true;
             }
