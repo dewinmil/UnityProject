@@ -89,6 +89,8 @@ GameObject:
   - component: {fileID: 4124390778989232}
   - component: {fileID: 198223863881517292}
   - component: {fileID: 114109182615461764}
+  - component: {fileID: 114745738523379520}
+  - component: {fileID: 114269258716576334}
   m_Layer: 0
   m_Name: Attractor
   m_TagString: Untagged
@@ -179,6 +181,59 @@ MonoBehaviour:
   x: 0
   y: 1
   z: 0
+--- !u!114 &114269258716576334
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1895661344832740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 0
+  m_SendInterval: 0
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
+--- !u!114 &114745738523379520
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1895661344832740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 137
+    i1: 6
+    i2: 222
+    i3: 121
+    i4: 227
+    i5: 141
+    i6: 114
+    i7: 36
+    i8: 72
+    i9: 237
+    i10: 132
+    i11: 224
+    i12: 198
+    i13: 72
+    i14: 237
+    i15: 55
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!198 &198223863881517292
 ParticleSystem:
   m_ObjectHideFlags: 1

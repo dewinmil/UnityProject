@@ -7,17 +7,18 @@ using UnityEngine.EventSystems;
 using UnityEngine.AI;
 using System.Security.Cryptography;
 using System.Text;
+using UnityEngine.Networking;
 
 
-public class TileMap : MonoBehaviour
+public class TileMap : NetworkBehaviour
 {
     //2-D array of tiles
     private int[,] _tiles;
-
     private HashAlgorithm _hashAlgorithm;
+
     private Dictionary<string, GameObject> _tileObjects;
-    private int _mapSizeX = 20;
-    private int _mapSizeZ = 20;
+    public int _mapSizeX = 20;
+    public int _mapSizeZ = 20;
     public TileType[] _tileTypes;
     public GameObject _selectedUnit;
     private Node[,] _graph;
@@ -26,19 +27,24 @@ public class TileMap : MonoBehaviour
     private const float TILE_Y_POS = -.5f;
     private bool wasCasting;
     private Node[] _currentPath;
-    private Color CURRENT_PATH_TILE_COLOR = Color.yellow;
-    private Color UNOCCUPIED_TILE_COLOR = new Color(0.49f, 1.0f, 0.47f);
-    private Color OCCUPIED_TILE_COLOR = new Color(1.0f, 0.47f, 0.47f);
+    private List<GameObject> _highlightedTiles;
+    private readonly Color CURRENT_PATH_TILE_COLOR = Color.yellow;
+    private readonly Color WALKABLE_TILE_COLOR = new Color(0.49f, 1.0f, 0.47f);
+    private readonly Color UNWALKABLE_TILE_COLOR = new Color(1.0f, 0.47f, 0.47f);
+    public bool genDone = false;
+    public bool charSelect = false;
 
-    private void Start()
+    private void Awake()
     {
+        //genDone = false;
         wasCasting = false;
         _hashAlgorithm = MD5.Create();
         _tileObjects = new Dictionary<string, GameObject>();
+        _highlightedTiles = new List<GameObject>();
         //set up selected unit vars
-        _selectedUnit.GetComponent<Unit>().tileX = (int)_selectedUnit.transform.position.x;
-        _selectedUnit.GetComponent<Unit>().tileZ = (int)_selectedUnit.transform.position.z;
-        _selectedUnit.GetComponent<Unit>().map = this;
+        //_selectedUnit.GetComponent<Unit>().tileX = (int)_selectedUnit.transform.position.x;
+        //_selectedUnit.GetComponent<Unit>().tileZ = (int)_selectedUnit.transform.position.z;
+        _selectedUnit.GetComponent<Unit>()._map = this;
 
         //Generate the data for the map 
         GenerateMapData();
@@ -48,6 +54,7 @@ public class TileMap : MonoBehaviour
 
         //Spawn the prefabs
         GenerateMapObjects();
+        genDone = true;
     }
 
     private void Update()
@@ -102,9 +109,9 @@ public class TileMap : MonoBehaviour
                 GameObject tile;
                 //add the tile to the map
                 if ((z % 2) == 0)
-                    tile = Instantiate(tt.TileVisuallPrefab, new Vector3(x * TILE_OFFSET, TILE_Y_POS, z * (TILE_OFFSET-.15f)), Quaternion.Euler(90, 0, 0));
+                    tile = Instantiate(tt.TileVisuallPrefab, new Vector3(x * TILE_OFFSET, TILE_Y_POS, z * (TILE_OFFSET - .15f)), Quaternion.Euler(90, 0, 0));
                 else
-                    tile = Instantiate(tt.TileVisuallPrefab, new Vector3((x * TILE_OFFSET) + (TILE_OFFSET/2), TILE_Y_POS, z * (TILE_OFFSET - .15f)), Quaternion.Euler(90, 0, 0));
+                    tile = Instantiate(tt.TileVisuallPrefab, new Vector3((x * TILE_OFFSET) + (TILE_OFFSET / 2), TILE_Y_POS, z * (TILE_OFFSET - .15f)), Quaternion.Euler(90, 0, 0));
 
                 //make the map clickable
                 ClickableTile ct = tile.GetComponent<ClickableTile>();
@@ -114,11 +121,18 @@ public class TileMap : MonoBehaviour
 
                 //give each tile its own hash as its identifier. To get the hash, you need to hash the string of the x coordinate plus the z coordinate
                 string hash = GetHashString(x, z);
-                if(!_tileObjects.ContainsKey(hash))
+                if (!_tileObjects.ContainsKey(hash))
                     _tileObjects.Add(hash, tile);
             }
         }
 
+        //team 1's unit spawn
+        for (int x = 0; x < 5; x++)
+            SetTileWalkable(x, 0, false);
+
+        //team 2's unit spawn
+        for (int x = 5; x < 10; x++)
+            SetTileWalkable(x, _mapSizeZ - 1, false);
     }
 
     private void GeneratePathGraph()
@@ -142,50 +156,55 @@ public class TileMap : MonoBehaviour
         {
             for (int z = 0; z < _mapSizeZ; z++)
             {
-                //Find all neighbors in a hex direction
-
-                //left neighbors
-                if (x > 0)
-                {
-                    //left neighbor
-                    _graph[x, z].neighbours.Add(_graph[x - 1, z]);
-
-                    //bottom left
-                    //if it's an even z row, the neighbors will be different due to the offset of the hex tiles
-                    if (z > 0 && z % 2 == 0)
-                        _graph[x, z].neighbours.Add(_graph[x - 1, z - 1]);
-                    else if (z > 0)
-                        _graph[x, z].neighbours.Add(_graph[x, z - 1]);
-
-                    //upper left
-                    //if it's an even z row, the neighbors will be different due to the offset of the hex tiles
-                    if (z < _mapSizeZ - 1 && z % 2 == 0)
-                        _graph[x, z].neighbours.Add(_graph[x - 1, z + 1]);
-                    else if (z < _mapSizeZ - 1)
-                        _graph[x, z].neighbours.Add(_graph[x, z + 1]);
-                }
-
-                //right neighbors
-                if (x < _mapSizeX - 1)
-                {
-                    //right neighbor
-                    _graph[x, z].neighbours.Add(_graph[x + 1, z]);
-
-                    //bottom right
-                    //if it's an even z row, the neighbors will be different due to the offset of the hex tiles
-                    if (z > 0 && z % 2 == 0)
-                        _graph[x, z].neighbours.Add(_graph[x, z - 1]);
-                    else if(z > 0)
-                        _graph[x, z].neighbours.Add(_graph[x + 1, z - 1]);
-
-                    //upper right
-                    //if it's an even z row, the neighbors will be different due to the offset of the hex tiles
-                    if (z < _mapSizeZ - 1 && z % 2 == 0)
-                        _graph[x, z].neighbours.Add(_graph[x, z + 1]);
-                    else if(z < _mapSizeZ - 1)
-                        _graph[x, z].neighbours.Add(_graph[x + 1, z + 1]);
-                }
+                CalculateNeighbors(x, z);
             }
+        }
+    }
+
+    public void CalculateNeighbors(int x, int z)
+    {
+        //Find all neighbors in a hex direction
+
+        //left neighbors
+        if (x > 0)
+        {
+            //left neighbor
+            _graph[x, z].neighbours.Add(_graph[x - 1, z]);
+
+            //bottom left
+            //if it's an even z row, the neighbors will be different due to the offset of the hex tiles
+            if (z > 0 && z % 2 == 0)
+                _graph[x, z].neighbours.Add(_graph[x - 1, z - 1]);
+            else if (z > 0)
+                _graph[x, z].neighbours.Add(_graph[x, z - 1]);
+
+            //upper left
+            //if it's an even z row, the neighbors will be different due to the offset of the hex tiles
+            if (z < _mapSizeZ - 1 && z % 2 == 0)
+                _graph[x, z].neighbours.Add(_graph[x - 1, z + 1]);
+            else if (z < _mapSizeZ - 1)
+                _graph[x, z].neighbours.Add(_graph[x, z + 1]);
+        }
+
+        //right neighbors
+        if (x < _mapSizeX - 1)
+        {
+            //right neighbor
+            _graph[x, z].neighbours.Add(_graph[x + 1, z]);
+
+            //bottom right
+            //if it's an even z row, the neighbors will be different due to the offset of the hex tiles
+            if (z > 0 && z % 2 == 0)
+                _graph[x, z].neighbours.Add(_graph[x, z - 1]);
+            else if (z > 0)
+                _graph[x, z].neighbours.Add(_graph[x + 1, z - 1]);
+
+            //upper right
+            //if it's an even z row, the neighbors will be different due to the offset of the hex tiles
+            if (z < _mapSizeZ - 1 && z % 2 == 0)
+                _graph[x, z].neighbours.Add(_graph[x, z + 1]);
+            else if (z < _mapSizeZ - 1)
+                _graph[x, z].neighbours.Add(_graph[x + 1, z + 1]);
         }
     }
 
@@ -193,7 +212,7 @@ public class TileMap : MonoBehaviour
     public void GeneratePathTo(int x, int z)
     {
         //remove old path on selected unit
-        _selectedUnit.GetComponent<Unit>().currentPath = null;
+        _selectedUnit.GetComponent<Unit>()._currentPath = null;
 
         Dictionary<Node, float> dist = new Dictionary<Node, float>();
         Dictionary<Node, Node> prev = new Dictionary<Node, Node>();
@@ -287,7 +306,10 @@ public class TileMap : MonoBehaviour
         _currentPath = new Node[currentPath.Count];
         currentPath.CopyTo(_currentPath);
 
-        _selectedUnit.GetComponent<Unit>().currentPath = currentPath;
+        //set destination to be occupied
+        SetTileWalkable(currentPath[currentPath.Count - 1].x, currentPath[currentPath.Count - 1].z, false);
+
+        _selectedUnit.GetComponent<Unit>()._currentPath = currentPath;
     }
 
     void GenerateMapData()
@@ -303,13 +325,6 @@ public class TileMap : MonoBehaviour
                 _tiles[x, z] = 0;
             }
         }
-
-        //Init some unwalkable floor for fun
-        _tiles[4, 4] = 1;
-        _tiles[5, 4] = 1;
-        _tiles[6, 4] = 1;
-        _tiles[7, 4] = 1;
-        _tiles[8, 4] = 1;
     }
 
     public Vector3 TileCoordToWorldCoord(int x, int z)
@@ -322,21 +337,24 @@ public class TileMap : MonoBehaviour
 
     private float CostToEnterTile(int targetX, int targetZ, int sourceX, int sourceZ)
     {
-        TileType tt = _tileTypes[_tiles[targetX, targetZ]];
         float movementCost;
+        try
+        {
 
-        //if the tile is walkable, the unit can move through it
-        if (tt.IsWalkable)
-            movementCost = 1;
+            TileType tt = _tileTypes[_tiles[targetX, targetZ]];
 
-        //else set the cost to be infinity so that the algorithm will avoid it
-        else
-            movementCost = Mathf.Infinity;
+            //if the tile is walkable, the unit can move through it
+            if (tt.IsWalkable)
+                movementCost = 1;
 
-        //make movement more linear, makes more sense
-        if (targetX != sourceX && targetZ != sourceZ)
-            movementCost += 0.001f;
-
+            //else set the cost to be infinity so that the algorithm will avoid it
+            else
+                movementCost = Mathf.Infinity;
+        }
+        catch (IndexOutOfRangeException ex)
+        {
+            movementCost = -1;
+        }
         return movementCost;
     }
 
@@ -358,7 +376,7 @@ public class TileMap : MonoBehaviour
 
     public void UnhighlightTilesInCurrentPath()
     {
-        if(_currentPath == null)
+        if (_currentPath == null)
             return;
 
         int count = 0;
@@ -366,12 +384,105 @@ public class TileMap : MonoBehaviour
         {
             string hash = GetHashString(tile.x, tile.z);
             MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
-            if (count == _currentPath.Length-1)
-                mesh.material.color = OCCUPIED_TILE_COLOR;
+            if (count == _currentPath.Length - 1)
+                mesh.material.color = UNWALKABLE_TILE_COLOR;
             else
-               mesh.material.color = UNOCCUPIED_TILE_COLOR;
+                mesh.material.color = WALKABLE_TILE_COLOR;
 
             count++;
+        }
+    }
+
+    private void SetTileWalkable(int x, int z, bool isWalkable)
+    {
+        //if we pass in true, make the tile walkable (0)
+        //if we pass in false, make the tile unwalkable (1)
+        _tiles[x, z] = isWalkable ? 0 : 1;
+
+        string hash = GetHashString(x, z);
+        MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
+        mesh.material.color = isWalkable ? WALKABLE_TILE_COLOR : UNWALKABLE_TILE_COLOR;
+    }
+
+    //Params are current units x/z coords and the number of tiles the unit can move
+    public List<Node> HighlightWalkableTiles(int playerX, int playerZ, int numMoves)
+    {
+        int xMax = playerX + numMoves;
+        int xMin = playerX - numMoves;
+
+        int zMin = playerZ - numMoves;
+        int zMax = playerZ + numMoves;
+
+
+
+        List<Node> neighbors = new List<Node>();
+        for (int x = xMin; x <= xMax; x++)
+        {
+            for (int z = zMin; z <= zMax; z++)
+            {
+                //these checks remove additional tiles from being added due to the horizontal shift of the board
+                //if the row we are on is even (not shifted)
+                if (playerZ % 2 == 0 && z % 2 == 0 && x == xMax && z != playerZ)
+                    continue;
+
+                if (playerZ % 2 != 0 && z % 2 != 0 && x == xMin && z != playerZ)
+                    continue;
+
+                if (z % 2 == 0 && x == xMin && z != playerZ)
+                    continue;
+
+                if (z % 2 != 0 && x == xMax && z != playerZ)
+                    continue;
+
+                float cost = CostToEnterTile(x, z, playerX, playerZ);
+                if (cost > -1f && cost < Mathf.Infinity)
+                    neighbors.Add(new Node(x, z));
+            }
+        }
+
+        foreach (Node node in neighbors)
+        {
+            string hash = GetHashString(node.x, node.z);
+            MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
+            mesh.material.color = CURRENT_PATH_TILE_COLOR;
+            _highlightedTiles.Add(_tileObjects[hash]);
+        }
+
+        return neighbors;
+    }
+
+    public void UnhighlightWalkableTiles()
+    {
+        foreach (var tile in _highlightedTiles)
+        {
+            MeshRenderer mesh = tile.GetComponent<MeshRenderer>();
+            mesh.material.color = WALKABLE_TILE_COLOR;
+        }
+    }
+
+    //This is called by the client when they move
+    [Command]
+    public void CmdSetTileWalkable(int x, int z, bool isWalkable)
+    {
+        SetTileWalkable(x, z, isWalkable);
+        RpcUnitMoved(x, z, isWalkable);
+    }
+
+    //this sends the message to the other client about their unit moving
+    [ClientRpc]
+    public void RpcUnitMoved(int x, int z, bool isWalkable)
+    {
+        SetTileWalkable(x, z, isWalkable);
+    }
+
+    //command used to update the current clients map
+    [Command]
+    public void CmdUpdateMap()
+    {
+        GameMaster gm = FindObjectOfType<GameMaster>();
+        foreach (Unit unit in gm._units)
+        {
+            RpcUnitMoved(unit.tileX, unit.tileZ, false);
         }
     }
 }

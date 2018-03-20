@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Networking;
 
 public class Abilities : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class Abilities : MonoBehaviour
     public CastSpell Button4Animation;
     public CastSpell Button5Animation;
     public CastSpell Button6Animation;
+    private CastSpell castTheSpell;
     private KeyCode spellHotkey1 = KeyCode.Alpha1;//number 1
     private KeyCode spellHotkey2 = KeyCode.Alpha2;//number 2
     private KeyCode spellHotkey3 = KeyCode.Alpha3;//number 3
@@ -58,6 +60,7 @@ public class Abilities : MonoBehaviour
     //this function actually applies the spell effect to the target
     public void castAbility(CharacterStatus target, float damage, float healing, float apCost, float armorPen, float magicPen, float range, bool isMagic)
     {
+        _unit.transform.LookAt(target.transform.position);
         //if the target is not dead
         if (target.currentHealth > 0)
         {
@@ -72,7 +75,7 @@ public class Abilities : MonoBehaviour
                 if (isMagic)
                 {
 
-                    if(magicPen == 0)
+                    if (magicPen == 0)
                     {
                         resistance = target.magicArmor;
                     }
@@ -86,7 +89,6 @@ public class Abilities : MonoBehaviour
                     {
                         resistance = 0;
                     }
-
                     //deal damage wieghted by resistance
                     target.loseHealth(damage * (1 - resistance));
                 }
@@ -111,17 +113,17 @@ public class Abilities : MonoBehaviour
                     target.loseHealth(damage * (1 - resistance));
                 }
 
-
                 //check if target is dead - may have received damage before healing
                 if (target.currentHealth <= 0)
                 {
+                    target.GetComponent<CapsuleCollider>().enabled = false;
                     target.currentHealth = 0;
                 }
                 else
                 {
                     //if alive heal the target
                     target.gainHealth(healing);
-                    if(target.currentHealth > target.maxHealth)
+                    if (target.currentHealth > target.maxHealth)
                     {
                         target.currentHealth = target.maxHealth;
                     }
@@ -136,6 +138,14 @@ public class Abilities : MonoBehaviour
                 //print not enough AP - set boolean
                 usingAbility = false;
             }
+
+            target.CmdSyncValues(target.teamNum, target.maxAction, target.currentAction,
+                target.maxHealth, target.currentHealth, target.physicalArmor, target.magicArmor);
+            /*
+            _casterStatus.CmdSyncValues(_casterStatus.teamNum, _casterStatus.maxAction,
+                _casterStatus.currentAction, _casterStatus.maxHealth, _casterStatus.currentHealth,
+                _casterStatus.physicalArmor, _casterStatus.magicArmor);
+                */
         }
 
     }
@@ -155,6 +165,7 @@ public class Abilities : MonoBehaviour
             //NOTE - THIS IS A DIFFERENT TOGGLE MOVEMENT FUNCTION BELONGING TO THE UNIT CLASS
             //toggles movement boolean between true or false
             _unit.toggleMovement();
+            _unit.HighlightWalkableTiles();
         }
     }
 
@@ -167,7 +178,7 @@ public class Abilities : MonoBehaviour
         {
             //enable or disable spellcast on keypress
             if (Input.GetKeyUp(spellHotkey1))
-            {           
+            {
                 toggleCasting();
                 abilityUsed = 1;
             }
@@ -219,23 +230,34 @@ public class Abilities : MonoBehaviour
                             //cast an ability
                             if (abilityUsed == 1)
                             {
-                                Button1Animation.Cast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 1);
+                                copyInfo(Button1Animation);
+                                //gameObject.gameObject.transform.parent.GetComponent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 1);
+                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 1, 1);
+                                //Button1Animation.callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 1, 1);
                             }
                             if (abilityUsed == 2)
                             {
-                                Button2Animation.Cast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 2);
+                                copyInfo(Button2Animation);
+                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 2, 2);
+                                //Button2Animation.callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 2, 2);
                             }
                             if (abilityUsed == 3)
                             {
-                                Button3Animation.Cast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 3);
+                                copyInfo(Button3Animation);
+                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 3, 3);
+                                //Button3Animation.callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 3, 3);
                             }
                             if (abilityUsed == 4)
                             {
-                                Button4Animation.Cast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 4);
+                                copyInfo(Button4Animation);
+                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 4, 4);
+                                //Button4Animation.callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 4, 4);
                             }
                             if (abilityUsed == 5)
                             {
-                                Button5Animation.Cast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 5);
+                                copyInfo(Button5Animation);
+                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 5, 5);
+                                //Button5Animation.callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 5, 5);
                             }
                         }
                     }
@@ -272,7 +294,16 @@ public class Abilities : MonoBehaviour
                 usingAbility = true;
                 _casterMoveInput.castingSpell = true;
             }
-        } 
+        }
+    }
+
+    public void copyInfo(CastSpell copiedSpell)
+    {
+        //copiedSpell._caster = gameObject.GetComponent<Abilities>();
+        gameObject.GetComponentInParent<CastSpell>().abilityAnimation = copiedSpell.abilityAnimation;
+        gameObject.GetComponentInParent<CastSpell>().abilityHitAnimation = copiedSpell.abilityHitAnimation;
+        gameObject.GetComponentInParent<CastSpell>().spellMoves = copiedSpell.spellMoves;
+        //gameObject.GetComponentInParent<CastSpell>()._caster = gameObject.GetComponent<Abilities>();
     }
 
     public void ability1(CharacterStatus target)
@@ -299,5 +330,7 @@ public class Abilities : MonoBehaviour
     {
         castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
     }
+
+
 
 }

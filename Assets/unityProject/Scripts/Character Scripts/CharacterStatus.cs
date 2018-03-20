@@ -2,14 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
-public class CharacterStatus : MonoBehaviour {
+public class CharacterStatus : NetworkBehaviour {
+    [SyncVar]
     public int teamNum;
+    [SyncVar]
     public float maxAction;
+    [SyncVar]
     public float currentAction;
+    [SyncVar]
     public float maxHealth;
+    [SyncVar]
     public float currentHealth;
+    [SyncVar]
     public float physicalArmor;//a value of 1 is 100% resistance
+    [SyncVar]
     public float magicArmor;//a value of 1 is 100% resistance
     public Image healthBar;
     public Image actionBar;
@@ -20,18 +28,55 @@ public class CharacterStatus : MonoBehaviour {
     public Text healthBarTextUI;
     public Text actionBarTextUI;
     public Unit _unit;
+    public EndTurn endTurn;
+    private int previousTurn;
+    [SyncVar]
+    public bool startOfTurn;
 
 
     // Use this for initialization
     void Start()
     {
-        
+        previousTurn = 1;
+        endTurn = FindObjectOfType<EndTurn>();
+        startOfTurn = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(endTurn.turn != previousTurn)
+        {
+            previousTurn = endTurn.turn;
+            if (hasAuthority)
+            {
+                CmdUpdateTurn(endTurn.turn);
+            }
+        }
+        if (endTurn.turn == teamNum)
+        {
+            if(startOfTurn == true)
+            {
+                startOfTurn = false;
+                if (currentHealth > 0)
+                {
+                    currentAction = currentAction + 5;
+                    if(currentAction > maxAction)
+                    {
+                        currentAction = maxAction;
+                    }
+                }
+            }
+        }
+        else
+        {
+            startOfTurn = true;
+        }
         updateStatusBars();
+        if(currentHealth <= 0)
+        {
+            _unit.DeathAnim();
+        }
     }
 
     public void updateStatusBars()
@@ -57,7 +102,7 @@ public class CharacterStatus : MonoBehaviour {
     public void loseHealth(float damage)
     {
         currentHealth -= damage;
-        //_unit.react = true;
+        _unit.react = true;
     }
     public void gainHealth(float healing)
     {
@@ -71,6 +116,26 @@ public class CharacterStatus : MonoBehaviour {
     {
         // At the beginning of the turn
         currentAction += 8;
+    }
+    
+    [Command]
+    public void CmdSyncValues(int teamNumVal, float maxActionVal, float currentActionVal,
+        float maxHealthVal, float currentHealthVal, float physicalArmorVal, float magicArmorVal)
+    {
+        teamNum = teamNumVal;
+        maxAction = maxActionVal;
+        currentAction = currentActionVal;
+        maxHealth = maxHealthVal;
+        currentHealth = currentHealthVal;
+        physicalArmor = physicalArmorVal;
+        magicArmor = magicArmorVal;
+    }
+
+    [Command]
+    public void CmdUpdateTurn(int turn)
+    {
+        endTurn.turn = turn;
+        previousTurn = turn;
     }
     
 }

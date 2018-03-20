@@ -64,6 +64,8 @@ GameObject:
   - component: {fileID: 54482042713533910}
   - component: {fileID: 135940690239060264}
   - component: {fileID: 114353467447165794}
+  - component: {fileID: 114169843973971704}
+  - component: {fileID: 114180798446853964}
   m_Layer: 0
   m_Name: power_02
   m_TagString: Untagged
@@ -24140,6 +24142,59 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114169843973971704
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 151854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 47
+    i1: 48
+    i2: 142
+    i3: 179
+    i4: 35
+    i5: 132
+    i6: 172
+    i7: 228
+    i8: 235
+    i9: 66
+    i10: 55
+    i11: 148
+    i12: 235
+    i13: 102
+    i14: 154
+    i15: 156
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+--- !u!114 &114180798446853964
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 151854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 3
+  m_SendInterval: 0.033333335
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &114353467447165794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -24153,6 +24208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onHitAnimation: {fileID: 123640, guid: 9242b15a276bc5a4babd09239e5fa709, type: 2}
   spellSound: {fileID: 8300000, guid: 32a085624b9f652458773be29e8fc6c1, type: 3}
+  spellMoves: 1
 --- !u!135 &135940690239060264
 SphereCollider:
   m_ObjectHideFlags: 1
