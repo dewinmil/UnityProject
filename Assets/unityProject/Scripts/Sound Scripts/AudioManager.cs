@@ -13,7 +13,6 @@ public class AudioManager : MonoBehaviour
 	public AudioMixerGroup mixerGroup;
 
 	public Sound[] sounds;
-
     Sound music;
     float maxVolume;
 
@@ -121,6 +120,13 @@ public class AudioManager : MonoBehaviour
             Play(music.name);
         }
         
+    }
+
+    public void endTurn()
+    {
+        Sound sound;
+        sound = Array.Find(sounds, item => item.name == "endTurnSound");
+        Play(sound.name);
     }
 
 }

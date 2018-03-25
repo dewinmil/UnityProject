@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.EventSystems;
+using UnityEngine.Networking;
 
-public class Unit : MonoBehaviour
+public class Unit : NetworkBehaviour
 {
-
+    [SyncVar]
     public int tileX;
+    [SyncVar]
     public int tileZ;
     public int unitId;
     public TileMap _map;
@@ -34,9 +36,8 @@ public class Unit : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         abil = 0;
         react = false;
-        
-        
-        
+        if (_map == null)
+            _map = FindObjectOfType<TileMap>();
     }
 
 
@@ -99,7 +100,8 @@ public class Unit : MonoBehaviour
             //remove the path highlight
             _map.UnhighlightTilesInCurrentPath();
             //set the tile to be unwalkable since the unit is on top of it
-            _map.SetTileWalkable(this.tileX, this.tileZ, false);
+            //_map.SetTileWalkable(this.tileX, this.tileZ, false);
+            _map.CmdSetTileWalkable(this.tileX, this.tileZ, false);
             _currentPath = null;
             _isMoving = false;
             moveToggle = false;
@@ -127,7 +129,7 @@ public class Unit : MonoBehaviour
                 if (_currentPath == null)
                     return;
                 _nextTile = _map.TileCoordToWorldCoord(_currentPath[0].x, _currentPath[0].z);
-                _map.SetTileWalkable(this.tileX, this.tileZ, true);
+                _map.CmdSetTileWalkable(this.tileX, this.tileZ, true);
                 MoveToNextTile();
                 _isMoving = true;
             }
