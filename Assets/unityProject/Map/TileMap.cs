@@ -413,32 +413,96 @@ public class TileMap : NetworkBehaviour
         int zMin = playerZ - numMoves;
         int zMax = playerZ + numMoves;
 
-
-
         List<Node> neighbors = new List<Node>();
-        for (int x = xMin; x <= xMax; x++)
+
+
+        //create the upper right quadrant
+        for (int x = xMax; x >= playerX; x--)
         {
-            for (int z = zMin; z <= zMax; z++)
+            if (x == xMax)
             {
-                //these checks remove additional tiles from being added due to the horizontal shift of the board
-                //if the row we are on is even (not shifted)
-                if (playerZ % 2 == 0 && z % 2 == 0 && x == xMax && z != playerZ)
-                    continue;
-
-                if (playerZ % 2 != 0 && z % 2 != 0 && x == xMin && z != playerZ)
-                    continue;
-
-                if (z % 2 == 0 && x == xMin && z != playerZ)
-                    continue;
-
-                if (z % 2 != 0 && x == xMax && z != playerZ)
-                    continue;
-
-                float cost = CostToEnterTile(x, z, playerX, playerZ);
+                float cost = CostToEnterTile(x, playerZ, playerX, playerZ);
                 if (cost > -1f && cost < Mathf.Infinity)
-                    neighbors.Add(new Node(x, z));
+                    neighbors.Add(new Node(x, playerZ));
+
+                //if it's an odd row, we need to add the tile right above it
+                if (playerZ % 2 != 0)
+                {
+                    cost = CostToEnterTile(x, playerZ + 1, playerX, playerZ);
+                    if (cost > -1f && cost < Mathf.Infinity)
+                        neighbors.Add(new Node(x, playerZ + 1));
+                }
             }
+
+            //if this column is within half the players moves, highlight all tiles up to the max in this column
+            else if (x <= (playerX + (numMoves / 2)))
+            {
+                //root node in the column we are propogating through
+                if (x != playerX)
+                {
+                    Node root = new Node();
+                    root.x = x;
+                    root.z = playerZ;
+                    neighbors.Add(root);
+                }
+
+                //add all nodes in this column until we hit the max
+                for (int z = playerZ + 1; z <= zMax; z++)
+                {
+                    float cost = CostToEnterTile(x, z, playerX, playerZ);
+                    if (cost > -1f && cost < Mathf.Infinity)
+                        neighbors.Add(new Node(x, z));
+                }
+            }
+            else
+            {
+                //distanve from player on x axis
+                int xDistFromPlayer = x - playerX;
+                //how far up we need to go
+                int movementLeft = ((numMoves + 1) - xDistFromPlayer);
+                //add all tiles in this column that we can move to
+                for (int z = playerZ; z <= (playerZ + movementLeft); z++)
+                {
+                    float cost = CostToEnterTile(x, z, playerX, playerZ);
+                    //if the tile can be moved to
+                    if (cost > -1f && cost < Mathf.Infinity)
+                        neighbors.Add(new Node(x, z));
+                }
+            }
+
         }
+
+        //add nodes in other directions of the player
+        List<Node> otherNodes = new List<Node>();
+        foreach (Node node in neighbors)
+        {
+            int xDist = node.x - playerX;
+            int zDist = node.z - playerZ;
+
+            int xTarget = playerX - xDist;
+            int zTarget = playerZ + zDist;
+
+            //upper left node
+            float cost = CostToEnterTile(xTarget, zTarget, playerX, playerZ);
+            if (cost > -1f && cost < Mathf.Infinity)
+                otherNodes.Add(new Node(xTarget, zTarget));
+
+            //bottom left node
+            xTarget = playerX - xDist;
+            zTarget = playerZ - zDist;
+            cost = CostToEnterTile(xTarget, zTarget, playerX, playerZ);
+            if (cost > -1f && cost < Mathf.Infinity)
+                otherNodes.Add(new Node(xTarget, zTarget));
+
+            //bottom right node
+            xTarget = playerX + xDist;
+            zTarget = playerZ - zDist;
+            cost = CostToEnterTile(xTarget, zTarget, playerX, playerZ);
+            if (cost > -1f && cost < Mathf.Infinity)
+                otherNodes.Add(new Node(xTarget, zTarget));
+        }
+
+        neighbors.AddRange(otherNodes);
 
         foreach (Node node in neighbors)
         {
