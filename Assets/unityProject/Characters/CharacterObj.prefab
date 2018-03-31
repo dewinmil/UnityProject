@@ -4314,6 +4314,9 @@ MonoBehaviour:
   _unit: {fileID: 114702357634786840}
   endTurn: {fileID: 0}
   startOfTurn: 0
+  isLeader: 0
+  winScreen: {fileID: 0}
+  loseScreen: {fileID: 0}
 --- !u!114 &114454318558185546
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4741,6 +4744,9 @@ MonoBehaviour:
   _unit: {fileID: 114513361811343196}
   endTurn: {fileID: 0}
   startOfTurn: 0
+  isLeader: 1
+  winScreen: {fileID: 0}
+  loseScreen: {fileID: 0}
 --- !u!114 &114541590442626324
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5479,6 +5485,8 @@ MonoBehaviour:
   Button5Animation: {fileID: 114013659000477378}
   Button6Animation: {fileID: 0}
   usedId: 
+  winScreen: {fileID: 0}
+  loseScreen: {fileID: 0}
 --- !u!114 &114966611963509684
 MonoBehaviour:
   m_ObjectHideFlags: 1

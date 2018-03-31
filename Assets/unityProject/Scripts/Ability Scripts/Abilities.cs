@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Networking;
 
-public class Abilities : MonoBehaviour
+public class Abilities : NetworkBehaviour
 {
     public bool usingAbility;
     public int abilityUsed;
@@ -26,9 +26,13 @@ public class Abilities : MonoBehaviour
     private KeyCode spellHotkey5 = KeyCode.Alpha5;//number 5
     private KeyCode spellHotkey6 = KeyCode.Space;//number spacebar
     public List<int> usedId = new List<int>();
+    public GameObject winScreen;
+    public GameObject loseScreen;
 
     void Start()
     {
+        winScreen = GameObject.FindWithTag("winScreen");
+        loseScreen = GameObject.FindWithTag("loseScreen");
         abilityUsed = 0;
         usingAbility = false;
 
@@ -118,6 +122,10 @@ public class Abilities : MonoBehaviour
                 {
                     target.GetComponent<CapsuleCollider>().enabled = false;
                     target.currentHealth = 0;
+                    if (target.isLeader)
+                    {
+                        _casterStatus.CmdEndGame(target.teamNum);
+                    }
                 }
                 else
                 {
@@ -330,7 +338,6 @@ public class Abilities : MonoBehaviour
     {
         castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
     }
-
 
 
 }
