@@ -157,7 +157,8 @@ public class CastSpell : NetworkBehaviour
     {
         buttonNum = _buttonNum;
         target = theTarget;
-        cast(_abilityNum);
+        inRange(theTarget, _abilityNum);
+
     }
 
     public void cast(int _abilityNum)
@@ -173,15 +174,7 @@ public class CastSpell : NetworkBehaviour
             {
                 //rotate the spell in the direction of the target
                 float rotation = getRotation(target);
-                /*
-<<<<<<< HEAD
-                currentAnimation.transform.eulerAngles = new Vector3(currentAnimation.transform.eulerAngles.x,
-                    rotation + abilityAnimation.transform.eulerAngles.y, currentAnimation.transform.eulerAngles.z);
-                
-=======
 
->>>>>>> be71b1aee366d0d19e2858636aba6db4bd5dc20c
-*/
                 //find the direction of target
                 currentAnimation = Instantiate(abilityAnimation, target.transform.position, Quaternion.identity);
                 Vector3 targetDirection = (target.transform.position - _caster.transform.position).normalized;
@@ -358,6 +351,45 @@ public class CastSpell : NetworkBehaviour
         else
         {
             return false;
+        }
+    }
+    public void inRange(CharacterStatus theTarget, int _abilityNum)
+    {
+        print(Vector3.Distance(gameObject.transform.position, theTarget.transform.position));
+        if (_abilityNum == 1)
+        {
+            if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 12)
+            {
+                cast(_abilityNum);
+            }
+        }
+        if (_abilityNum == 2)
+        {
+            if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+            {
+                cast(_abilityNum);
+            }
+        }
+        if (_abilityNum == 3)
+        {
+            if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+            {
+                cast(_abilityNum);
+            }
+        }
+        if (_abilityNum == 4)
+        {
+            if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 9)
+            {
+                cast(_abilityNum);
+            }
+        }
+        if (_abilityNum == 5)
+        {
+            if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+            {
+                cast(_abilityNum);
+            }
         }
     }
 

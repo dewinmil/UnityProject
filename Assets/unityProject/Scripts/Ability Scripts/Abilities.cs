@@ -239,33 +239,27 @@ public class Abilities : NetworkBehaviour
                             if (abilityUsed == 1)
                             {
                                 copyInfo(Button1Animation);
-                                //gameObject.gameObject.transform.parent.GetComponent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 1);
                                 gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 1, 1);
-                                //Button1Animation.callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 1, 1);
                             }
                             if (abilityUsed == 2)
                             {
                                 copyInfo(Button2Animation);
                                 gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 2, 2);
-                                //Button2Animation.callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 2, 2);
                             }
                             if (abilityUsed == 3)
                             {
                                 copyInfo(Button3Animation);
                                 gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 3, 3);
-                                //Button3Animation.callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 3, 3);
                             }
                             if (abilityUsed == 4)
                             {
                                 copyInfo(Button4Animation);
                                 gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 4, 4);
-                                //Button4Animation.callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 4, 4);
                             }
                             if (abilityUsed == 5)
                             {
                                 copyInfo(Button5Animation);
                                 gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 5, 5);
-                                //Button5Animation.callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 5, 5);
                             }
                         }
                     }
