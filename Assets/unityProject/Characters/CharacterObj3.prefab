@@ -1490,6 +1490,9 @@ MonoBehaviour:
   _unit: {fileID: 114545830945890770}
   endTurn: {fileID: 0}
   startOfTurn: 0
+  isLeader: 1
+  winScreen: {fileID: 0}
+  loseScreen: {fileID: 0}
 --- !u!114 &114030069044358638
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2092,6 +2095,8 @@ MonoBehaviour:
   Button5Animation: {fileID: 114805369025747980}
   Button6Animation: {fileID: 0}
   usedId: 
+  winScreen: {fileID: 0}
+  loseScreen: {fileID: 0}
 --- !u!114 &114334382866658152
 MonoBehaviour:
   m_ObjectHideFlags: 1
