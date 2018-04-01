@@ -434,6 +434,10 @@ public class TileMap : NetworkBehaviour
         neighbors.AddRange(BuildUpperRightQuadrantEven(playerX, playerZ, numMoves));
         //next upper left
         neighbors.AddRange(BuildUpperLeftQuadrantEven(playerX, playerZ, numMoves));
+        //next bottom right
+        neighbors.AddRange(BuildLowerRightQuadrantEven(playerX, playerZ, numMoves));
+        //finally bottom left
+        neighbors.AddRange(BuildLowerLeftQuadrantEven(playerX, playerZ, numMoves));
 
         return neighbors;
     }
@@ -442,9 +446,6 @@ public class TileMap : NetworkBehaviour
     {
         List<Node> neighbors = new List<Node>();
         int xMax = playerX + numMoves;
-        int xMin = playerX - numMoves;
-
-        int zMin = playerZ - numMoves;
         int zMax = playerZ + numMoves;
         //int to hold the halfway point the unit can move
         int xHalfWay = (int)Math.Floor((double)playerX + ((double)numMoves / 2));
@@ -497,6 +498,202 @@ public class TileMap : NetworkBehaviour
                 {
                     Node node = new Node(x, playerZ);
                     neighbors.Add(node);
+                }
+            }
+        }
+        return neighbors;
+    }
+    private List<Node> BuildUpperLeftQuadrantEven(int playerX, int playerZ, int numMoves)
+    {
+        List<Node> neighbors = new List<Node>();
+        int xMin = playerX - numMoves;
+        int zMax = playerZ + numMoves;
+
+        //int to hold the halfway point the unit can move
+        int xHalfWay = (int)Math.Floor((double)playerX - ((double)numMoves / 2));
+
+        //int to hold the previous z value used when we begin sloping downwards
+        int prevZ = zMax - 1;
+        //begin creating the upper left quadrant area
+        for (int x = playerX; x >= xMin; x--)
+        {
+            //TILES LESS THAN HALF
+            //if this tile is less than or equal to the halfway point, we want to add all tiles in its column up until the max
+            if (x >= xHalfWay)
+            {
+                for (int z = playerZ; z <= zMax; z++)
+                {
+                    float cost = CostToEnterTile(x, z, playerX, playerZ);
+                    if (cost > -1f && cost < Mathf.Infinity)
+                    {
+                        Node node = new Node(x, z);
+                        neighbors.Add(node);
+                    }
+                }
+            }
+            //TILES MORE THAN HALF BUT NOT LAST
+            //here we calculate how many tiles in this column we should add
+            else if (x != xMin && x < xHalfWay)
+            {
+                int xDistFromPlayer = playerX - x;
+                int xMovesRemaining = prevZ;
+                //if we have an odd number of moves, we need to subtract one more because of the shift
+                if (numMoves % 2 != 0)
+                    xMovesRemaining--;
+
+                for (int z = playerZ; z <= xMovesRemaining; z++)
+                {
+                    float cost = CostToEnterTile(x, z, playerX, playerZ);
+                    if (cost > -1f && cost < Mathf.Infinity)
+                    {
+                        Node node = new Node(x, z);
+                        neighbors.Add(node);
+                    }
+                }
+                prevZ -= 2;
+            }
+            //if we get here we are at our max
+            //we need to add the last tile and the one above it in this scenario
+            else
+            {
+                for (int z = playerZ; z <= (playerZ + 1); z++)
+                {
+                    float cost = CostToEnterTile(x, z, playerX, playerZ);
+                    if (cost > -1f && cost < Mathf.Infinity)
+                    {
+                        Node node = new Node(x, z);
+                        neighbors.Add(node);
+                    }
+                }
+            }
+        }
+        return neighbors;
+    }
+    private List<Node> BuildLowerRightQuadrantEven(int playerX, int playerZ, int numMoves)
+    {
+        List<Node> neighbors = new List<Node>();
+        int xMax = playerX + numMoves;
+
+        int zMin = playerZ - numMoves;
+        //int to hold the halfway point the unit can move
+        int xHalfWay = (int)Math.Floor((double)playerX + ((double)numMoves / 2));
+
+        //int to hold the previous z value used when we begin sloping downwards
+        int prevZ = zMin + 2;
+        //begin creating the lower right quadrant area
+        for (int x = playerX; x <= xMax; x++)
+        {
+            //TILES LESS THAN HALF
+            //if this tile is less than or equal to the halfway point, we want to add all tiles in its column up until the max
+            if (x <= xHalfWay)
+            {
+                for (int z = playerZ; z >= zMin; z--)
+                {
+                    float cost = CostToEnterTile(x, z, playerX, playerZ);
+                    if (cost > -1f && cost < Mathf.Infinity)
+                    {
+                        Node node = new Node(x, z);
+                        neighbors.Add(node);
+                    }
+                }
+            }
+            //TILES MORE THAN HALF BUT NOT LAST
+            //here we calculate how many tiles in this column we should add
+            else if (x != xMax && x > xHalfWay)
+            {
+                int xDistFromPlayer = x - playerX;
+                int xMovesRemaining = prevZ;
+                //if we have an odd number of moves, we need to add one more because of the shift
+                if (numMoves % 2 != 0)
+                    xMovesRemaining--;
+
+                for (int z = playerZ; z >= xMovesRemaining; z--)
+                {
+                    float cost = CostToEnterTile(x, z, playerX, playerZ);
+                    if (cost > -1f && cost < Mathf.Infinity)
+                    {
+                        Node node = new Node(x, z);
+                        neighbors.Add(node);
+                    }
+                }
+                prevZ += 2;
+            }
+            //if we get here we are at our max
+            else
+            {
+                float cost = CostToEnterTile(x, playerZ, playerX, playerZ);
+                if (cost > -1f && cost < Mathf.Infinity)
+                {
+                    Node node = new Node(x, playerZ);
+                    neighbors.Add(node);
+                }
+            }
+        }
+        return neighbors;
+    }
+    private List<Node> BuildLowerLeftQuadrantEven(int playerX, int playerZ, int numMoves)
+    {
+        List<Node> neighbors = new List<Node>();
+        int xMax = playerX + numMoves;
+        int xMin = playerX - numMoves;
+
+        int zMin = playerZ - numMoves;
+        int zMax = playerZ;
+        //int to hold the halfway point the unit can move
+        int xHalfWay = (int)Math.Floor((double)playerX - ((double)numMoves / 2));
+
+        //int to hold the previous z value used when we begin sloping downwards
+        int prevZ = zMin + 1;
+        //begin creating the upper left quadrant area
+        for (int x = playerX; x >= xMin; x--)
+        {
+            //TILES LESS THAN HALF
+            //if this tile is less than or equal to the halfway point, we want to add all tiles in its column up until the max
+            if (x >= xHalfWay)
+            {
+                for (int z = playerZ; z >= zMin; z--)
+                {
+                    float cost = CostToEnterTile(x, z, playerX, playerZ);
+                    if (cost > -1f && cost < Mathf.Infinity)
+                    {
+                        Node node = new Node(x, z);
+                        neighbors.Add(node);
+                    }
+                }
+            }
+            //TILES MORE THAN HALF BUT NOT LAST
+            //here we calculate how many tiles in this column we should add
+            else if (x != xMin && x < xHalfWay)
+            {
+                int xDistFromPlayer = playerX - x;
+                int xMovesRemaining = prevZ;
+                //if we have an odd number of moves, we need to subtract one more because of the shift
+                if (numMoves % 2 != 0)
+                    xMovesRemaining++;
+
+                for (int z = playerZ; z >= xMovesRemaining; z--)
+                {
+                    float cost = CostToEnterTile(x, z, playerX, playerZ);
+                    if (cost > -1f && cost < Mathf.Infinity)
+                    {
+                        Node node = new Node(x, z);
+                        neighbors.Add(node);
+                    }
+                }
+                prevZ += 2;
+            }
+            //if we get here we are at our max
+            //we need to add the last tile and the one above it in this scenario
+            else
+            {
+                for (int z = playerZ; z >= (playerZ - 1); z--)
+                {
+                    float cost = CostToEnterTile(x, z, playerX, playerZ);
+                    if (cost > -1f && cost < Mathf.Infinity)
+                    {
+                        Node node = new Node(x, z);
+                        neighbors.Add(node);
+                    }
                 }
             }
         }
@@ -568,74 +765,6 @@ public class TileMap : NetworkBehaviour
         return neighbors;
     }
 
-    private List<Node> BuildUpperLeftQuadrantEven(int playerX, int playerZ, int numMoves)
-    {
-        List<Node> neighbors = new List<Node>();
-        int xMax = playerX + numMoves;
-        int xMin = playerX - numMoves;
-
-        int zMin = playerZ - numMoves;
-        int zMax = playerZ + numMoves;
-        //int to hold the halfway point the unit can move
-        int xHalfWay = (int)Math.Floor((double)playerX - ((double)numMoves / 2));
-
-        //int to hold the previous z value used when we begin sloping downwards
-        int prevZ = zMax - 1;
-        //begin creating the upper left quadrant area
-        for (int x = playerX; x >= xMin; x--)
-        {
-            //TILES LESS THAN HALF
-            //if this tile is less than or equal to the halfway point, we want to add all tiles in its column up until the max
-            if (x >= xHalfWay)
-            {
-                for (int z = playerZ; z <= zMax; z++)
-                {
-                    float cost = CostToEnterTile(x, z, playerX, playerZ);
-                    if (cost > -1f && cost < Mathf.Infinity)
-                    {
-                        Node node = new Node(x, z);
-                        neighbors.Add(node);
-                    }
-                }
-            }
-            //TILES MORE THAN HALF BUT NOT LAST
-            //here we calculate how many tiles in this column we should add
-            else if (x != xMin && x < xHalfWay)
-            {
-                int xDistFromPlayer = playerX - x;
-                int xMovesRemaining = prevZ;
-                //if we have an odd number of moves, we need to add one more because of the shift
-                if (numMoves % 2 != 0)
-                    xMovesRemaining++;
-
-                for (int z = playerZ; z <= xMovesRemaining; z++)
-                {
-                    float cost = CostToEnterTile(x, z, playerX, playerZ);
-                    if (cost > -1f && cost < Mathf.Infinity)
-                    {
-                        Node node = new Node(x, z);
-                        neighbors.Add(node);
-                    }
-                }
-                prevZ -= 2;
-            }
-            //if we get here we are at our max
-            //we need to add the last tile and the one above it in this scenario
-            else
-            {
-                for (int z = playerZ; z <= (playerZ+1); z++)
-                {
-                    float cost = CostToEnterTile(x, z, playerX, playerZ);
-                    if (cost > -1f && cost < Mathf.Infinity)
-                    {
-                        Node node = new Node(x, z);
-                        neighbors.Add(node);
-                    }
-                }
-            }
-        }
-        return neighbors;
-    }
 
     public void UnhighlightWalkableTiles()
     {
