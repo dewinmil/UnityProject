@@ -13,11 +13,17 @@ public class EndTurn : NetworkBehaviour
     {
         if (turn == 1)
         {
-            turn = 2;
+            if (!isServer)
+            {
+                turn = 2;
+            }
         }
         else
         {
-            turn = 1;
+            if (isServer)
+            {
+                turn = 1;
+            }
         }
     }
 }
