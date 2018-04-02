@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Networking;
 
-public class Abilities : MonoBehaviour
+public class Abilities : NetworkBehaviour
 {
     public bool usingAbility;
     public int abilityUsed;
@@ -26,9 +26,13 @@ public class Abilities : MonoBehaviour
     private KeyCode spellHotkey5 = KeyCode.Alpha5;//number 5
     private KeyCode spellHotkey6 = KeyCode.Space;//number spacebar
     public List<int> usedId = new List<int>();
+    public GameObject winScreen;
+    public GameObject loseScreen;
 
     void Start()
     {
+        winScreen = GameObject.FindWithTag("winScreen");
+        loseScreen = GameObject.FindWithTag("loseScreen");
         abilityUsed = 0;
         usingAbility = false;
 
@@ -119,6 +123,10 @@ public class Abilities : MonoBehaviour
                 {
                     target.GetComponent<CapsuleCollider>().enabled = false;
                     target.currentHealth = 0;
+                    if (target.isLeader)
+                    {
+                        _casterStatus.CmdEndGame(target.teamNum);
+                    }
                 }
                 else
                 {
@@ -232,33 +240,27 @@ public class Abilities : MonoBehaviour
                             if (abilityUsed == 1)
                             {
                                 copyInfo(Button1Animation);
-                                //gameObject.gameObject.transform.parent.GetComponent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 1);
                                 gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 1, 1);
-                                //Button1Animation.callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 1, 1);
                             }
                             if (abilityUsed == 2)
                             {
                                 copyInfo(Button2Animation);
                                 gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 2, 2);
-                                //Button2Animation.callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 2, 2);
                             }
                             if (abilityUsed == 3)
                             {
                                 copyInfo(Button3Animation);
                                 gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 3, 3);
-                                //Button3Animation.callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 3, 3);
                             }
                             if (abilityUsed == 4)
                             {
                                 copyInfo(Button4Animation);
                                 gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 4, 4);
-                                //Button4Animation.callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 4, 4);
                             }
                             if (abilityUsed == 5)
                             {
                                 copyInfo(Button5Animation);
                                 gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 5, 5);
-                                //Button5Animation.callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 5, 5);
                             }
                         }
                     }
@@ -331,7 +333,6 @@ public class Abilities : MonoBehaviour
     {
         castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
     }
-
 
 
 }
