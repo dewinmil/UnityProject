@@ -146,7 +146,7 @@ public class CharacterStatus : NetworkBehaviour {
     [Command]
     public void CmdEndGame(int teamNumber)
     {
-        if (teamNumber == 1)
+        if (teamNumber == 2)
         {
             loseScreen.GetComponent<Canvas>().enabled = true;
             RpcWinGame();
