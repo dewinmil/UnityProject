@@ -5,10 +5,16 @@ using UnityEngine.Networking.NetworkSystem;
 
 public class GameMaster : NetworkManager
 {
-    public GameObject Unit1;
-    public GameObject Unit2;
-    public GameObject Unit3;
-    public GameObject Unit4;
+    public GameObject Warrior1;
+    public GameObject Warrior2;
+    public GameObject Knight1;
+    public GameObject Knight2;
+    public GameObject Wizard1;
+    public GameObject Wizard2;
+    public GameObject Spearman1;
+    public GameObject Spearman2;
+    public GameObject Leader1;
+    public GameObject Leader2;
     public short _playerID;
     public TileMap _map;
     public GameObject _mapObject;
@@ -23,13 +29,18 @@ public class GameMaster : NetworkManager
     // Use this for initialization
     void Start()
     {
+        if (IsClientConnected())
+        {
+            _playerID = 0;
+        }
+        else
+        {
+            _playerID = 0;
+        }
         connections = 0;
         turn = 1;
-        _playerID = 0;
         _units = new List<Unit>();
         _prevX = 0;
-        ClientScene.RegisterPrefab(Unit1);
-        ClientScene.RegisterPrefab(Unit2);
         winScreen = GameObject.FindWithTag("winScreen");
         loseScreen = GameObject.FindWithTag("loseScreen");
     }
@@ -41,32 +52,68 @@ public class GameMaster : NetworkManager
         Unit unit;
         //if this is the host client, spawn them on the other side of the map
         //this is a shit way to do it but idgaf 
-        if (_playerID < NUM_UNITS_PER_TEAM)
+        if (playerControllerId < NUM_UNITS_PER_TEAM)
         {
-            if (_playerID + 1 == NUM_UNITS_PER_TEAM)
+            if (playerControllerId == 0)
             {
-                player = Instantiate(Unit3, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
+                player = Instantiate(Warrior1, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
+                unit = CreateUnit(player.GetComponent<Unit>(), _prevX, 0);
+                UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 1);
+            }
+            else if (playerControllerId == 1)
+            {
+                player = Instantiate(Wizard1, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
+                unit = CreateUnit(player.GetComponent<Unit>(), _prevX, 0);
+                UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 1);
+            }
+            else if (playerControllerId == 2)
+            {
+                player = Instantiate(Leader1, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
+                unit = CreateUnit(player.GetComponent<Unit>(), _prevX, 0);
+                UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 1);
+            }
+            else if (playerControllerId == 3)
+            {
+                player = Instantiate(Knight1, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
                 unit = CreateUnit(player.GetComponent<Unit>(), _prevX, 0);
                 UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 1);
             }
             else
             {
-                player = Instantiate(Unit1, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
+                player = Instantiate(Spearman1, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
                 unit = CreateUnit(player.GetComponent<Unit>(), _prevX, 0);
                 UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 1);
             }
         }
         else
         {
-            if (_playerID + 1 == 2 * NUM_UNITS_PER_TEAM)
+            if (playerControllerId == 5)
             {
-                player = Instantiate(Unit4, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
+                player = Instantiate(Warrior2, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
+                unit = CreateUnit(player.GetComponent<Unit>(), _prevX, _map._mapSizeZ - 1);
+                UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 2);
+            }
+            else if (playerControllerId == 6)
+            {
+                player = Instantiate(Wizard2, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
+                unit = CreateUnit(player.GetComponent<Unit>(), _prevX, _map._mapSizeZ - 1);
+                UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 2);
+            }
+            else if (playerControllerId == 7)
+            {
+                player = Instantiate(Leader2, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
+                unit = CreateUnit(player.GetComponent<Unit>(), _prevX, _map._mapSizeZ - 1);
+                UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 2);
+            }
+            else if (playerControllerId == 8)
+            {
+                player = Instantiate(Knight2, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
                 unit = CreateUnit(player.GetComponent<Unit>(), _prevX, _map._mapSizeZ - 1);
                 UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 2);
             }
             else
             {
-                player = Instantiate(Unit2, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
+                player = Instantiate(Spearman2, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
                 unit = CreateUnit(player.GetComponent<Unit>(), _prevX, _map._mapSizeZ - 1);
                 UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 2);
             }
@@ -77,6 +124,7 @@ public class GameMaster : NetworkManager
         NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
     }
 
+
     public override void OnClientConnect(NetworkConnection conn)
     {
         if (_playerID > 0)
@@ -86,6 +134,15 @@ public class GameMaster : NetworkManager
         FindObjectOfType<ToggleActive>().playerConnected();
     }
 
+    
+    public override void OnServerConnect(NetworkConnection conn)
+    {
+        if (_playerID > 0)
+            _prevX = 0;
+
+        AddPlayers(conn, NUM_UNITS_PER_TEAM);
+    }
+    
     private void AddPlayers(NetworkConnection conn, int numPlayers)
     {
         connections += 1;
@@ -94,7 +151,6 @@ public class GameMaster : NetworkManager
             ClientScene.AddPlayer(conn, _playerID);
             _playerID++;
         }
-        print(_playerID);
         if (_playerID == NUM_UNITS_PER_TEAM * connections)
         {
             winScreen.GetComponent<Canvas>().enabled = false;
