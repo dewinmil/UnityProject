@@ -56,31 +56,31 @@ public class GameMaster : NetworkManager
         {
             if (playerControllerId == 0)
             {
-                player = Instantiate(Warrior1, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
+                player = Instantiate(Warrior2, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
                 unit = CreateUnit(player.GetComponent<Unit>(), _prevX, 0);
                 UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 1);
             }
             else if (playerControllerId == 1)
             {
-                player = Instantiate(Wizard1, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
+                player = Instantiate(Wizard2, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
                 unit = CreateUnit(player.GetComponent<Unit>(), _prevX, 0);
                 UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 1);
             }
             else if (playerControllerId == 2)
             {
-                player = Instantiate(Leader1, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
+                player = Instantiate(Leader2, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
                 unit = CreateUnit(player.GetComponent<Unit>(), _prevX, 0);
                 UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 1);
             }
             else if (playerControllerId == 3)
             {
-                player = Instantiate(Knight1, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
+                player = Instantiate(Knight2, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
                 unit = CreateUnit(player.GetComponent<Unit>(), _prevX, 0);
                 UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 1);
             }
             else
             {
-                player = Instantiate(Spearman1, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
+                player = Instantiate(Spearman2, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
                 unit = CreateUnit(player.GetComponent<Unit>(), _prevX, 0);
                 UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 1);
             }
@@ -89,31 +89,31 @@ public class GameMaster : NetworkManager
         {
             if (playerControllerId == 5)
             {
-                player = Instantiate(Warrior2, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
+                player = Instantiate(Warrior1, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
                 unit = CreateUnit(player.GetComponent<Unit>(), _prevX, _map._mapSizeZ - 1);
                 UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 2);
             }
             else if (playerControllerId == 6)
             {
-                player = Instantiate(Wizard2, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
+                player = Instantiate(Wizard1, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
                 unit = CreateUnit(player.GetComponent<Unit>(), _prevX, _map._mapSizeZ - 1);
                 UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 2);
             }
             else if (playerControllerId == 7)
             {
-                player = Instantiate(Leader2, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
+                player = Instantiate(Leader1, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
                 unit = CreateUnit(player.GetComponent<Unit>(), _prevX, _map._mapSizeZ - 1);
                 UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 2);
             }
             else if (playerControllerId == 8)
             {
-                player = Instantiate(Knight2, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
+                player = Instantiate(Knight1, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
                 unit = CreateUnit(player.GetComponent<Unit>(), _prevX, _map._mapSizeZ - 1);
                 UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 2);
             }
             else
             {
-                player = Instantiate(Spearman2, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
+                player = Instantiate(Spearman1, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
                 unit = CreateUnit(player.GetComponent<Unit>(), _prevX, _map._mapSizeZ - 1);
                 UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 2);
             }
