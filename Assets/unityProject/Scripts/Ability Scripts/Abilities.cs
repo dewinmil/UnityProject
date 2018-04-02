@@ -61,6 +61,7 @@ public class Abilities : MonoBehaviour
     public void castAbility(CharacterStatus target, float damage, float healing, float apCost, float armorPen, float magicPen, float range, bool isMagic)
     {
         _unit.transform.LookAt(target.transform.position);
+        target.transform.LookAt(_unit.transform.position);
         //if the target is not dead
         if (target.currentHealth > 0)
         {
