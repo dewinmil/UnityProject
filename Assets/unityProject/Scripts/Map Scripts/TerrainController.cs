@@ -18,9 +18,10 @@ public class TerrainController : MonoBehaviour {
         {
             this.GetComponent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
         }
-        else {
+        else
+        {
             this.GetComponent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
         }
 
-	}
+    }
 }

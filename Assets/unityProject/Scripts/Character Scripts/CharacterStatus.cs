@@ -32,6 +32,9 @@ public class CharacterStatus : NetworkBehaviour {
     private int previousTurn;
     [SyncVar]
     public bool startOfTurn;
+    public bool isLeader;
+    public GameObject winScreen;
+    public GameObject loseScreen;
 
 
     // Use this for initialization
@@ -40,6 +43,8 @@ public class CharacterStatus : NetworkBehaviour {
         previousTurn = 1;
         endTurn = FindObjectOfType<EndTurn>();
         startOfTurn = false;
+        winScreen = GameObject.FindWithTag("winScreen");
+        loseScreen = GameObject.FindWithTag("loseScreen");
     }
 
     // Update is called once per frame
@@ -47,6 +52,7 @@ public class CharacterStatus : NetworkBehaviour {
     {
         if(endTurn.turn != previousTurn)
         {
+            FindObjectOfType<AudioManager>().endTurn();
             previousTurn = endTurn.turn;
             if (hasAuthority)
             {
@@ -137,5 +143,39 @@ public class CharacterStatus : NetworkBehaviour {
         endTurn.turn = turn;
         previousTurn = turn;
     }
-    
+
+    [Command]
+    public void CmdEndGame(int teamNumber)
+    {
+        if (teamNumber == 2)
+        {
+            loseScreen.GetComponent<Canvas>().enabled = true;
+            RpcWinGame();
+        }
+        else
+        {
+            winScreen.GetComponent<Canvas>().enabled = true;
+            RpcLoseGame();
+
+        }
+    }
+
+    [ClientRpc]
+    public void RpcWinGame()
+    {
+        if (!isServer)
+        {
+            winScreen.GetComponent<Canvas>().enabled = true;
+        }
+    }
+
+    [ClientRpc]
+    public void RpcLoseGame()
+    {
+        if (!isServer)
+        {
+            loseScreen.GetComponent<Canvas>().enabled = true;
+        }
+    }
+
 }
