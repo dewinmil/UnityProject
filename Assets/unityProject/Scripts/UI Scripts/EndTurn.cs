@@ -8,6 +8,7 @@ public class EndTurn : NetworkBehaviour
 
     [SyncVar]
     public int turn;
+    public AudioManager _manager;
 
     public void endTurn()
     {
@@ -15,6 +16,7 @@ public class EndTurn : NetworkBehaviour
         {
             if (!isServer)
             {
+                _manager.endTurn();
                 turn = 2;
             }
         }
@@ -22,6 +24,7 @@ public class EndTurn : NetworkBehaviour
         {
             if (isServer)
             {
+                _manager.endTurn();
                 turn = 1;
             }
         }
