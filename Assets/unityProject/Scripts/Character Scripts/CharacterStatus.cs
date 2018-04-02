@@ -52,6 +52,7 @@ public class CharacterStatus : NetworkBehaviour {
     {
         if(endTurn.turn != previousTurn)
         {
+            FindObjectOfType<AudioManager>().endTurn();
             previousTurn = endTurn.turn;
             if (hasAuthority)
             {
