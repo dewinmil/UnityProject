@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 114109182615461764}
   - component: {fileID: 114745738523379520}
   - component: {fileID: 114269258716576334}
+  - component: {fileID: 114671410212427642}
   m_Layer: 0
   m_Name: Attractor
   m_TagString: Untagged
@@ -192,7 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TransformSyncMode: 0
+  m_TransformSyncMode: 1
   m_SendInterval: 0
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
@@ -202,6 +203,22 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
+--- !u!114 &114671410212427642
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1895661344832740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de0abd33870fefb4c9fc364fc0624a57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onHitAnimation: {fileID: 0}
+  spellSound: {fileID: 8300000, guid: 32a085624b9f652458773be29e8fc6c1, type: 3}
+  spellMoves: 0
+  serverSpell: 0
+  _parentCastSpell: {fileID: 0}
 --- !u!114 &114745738523379520
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -241,10 +258,10 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1895661344832740}
   serializedVersion: 5
-  lengthInSec: 5
+  lengthInSec: 4
   simulationSpeed: 1
   stopAction: 0
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -3602,10 +3619,10 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1790925314708864}
   serializedVersion: 5
-  lengthInSec: 1
+  lengthInSec: 3
   simulationSpeed: 1
   stopAction: 0
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -13523,10 +13540,10 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1133109807810176}
   serializedVersion: 5
-  lengthInSec: 1
+  lengthInSec: 3
   simulationSpeed: 1
   stopAction: 0
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
