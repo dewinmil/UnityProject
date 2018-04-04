@@ -334,5 +334,10 @@ public class Abilities : NetworkBehaviour
         castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
     }
 
+    public void ability7(CharacterStatus target)
+    {
+        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
+    }
+
 
 }

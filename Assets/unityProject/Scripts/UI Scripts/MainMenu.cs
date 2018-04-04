@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
 
 public class MainMenu : MonoBehaviour
 {
+    public GameMaster _gameMaster;
 
     public void PlayGame()
     {
@@ -26,6 +28,12 @@ public class MainMenu : MonoBehaviour
     {
         Debug.Log("Quit!");
         Application.Quit();
+    }
+
+    public void RefreshGame()
+    {
+        NetworkManager.Shutdown();
+        SceneManager.LoadScene(0);
     }
 
 }
