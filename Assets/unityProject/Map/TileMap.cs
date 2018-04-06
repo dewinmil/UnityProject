@@ -120,7 +120,7 @@ public class TileMap : NetworkBehaviour
                 ct.tileZ = z;
                 ct.map = this;
                 //DEBUG ONLY: DISPLAY THE TILE COORDINATE ON TOP OF THE TILE
-                //tile.GetComponentInChildren<TextMesh>().text = String.Format("({0} , {1})", x, z);
+                tile.GetComponentInChildren<TextMesh>().text = String.Format("({0} , {1})", x, z);
 
                 //give each tile its own hash as its identifier. To get the hash, you need to hash the string of the x coordinate plus the z coordinate
                 string hash = GetHashString(x, z);
@@ -312,6 +312,9 @@ public class TileMap : NetworkBehaviour
         //set destination to be occupied
         SetTileWalkable(currentPath[currentPath.Count - 1].x, currentPath[currentPath.Count - 1].z, false);
 
+        //set origin to be walkable
+        SetTileWalkable(currentPath[0].x, currentPath[0].z, true);
+
         _selectedUnit.GetComponent<Unit>()._currentPath = currentPath;
     }
 
@@ -349,7 +352,7 @@ public class TileMap : NetworkBehaviour
             //if the tile is walkable, the unit can move through it
             if (tt.IsWalkable)
                 movementCost = 1;
-
+            
             //else set the cost to be infinity so that the algorithm will avoid it
             else
                 movementCost = Mathf.Infinity;
