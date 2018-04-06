@@ -290,7 +290,7 @@ public class CastSpell : NetworkBehaviour
         }
         else if (abilityUsed == 7)
         {
-            _caster.castAbility(targetCharacterStatus, 5, 0, 6, 0, 1, 0, true);
+            _caster.castAbility(targetCharacterStatus, 4, 0, 5, .25f, .25f, 0, true);
         }
         else if (abilityUsed == 8)
         {
