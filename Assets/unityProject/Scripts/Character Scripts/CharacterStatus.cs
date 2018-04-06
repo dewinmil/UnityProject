@@ -73,8 +73,8 @@ public class CharacterStatus : NetworkBehaviour {
                 if (currentHealth > 0)
                 {
                     currentAction = currentAction + 5;
-                    _numMovesRemaining = _unit._numMoves;
-                    if(currentAction > maxAction)
+                    CmdUpdateValuesAfterTurn();
+                    if (currentAction > maxAction)
                     {
                         currentAction = maxAction;
                     }
@@ -121,7 +121,8 @@ public class CharacterStatus : NetworkBehaviour {
     {
         currentHealth += healing;
     }
-    public void loseAction(float apCost)
+    [Command]
+    public void CmdLoseAction(float apCost)
     {
         currentAction -= apCost;
     }
@@ -136,14 +137,21 @@ public class CharacterStatus : NetworkBehaviour {
         int apCost = tilesToMove * apCostPerTile;
         if (apCost <= currentAction && tilesToMove <= _numMovesRemaining)
         {
-            _numMovesRemaining -= tilesToMove;
-            loseAction(apCost);
+            //_numMovesRemaining -= tilesToMove;
+            CmdLoseAction(apCost);
+            CmdUpdateNumMovesRemaining(tilesToMove);
             return true;
         }
 
         return false;
     }
-    
+
+    [Command]
+    public void CmdUpdateNumMovesRemaining(int tilesToMove)
+    {
+        _numMovesRemaining -= tilesToMove;
+    }
+
     [Command]
     public void CmdSyncValues(int teamNumVal, float maxActionVal, float currentActionVal,
         float maxHealthVal, float currentHealthVal, float physicalArmorVal, float magicArmorVal)
@@ -155,6 +163,13 @@ public class CharacterStatus : NetworkBehaviour {
         currentHealth = currentHealthVal;
         physicalArmor = physicalArmorVal;
         magicArmor = magicArmorVal;
+    }
+
+    [Command]
+    public void CmdUpdateValuesAfterTurn()
+    {
+
+        _numMovesRemaining = _unit._numMoves;
     }
 
     [Command]
