@@ -120,7 +120,7 @@ public class TileMap : NetworkBehaviour
                 ct.tileZ = z;
                 ct.map = this;
                 //DEBUG ONLY: DISPLAY THE TILE COORDINATE ON TOP OF THE TILE
-                tile.GetComponentInChildren<TextMesh>().text = String.Format("({0} , {1})", x, z);
+                //tile.GetComponentInChildren<TextMesh>().text = String.Format("({0} , {1})", x, z);
 
                 //give each tile its own hash as its identifier. To get the hash, you need to hash the string of the x coordinate plus the z coordinate
                 string hash = GetHashString(x, z);
