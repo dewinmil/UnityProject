@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5500975, g: 0.78110564, b: 0.7772836, a: 1}
+  m_IndirectSpecularColor: {r: 0.55023694, g: 0.7810118, b: 0.7773566, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -8646,7 +8646,7 @@ MonoBehaviour:
   keyboardMovementSpeed: 25
   screenEdgeMovementSpeed: 25
   followingSpeed: 5
-  rotationSped: 25
+  rotationSpeed: 45
   panningSpeed: 10
   mouseRotationSpeed: 25
   autoHeight: 1
@@ -8656,8 +8656,8 @@ MonoBehaviour:
   maxHeight: 5
   minHeight: 10
   heightDampening: 5
-  keyboardZoomingSensitivity: 2
-  scrollWheelZoomingSensitivity: 25
+  keyboardZoomingSensitivity: 4
+  scrollWheelZoomingSensitivity: 35
   limitMap: 1
   limitX: 50
   limitY: 50
@@ -8671,13 +8671,13 @@ MonoBehaviour:
   usePanning: 1
   panningKey: 325
   useKeyboardZooming: 1
-  zoomInKey: 101
-  zoomOutKey: 113
+  zoomInKey: 99
+  zoomOutKey: 122
   useScrollwheelZooming: 1
   zoomingAxis: Mouse ScrollWheel
   useKeyboardRotation: 1
-  rotateRightKey: 120
-  rotateLeftKey: 122
+  rotateRightKey: 101
+  rotateLeftKey: 113
   useMouseRotation: 1
   mouseRotationKey: 324
 --- !u!81 &1014215458

@@ -9,6 +9,7 @@ public class EndTurn : NetworkBehaviour
     [SyncVar]
     public int turn;
     public AudioManager _manager;
+    //public Camera camera;
 
     public void endTurn()
     {
@@ -26,6 +27,7 @@ public class EndTurn : NetworkBehaviour
             {
                 _manager.endTurn();
                 turn = 1;
+
             }
         }
     }
