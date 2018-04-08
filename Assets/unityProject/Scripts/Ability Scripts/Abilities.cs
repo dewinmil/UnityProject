@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using System;
 
 public class Abilities : NetworkBehaviour
 {
@@ -19,7 +20,6 @@ public class Abilities : NetworkBehaviour
     public CastSpell Button4Animation;
     public CastSpell Button5Animation;
     public CastSpell Button6Animation;
-    private CastSpell castTheSpell;
     private KeyCode spellHotkey1 = KeyCode.Alpha1;//number 1
     private KeyCode spellHotkey2 = KeyCode.Alpha2;//number 2
     private KeyCode spellHotkey3 = KeyCode.Alpha3;//number 3
@@ -57,15 +57,21 @@ public class Abilities : NetworkBehaviour
     {
         //toggle casting determins whether your next click will cast a spell or not
         //it is a toggle so you can reselect a spell to cancel casting
-        toggleCasting();
-
-        //sets the last ability selected
-        abilityUsed = ability;
+        int spellRange = canCast(null, ability);
+        if (spellRange != 0)
+        {
+            Unit _unit = gameObject.GetComponentInParent<CharacterStatus>()._unit;
+            FindObjectOfType<TileMap>().HighlightTargetableTiles(_unit.tileX, _unit.tileZ, spellRange);
+            toggleCasting();
+            //sets the last ability selected
+            abilityUsed = ability;
+        }
     }
-
+    
     //this function actually applies the spell effect to the target
     public void castAbility(CharacterStatus target, float damage, float healing, float apCost, float armorPen, float magicPen, float buff, bool isMagic)
     {
+        _unit.UnhighlightWalkableTiles();
         _unit.transform.LookAt(target.transform.position);
         target.transform.LookAt(_unit.transform.position);
         //if the target is not dead
@@ -157,7 +163,7 @@ public class Abilities : NetworkBehaviour
             }
             else
             {
-                //print not enough AP - set boolean
+                //not enough AP - set boolean
                 usingAbility = false;
             }
 
@@ -175,6 +181,7 @@ public class Abilities : NetworkBehaviour
         {
             _unit.moveToggle = false;
             usingAbility = false;
+            _unit.UnhighlightWalkableTiles();
         }
 
         //otherwise toggle moement on the unity -
@@ -246,36 +253,39 @@ public class Abilities : NetworkBehaviour
                         {
                             _unit.abil = abilityUsed;
 
-                            //cast an ability
-                            if (buttonPressed == 1)
+                            if (canCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), abilityUsed) != 0)
                             {
-                                copyInfo(Button1Animation);
-                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
-                                    abilityUsed, 1);
-                            }
-                            if (buttonPressed == 2)
-                            {
-                                copyInfo(Button2Animation);
-                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
-                                    abilityUsed, 2);
-                            }
-                            if (buttonPressed == 3)
-                            {
-                                copyInfo(Button3Animation);
-                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
-                                    abilityUsed, 3);
-                            }
-                            if (buttonPressed == 4)
-                            {
-                                copyInfo(Button4Animation);
-                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
-                                    abilityUsed, 4);
-                            }
-                            if (buttonPressed == 5)
-                            {
-                                copyInfo(Button5Animation);
-                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
-                                    abilityUsed, 5);
+                                //cast an ability
+                                if (buttonPressed == 1)
+                                {
+                                    copyInfo(Button1Animation);
+                                    gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
+                                        abilityUsed, 1);
+                                }
+                                if (buttonPressed == 2)
+                                {
+                                    copyInfo(Button2Animation);
+                                    gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
+                                        abilityUsed, 2);
+                                }
+                                if (buttonPressed == 3)
+                                {
+                                    copyInfo(Button3Animation);
+                                    gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
+                                        abilityUsed, 3);
+                                }
+                                if (buttonPressed == 4)
+                                {
+                                    copyInfo(Button4Animation);
+                                    gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
+                                        abilityUsed, 4);
+                                }
+                                if (buttonPressed == 5)
+                                {
+                                    copyInfo(Button5Animation);
+                                    gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
+                                        abilityUsed, 5);
+                                }
                             }
                         }
                     }
@@ -303,6 +313,7 @@ public class Abilities : NetworkBehaviour
             //if a unit had an ability selected - set state to deselected
             if (usingAbility)
             {
+                _unit.UnhighlightWalkableTiles();
                 FindObjectOfType<SpellIndicator>().clearList();
                 usingAbility = false;
                 _casterMoveInput.castingSpell = false;
@@ -329,4 +340,224 @@ public class Abilities : NetworkBehaviour
         buttonPressed = _buttonPressed;
     }
 
+    public int canCast(CharacterStatus theTarget, int _abilityNum)
+    {
+        if(theTarget == null)
+        {
+            theTarget = _casterStatus;
+        }
+        if (_abilityNum == 1)
+        {
+            if (_casterStatus.currentAction > 3 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
+                {
+                    return 3;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        if (_abilityNum == 2)
+        {
+            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
+                {
+                    return 3;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        if (_abilityNum == 3)
+        {
+            if (_casterStatus.currentAction > 5 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
+                {
+                    return 3;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        if (_abilityNum == 4)
+        {
+            if (_casterStatus.currentAction > 4 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
+                {
+                    return 3;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        if (_abilityNum == 5)
+        {
+            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
+                {
+                    return 3;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        if (_abilityNum == 6)
+        {
+            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX)  <= 3 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
+                {
+                    return 3;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        if (_abilityNum == 7)
+        {
+            if (_casterStatus.currentAction > 5 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
+                {
+                    return 3;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        if (_abilityNum == 8)
+        {
+            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
+                {
+                    return 3;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        if (_abilityNum == 9)
+        {
+            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
+                {
+                    return 3;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        if (_abilityNum == 10)
+        {
+            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
+                {
+                    return 3;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        if (_abilityNum == 11)
+        {
+            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
+                {
+                    return 3;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        else
+        {
+            return 0;
+        }
+    }
 }
