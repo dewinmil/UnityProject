@@ -124,7 +124,12 @@ public class SpellCollision : NetworkBehaviour
                     }
                     GameObject.Destroy(gameObject);
                 }
+
             }
+        }
+        if (other.tag == "Terrain")
+        {
+            GameObject.Destroy(gameObject);
         }
     }
 
