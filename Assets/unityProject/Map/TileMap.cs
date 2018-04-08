@@ -30,6 +30,7 @@ public class TileMap : NetworkBehaviour
     private Node[] _currentPath;
     private List<GameObject> _highlightedTiles;
     private readonly Color CURRENT_PATH_TILE_COLOR = Color.yellow;
+    private readonly Color TARGET_HIGHLIGHT_COLOR = Color.red;
     private readonly Color WALKABLE_TILE_COLOR = new Color(0.49f, 1.0f, 0.47f);
     private readonly Color UNWALKABLE_TILE_COLOR = new Color(1.0f, 0.47f, 0.47f);
     public bool genDone = false;
