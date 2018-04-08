@@ -28,13 +28,13 @@ public class CastSpell : NetworkBehaviour
     // Use this for initialization
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-      
+
     }
 
     [Command]
@@ -46,15 +46,20 @@ public class CastSpell : NetworkBehaviour
         Vector3 moveSpellPostion = new Vector3(casterPosition.x, casterPosition.y + (float).5, casterPosition.z);
         spellMoves = moves;
         abilityNum = _abilityNum;
+
+        //case for each button / unfortunantly cannot reduce into single function
         if (_buttonNum == 1)
         {
+            //check if spell moves from caster to target
             if (moves)
             {
+                //create spell animation
                 serverAnimation = Instantiate(_caster.GetComponent<Abilities>().Button1Animation.abilityAnimation,
                     moveSpellPostion, Quaternion.identity);
             }
             else
             {
+                //create spell animation
                 serverAnimation = Instantiate(_caster.GetComponent<Abilities>().Button1Animation.abilityAnimation,
                     targetPosition, Quaternion.identity);
             }
@@ -118,17 +123,19 @@ public class CastSpell : NetworkBehaviour
         }
         if (moves)
         {
+            //if the spell moves rotate spell and add force in appropriate direction
             serverAnimation.transform.eulerAngles = theEulerAngles;
             serverAnimation.GetComponent<Rigidbody>().AddForce(targetDirection * 1000);
         }
         else
         {
+            //if spell does not move set it's position to that of the target
             serverAnimation.transform.position = new Vector3(serverAnimation.transform.position.x, 0, serverAnimation.transform.position.z);
         }
         serverAnimation.transform.parent = gameObject.transform;
 
         //don't cast a moving spell onto self
-        if(moves && Vector3.Distance(casterPosition, targetPosition) <= .5)
+        if (moves && Vector3.Distance(casterPosition, targetPosition) <= .5)
         {
             //don't want to cast
             GameObject.Destroy(serverAnimation);
@@ -140,12 +147,13 @@ public class CastSpell : NetworkBehaviour
             serverAnimation.GetComponent<SpellCollision>().serverSpell = true;
         }
 
+        //get character status of target so we can apply spell effect - redundant
         Collider[] c = Physics.OverlapSphere(targetPosition, 1f);
         foreach (var collider in c)
         {
             var obj = collider.gameObject; //This is the game object you collided with
             if (obj == gameObject) continue; //Skip the object itself
-            if(obj.tag == "Unit")
+            if (obj.tag == "Unit")
             {
                 spellTarget = obj.GetComponent<CharacterStatus>();
             }
@@ -157,7 +165,15 @@ public class CastSpell : NetworkBehaviour
     {
         buttonNum = _buttonNum;
         target = theTarget;
-        cast(_abilityNum);
+        if (_caster.Equals(null))
+        {
+            //do nothing
+        }
+        else
+        {
+            canCast(theTarget, _abilityNum);
+        }
+
     }
 
     public void cast(int _abilityNum)
@@ -168,44 +184,31 @@ public class CastSpell : NetworkBehaviour
         //check if spell moves towards and applies effect upon reaching target
         if (spellMoves)
         {
-            //check if we have enough ap to cast the ability
-            if (canCast(_abilityNum))
-            {
-                //rotate the spell in the direction of the target
-                float rotation = getRotation(target);
-                /*
-<<<<<<< HEAD
-                currentAnimation.transform.eulerAngles = new Vector3(currentAnimation.transform.eulerAngles.x,
-                    rotation + abilityAnimation.transform.eulerAngles.y, currentAnimation.transform.eulerAngles.z);
-                
-=======
+            //rotate the spell in the direction of the target
+            float rotation = getRotation(target);
 
->>>>>>> be71b1aee366d0d19e2858636aba6db4bd5dc20c
-*/
-                //find the direction of target
-                currentAnimation = Instantiate(abilityAnimation, target.transform.position, Quaternion.identity);
-                Vector3 targetDirection = (target.transform.position - _caster.transform.position).normalized;
-                Vector3 theEulerAngles = new Vector3(currentAnimation.transform.eulerAngles.x,
-                    rotation + abilityAnimation.transform.eulerAngles.y, currentAnimation.transform.eulerAngles.z);
-                GameObject.Destroy(currentAnimation);
-                CmdSpawn(spellMoves, rotation, targetDirection, _caster.transform.position, target.transform.position, theEulerAngles, Quaternion.identity, _abilityNum, buttonNum);
-            }
+            //find the direction of target
+            currentAnimation = Instantiate(abilityAnimation, target.transform.position, Quaternion.identity);
+            Vector3 targetDirection = (target.transform.position - _caster.transform.position).normalized;
+            Vector3 theEulerAngles = new Vector3(currentAnimation.transform.eulerAngles.x,
+                rotation + abilityAnimation.transform.eulerAngles.y, currentAnimation.transform.eulerAngles.z);
+            GameObject.Destroy(currentAnimation);
+
+            //have server spawn spell into scene
+            CmdSpawn(spellMoves, rotation, targetDirection, _caster.transform.position, target.transform.position, theEulerAngles, Quaternion.identity, _abilityNum, buttonNum);
         }
         //this spell appears on the targets location
         else
         {
-            //check if we have enough ap to cast the ability
             if (_caster.Equals(null))
             {
                 //do nothing
             }
             else
             {
-                if (canCast(abilityNum))
-                {
-                    Vector3 empty = new Vector3(0, 0, 0);
-                    CmdSpawn(spellMoves, 0, empty, _caster.transform.position, target.transform.position, empty, Quaternion.identity, _abilityNum, buttonNum);
-                }
+                Vector3 empty = new Vector3(0, 0, 0);
+                //have server spawn spell into scene
+                CmdSpawn(spellMoves, 0, empty, _caster.transform.position, target.transform.position, empty, Quaternion.identity, _abilityNum, buttonNum);
             }
         }
     }
@@ -264,10 +267,12 @@ public class CastSpell : NetworkBehaviour
 
     }
 
-    //applies the spell effect to the target
+    //applies the spell effect to the target - this is where we "create spells" though the particle effect must be set in the
+    //editor
     public void applyAbilityEffect(int abilityUsed, CharacterStatus targetCharacterStatus = null)
     {
-        if(targetCharacterStatus == null)
+        print(abilityUsed);
+        if (targetCharacterStatus == null)
         {
             targetCharacterStatus = spellTarget;
         }
@@ -291,74 +296,143 @@ public class CastSpell : NetworkBehaviour
         {
             _caster.castAbility(targetCharacterStatus, 5, 0, 6, 0, 1, 0, true);
         }
+        else if (abilityUsed == 6)
+        {
+            _caster.castAbility(targetCharacterStatus, 5, 0, 6, .25f, .25f, 0, true);
+        }
+        else if (abilityUsed == 7)
+        {
+            _caster.castAbility(targetCharacterStatus, 0, 0, 12, 0, 0, 5, true);
+        }
+        else if (abilityUsed == 8)
+        {
+            _caster.castAbility(targetCharacterStatus, 0, 0, 12, 0, 0, 5, false);
+        }
+        else if (abilityUsed == 9)
+        {
+            _caster.castAbility(targetCharacterStatus, 5, 0, 6, 0, 1, 0, true);
+        }
+        else if (abilityUsed == 10)
+        {
+            _caster.castAbility(targetCharacterStatus, 5, 0, 6, 0, 1, 0, true);
+        }
+        else if (abilityUsed == 11)
+        {
+            _caster.castAbility(targetCharacterStatus, 5, 0, 6, 0, 1, 0, true);
+        }
     }
 
-    //determines if the caster has enough ability points to cast a spell
-    public bool canCast(int abilityUsed)
+    public void canCast(CharacterStatus theTarget, int _abilityNum)
     {
-        if (abilityUsed == 1)
+        if (_abilityNum == 1)
         {
-            if (_caster._casterStatus.currentAction > 3 && spellTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
-
+            if (_caster._casterStatus.currentAction > 3 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 12)
+                {
+                    cast(_abilityNum);
+                }
             }
         }
-        else if (abilityUsed == 2)
+        if (_abilityNum == 2)
         {
-            if (_caster._casterStatus.currentAction > 6 && spellTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
+            if (_caster._casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+                {
+                    cast(_abilityNum);
+                }
             }
         }
-        else if (abilityUsed == 3)
+        if (_abilityNum == 3)
         {
-
-            if (_caster._casterStatus.currentAction > 5 && spellTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
+            if (_caster._casterStatus.currentAction > 5 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+                {
+                    cast(_abilityNum);
+                }
             }
         }
-        else if (abilityUsed == 4)
+        if (_abilityNum == 4)
         {
-
-            if (_caster._casterStatus.currentAction > 4 && spellTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
+            if (_caster._casterStatus.currentAction > 4 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 9)
+                {
+                    cast(_abilityNum);
+                }
             }
         }
-        else if (abilityUsed == 5)
+        if (_abilityNum == 5)
         {
-
-            if (_caster._casterStatus.currentAction > 6 && spellTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
+            if (_caster._casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
             {
-                return true;
-            }
-            else
-            {
-                return false;
+                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+                {
+                    cast(_abilityNum);
+                }
             }
         }
-        else
+        if (_abilityNum == 6)
         {
-            return false;
+            if (_caster._casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
+            {
+                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+                {
+                    cast(_abilityNum);
+                }
+            }
+        }
+        if (_abilityNum == 7)
+        {
+            if (_caster._casterStatus.currentAction > 5 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
+            {
+                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+                {
+                    cast(_abilityNum);
+                }
+            }
+        }
+        if (_abilityNum == 8)
+        {
+            if (_caster._casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
+            {
+                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+                {
+                    cast(_abilityNum);
+                }
+            }
+        }
+        if (_abilityNum == 9)
+        {
+            if (_caster._casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
+            {
+                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+                {
+                    cast(_abilityNum);
+                }
+            }
+        }
+        if (_abilityNum == 10)
+        {
+            if (_caster._casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
+            {
+                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+                {
+                    cast(_abilityNum);
+                }
+            }
+        }
+        if (_abilityNum == 11)
+        {
+            if (_caster._casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
+            {
+                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+                {
+                    cast(_abilityNum);
+                }
+            }
         }
     }
-
 }

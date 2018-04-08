@@ -32,6 +32,14 @@ public class CharacterStatus : NetworkBehaviour {
     private int previousTurn;
     [SyncVar]
     public bool startOfTurn;
+    public bool isLeader;
+    public GameObject winScreen;
+    public GameObject loseScreen;
+
+    //variable to hold the number of moves that the character can still move in a turn
+    //value is initialized to the numMoves property on the unit class
+    [SyncVar]
+    public int _numMovesRemaining;
 
 
     // Use this for initialization
@@ -40,6 +48,9 @@ public class CharacterStatus : NetworkBehaviour {
         previousTurn = 1;
         endTurn = FindObjectOfType<EndTurn>();
         startOfTurn = false;
+        _numMovesRemaining = _unit._numMoves;
+        winScreen = GameObject.FindWithTag("winScreen");
+        loseScreen = GameObject.FindWithTag("loseScreen");
     }
 
     // Update is called once per frame
@@ -47,6 +58,7 @@ public class CharacterStatus : NetworkBehaviour {
     {
         if(endTurn.turn != previousTurn)
         {
+            FindObjectOfType<AudioManager>().endTurn();
             previousTurn = endTurn.turn;
             if (hasAuthority)
             {
@@ -61,7 +73,8 @@ public class CharacterStatus : NetworkBehaviour {
                 if (currentHealth > 0)
                 {
                     currentAction = currentAction + 5;
-                    if(currentAction > maxAction)
+                    CmdUpdateValuesAfterTurn();
+                    if (currentAction > maxAction)
                     {
                         currentAction = maxAction;
                     }
@@ -108,7 +121,8 @@ public class CharacterStatus : NetworkBehaviour {
     {
         currentHealth += healing;
     }
-    public void loseAction(float apCost)
+    [Command]
+    public void CmdLoseAction(float apCost)
     {
         currentAction -= apCost;
     }
@@ -117,7 +131,27 @@ public class CharacterStatus : NetworkBehaviour {
         // At the beginning of the turn
         currentAction += 8;
     }
-    
+
+    public bool CanMove(int tilesToMove, int apCostPerTile)
+    {
+        int apCost = tilesToMove * apCostPerTile;
+        if (apCost <= currentAction && tilesToMove <= _numMovesRemaining)
+        {
+            //_numMovesRemaining -= tilesToMove;
+            CmdLoseAction(apCost);
+            CmdUpdateNumMovesRemaining(tilesToMove);
+            return true;
+        }
+
+        return false;
+    }
+
+    [Command]
+    public void CmdUpdateNumMovesRemaining(int tilesToMove)
+    {
+        _numMovesRemaining -= tilesToMove;
+    }
+
     [Command]
     public void CmdSyncValues(int teamNumVal, float maxActionVal, float currentActionVal,
         float maxHealthVal, float currentHealthVal, float physicalArmorVal, float magicArmorVal)
@@ -132,10 +166,51 @@ public class CharacterStatus : NetworkBehaviour {
     }
 
     [Command]
+    public void CmdUpdateValuesAfterTurn()
+    {
+
+        _numMovesRemaining = _unit._numMoves;
+    }
+
+    [Command]
     public void CmdUpdateTurn(int turn)
     {
         endTurn.turn = turn;
         previousTurn = turn;
     }
-    
+
+    [Command]
+    public void CmdEndGame(int teamNumber)
+    {
+        if (teamNumber == 2)
+        {
+            loseScreen.GetComponent<Canvas>().enabled = true;
+            RpcWinGame();
+        }
+        else
+        {
+            winScreen.GetComponent<Canvas>().enabled = true;
+            RpcLoseGame();
+
+        }
+    }
+
+    [ClientRpc]
+    public void RpcWinGame()
+    {
+        if (!isServer)
+        {
+            winScreen.GetComponent<Canvas>().enabled = true;
+        }
+    }
+
+    [ClientRpc]
+    public void RpcLoseGame()
+    {
+        if (!isServer)
+        {
+            loseScreen.GetComponent<Canvas>().enabled = true;
+        }
+    }
+
 }
