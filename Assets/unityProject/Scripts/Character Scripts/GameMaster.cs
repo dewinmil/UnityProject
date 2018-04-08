@@ -48,11 +48,9 @@ public class GameMaster : NetworkManager
 
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
     {
-
         GameObject player;
         Unit unit;
         //if this is the host client, spawn them on the other side of the map
-        //this is a shit way to do it but idgaf 
         if (playerControllerId < NUM_UNITS_PER_TEAM)
         {
             if (playerControllerId == 0)
