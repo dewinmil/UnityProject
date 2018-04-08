@@ -342,6 +342,7 @@ GameObject:
   - component: {fileID: 29559244}
   - component: {fileID: 29559243}
   - component: {fileID: 29559242}
+  - component: {fileID: 29559241}
   m_Layer: 5
   m_Name: LoseScreen
   m_TagString: loseScreen
@@ -349,6 +350,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &29559241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 29559240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e5ad12d73e856644850adc2330fdec7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &29559242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1424,7 +1436,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1327bb511a87b4f71acaae18c813ca1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameMaster: {fileID: 1451940020}
 --- !u!224 &145957356
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1817,7 +1828,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1327bb511a87b4f71acaae18c813ca1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameMaster: {fileID: 0}
 --- !u!1 &170098667
 GameObject:
   m_ObjectHideFlags: 0
@@ -2535,6 +2545,7 @@ GameObject:
   - component: {fileID: 299944746}
   - component: {fileID: 299944745}
   - component: {fileID: 299944744}
+  - component: {fileID: 299944743}
   m_Layer: 5
   m_Name: WinScreen
   m_TagString: winScreen
@@ -2542,6 +2553,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &299944743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 299944742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e5ad12d73e856644850adc2330fdec7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &299944744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4536,7 +4558,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 145957355}
-        m_MethodName: RefreshGame
+        m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7084,6 +7106,7 @@ GameObject:
   - component: {fileID: 883693372}
   - component: {fileID: 883693371}
   - component: {fileID: 883693370}
+  - component: {fileID: 883693369}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -7091,6 +7114,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &883693369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 883693368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e5ad12d73e856644850adc2330fdec7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &883693370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11512,8 +11546,8 @@ MonoBehaviour:
   m_ServerBindToIP: 0
   m_ServerBindAddress: 
   m_NetworkAddress: localhost
-  m_DontDestroyOnLoad: 0
-  m_RunInBackground: 0
+  m_DontDestroyOnLoad: 1
+  m_RunInBackground: 1
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
   m_LogLevel: 2
@@ -15389,7 +15423,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 145957355}
-        m_MethodName: RefreshGame
+        m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -76,7 +76,7 @@ public class Abilities : NetworkBehaviour
             if (_casterStatus.currentAction >= apCost)
             {
                 //use casters ability points
-                _casterStatus.loseAction(apCost);
+                _casterStatus.CmdLoseAction(apCost);
 
                 //check if the spell effect is reduced by magic resistance or armor
                 if (isMagic)

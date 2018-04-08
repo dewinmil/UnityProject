@@ -312,6 +312,9 @@ public class TileMap : NetworkBehaviour
         //set destination to be occupied
         SetTileWalkable(currentPath[currentPath.Count - 1].x, currentPath[currentPath.Count - 1].z, false);
 
+        //set origin to be walkable
+        SetTileWalkable(currentPath[0].x, currentPath[0].z, true);
+
         _selectedUnit.GetComponent<Unit>()._currentPath = currentPath;
     }
 
@@ -349,7 +352,7 @@ public class TileMap : NetworkBehaviour
             //if the tile is walkable, the unit can move through it
             if (tt.IsWalkable)
                 movementCost = 1;
-
+            
             //else set the cost to be infinity so that the algorithm will avoid it
             else
                 movementCost = Mathf.Infinity;
