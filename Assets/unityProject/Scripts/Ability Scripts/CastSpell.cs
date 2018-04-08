@@ -16,14 +16,11 @@ public class CastSpell : NetworkBehaviour
     public Abilities _caster;
     public bool spellMoves;
     private GameObject currentAnimation;
-    private GameObject onHitAnimation;
     private CharacterStatus spellTarget;
     [SyncVar]
     public int abilityNum;
     private CharacterStatus target;
-    private bool iCast;
     public int buttonNum;
-    private bool deltEffect;
 
     // Use this for initialization
     void Start()
