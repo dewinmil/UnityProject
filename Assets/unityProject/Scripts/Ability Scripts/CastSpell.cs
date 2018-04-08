@@ -171,7 +171,7 @@ public class CastSpell : NetworkBehaviour
         }
         else
         {
-            canCast(theTarget, _abilityNum);
+            gameObject.GetComponentInParent<CastSpell>().cast(_abilityNum);
         }
 
     }
@@ -271,7 +271,6 @@ public class CastSpell : NetworkBehaviour
     //editor
     public void applyAbilityEffect(int abilityUsed, CharacterStatus targetCharacterStatus = null)
     {
-        print(abilityUsed);
         if (targetCharacterStatus == null)
         {
             targetCharacterStatus = spellTarget;
@@ -322,8 +321,11 @@ public class CastSpell : NetworkBehaviour
         }
     }
 
+    /*
     public void canCast(CharacterStatus theTarget, int _abilityNum)
     {
+        Unit _unit = gameObject.GetComponentInParent<CharacterStatus>()._unit;
+        FindObjectOfType<TileMap>().HighlightTargetableTiles(_unit.tileX, _unit.tileZ, 1);
         if (_abilityNum == 1)
         {
             if (_caster._casterStatus.currentAction > 3 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
@@ -378,7 +380,14 @@ public class CastSpell : NetworkBehaviour
         {
             if (_caster._casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
             {
-                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+                Vector3 test = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);
+                Vector3 test1 = new Vector3(target.transform.position.x, 0, target.transform.position.z);
+                print("right after this");
+                print(gameObject.transform.position.x);
+                print(gameObject.transform.position.z);
+                print(target.transform.position.x);
+                print(target.transform.position.z);
+                if (Vector3.Distance(test, test1) <= 1)
                 {
                     cast(_abilityNum);
                 }
@@ -434,5 +443,5 @@ public class CastSpell : NetworkBehaviour
                 }
             }
         }
-    }
+    }*/
 }

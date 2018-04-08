@@ -58,11 +58,14 @@ public class Abilities : NetworkBehaviour
         //toggle casting determins whether your next click will cast a spell or not
         //it is a toggle so you can reselect a spell to cancel casting
         toggleCasting();
+        Unit _unit = gameObject.GetComponentInParent<CharacterStatus>()._unit;
+        FindObjectOfType<TileMap>().HighlightTargetableTiles(_unit.tileX, _unit.tileZ, 1);
+        //_casterStatus.GetComponent<CharacterStatus>()._unit._map.HighlightTargetableTiles((int)_casterStatus.transform.position.x, (int)_casterStatus.transform.position.z, 4);
 
         //sets the last ability selected
         abilityUsed = ability;
     }
-
+    
     //this function actually applies the spell effect to the target
     public void castAbility(CharacterStatus target, float damage, float healing, float apCost, float armorPen, float magicPen, float buff, bool isMagic)
     {
@@ -246,36 +249,39 @@ public class Abilities : NetworkBehaviour
                         {
                             _unit.abil = abilityUsed;
 
-                            //cast an ability
-                            if (buttonPressed == 1)
+                            if (canCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), abilityUsed))
                             {
-                                copyInfo(Button1Animation);
-                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
-                                    abilityUsed, 1);
-                            }
-                            if (buttonPressed == 2)
-                            {
-                                copyInfo(Button2Animation);
-                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
-                                    abilityUsed, 2);
-                            }
-                            if (buttonPressed == 3)
-                            {
-                                copyInfo(Button3Animation);
-                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
-                                    abilityUsed, 3);
-                            }
-                            if (buttonPressed == 4)
-                            {
-                                copyInfo(Button4Animation);
-                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
-                                    abilityUsed, 4);
-                            }
-                            if (buttonPressed == 5)
-                            {
-                                copyInfo(Button5Animation);
-                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
-                                    abilityUsed, 5);
+                                //cast an ability
+                                if (buttonPressed == 1)
+                                {
+                                    copyInfo(Button1Animation);
+                                    gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
+                                        abilityUsed, 1);
+                                }
+                                if (buttonPressed == 2)
+                                {
+                                    copyInfo(Button2Animation);
+                                    gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
+                                        abilityUsed, 2);
+                                }
+                                if (buttonPressed == 3)
+                                {
+                                    copyInfo(Button3Animation);
+                                    gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
+                                        abilityUsed, 3);
+                                }
+                                if (buttonPressed == 4)
+                                {
+                                    copyInfo(Button4Animation);
+                                    gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
+                                        abilityUsed, 4);
+                                }
+                                if (buttonPressed == 5)
+                                {
+                                    copyInfo(Button5Animation);
+                                    gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
+                                        abilityUsed, 5);
+                                }
                             }
                         }
                     }
@@ -329,4 +335,229 @@ public class Abilities : NetworkBehaviour
         buttonPressed = _buttonPressed;
     }
 
+    public bool canCast(CharacterStatus theTarget, int _abilityNum)
+    {
+        //Unit _unit = gameObject.GetComponentInParent<CharacterStatus>()._unit;
+        //FindObjectOfType<TileMap>().HighlightTargetableTiles(_unit.tileX, _unit.tileZ, 1);
+        if (_abilityNum == 1)
+        {
+            if (_casterStatus.currentAction > 3 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 12)
+                {
+                    return true;
+                    gameObject.GetComponentInParent<CastSpell>().cast(_abilityNum);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        if (_abilityNum == 2)
+        {
+            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+                {
+                    return true;
+                    gameObject.GetComponentInParent<CastSpell>().cast(_abilityNum);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        if (_abilityNum == 3)
+        {
+            if (_casterStatus.currentAction > 5 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+                {
+                    return true;
+                    gameObject.GetComponentInParent<CastSpell>().cast(_abilityNum);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        if (_abilityNum == 4)
+        {
+            if (_casterStatus.currentAction > 4 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 9)
+                {
+                    return true;
+                    gameObject.GetComponentInParent<CastSpell>().cast(_abilityNum);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        if (_abilityNum == 5)
+        {
+            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+                {
+                    return true;
+                    gameObject.GetComponentInParent<CastSpell>().cast(_abilityNum);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        if (_abilityNum == 6)
+        {
+            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                Vector3 test = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);
+                Vector3 test1 = new Vector3(theTarget.transform.position.x, 0, theTarget.transform.position.z);
+                print("right after this");
+                print(gameObject.transform.position.x);
+                print(gameObject.transform.position.z);
+                print(theTarget.transform.position.x);
+                print(theTarget.transform.position.z);
+                if (Vector3.Distance(test, test1) <= 1)
+                {
+                    return true;
+                    gameObject.GetComponentInParent<CastSpell>().cast(_abilityNum);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        if (_abilityNum == 7)
+        {
+            if (_casterStatus.currentAction > 5 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+                {
+                    return true;
+                    gameObject.GetComponentInParent<CastSpell>().cast(_abilityNum);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        if (_abilityNum == 8)
+        {
+            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+                {
+                    return true;
+                    gameObject.GetComponentInParent<CastSpell>().cast(_abilityNum);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        if (_abilityNum == 9)
+        {
+            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+                {
+                    return true;
+                    gameObject.GetComponentInParent<CastSpell>().cast(_abilityNum);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        if (_abilityNum == 10)
+        {
+            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+                {
+                    return true;
+                    gameObject.GetComponentInParent<CastSpell>().cast(_abilityNum);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        if (_abilityNum == 11)
+        {
+            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+                {
+                    return true;
+                    gameObject.GetComponentInParent<CastSpell>().cast(_abilityNum);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

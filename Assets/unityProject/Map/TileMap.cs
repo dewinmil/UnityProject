@@ -30,6 +30,7 @@ public class TileMap : NetworkBehaviour
     private Node[] _currentPath;
     private List<GameObject> _highlightedTiles;
     private readonly Color CURRENT_PATH_TILE_COLOR = Color.yellow;
+    private readonly Color TARGET_HIGHLIGHT_COLOR = Color.red;
     private readonly Color WALKABLE_TILE_COLOR = new Color(0.49f, 1.0f, 0.47f);
     private readonly Color UNWALKABLE_TILE_COLOR = new Color(1.0f, 0.47f, 0.47f);
     public bool genDone = false;
@@ -428,6 +429,25 @@ public class TileMap : NetworkBehaviour
             _highlightedTiles.Add(_tileObjects[hash]);
         }
 
+        return neighbors;
+    }
+
+    public List<Node> HighlightTargetableTiles(int playerX, int playerZ, int range)
+    {
+        List<Node> neighbors = null;
+        if (playerZ % 2 == 0)
+            neighbors = BuildQuadrantsEven(playerX, playerZ, range);
+
+        else
+            neighbors = BuildQuadrantsOdd(playerX, playerZ, range);
+
+        foreach (Node node in neighbors)
+        {
+            string hash = GetHashString(node.x, node.z);
+            MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
+            mesh.material.color = TARGET_HIGHLIGHT_COLOR;
+            _highlightedTiles.Add(_tileObjects[hash]);
+        }
         return neighbors;
     }
 
