@@ -73,14 +73,11 @@ public class CharacterStatus : NetworkBehaviour {
                 startOfTurn = false;
                 if (currentHealth > 0)
                 {
-<<<<<<< HEAD
                     gainAction();
                     if(currentAction > maxAction)
-=======
                     currentAction = currentAction + 5;
                     CmdUpdateValuesAfterTurn();
                     if (currentAction > maxAction)
->>>>>>> merge
                     {
                         currentAction = maxAction;
                     }
@@ -138,14 +135,11 @@ public class CharacterStatus : NetworkBehaviour {
         currentAction += 5;
     }
 
-<<<<<<< HEAD
     public int getTeamNum()
     {
         return teamNum;
     }
 
-    
-=======
     public bool CanMove(int tilesToMove, int apCostPerTile)
     {
         int apCost = tilesToMove * apCostPerTile;
@@ -166,7 +160,6 @@ public class CharacterStatus : NetworkBehaviour {
         _numMovesRemaining -= tilesToMove;
     }
 
->>>>>>> merge
     [Command]
     public void CmdSyncValues(int teamNumVal, float maxActionVal, float currentActionVal,
         float maxHealthVal, float currentHealthVal, float physicalArmorVal, float magicArmorVal)

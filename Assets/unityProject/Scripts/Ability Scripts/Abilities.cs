@@ -330,7 +330,6 @@ public class Abilities : NetworkBehaviour
         buttonPressed = _buttonPressed;
     }
 
-<<<<<<< HEAD
     public void ability3(CharacterStatus target)
     {
         castAbility(target, 0, 3, 3, 0, 0, 0, false);
@@ -349,6 +348,3 @@ public class Abilities : NetworkBehaviour
 
 
 }
-=======
-}
->>>>>>> merge

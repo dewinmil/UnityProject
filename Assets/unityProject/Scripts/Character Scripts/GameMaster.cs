@@ -23,13 +23,10 @@ public class GameMaster : NetworkManager
     public List<Unit> _units;
     private int _prevX;
     public int turn;
-<<<<<<< HEAD
     public CharacterStatus _currentStatus;
-=======
     public GameObject winScreen;
     public GameObject loseScreen;
     public int connections;
->>>>>>> merge
 
     // Use this for initialization
     public void Start()
@@ -121,7 +118,7 @@ public class GameMaster : NetworkManager
                 UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 2);
             }
         }
-        
+
         _units.Add(unit);
 
         NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
@@ -137,7 +134,7 @@ public class GameMaster : NetworkManager
         FindObjectOfType<ToggleActive>().playerConnected();
     }
 
-    
+
     public override void OnServerConnect(NetworkConnection conn)
     {
         if (_playerID > 0)
@@ -145,7 +142,7 @@ public class GameMaster : NetworkManager
 
         AddPlayers(conn, NUM_UNITS_PER_TEAM);
     }
-    
+
     private void AddPlayers(NetworkConnection conn, int numPlayers)
     {
         connections += 1;
@@ -180,28 +177,25 @@ public class GameMaster : NetworkManager
         _prevX++;
         return unit;
     }
-<<<<<<< HEAD
-    
+
     public void endTurn()
     {
         //CharacterStatus _currentStatus = GetComponent("CharacterStatus") as CharacterStatus;
         //if (_currentStatus.getTeamNum() == turn)
         //{
-            if (turn == 1)
-            {
-                turn = 2;
-            }
-            else
-            {
-                turn = 1;
-            }
-        //}
-=======
-
-    private void UpdateCharacterStatus(CharacterStatus status, int teamNum)
-    {
-        status.teamNum = teamNum;
->>>>>>> merge
+        if (turn == 1)
+        {
+            turn = 2;
+        }
+        else
+        {
+            turn = 1;
+        }
     }
+
+        private void UpdateCharacterStatus(CharacterStatus status, int teamNum)
+        {
+            status.teamNum = teamNum;
+        }
 
 }
