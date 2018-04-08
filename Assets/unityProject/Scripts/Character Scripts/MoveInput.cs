@@ -39,7 +39,7 @@ public class MoveInput : NetworkBehaviour
                 isSelected = false;
             }
 
-            //if the left mouse button is presset
+            //if the left mouse button is pressed
             if (Input.GetButtonUp("Fire1"))
             {
                 //if the cursor is not over a UI element

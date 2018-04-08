@@ -19,16 +19,18 @@ public class Unit : NetworkBehaviour
     public int abil;
     public bool react;
     //number of tiles the unit can move
+    /// /////////////////////////////////////
+    //DO NOT CHANGE THIS VALUE IN THIS FILE
     public int _numMoves;
+    /// //////////////////////////////////////
+    
     public Rigidbody _rigidbody;
     private Vector3 _nextTile;
     private const float MOVEMENT_SPEED = 100f;
-    
-
+    private const int MOVEMENT_AP_COST = 2;
     private List<Node> _tilesToMove;
-
-
     public List<Node> _currentPath = null;
+    private CharacterStatus _characterStatus;
 
     private void Start()
     {
@@ -38,6 +40,8 @@ public class Unit : NetworkBehaviour
         react = false;
         if (_map == null)
             _map = FindObjectOfType<TileMap>();
+
+        _characterStatus = this.gameObject.GetComponent<CharacterStatus>();
     }
 
 
@@ -128,10 +132,14 @@ public class Unit : NetworkBehaviour
             {
                 if (_currentPath == null)
                     return;
-                _nextTile = _map.TileCoordToWorldCoord(_currentPath[0].x, _currentPath[0].z);
-                _map.CmdSetTileWalkable(this.tileX, this.tileZ, true);
-                MoveToNextTile();
-                _isMoving = true;
+
+                if (_characterStatus.CanMove(_currentPath.Count-1, MOVEMENT_AP_COST))
+                {
+                    _nextTile = _map.TileCoordToWorldCoord(_currentPath[0].x, _currentPath[0].z);
+                    _map.CmdSetTileWalkable(this.tileX, this.tileZ, true);
+                    MoveToNextTile();
+                    _isMoving = true;
+                }
             }
         }
     }
@@ -159,7 +167,7 @@ public class Unit : NetworkBehaviour
             _map.UnhighlightWalkableTiles();
 
         else
-            _tilesToMove = _map.HighlightWalkableTiles(this.tileX, this.tileZ, _numMoves);
+            _tilesToMove = _map.HighlightWalkableTiles(this.tileX, this.tileZ, _characterStatus._numMovesRemaining);
     }
     public void UnhighlightWalkableTiles()
     {
