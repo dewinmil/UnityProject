@@ -26,16 +26,15 @@ namespace RTS_Cam
 
         #endregion
 
-        private Transform m_Transform; //original camera tranform
-        private Transform new_transform; //player 2 camera transform
+        private Transform m_Transform; //camera tranform
         public bool useFixedUpdate = false; //use FixedUpdate() or Update()
 
         #region Movement
 
-        public float keyboardMovementSpeed = 25f; //speed with keyboard movement
+        public float keyboardMovementSpeed = 5f; //speed with keyboard movement
         public float screenEdgeMovementSpeed = 3f; //spee with screen edge movement
         public float followingSpeed = 5f; //speed when following a target
-        public float rotationSpeed = 45f;
+        public float rotationSped = 3f;
         public float panningSpeed = 10f;
         public float mouseRotationSpeed = 10f;
 
@@ -49,8 +48,8 @@ namespace RTS_Cam
         public float maxHeight = 10f; //maximal height
         public float minHeight = 15f; //minimnal height
         public float heightDampening = 5f; 
-        public float keyboardZoomingSensitivity = 4f;
-        public float scrollWheelZoomingSensitivity = 35f;
+        public float keyboardZoomingSensitivity = 2f;
+        public float scrollWheelZoomingSensitivity = 25f;
 
         private float zoomPos = 0; //value in range (0, 1) used as t in Matf.Lerp
 
@@ -168,10 +167,6 @@ namespace RTS_Cam
 
         private void Start()
         {
-            if (Network.isServer)
-            {
-                transform.eulerAngles = new Vector3(transform.eulerAngles.x, 180, transform.eulerAngles.z);
-            }
             m_Transform = transform;
         }
 
@@ -285,7 +280,7 @@ namespace RTS_Cam
         private void Rotation()
         {
             if(useKeyboardRotation)
-                transform.Rotate(Vector3.up, RotationDirection * Time.deltaTime * rotationSpeed, Space.World);
+                transform.Rotate(Vector3.up, RotationDirection * Time.deltaTime * rotationSped, Space.World);
 
             if (useMouseRotation && Input.GetKey(mouseRotationKey))
                 m_Transform.Rotate(Vector3.up, -MouseAxis.x * Time.deltaTime * mouseRotationSpeed, Space.World);
@@ -344,11 +339,6 @@ namespace RTS_Cam
             return 0f;
         }
 
-        /*public void ChangePlayerCamera(int turn)
-        {
-
-        }
-        */
         #endregion
     }
 }
