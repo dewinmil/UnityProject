@@ -12,15 +12,19 @@ public class MoveInput : NetworkBehaviour
     public bool castingSpell;
     public Abilities _characterAbilities;
     public Unit _unit;
+    public EndTurn endTurn;
 
-
+    public void Start()
+    {
+        endTurn = FindObjectOfType<EndTurn>();
+    }
     // Update is called once per frame
     void Update()
     {
         if (isLocalPlayer)
         {
             //deselect unit if it is not their turn
-            if (!(FindObjectOfType<GameMaster>().turn == gameObject.GetComponent<CharacterStatus>().teamNum)
+            if (endTurn.turn != gameObject.GetComponent<CharacterStatus>().teamNum
                 || gameObject.GetComponent<CharacterStatus>().currentHealth < 0)
             {
                 //select the unit
@@ -35,7 +39,7 @@ public class MoveInput : NetworkBehaviour
                 isSelected = false;
             }
 
-            //if the left mouse button is presset
+            //if the left mouse button is pressed
             if (Input.GetButtonUp("Fire1"))
             {
                 //if the cursor is not over a UI element
@@ -55,13 +59,13 @@ public class MoveInput : NetworkBehaviour
                             //if they are not having an ability cast upon them
                             if (targetedBySpell == false)
                             {
-                                //only select unit if it is their turn
-                                if (FindObjectOfType<GameMaster>().turn == gameObject.GetComponent<CharacterStatus>().teamNum
+                                if (endTurn.turn == gameObject.GetComponent<CharacterStatus>().teamNum
                                     && gameObject.GetComponent<CharacterStatus>().currentHealth > 0)
                                 {
                                     //select the unit
                                     isSelected = true;
                                     _unit.SelectedUnitChanged();
+                                    _unit._map.charSelect = true;
                                 }
                             }
                             //someone just cast an ability on this unit - do not select this unit
@@ -112,6 +116,7 @@ public class MoveInput : NetworkBehaviour
                                         {
                                             //de-select this unit
                                             isSelected = false;
+                                            _unit._map.charSelect = false;
                                         }
                                     }
                                     //if we were casting an ability

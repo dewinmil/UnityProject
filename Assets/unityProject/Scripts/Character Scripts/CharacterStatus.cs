@@ -29,28 +29,58 @@ public class CharacterStatus : NetworkBehaviour {
     public Text healthBarTextUI;
     public Text actionBarTextUI;
     public Unit _unit;
+    public EndTurn endTurn;
+    private int previousTurn;
     [SyncVar]
     public bool startOfTurn;
+    public bool isLeader;
+    public GameObject winScreen;
+    public GameObject loseScreen;
+
+    //variable to hold the number of moves that the character can still move in a turn
+    //value is initialized to the numMoves property on the unit class
+    [SyncVar]
+    public int _numMovesRemaining;
 
 
     // Use this for initialization
     void Start()
     {
+        previousTurn = 1;
+        endTurn = FindObjectOfType<EndTurn>();
         startOfTurn = false;
+        _numMovesRemaining = _unit._numMoves;
+        winScreen = GameObject.FindWithTag("winScreen");
+        loseScreen = GameObject.FindWithTag("loseScreen");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (FindObjectOfType<GameMaster>().turn == teamNum)
+        if(endTurn.turn != previousTurn)
+        {
+            FindObjectOfType<AudioManager>().endTurn();
+            previousTurn = endTurn.turn;
+            if (hasAuthority)
+            {
+                CmdUpdateTurn(endTurn.turn);
+            }
+        }
+        if (endTurn.turn == teamNum)
         {
             if(startOfTurn == true)
             {
                 startOfTurn = false;
                 if (currentHealth > 0)
                 {
+<<<<<<< HEAD
                     gainAction();
                     if(currentAction > maxAction)
+=======
+                    currentAction = currentAction + 5;
+                    CmdUpdateValuesAfterTurn();
+                    if (currentAction > maxAction)
+>>>>>>> merge
                     {
                         currentAction = maxAction;
                     }
@@ -62,6 +92,10 @@ public class CharacterStatus : NetworkBehaviour {
             startOfTurn = true;
         }
         updateStatusBars();
+        if(currentHealth <= 0)
+        {
+            _unit.DeathAnim();
+        }
     }
 
     public void updateStatusBars()
@@ -87,13 +121,14 @@ public class CharacterStatus : NetworkBehaviour {
     public void loseHealth(float damage)
     {
         currentHealth -= damage;
-        //_unit.react = true;
+        _unit.react = true;
     }
     public void gainHealth(float healing)
     {
         currentHealth += healing;
     }
-    public void loseAction(float apCost)
+    [Command]
+    public void CmdLoseAction(float apCost)
     {
         currentAction -= apCost;
     }
@@ -103,12 +138,35 @@ public class CharacterStatus : NetworkBehaviour {
         currentAction += 5;
     }
 
+<<<<<<< HEAD
     public int getTeamNum()
     {
         return teamNum;
     }
 
     
+=======
+    public bool CanMove(int tilesToMove, int apCostPerTile)
+    {
+        int apCost = tilesToMove * apCostPerTile;
+        if (apCost <= currentAction && tilesToMove <= _numMovesRemaining)
+        {
+            //_numMovesRemaining -= tilesToMove;
+            CmdLoseAction(apCost);
+            CmdUpdateNumMovesRemaining(tilesToMove);
+            return true;
+        }
+
+        return false;
+    }
+
+    [Command]
+    public void CmdUpdateNumMovesRemaining(int tilesToMove)
+    {
+        _numMovesRemaining -= tilesToMove;
+    }
+
+>>>>>>> merge
     [Command]
     public void CmdSyncValues(int teamNumVal, float maxActionVal, float currentActionVal,
         float maxHealthVal, float currentHealthVal, float physicalArmorVal, float magicArmorVal)
@@ -121,5 +179,53 @@ public class CharacterStatus : NetworkBehaviour {
         physicalArmor = physicalArmorVal;
         magicArmor = magicArmorVal;
     }
-    
+
+    [Command]
+    public void CmdUpdateValuesAfterTurn()
+    {
+
+        _numMovesRemaining = _unit._numMoves;
+    }
+
+    [Command]
+    public void CmdUpdateTurn(int turn)
+    {
+        endTurn.turn = turn;
+        previousTurn = turn;
+    }
+
+    [Command]
+    public void CmdEndGame(int teamNumber)
+    {
+        if (teamNumber == 2)
+        {
+            loseScreen.GetComponent<Canvas>().enabled = true;
+            RpcWinGame();
+        }
+        else
+        {
+            winScreen.GetComponent<Canvas>().enabled = true;
+            RpcLoseGame();
+
+        }
+    }
+
+    [ClientRpc]
+    public void RpcWinGame()
+    {
+        if (!isServer)
+        {
+            winScreen.GetComponent<Canvas>().enabled = true;
+        }
+    }
+
+    [ClientRpc]
+    public void RpcLoseGame()
+    {
+        if (!isServer)
+        {
+            loseScreen.GetComponent<Canvas>().enabled = true;
+        }
+    }
+
 }

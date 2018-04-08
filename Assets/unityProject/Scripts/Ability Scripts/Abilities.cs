@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
-public class Abilities : MonoBehaviour
+public class Abilities : NetworkBehaviour
 {
     public bool usingAbility;
 
@@ -27,9 +28,14 @@ public class Abilities : MonoBehaviour
     private KeyCode spellHotkey5 = KeyCode.Alpha5;//number 5
     private KeyCode spellHotkey6 = KeyCode.Space;//number spacebar
     public List<int> usedId = new List<int>();
+    public GameObject winScreen;
+    public GameObject loseScreen;
+    int buttonPressed;
 
     void Start()
     {
+        winScreen = GameObject.FindWithTag("winScreen");
+        loseScreen = GameObject.FindWithTag("loseScreen");
         abilityUsed = 0;
         usingAbility = false;
 
@@ -47,7 +53,7 @@ public class Abilities : MonoBehaviour
         }
     }
 
-    // Use this for initialization
+    // called on buttonpress
     public void useAbility(int ability)
     {
         //toggle casting determins whether your next click will cast a spell or not
@@ -59,8 +65,10 @@ public class Abilities : MonoBehaviour
     }
 
     //this function actually applies the spell effect to the target
-    public void castAbility(CharacterStatus target, float damage, float healing, float apCost, float armorPen, float magicPen, float range, bool isMagic)
+    public void castAbility(CharacterStatus target, float damage, float healing, float apCost, float armorPen, float magicPen, float buff, bool isMagic)
     {
+        _unit.transform.LookAt(target.transform.position);
+        target.transform.LookAt(_unit.transform.position);
         //if the target is not dead
         if (target.currentHealth > 0)
         {
@@ -69,7 +77,7 @@ public class Abilities : MonoBehaviour
             if (_casterStatus.currentAction >= apCost)
             {
                 //use casters ability points
-                _casterStatus.loseAction(apCost);
+                _casterStatus.CmdLoseAction(apCost);
 
                 //check if the spell effect is reduced by magic resistance or armor
                 if (isMagic)
@@ -118,6 +126,10 @@ public class Abilities : MonoBehaviour
                 {
                     target.GetComponent<CapsuleCollider>().enabled = false;
                     target.currentHealth = 0;
+                    if (target.isLeader)
+                    {
+                        _casterStatus.CmdEndGame(target.teamNum);
+                    }
                 }
                 else
                 {
@@ -126,6 +138,17 @@ public class Abilities : MonoBehaviour
                     if (target.currentHealth > target.maxHealth)
                     {
                         target.currentHealth = target.maxHealth;
+                    }
+                    if(buff > 0)
+                    {
+                        if (isMagic)
+                        {
+                            target.maxAction += buff;
+                        }
+                        else
+                        {
+                            target.maxHealth += buff;
+                        }
                     }
                 }
 
@@ -139,13 +162,9 @@ public class Abilities : MonoBehaviour
                 usingAbility = false;
             }
 
+            //syncs the server values with those of the clinet
             target.CmdSyncValues(target.teamNum, target.maxAction, target.currentAction,
                 target.maxHealth, target.currentHealth, target.physicalArmor, target.magicArmor);
-            /*
-            _casterStatus.CmdSyncValues(_casterStatus.teamNum, _casterStatus.maxAction,
-                _casterStatus.currentAction, _casterStatus.maxHealth, _casterStatus.currentHealth,
-                _casterStatus.physicalArmor, _casterStatus.magicArmor);
-                */
         }
 
     }
@@ -179,28 +198,29 @@ public class Abilities : MonoBehaviour
             //enable or disable spellcast on keypress
             if (Input.GetKeyUp(spellHotkey1))
             {
-                toggleCasting();
-                abilityUsed = 1;
+                buttonPressed = 1;
+                Button1Animation.GetComponentInParent<Button>().onClick.Invoke();
+
             }
             else if (Input.GetKeyUp(spellHotkey2))
             {
-                toggleCasting();
-                abilityUsed = 2;
+                Button2Animation.GetComponentInParent<Button>().onClick.Invoke();
+                buttonPressed = 2;
             }
             else if (Input.GetKeyUp(spellHotkey3))
             {
-                toggleCasting();
-                abilityUsed = 3;
+                Button3Animation.GetComponentInParent<Button>().onClick.Invoke();
+                buttonPressed = 3;
             }
             else if (Input.GetKeyUp(spellHotkey4))
             {
-                toggleCasting();
-                abilityUsed = 4;
+                Button4Animation.GetComponentInParent<Button>().onClick.Invoke();
+                buttonPressed = 4;
             }
             else if (Input.GetKeyUp(spellHotkey5))
             {
-                toggleCasting();
-                abilityUsed = 5;
+                Button5Animation.GetComponentInParent<Button>().onClick.Invoke();
+                buttonPressed = 5;
             }
             else if (Input.GetKeyUp(spellHotkey6))
             {
@@ -228,36 +248,35 @@ public class Abilities : MonoBehaviour
                             _unit.abil = abilityUsed;
 
                             //cast an ability
-                            if (abilityUsed == 1)
+                            if (buttonPressed == 1)
                             {
                                 copyInfo(Button1Animation);
-                                //gameObject.gameObject.transform.parent.GetComponent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 1);
-                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 1, 1);
-                                //Button1Animation.callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 1, 1);
+                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
+                                    abilityUsed, 1);
                             }
-                            if (abilityUsed == 2)
+                            if (buttonPressed == 2)
                             {
                                 copyInfo(Button2Animation);
-                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 2, 2);
-                                //Button2Animation.callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 2, 2);
+                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
+                                    abilityUsed, 2);
                             }
-                            if (abilityUsed == 3)
+                            if (buttonPressed == 3)
                             {
                                 copyInfo(Button3Animation);
-                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 3, 3);
-                                //Button3Animation.callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 3, 3);
+                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
+                                    abilityUsed, 3);
                             }
-                            if (abilityUsed == 4)
+                            if (buttonPressed == 4)
                             {
                                 copyInfo(Button4Animation);
-                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 4, 4);
-                                //Button4Animation.callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 4, 4);
+                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
+                                    abilityUsed, 4);
                             }
-                            if (abilityUsed == 5)
+                            if (buttonPressed == 5)
                             {
                                 copyInfo(Button5Animation);
-                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 5, 5);
-                                //Button5Animation.callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), 5, 5);
+                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
+                                    abilityUsed, 5);
                             }
                         }
                     }
@@ -276,6 +295,7 @@ public class Abilities : MonoBehaviour
         //if a unit had movement selected set state to deselected it
         if (_unit.moveToggle)
         {
+            //set cast indicator to be invisible
             FindObjectOfType<SpellIndicator>().clearList();
             _unit.moveToggle = false;
         }
@@ -299,23 +319,18 @@ public class Abilities : MonoBehaviour
 
     public void copyInfo(CastSpell copiedSpell)
     {
-        //copiedSpell._caster = gameObject.GetComponent<Abilities>();
+        //spell must be cast from root object so copy values to that root object for casting
         gameObject.GetComponentInParent<CastSpell>().abilityAnimation = copiedSpell.abilityAnimation;
         gameObject.GetComponentInParent<CastSpell>().abilityHitAnimation = copiedSpell.abilityHitAnimation;
         gameObject.GetComponentInParent<CastSpell>().spellMoves = copiedSpell.spellMoves;
-        //gameObject.GetComponentInParent<CastSpell>()._caster = gameObject.GetComponent<Abilities>();
     }
 
-    public void ability1(CharacterStatus target)
+    public void setButton(int _buttonPressed)
     {
-        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
+        buttonPressed = _buttonPressed;
     }
 
-    public void ability2(CharacterStatus target)
-    {
-        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
-    }
-
+<<<<<<< HEAD
     public void ability3(CharacterStatus target)
     {
         castAbility(target, 0, 3, 3, 0, 0, 0, false);
@@ -334,3 +349,6 @@ public class Abilities : MonoBehaviour
 
 
 }
+=======
+}
+>>>>>>> merge
