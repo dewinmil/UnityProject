@@ -34,6 +34,9 @@ public class TileMap : NetworkBehaviour
     private readonly Color UNWALKABLE_TILE_COLOR = new Color(1.0f, 0.47f, 0.47f);
     public bool genDone = false;
     public bool charSelect = false;
+    public List<UnitSpawn> _team1SpawnLocations;
+    public List<UnitSpawn> _team2SpawnLocations;
+    public List<UnitSpawn> _initialSpawns;
 
     private void Awake()
     {
@@ -46,6 +49,13 @@ public class TileMap : NetworkBehaviour
         //_selectedUnit.GetComponent<Unit>().tileX = (int)_selectedUnit.transform.position.x;
         //_selectedUnit.GetComponent<Unit>().tileZ = (int)_selectedUnit.transform.position.z;
         _selectedUnit.GetComponent<Unit>()._map = this;
+
+        //set up spawns
+        _team1SpawnLocations = InitTeam1Spawns();
+        _team2SpawnLocations = InitTeam2Spawns();
+        _initialSpawns = new List<UnitSpawn>();
+        _initialSpawns.AddRange(_team1SpawnLocations);
+        _initialSpawns.AddRange(_team2SpawnLocations);
 
         //Generate the data for the map 
         GenerateMapData();
@@ -129,13 +139,83 @@ public class TileMap : NetworkBehaviour
             }
         }
 
-        //team 1's unit spawn
-        for (int x = 0; x < 5; x++)
-            SetTileWalkable(x, 0, false);
+        //highlight initial spawn locations for units
+        foreach (UnitSpawn spawn in _initialSpawns)
+            SetTileWalkable(spawn._x, spawn._z, false);
+    }
 
-        //team 2's unit spawn
-        for (int x = 5; x < 10; x++)
-            SetTileWalkable(x, _mapSizeZ - 1, false);
+    private List<UnitSpawn> InitTeam1Spawns()
+    {
+        List<UnitSpawn> spawns = new List<UnitSpawn>();
+        //warrior locations: HARDCODED TO 4 UNITS
+        UnitSpawn warr1 = new UnitSpawn(2, _mapSizeZ - 2, "warrior");
+        spawns.Add(warr1);
+        UnitSpawn warr2 = new UnitSpawn(6, _mapSizeZ - 2, "warrior");
+        spawns.Add(warr2);
+        UnitSpawn warr3 = new UnitSpawn(12, _mapSizeZ - 2, "warrior");
+        spawns.Add(warr3);
+        UnitSpawn warr4 = new UnitSpawn(17, _mapSizeZ - 2, "warrior");
+        spawns.Add(warr4);
+
+        //knight locations: HARDCODED TO 2 UNITS
+        UnitSpawn knight1 = new UnitSpawn(0, _mapSizeZ - 1, "knight");
+        UnitSpawn knight2 = new UnitSpawn(_mapSizeX - 1, _mapSizeZ - 1, "knight");
+        spawns.Add(knight1);
+        spawns.Add(knight2);
+
+        //Spearman locations: HARDCODED TO 2 UNITS
+        UnitSpawn spear1 = new UnitSpawn(5, _mapSizeZ - 1, "spear");
+        UnitSpawn spear2 = new UnitSpawn(14, _mapSizeZ - 1, "spear");
+        spawns.Add(spear1);
+        spawns.Add(spear2);
+
+        //Wizard location
+        UnitSpawn wizard = new UnitSpawn(9, _mapSizeZ - 1, "wizard");
+        spawns.Add(wizard);
+
+        //Leader Location
+        UnitSpawn leader = new UnitSpawn(10, _mapSizeZ - 1, "leader");
+        spawns.Add(leader);
+
+        return spawns;
+    }
+
+    //TODO: These spawns are all hardcoded
+    private List<UnitSpawn> InitTeam2Spawns()
+    {
+        List<UnitSpawn> spawns = new List<UnitSpawn>();
+        //warrior locations: HARDCODED TO 4 UNITS
+        //warrior locations: HARDCODED TO 4 UNITS
+        UnitSpawn warr1 = new UnitSpawn(2, 1, "warrior");
+        spawns.Add(warr1);
+        UnitSpawn warr2 = new UnitSpawn(6, 1, "warrior");
+        spawns.Add(warr2);
+        UnitSpawn warr3 = new UnitSpawn(12, 1, "warrior");
+        spawns.Add(warr3);
+        UnitSpawn warr4 = new UnitSpawn(17, 1, "warrior");
+        spawns.Add(warr4);
+
+        //knight locations: HARDCODED TO 2 UNITS
+        UnitSpawn knight1 = new UnitSpawn(0, 0, "knight");
+        UnitSpawn knight2 = new UnitSpawn(_mapSizeX - 1, 0, "knight");
+        spawns.Add(knight1);
+        spawns.Add(knight2);
+
+        //Spearman locations: HARDCODED TO 2 UNITS
+        UnitSpawn spear1 = new UnitSpawn(5, 0, "spear");
+        UnitSpawn spear2 = new UnitSpawn(14, 0, "spear");
+        spawns.Add(spear1);
+        spawns.Add(spear2);
+
+        //Wizard location
+        UnitSpawn wizard = new UnitSpawn(9, 0, "wizard");
+        spawns.Add(wizard);
+
+        //Leader Location
+        UnitSpawn leader = new UnitSpawn(10, 0, "leader");
+        spawns.Add(leader);
+
+        return spawns;
     }
 
     private void GeneratePathGraph()

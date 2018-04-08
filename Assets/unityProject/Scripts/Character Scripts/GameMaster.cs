@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using UnityEngine.Networking.NetworkSystem;
 
 public class GameMaster : NetworkManager
@@ -18,16 +20,19 @@ public class GameMaster : NetworkManager
     public short _playerID;
     public TileMap _map;
     public GameObject _mapObject;
-    private const int NUM_UNITS_PER_TEAM = 5;
+    private const int NUM_UNITS_PER_TEAM = 10;
     public List<Unit> _units;
     private int _prevX;
     public int turn;
     public GameObject winScreen;
     public GameObject loseScreen;
     public int connections;
+    private List<UnitSpawn> _team1SpawnLocations;
+    private List<UnitSpawn> _team2SpawnLocations;
+    public List<UnitSpawn> _initialSpawns;
 
     // Use this for initialization
-    void Start()
+    public void Start()
     {
         if (IsClientConnected())
         {
@@ -43,10 +48,23 @@ public class GameMaster : NetworkManager
         _prevX = 0;
         winScreen = GameObject.FindWithTag("winScreen");
         loseScreen = GameObject.FindWithTag("loseScreen");
+        _team1SpawnLocations = _map._team1SpawnLocations;
+        _team2SpawnLocations = _map._team2SpawnLocations;
+        _initialSpawns = new List<UnitSpawn>();
+
+        //add all inital spawns to the list. Used for highlighting the initial tiles
+        _initialSpawns.AddRange(_team1SpawnLocations);
+        _initialSpawns.AddRange(_team2SpawnLocations);
     }
 
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
     {
+        //if these are still null set them again (race condition?)
+        if (_team1SpawnLocations == null)
+            _team1SpawnLocations = _map._team1SpawnLocations;
+
+        if (_team2SpawnLocations == null)
+            _team2SpawnLocations = _map._team2SpawnLocations;
 
         GameObject player;
         Unit unit;
@@ -54,71 +72,101 @@ public class GameMaster : NetworkManager
         //this is a shit way to do it but idgaf 
         if (playerControllerId < NUM_UNITS_PER_TEAM)
         {
+            //spawn leader
             if (playerControllerId == 0)
             {
-                player = Instantiate(Warrior2, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
-                unit = CreateUnit(player.GetComponent<Unit>(), _prevX, 0);
+                UnitSpawn leaderSpawn = _team2SpawnLocations.FirstOrDefault(s => s._unitType.Equals("leader"));
+                player = Instantiate(Leader2, _map.TileCoordToWorldCoord(leaderSpawn._x, leaderSpawn._z), Quaternion.identity) as GameObject;
+                unit = CreateUnit(player.GetComponent<Unit>(), leaderSpawn._x, leaderSpawn._z);
                 UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 1);
+                _team1SpawnLocations.Remove(leaderSpawn);
             }
+            //spawn wizard
             else if (playerControllerId == 1)
             {
-                player = Instantiate(Wizard2, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
-                unit = CreateUnit(player.GetComponent<Unit>(), _prevX, 0);
+                UnitSpawn wizSpawn = _team2SpawnLocations.FirstOrDefault(s => s._unitType.Equals("wizard"));
+                player = Instantiate(Wizard2, _map.TileCoordToWorldCoord(wizSpawn._x, wizSpawn._z), Quaternion.identity) as GameObject;
+                unit = CreateUnit(player.GetComponent<Unit>(), wizSpawn._x, wizSpawn._z);
                 UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 1);
+                _team2SpawnLocations.Remove(wizSpawn);
             }
-            else if (playerControllerId == 2)
+            //spawn knights
+            else if (playerControllerId <= 3)
             {
-                player = Instantiate(Leader2, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
-                unit = CreateUnit(player.GetComponent<Unit>(), _prevX, 0);
+                UnitSpawn knightSpawn = _team2SpawnLocations.FirstOrDefault(s => s._unitType.Equals("knight"));
+                player = Instantiate(Knight2, _map.TileCoordToWorldCoord(knightSpawn._x, knightSpawn._z), Quaternion.identity) as GameObject;
+                unit = CreateUnit(player.GetComponent<Unit>(), knightSpawn._x, knightSpawn._z);
                 UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 1);
+                _team2SpawnLocations.Remove(knightSpawn);
             }
-            else if (playerControllerId == 3)
+            //spawn spearman
+            else if (playerControllerId <= 5)
             {
-                player = Instantiate(Knight2, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
-                unit = CreateUnit(player.GetComponent<Unit>(), _prevX, 0);
+                UnitSpawn spearSpawn = _team2SpawnLocations.FirstOrDefault(s => s._unitType.Equals("spear"));
+                player = Instantiate(Spearman2, _map.TileCoordToWorldCoord(spearSpawn._x, spearSpawn._z), Quaternion.identity) as GameObject;
+                unit = CreateUnit(player.GetComponent<Unit>(), spearSpawn._x, spearSpawn._z);
                 UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 1);
+                _team2SpawnLocations.Remove(spearSpawn);
             }
+            //spawn warriors
             else
             {
-                player = Instantiate(Spearman2, _map.TileCoordToWorldCoord(_prevX, 0), Quaternion.identity) as GameObject;
-                unit = CreateUnit(player.GetComponent<Unit>(), _prevX, 0);
+                UnitSpawn warrSpawn = _team2SpawnLocations.FirstOrDefault(s => s._unitType.Equals("warrior"));
+                player = Instantiate(Warrior2, _map.TileCoordToWorldCoord(warrSpawn._x, warrSpawn._z), Quaternion.identity) as GameObject;
+                unit = CreateUnit(player.GetComponent<Unit>(), warrSpawn._x, warrSpawn._z);
                 UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 1);
+                _team2SpawnLocations.Remove(warrSpawn);
             }
         }
         else
         {
-            if (playerControllerId == 5)
+            //spawn leader
+            if (playerControllerId == NUM_UNITS_PER_TEAM)
             {
-                player = Instantiate(Warrior1, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
+                UnitSpawn leaderSpawn = _team1SpawnLocations.FirstOrDefault(s => s._unitType.Equals("leader"));
+                player = Instantiate(Leader1, _map.TileCoordToWorldCoord(leaderSpawn._x, leaderSpawn._z), Quaternion.Euler(0, 180, 0)) as GameObject;
+                unit = CreateUnit(player.GetComponent<Unit>(), leaderSpawn._x, leaderSpawn._z);
+                UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 2);
+                _team1SpawnLocations.Remove(leaderSpawn);
+            }
+            //spawn wizard
+            else if (playerControllerId == NUM_UNITS_PER_TEAM + 1)
+            {
+                UnitSpawn wizSpawn = _team1SpawnLocations.FirstOrDefault(s => s._unitType.Equals("wizard"));
+                player = Instantiate(Wizard1, _map.TileCoordToWorldCoord(wizSpawn._x, wizSpawn._z), Quaternion.Euler(0, 180, 0)) as GameObject;
+                unit = CreateUnit(player.GetComponent<Unit>(), wizSpawn._x, wizSpawn._z);
+                UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 2);
+                _team1SpawnLocations.Remove(wizSpawn);
+            }
+            //spawn knights
+            else if (playerControllerId <= NUM_UNITS_PER_TEAM + 3)
+            {
+                UnitSpawn knightSpawn = _team1SpawnLocations.FirstOrDefault(s => s._unitType.Equals("knight"));
+                player = Instantiate(Knight1, _map.TileCoordToWorldCoord(knightSpawn._x, knightSpawn._z), Quaternion.Euler(0, 180, 0)) as GameObject;
                 unit = CreateUnit(player.GetComponent<Unit>(), _prevX, _map._mapSizeZ - 1);
                 UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 2);
+                _team1SpawnLocations.Remove(knightSpawn);
             }
-            else if (playerControllerId == 6)
+            //spawn spearman
+            else if (playerControllerId <= NUM_UNITS_PER_TEAM + 5)
             {
-                player = Instantiate(Wizard1, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
-                unit = CreateUnit(player.GetComponent<Unit>(), _prevX, _map._mapSizeZ - 1);
+                UnitSpawn spearSpawn = _team1SpawnLocations.FirstOrDefault(s => s._unitType.Equals("spear"));
+                player = Instantiate(Spearman1, _map.TileCoordToWorldCoord(spearSpawn._x, spearSpawn._z), Quaternion.Euler(0, 180, 0)) as GameObject;
+                unit = CreateUnit(player.GetComponent<Unit>(), spearSpawn._x, spearSpawn._z);
                 UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 2);
+                _team1SpawnLocations.Remove(spearSpawn);
             }
-            else if (playerControllerId == 7)
-            {
-                player = Instantiate(Leader1, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
-                unit = CreateUnit(player.GetComponent<Unit>(), _prevX, _map._mapSizeZ - 1);
-                UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 2);
-            }
-            else if (playerControllerId == 8)
-            {
-                player = Instantiate(Knight1, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
-                unit = CreateUnit(player.GetComponent<Unit>(), _prevX, _map._mapSizeZ - 1);
-                UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 2);
-            }
+            //spawn warriors
             else
             {
-                player = Instantiate(Spearman1, _map.TileCoordToWorldCoord(_prevX, _map._mapSizeZ - 1), Quaternion.Euler(0, 180, 0)) as GameObject;
-                unit = CreateUnit(player.GetComponent<Unit>(), _prevX, _map._mapSizeZ - 1);
+                UnitSpawn warrSpawn = _team1SpawnLocations.FirstOrDefault(s => s._unitType.Equals("warrior"));
+                player = Instantiate(Warrior1, _map.TileCoordToWorldCoord(warrSpawn._x, warrSpawn._z), Quaternion.Euler(0, 180, 0)) as GameObject;
+                unit = CreateUnit(player.GetComponent<Unit>(), warrSpawn._x, warrSpawn._z);
                 UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 2);
+                _team1SpawnLocations.Remove(warrSpawn);
             }
         }
-        
+
         _units.Add(unit);
 
         NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
@@ -134,7 +182,7 @@ public class GameMaster : NetworkManager
         FindObjectOfType<ToggleActive>().playerConnected();
     }
 
-    
+
     public override void OnServerConnect(NetworkConnection conn)
     {
         if (_playerID > 0)
@@ -142,7 +190,7 @@ public class GameMaster : NetworkManager
 
         AddPlayers(conn, NUM_UNITS_PER_TEAM);
     }
-    
+
     private void AddPlayers(NetworkConnection conn, int numPlayers)
     {
         connections += 1;
@@ -153,6 +201,8 @@ public class GameMaster : NetworkManager
         }
         if (_playerID == NUM_UNITS_PER_TEAM * connections)
         {
+            winScreen = GameObject.FindWithTag("winScreen");
+            loseScreen = GameObject.FindWithTag("loseScreen");
             winScreen.GetComponent<Canvas>().enabled = false;
             loseScreen.GetComponent<Canvas>().enabled = false;
         }
@@ -161,6 +211,8 @@ public class GameMaster : NetworkManager
     private void OnDisconnectedFromServer(NetworkDisconnection info)
     {
         FindObjectOfType<ToggleActive>().playerDisconnected();
+        NetworkManager.Shutdown();
+        SceneManager.LoadScene(0);
     }
 
     //method used for creating the unit. Set all values here
@@ -179,4 +231,17 @@ public class GameMaster : NetworkManager
         status.teamNum = teamNum;
     }
 
+}
+
+public class UnitSpawn
+{
+    public int _x;
+    public int _z;
+    public string _unitType;
+    public UnitSpawn(int x, int z, string unitType)
+    {
+        _x = x;
+        _z = z;
+        _unitType = unitType;
+    }
 }
