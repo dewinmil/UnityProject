@@ -2,14 +2,15 @@ using UnityEngine.Audio;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 //This Classes Awake and play methods taken from Brackeys
 public class AudioManager : MonoBehaviour
 {
     private int songPlaying;
-
+    public Slider volumeSlider;
     public static AudioManager instance;
-
+    public bool volumeChanged;
     public AudioMixerGroup mixerGroup;
 
     public Sound[] sounds;
@@ -129,4 +130,9 @@ public class AudioManager : MonoBehaviour
         Play(sound.name);
     }
 
+    public void OnValueChanged()
+    {
+        music.source.volume = volumeSlider.value;
+        volumeChanged = true;
+    }
 }
