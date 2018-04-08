@@ -69,7 +69,6 @@ public class GameMaster : NetworkManager
         GameObject player;
         Unit unit;
         //if this is the host client, spawn them on the other side of the map
-        //this is a shit way to do it but idgaf 
         if (playerControllerId < NUM_UNITS_PER_TEAM)
         {
             //spawn leader
