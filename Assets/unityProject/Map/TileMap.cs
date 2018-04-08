@@ -510,6 +510,25 @@ public class TileMap : NetworkBehaviour
 
         return neighbors;
     }
+    
+    public List<Node> HighlightTargetableTiles(int playerX, int playerZ, int range)
+    {
+        List<Node> neighbors = null;
+        if (playerZ % 2 == 0)
+            neighbors = BuildQuadrantsEven(playerX, playerZ, range);
+
+        else
+            neighbors = BuildQuadrantsOdd(playerX, playerZ, range);
+
+        foreach (Node node in neighbors)
+        {
+            string hash = GetHashString(node.x, node.z);
+            MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
+            mesh.material.color = TARGET_HIGHLIGHT_COLOR;
+            _highlightedTiles.Add(_tileObjects[hash]);
+        }
+        return neighbors;
+    }
 
     #region BuildQuadrantsEven
     private List<Node> BuildQuadrantsEven(int playerX, int playerZ, int numMoves)
