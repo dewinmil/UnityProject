@@ -284,6 +284,30 @@ public class CastSpell : NetworkBehaviour
         {
             _caster.castAbility(targetCharacterStatus, 5, 0, 6, 0, 1, 0, true);
         }
+        else if (abilityUsed == 6)
+        {
+            _caster.castAbility(targetCharacterStatus, 5, 0, 6, 0, 1, 0, true);
+        }
+        else if (abilityUsed == 7)
+        {
+            _caster.castAbility(targetCharacterStatus, 4, 0, 5, .25f, .25f, 0, true);
+        }
+        else if (abilityUsed == 8)
+        {
+            _caster.castAbility(targetCharacterStatus, 5, 0, 6, 0, 1, 0, true);
+        }
+        else if (abilityUsed == 9)
+        {
+            _caster.castAbility(targetCharacterStatus, 5, 0, 6, 0, 1, 0, true);
+        }
+        else if (abilityUsed == 10)
+        {
+            _caster.castAbility(targetCharacterStatus, 5, 0, 6, 0, 1, 0, true);
+        }
+        else if (abilityUsed == 11)
+        {
+            _caster.castAbility(targetCharacterStatus, 5, 0, 6, 0, 1, 0, true);
+        }
     }
 
     //determines if the caster has enough ability points to cast a spell
@@ -348,11 +372,84 @@ public class CastSpell : NetworkBehaviour
                 return false;
             }
         }
+        else if (abilityUsed == 6)
+        {
+
+            if (_caster._casterStatus.currentAction > 6 && spellTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else if (abilityUsed == 7)
+        {
+
+            if (_caster._casterStatus.currentAction > 6 && spellTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else if (abilityUsed == 8)
+        {
+
+            if (_caster._casterStatus.currentAction > 6 && spellTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else if (abilityUsed == 9)
+        {
+
+            if (_caster._casterStatus.currentAction > 6 && spellTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else if (abilityUsed == 10)
+        {
+
+            if (_caster._casterStatus.currentAction > 6 && spellTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else if (abilityUsed == 11)
+        {
+
+            if (_caster._casterStatus.currentAction > 6 && spellTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         else
         {
             return false;
         }
     }
+
     public void inRange(CharacterStatus theTarget, int _abilityNum)
     {
         print(Vector3.Distance(gameObject.transform.position, theTarget.transform.position));
@@ -391,6 +488,47 @@ public class CastSpell : NetworkBehaviour
                 cast(_abilityNum);
             }
         }
+        if (_abilityNum == 6)
+        {
+            if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+            {
+                cast(_abilityNum);
+            }
+        }
+        if (_abilityNum == 7)
+        {
+            if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+            {
+                cast(_abilityNum);
+            }
+        }
+        if (_abilityNum == 8)
+        {
+            if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+            {
+                cast(_abilityNum);
+            }
+        }
+        if (_abilityNum == 9)
+        {
+            if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+            {
+                cast(_abilityNum);
+            }
+        }
+        if (_abilityNum == 10)
+        {
+            if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+            {
+                cast(_abilityNum);
+            }
+        }
+        if (_abilityNum == 11)
+        {
+            if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
+            {
+                cast(_abilityNum);
+            }
+        }
     }
-
 }

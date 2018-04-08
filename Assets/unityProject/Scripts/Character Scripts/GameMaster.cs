@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using UnityEngine.Networking.NetworkSystem;
 
 public class GameMaster : NetworkManager
@@ -27,7 +28,7 @@ public class GameMaster : NetworkManager
     public int connections;
 
     // Use this for initialization
-    void Start()
+    public void Start()
     {
         if (IsClientConnected())
         {
@@ -153,6 +154,8 @@ public class GameMaster : NetworkManager
         }
         if (_playerID == NUM_UNITS_PER_TEAM * connections)
         {
+            winScreen = GameObject.FindWithTag("winScreen");
+            loseScreen = GameObject.FindWithTag("loseScreen");
             winScreen.GetComponent<Canvas>().enabled = false;
             loseScreen.GetComponent<Canvas>().enabled = false;
         }
@@ -161,6 +164,8 @@ public class GameMaster : NetworkManager
     private void OnDisconnectedFromServer(NetworkDisconnection info)
     {
         FindObjectOfType<ToggleActive>().playerDisconnected();
+        NetworkManager.Shutdown();
+        SceneManager.LoadScene(0);
     }
 
     //method used for creating the unit. Set all values here

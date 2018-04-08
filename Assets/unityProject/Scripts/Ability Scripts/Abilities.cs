@@ -65,6 +65,7 @@ public class Abilities : NetworkBehaviour
     public void castAbility(CharacterStatus target, float damage, float healing, float apCost, float armorPen, float magicPen, float range, bool isMagic)
     {
         _unit.transform.LookAt(target.transform.position);
+        target.transform.LookAt(_unit.transform.position);
         //if the target is not dead
         if (target.currentHealth > 0)
         {
@@ -73,7 +74,7 @@ public class Abilities : NetworkBehaviour
             if (_casterStatus.currentAction >= apCost)
             {
                 //use casters ability points
-                _casterStatus.loseAction(apCost);
+                _casterStatus.CmdLoseAction(apCost);
 
                 //check if the spell effect is reduced by magic resistance or armor
                 if (isMagic)
@@ -329,6 +330,11 @@ public class Abilities : NetworkBehaviour
     }
 
     public void ability5(CharacterStatus target)
+    {
+        castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
+    }
+
+    public void ability7(CharacterStatus target)
     {
         castAbility(target, 3, 0, 3, (float).5, 0, 0, false);
     }
