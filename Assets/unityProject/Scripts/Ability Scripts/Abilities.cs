@@ -356,6 +356,8 @@ public class Abilities : NetworkBehaviour
             if (_casterStatus.currentAction > 3 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
             {
                 if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
+                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
                     Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
                 {
                     if (!rangeCheck)
@@ -380,6 +382,8 @@ public class Abilities : NetworkBehaviour
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
             {
                 if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
+                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
                     Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
                 {
                     if (!rangeCheck)
@@ -404,6 +408,8 @@ public class Abilities : NetworkBehaviour
             if (_casterStatus.currentAction > 5 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
             {
                 if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
+                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
                     Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
                 {
                     if (!rangeCheck)
@@ -428,6 +434,8 @@ public class Abilities : NetworkBehaviour
             if (_casterStatus.currentAction > 4 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
             {
                 if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
+                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
                     Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
                 {
                     if (!rangeCheck)
@@ -452,6 +460,8 @@ public class Abilities : NetworkBehaviour
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
             {
                 if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
+                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
                     Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
                 {
                     if (!rangeCheck)
@@ -475,7 +485,9 @@ public class Abilities : NetworkBehaviour
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
             {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX)  <= 3 &&
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
+                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
                     Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
                 {
                     if (!rangeCheck)
@@ -500,6 +512,8 @@ public class Abilities : NetworkBehaviour
             if (_casterStatus.currentAction > 5 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
             {
                 if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
+                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
                     Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
                 {
                     if (!rangeCheck)
@@ -524,6 +538,8 @@ public class Abilities : NetworkBehaviour
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
             {
                 if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
+                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
                     Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
                 {
                     if (!rangeCheck)
@@ -547,8 +563,10 @@ public class Abilities : NetworkBehaviour
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
             {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 1 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
+                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 1)
                 {
                     if (!rangeCheck)
                     {
@@ -571,8 +589,10 @@ public class Abilities : NetworkBehaviour
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
             {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 1 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
+                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 1)
                 {
                     if (!rangeCheck)
                     {
@@ -594,8 +614,10 @@ public class Abilities : NetworkBehaviour
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
             {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 1 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
+                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 1)
                 {
                     if (!rangeCheck)
                     {
