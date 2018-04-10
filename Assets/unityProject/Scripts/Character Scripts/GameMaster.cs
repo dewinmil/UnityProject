@@ -184,6 +184,8 @@ public class GameMaster : NetworkManager
 
     public override void OnServerConnect(NetworkConnection conn)
     {
+        Camera.main.transform.eulerAngles = new Vector3(Camera.main.transform.eulerAngles.x, 180.0f, Camera.main.transform.eulerAngles.z);
+        Camera.main.transform.position = new Vector3(18.0f, 20.0f, 45.0f);
         if (_playerID > 0)
             _prevX = 0;
 
