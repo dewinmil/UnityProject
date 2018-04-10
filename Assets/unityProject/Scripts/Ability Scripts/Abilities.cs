@@ -542,21 +542,19 @@ public class Abilities : NetworkBehaviour
                 return 0;
             }
         }
-        //heavy attack a
+        //holy cleave
         if (_abilityNum == 9)
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
             {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 1 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 1)
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
                 {
                     if (!rangeCheck)
                     {
-                        _unit.abil = 7;
+                        _unit.abil = 4;
                     }
-                    return 1;
+                    return 3;
                 }
                 else
                 {
@@ -568,21 +566,19 @@ public class Abilities : NetworkBehaviour
                 return 0;
             }
         }
-        //spear attack a
+        //dark circle
         if (_abilityNum == 10)
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
             {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 1 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 1)
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
                 {
                     if (!rangeCheck)
                     {
-                        _unit.abil = 8;
+                        _unit.abil = 5;
                     }
-                    return 1;
+                    return 3;
                 }
                 else
                 {
@@ -594,21 +590,18 @@ public class Abilities : NetworkBehaviour
                 return 0;
             }
         }
-        //heavy attack b
         if (_abilityNum == 11)
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
             {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 1 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 1)
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
                 {
                     if (!rangeCheck)
                     {
-                        _unit.abil = 9;
+                        _unit.abil = 3;
                     }
-                    return 1;
+                    return 3;
                 }
                 else
                 {
@@ -620,7 +613,6 @@ public class Abilities : NetworkBehaviour
                 return 0;
             }
         }
-        //heavy attack a
         if (_abilityNum == 12)
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
@@ -632,7 +624,7 @@ public class Abilities : NetworkBehaviour
                 {
                     if (!rangeCheck)
                     {
-                        _unit.abil = 7;
+                        _unit.abil = 12;
                     }
                     return 1;
                 }
@@ -646,7 +638,6 @@ public class Abilities : NetworkBehaviour
                 return 0;
             }
         }
-        //spear attack a
         if (_abilityNum == 13)
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
@@ -658,111 +649,7 @@ public class Abilities : NetworkBehaviour
                 {
                     if (!rangeCheck)
                     {
-                        _unit.abil = 8;
-                    }
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
-            else
-            {
-                return 0;
-            }
-        }
-        //heavy attack b
-        if (_abilityNum == 14)
-        {
-            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
-            {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 1 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 1)
-                {
-                    if (!rangeCheck)
-                    {
-                        _unit.abil = 9;
-                    }
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
-            else
-            {
-                return 0;
-            }
-        }
-        //heavy attack a
-        if (_abilityNum == 15)
-        {
-            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
-            {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 1 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 1)
-                {
-                    if (!rangeCheck)
-                    {
-                        _unit.abil = 7;
-                    }
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
-            else
-            {
-                return 0;
-            }
-        }
-        //spear attack a
-        if (_abilityNum == 16)
-        {
-            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
-            {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 1 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 1)
-                {
-                    if (!rangeCheck)
-                    {
-                        _unit.abil = 8;
-                    }
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
-            else
-            {
-                return 0;
-            }
-        }
-        //heavy attack b
-        if (_abilityNum == 17)
-        {
-            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
-            {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 1 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 1)
-                {
-                    if (!rangeCheck)
-                    {
-                        _unit.abil = 9;
+                        _unit.abil = 13;
                     }
                     return 1;
                 }
