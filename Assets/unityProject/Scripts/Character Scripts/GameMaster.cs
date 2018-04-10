@@ -22,7 +22,6 @@ public class GameMaster : NetworkManager
     public GameObject _mapObject;
     private const int NUM_UNITS_PER_TEAM = 10;
     public List<Unit> _units;
-    private int _prevX;
     public int turn;
     public GameObject winScreen;
     public GameObject loseScreen;
@@ -45,7 +44,6 @@ public class GameMaster : NetworkManager
         connections = 0;
         turn = 1;
         _units = new List<Unit>();
-        _prevX = 0;
         winScreen = GameObject.FindWithTag("winScreen");
         loseScreen = GameObject.FindWithTag("loseScreen");
         _team1SpawnLocations = _map._team1SpawnLocations;
@@ -142,7 +140,7 @@ public class GameMaster : NetworkManager
             {
                 UnitSpawn knightSpawn = _team1SpawnLocations.FirstOrDefault(s => s._unitType.Equals("knight"));
                 player = Instantiate(Knight1, _map.TileCoordToWorldCoord(knightSpawn._x, knightSpawn._z), Quaternion.Euler(0, 180, 0)) as GameObject;
-                unit = CreateUnit(player.GetComponent<Unit>(), _prevX, _map._mapSizeZ - 1);
+                unit = CreateUnit(player.GetComponent<Unit>(), knightSpawn._x, knightSpawn._z);
                 UpdateCharacterStatus(player.GetComponent<CharacterStatus>(), 2);
                 _team1SpawnLocations.Remove(knightSpawn);
             }
@@ -174,8 +172,6 @@ public class GameMaster : NetworkManager
 
     public override void OnClientConnect(NetworkConnection conn)
     {
-        if (_playerID > 0)
-            _prevX = 0;
 
         AddPlayers(conn, NUM_UNITS_PER_TEAM);
         FindObjectOfType<ToggleActive>().playerConnected();
@@ -184,8 +180,8 @@ public class GameMaster : NetworkManager
 
     public override void OnServerConnect(NetworkConnection conn)
     {
-        if (_playerID > 0)
-            _prevX = 0;
+        Camera.main.transform.eulerAngles = new Vector3(Camera.main.transform.eulerAngles.x, 180.0f, Camera.main.transform.eulerAngles.z);
+        Camera.main.transform.position = new Vector3(18.0f, 20.0f, 45.0f);
 
         AddPlayers(conn, NUM_UNITS_PER_TEAM);
     }
@@ -212,6 +208,7 @@ public class GameMaster : NetworkManager
         FindObjectOfType<ToggleActive>().playerDisconnected();
         NetworkManager.Shutdown();
         SceneManager.LoadScene(0);
+        print("why u no work");
     }
 
     //method used for creating the unit. Set all values here
@@ -221,7 +218,6 @@ public class GameMaster : NetworkManager
         unit.tileZ = z;
         unit._map = _map;
 
-        _prevX++;
         return unit;
     }
 

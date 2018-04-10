@@ -30,9 +30,11 @@ public class Abilities : NetworkBehaviour
     public GameObject winScreen;
     public GameObject loseScreen;
     int buttonPressed;
+    bool rangeCheck;
 
     void Start()
     {
+        rangeCheck = false;
         winScreen = GameObject.FindWithTag("winScreen");
         loseScreen = GameObject.FindWithTag("loseScreen");
         abilityUsed = 0;
@@ -57,7 +59,9 @@ public class Abilities : NetworkBehaviour
     {
         //toggle casting determins whether your next click will cast a spell or not
         //it is a toggle so you can reselect a spell to cancel casting
+        rangeCheck = true;
         int spellRange = canCast(null, ability);
+        rangeCheck = false;
         if (spellRange != 0)
         {
             Unit _unit = gameObject.GetComponentInParent<CharacterStatus>()._unit;
@@ -251,7 +255,7 @@ public class Abilities : NetworkBehaviour
                         //if the ray hits an object with the Unit tag
                         if (hit.collider.tag == "Unit")
                         {
-                            _unit.abil = abilityUsed;
+                            //_unit.abil = abilityUsed;
 
                             if (canCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), abilityUsed) != 0)
                             {
@@ -346,6 +350,7 @@ public class Abilities : NetworkBehaviour
         {
             theTarget = _casterStatus;
         }
+        //fireball
         if (_abilityNum == 1)
         {
             if (_casterStatus.currentAction > 3 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
@@ -353,6 +358,10 @@ public class Abilities : NetworkBehaviour
                 if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
                     Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
                 {
+                    if (!rangeCheck)
+                    {
+                        _unit.abil = 1;
+                    }
                     return 3;
                 }
                 else
@@ -365,6 +374,7 @@ public class Abilities : NetworkBehaviour
                 return 0;
             }
         }
+        //flamecircle
         if (_abilityNum == 2)
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
@@ -372,6 +382,10 @@ public class Abilities : NetworkBehaviour
                 if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
                     Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
                 {
+                    if (!rangeCheck)
+                    {
+                        _unit.abil = 2;
+                    }
                     return 3;
                 }
                 else
@@ -384,6 +398,7 @@ public class Abilities : NetworkBehaviour
                 return 0;
             }
         }
+        //healing circle
         if (_abilityNum == 3)
         {
             if (_casterStatus.currentAction > 5 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
@@ -391,6 +406,10 @@ public class Abilities : NetworkBehaviour
                 if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
                     Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
                 {
+                    if (!rangeCheck)
+                    {
+                        _unit.abil = 3;
+                    }
                     return 3;
                 }
                 else
@@ -403,6 +422,7 @@ public class Abilities : NetworkBehaviour
                 return 0;
             }
         }
+        //cleave
         if (_abilityNum == 4)
         {
             if (_casterStatus.currentAction > 4 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
@@ -410,6 +430,10 @@ public class Abilities : NetworkBehaviour
                 if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
                     Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
                 {
+                    if (!rangeCheck)
+                    {
+                        _unit.abil = 4;
+                    }
                     return 3;
                 }
                 else
@@ -422,6 +446,7 @@ public class Abilities : NetworkBehaviour
                 return 0;
             }
         }
+        //dark circle
         if (_abilityNum == 5)
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
@@ -429,6 +454,10 @@ public class Abilities : NetworkBehaviour
                 if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
                     Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
                 {
+                    if (!rangeCheck)
+                    {
+                        _unit.abil = 5;
+                    }
                     return 3;
                 }
                 else
@@ -441,6 +470,7 @@ public class Abilities : NetworkBehaviour
                 return 0;
             }
         }
+        //smite
         if (_abilityNum == 6)
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
@@ -448,6 +478,10 @@ public class Abilities : NetworkBehaviour
                 if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX)  <= 3 &&
                     Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
                 {
+                    if (!rangeCheck)
+                    {
+                        _unit.abil = 1;
+                    }
                     return 3;
                 }
                 else
@@ -460,6 +494,7 @@ public class Abilities : NetworkBehaviour
                 return 0;
             }
         }
+        //ap buff
         if (_abilityNum == 7)
         {
             if (_casterStatus.currentAction > 5 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
@@ -467,6 +502,10 @@ public class Abilities : NetworkBehaviour
                 if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
                     Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
                 {
+                    if (!rangeCheck)
+                    {
+                        _unit.abil = 2;
+                    }
                     return 3;
                 }
                 else
@@ -479,6 +518,7 @@ public class Abilities : NetworkBehaviour
                 return 0;
             }
         }
+        //healthbuff
         if (_abilityNum == 8)
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
@@ -486,6 +526,10 @@ public class Abilities : NetworkBehaviour
                 if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
                     Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
                 {
+                    if (!rangeCheck)
+                    {
+                        _unit.abil = 2;
+                    }
                     return 3;
                 }
                 else
@@ -498,6 +542,7 @@ public class Abilities : NetworkBehaviour
                 return 0;
             }
         }
+        //holy cleave
         if (_abilityNum == 9)
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
@@ -505,6 +550,10 @@ public class Abilities : NetworkBehaviour
                 if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
                     Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
                 {
+                    if (!rangeCheck)
+                    {
+                        _unit.abil = 4;
+                    }
                     return 3;
                 }
                 else
@@ -517,6 +566,7 @@ public class Abilities : NetworkBehaviour
                 return 0;
             }
         }
+        //dark circle
         if (_abilityNum == 10)
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
@@ -524,6 +574,10 @@ public class Abilities : NetworkBehaviour
                 if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
                     Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
                 {
+                    if (!rangeCheck)
+                    {
+                        _unit.abil = 5;
+                    }
                     return 3;
                 }
                 else
@@ -543,7 +597,61 @@ public class Abilities : NetworkBehaviour
                 if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
                     Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
                 {
+                    if (!rangeCheck)
+                    {
+                        _unit.abil = 3;
+                    }
                     return 3;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        if (_abilityNum == 12)
+        {
+            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 1 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
+                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 1)
+                {
+                    if (!rangeCheck)
+                    {
+                        _unit.abil = 12;
+                    }
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        if (_abilityNum == 13)
+        {
+            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 1 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
+                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 1)
+                {
+                    if (!rangeCheck)
+                    {
+                        _unit.abil = 13;
+                    }
+                    return 1;
                 }
                 else
                 {
