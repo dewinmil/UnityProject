@@ -23,6 +23,7 @@ public class GameMaster : NetworkManager
     private const int NUM_UNITS_PER_TEAM = 10;
     public List<Unit> _units;
     public int turn;
+    public CharacterStatus _currentStatus;
     public GameObject winScreen;
     public GameObject loseScreen;
     public int connections;
@@ -180,6 +181,8 @@ public class GameMaster : NetworkManager
 
     public override void OnServerConnect(NetworkConnection conn)
     {
+        Camera.main.transform.eulerAngles = new Vector3(Camera.main.transform.eulerAngles.x, 180.0f, Camera.main.transform.eulerAngles.z);
+        Camera.main.transform.position = new Vector3(18.0f, 20.0f, 45.0f);
 
         AddPlayers(conn, NUM_UNITS_PER_TEAM);
     }
@@ -206,6 +209,7 @@ public class GameMaster : NetworkManager
         FindObjectOfType<ToggleActive>().playerDisconnected();
         NetworkManager.Shutdown();
         SceneManager.LoadScene(0);
+        print("why u no work");
     }
 
     //method used for creating the unit. Set all values here
@@ -218,10 +222,25 @@ public class GameMaster : NetworkManager
         return unit;
     }
 
-    private void UpdateCharacterStatus(CharacterStatus status, int teamNum)
+    public void endTurn()
     {
-        status.teamNum = teamNum;
+        //CharacterStatus _currentStatus = GetComponent("CharacterStatus") as CharacterStatus;
+        //if (_currentStatus.getTeamNum() == turn)
+        //{
+        if (turn == 1)
+        {
+            turn = 2;
+        }
+        else
+        {
+            turn = 1;
+        }
     }
+
+        private void UpdateCharacterStatus(CharacterStatus status, int teamNum)
+        {
+            status.teamNum = teamNum;
+        }
 
 }
 

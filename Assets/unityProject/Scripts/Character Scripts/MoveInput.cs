@@ -102,6 +102,7 @@ public class MoveInput : NetworkBehaviour
                                         {
                                             //de-select this unit
                                             isSelected = false;
+                                            _unit.UnhighlightWalkableTiles();
                                         }
                                     }
                                 }
@@ -124,6 +125,7 @@ public class MoveInput : NetworkBehaviour
                                     {
                                         //de-select the ability
                                         castingSpell = false;
+                                        _unit.UnhighlightWalkableTiles();
                                     }
                                 }
 

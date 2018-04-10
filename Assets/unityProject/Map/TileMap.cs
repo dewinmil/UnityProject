@@ -67,6 +67,14 @@ public class TileMap : NetworkBehaviour
         //Spawn the prefabs
         GenerateMapObjects();
         genDone = true;
+
+        int[,] envTiles = new int[,] {{2,6},{3,6},{4,6},{2,7},{3,7},{4,7},{2,8},{3,8},{4,8},{3,10},{4,10},{5,10},{2,11},{3,11},{4,11},{3,12},{4,12},{2,14},{3,14},{4,14},{5,14},{2,15},{3,15},{4,15},{5,15},{8,5},{11,5},{12,5},{13,6},{7,7},{8,7},{11,7},{12,7},{9,8},{10,8},{11,8},{7,9},{8,9},{10,10},{11,10},{12,10},{15,10},{16,10},{8,11},{10,11},{11,11},{12,11},{14,11},{15,11},{16,11},{9,12},{11,12},{12,12},{15,12},{16,12},{17,12},{9,14},{10,14},{11,14},{8,15},{9,15},{10,15},{11,15},{10,16},{13,15}, {9,11} };
+
+        for(int i = 0; i < envTiles.GetLength(0); i++)
+        {
+            SetTileWalkable(envTiles[i, 0], envTiles[i, 1], false);
+        }
+       
     }
 
     private void Update()
@@ -433,7 +441,7 @@ public class TileMap : NetworkBehaviour
             //if the tile is walkable, the unit can move through it
             if (tt.IsWalkable)
                 movementCost = 1;
-            
+
             //else set the cost to be infinity so that the algorithm will avoid it
             else
                 movementCost = Mathf.Infinity;
@@ -511,7 +519,7 @@ public class TileMap : NetworkBehaviour
 
         return neighbors;
     }
-    
+
     public List<Node> HighlightTargetableTiles(int playerX, int playerZ, int range)
     {
         List<Node> neighbors = null;

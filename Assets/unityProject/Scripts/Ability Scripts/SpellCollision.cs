@@ -129,6 +129,21 @@ public class SpellCollision : NetworkBehaviour
         }
         if (other.tag == "Terrain")
         {
+            if (onHitAnimation)
+            {
+                //create the hit animation on top of the target
+                if (gameObject.GetComponent<NetworkIdentity>().isServer)
+                {
+                    NetworkServer.Spawn(Instantiate(onHitAnimation, transform.position, Quaternion.identity));
+                }
+                else
+                {
+                    if (serverSpell)
+                    {
+                        CmdSpawn();
+                    }
+                }
+            }
             GameObject.Destroy(gameObject);
         }
     }
