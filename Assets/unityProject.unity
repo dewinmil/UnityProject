@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5500975, g: 0.78110564, b: 0.7772836, a: 1}
+  m_IndirectSpecularColor: {r: 0.55023694, g: 0.7810118, b: 0.7773566, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -583,10 +583,21 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1097226108}
+        m_MethodName: OnValueChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &61904232
@@ -8806,7 +8817,7 @@ MonoBehaviour:
   keyboardMovementSpeed: 25
   screenEdgeMovementSpeed: 25
   followingSpeed: 5
-  rotationSped: 25
+  rotationSped: 50
   panningSpeed: 10
   mouseRotationSpeed: 25
   autoHeight: 1
@@ -8816,7 +8827,7 @@ MonoBehaviour:
   maxHeight: 5
   minHeight: 10
   heightDampening: 5
-  keyboardZoomingSensitivity: 2
+  keyboardZoomingSensitivity: 3
   scrollWheelZoomingSensitivity: 25
   limitMap: 1
   limitX: 50
@@ -8831,13 +8842,13 @@ MonoBehaviour:
   usePanning: 1
   panningKey: 325
   useKeyboardZooming: 1
-  zoomInKey: 101
-  zoomOutKey: 113
+  zoomInKey: 122
+  zoomOutKey: 99
   useScrollwheelZooming: 1
   zoomingAxis: Mouse ScrollWheel
   useKeyboardRotation: 1
-  rotateRightKey: 120
-  rotateLeftKey: 122
+  rotateRightKey: 101
+  rotateLeftKey: 113
   useMouseRotation: 1
   mouseRotationKey: 324
 --- !u!81 &1014215458
@@ -9740,7 +9751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56c706b4891341b4380e093684f35323, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volumeSlider: {fileID: 0}
+  volumeSlider: {fileID: 61433305}
   volumeChanged: 0
   mixerGroup: {fileID: 0}
   sounds:
