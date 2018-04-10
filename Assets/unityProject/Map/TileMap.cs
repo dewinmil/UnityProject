@@ -30,10 +30,14 @@ public class TileMap : NetworkBehaviour
     private Node[] _currentPath;
     private List<GameObject> _highlightedTiles;
     private readonly Color CURRENT_PATH_TILE_COLOR = Color.yellow;
+    private readonly Color TARGET_HIGHLIGHT_COLOR = Color.red;
     private readonly Color WALKABLE_TILE_COLOR = new Color(0.49f, 1.0f, 0.47f);
     private readonly Color UNWALKABLE_TILE_COLOR = new Color(1.0f, 0.47f, 0.47f);
     public bool genDone = false;
     public bool charSelect = false;
+    public List<UnitSpawn> _team1SpawnLocations;
+    public List<UnitSpawn> _team2SpawnLocations;
+    public List<UnitSpawn> _initialSpawns;
 
     private void Awake()
     {
@@ -47,6 +51,13 @@ public class TileMap : NetworkBehaviour
         //_selectedUnit.GetComponent<Unit>().tileZ = (int)_selectedUnit.transform.position.z;
         _selectedUnit.GetComponent<Unit>()._map = this;
 
+        //set up spawns
+        _team1SpawnLocations = InitTeam1Spawns();
+        _team2SpawnLocations = InitTeam2Spawns();
+        _initialSpawns = new List<UnitSpawn>();
+        _initialSpawns.AddRange(_team1SpawnLocations);
+        _initialSpawns.AddRange(_team2SpawnLocations);
+
         //Generate the data for the map 
         GenerateMapData();
 
@@ -56,6 +67,14 @@ public class TileMap : NetworkBehaviour
         //Spawn the prefabs
         GenerateMapObjects();
         genDone = true;
+
+        int[,] envTiles = new int[,] {{2,6},{3,6},{4,6},{2,7},{3,7},{4,7},{2,8},{3,8},{4,8},{3,10},{4,10},{5,10},{2,11},{3,11},{4,11},{3,12},{4,12},{2,14},{3,14},{4,14},{5,14},{2,15},{3,15},{4,15},{5,15},{8,5},{11,5},{12,5},{13,6},{7,7},{8,7},{11,7},{12,7},{9,8},{10,8},{11,8},{7,9},{8,9},{10,10},{11,10},{12,10},{15,10},{16,10},{8,11},{10,11},{11,11},{12,11},{14,11},{15,11},{16,11},{9,12},{11,12},{12,12},{15,12},{16,12},{17,12},{9,14},{10,14},{11,14},{8,15},{9,15},{10,15},{11,15},{10,16},{13,15}, {9,11} };
+
+        for(int i = 0; i < envTiles.GetLength(0); i++)
+        {
+            SetTileWalkable(envTiles[i, 0], envTiles[i, 1], false);
+        }
+       
     }
 
     private void Update()
@@ -129,13 +148,83 @@ public class TileMap : NetworkBehaviour
             }
         }
 
-        //team 1's unit spawn
-        for (int x = 0; x < 5; x++)
-            SetTileWalkable(x, 0, false);
+        //highlight initial spawn locations for units
+        foreach (UnitSpawn spawn in _initialSpawns)
+            SetTileWalkable(spawn._x, spawn._z, false);
+    }
 
-        //team 2's unit spawn
-        for (int x = 5; x < 10; x++)
-            SetTileWalkable(x, _mapSizeZ - 1, false);
+    private List<UnitSpawn> InitTeam1Spawns()
+    {
+        List<UnitSpawn> spawns = new List<UnitSpawn>();
+        //warrior locations: HARDCODED TO 4 UNITS
+        UnitSpawn warr1 = new UnitSpawn(2, _mapSizeZ - 2, "warrior");
+        spawns.Add(warr1);
+        UnitSpawn warr2 = new UnitSpawn(6, _mapSizeZ - 2, "warrior");
+        spawns.Add(warr2);
+        UnitSpawn warr3 = new UnitSpawn(12, _mapSizeZ - 2, "warrior");
+        spawns.Add(warr3);
+        UnitSpawn warr4 = new UnitSpawn(17, _mapSizeZ - 2, "warrior");
+        spawns.Add(warr4);
+
+        //knight locations: HARDCODED TO 2 UNITS
+        UnitSpawn knight1 = new UnitSpawn(0, _mapSizeZ - 1, "knight");
+        UnitSpawn knight2 = new UnitSpawn(_mapSizeX - 1, _mapSizeZ - 1, "knight");
+        spawns.Add(knight1);
+        spawns.Add(knight2);
+
+        //Spearman locations: HARDCODED TO 2 UNITS
+        UnitSpawn spear1 = new UnitSpawn(5, _mapSizeZ - 1, "spear");
+        UnitSpawn spear2 = new UnitSpawn(14, _mapSizeZ - 1, "spear");
+        spawns.Add(spear1);
+        spawns.Add(spear2);
+
+        //Wizard location
+        UnitSpawn wizard = new UnitSpawn(9, _mapSizeZ - 1, "wizard");
+        spawns.Add(wizard);
+
+        //Leader Location
+        UnitSpawn leader = new UnitSpawn(10, _mapSizeZ - 1, "leader");
+        spawns.Add(leader);
+
+        return spawns;
+    }
+
+    //TODO: These spawns are all hardcoded
+    private List<UnitSpawn> InitTeam2Spawns()
+    {
+        List<UnitSpawn> spawns = new List<UnitSpawn>();
+        //warrior locations: HARDCODED TO 4 UNITS
+        //warrior locations: HARDCODED TO 4 UNITS
+        UnitSpawn warr1 = new UnitSpawn(2, 1, "warrior");
+        spawns.Add(warr1);
+        UnitSpawn warr2 = new UnitSpawn(6, 1, "warrior");
+        spawns.Add(warr2);
+        UnitSpawn warr3 = new UnitSpawn(12, 1, "warrior");
+        spawns.Add(warr3);
+        UnitSpawn warr4 = new UnitSpawn(17, 1, "warrior");
+        spawns.Add(warr4);
+
+        //knight locations: HARDCODED TO 2 UNITS
+        UnitSpawn knight1 = new UnitSpawn(0, 0, "knight");
+        UnitSpawn knight2 = new UnitSpawn(_mapSizeX - 1, 0, "knight");
+        spawns.Add(knight1);
+        spawns.Add(knight2);
+
+        //Spearman locations: HARDCODED TO 2 UNITS
+        UnitSpawn spear1 = new UnitSpawn(5, 0, "spear");
+        UnitSpawn spear2 = new UnitSpawn(14, 0, "spear");
+        spawns.Add(spear1);
+        spawns.Add(spear2);
+
+        //Wizard location
+        UnitSpawn wizard = new UnitSpawn(9, 0, "wizard");
+        spawns.Add(wizard);
+
+        //Leader Location
+        UnitSpawn leader = new UnitSpawn(10, 0, "leader");
+        spawns.Add(leader);
+
+        return spawns;
     }
 
     private void GeneratePathGraph()
@@ -312,6 +401,9 @@ public class TileMap : NetworkBehaviour
         //set destination to be occupied
         SetTileWalkable(currentPath[currentPath.Count - 1].x, currentPath[currentPath.Count - 1].z, false);
 
+        //set origin to be walkable
+        SetTileWalkable(currentPath[0].x, currentPath[0].z, true);
+
         _selectedUnit.GetComponent<Unit>()._currentPath = currentPath;
     }
 
@@ -425,6 +517,25 @@ public class TileMap : NetworkBehaviour
             _highlightedTiles.Add(_tileObjects[hash]);
         }
 
+        return neighbors;
+    }
+
+    public List<Node> HighlightTargetableTiles(int playerX, int playerZ, int range)
+    {
+        List<Node> neighbors = null;
+        if (playerZ % 2 == 0)
+            neighbors = BuildQuadrantsEven(playerX, playerZ, range);
+
+        else
+            neighbors = BuildQuadrantsOdd(playerX, playerZ, range);
+
+        foreach (Node node in neighbors)
+        {
+            string hash = GetHashString(node.x, node.z);
+            MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
+            mesh.material.color = TARGET_HIGHLIGHT_COLOR;
+            _highlightedTiles.Add(_tileObjects[hash]);
+        }
         return neighbors;
     }
 
