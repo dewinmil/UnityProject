@@ -4280,6 +4280,7 @@ MonoBehaviour:
   react: 0
   _numMoves: 4
   _rigidbody: {fileID: 54522346269031992}
+  _costToMove: 2
 --- !u!114 &114419645362928604
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5572,6 +5573,7 @@ MonoBehaviour:
   react: 0
   _numMoves: 0
   _rigidbody: {fileID: 54142464824269408}
+  _costToMove: 0
 --- !u!114 &114997159696018752
 MonoBehaviour:
   m_ObjectHideFlags: 1

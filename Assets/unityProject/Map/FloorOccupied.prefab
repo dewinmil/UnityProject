@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 33192834928208720}
   - component: {fileID: 23694193664793518}
   - component: {fileID: 114416622353170240}
-  - component: {fileID: 65795819584452328}
   - component: {fileID: 114341178096206526}
+  - component: {fileID: 64205173735897340}
   m_Layer: 0
   m_Name: FloorOccupied
   m_TagString: Untagged
@@ -159,8 +159,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1041883840204490}
   m_Mesh: {fileID: 4300000, guid: cb94b777ed91b1841b52df937d297b50, type: 3}
---- !u!65 &65795819584452328
-BoxCollider:
+--- !u!64 &64205173735897340
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -168,9 +168,11 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.008660254, y: 0.0054993555, z: 0.0010000003}
-  m_Center: {x: 0, y: -0.0000000023841857, z: 3.8116503e-23}
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: cb94b777ed91b1841b52df937d297b50, type: 3}
 --- !u!102 &102303588675508328
 TextMesh:
   serializedVersion: 3
