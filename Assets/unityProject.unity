@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.55023694, g: 0.7810118, b: 0.7773566, a: 1}
+  m_IndirectSpecularColor: {r: 0.5500975, g: 0.78110564, b: 0.7772836, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -5262,6 +5262,14 @@ Prefab:
     - target: {fileID: 100036, guid: 71ff0e77341aa304c921a48a639924b6, type: 3}
       propertyPath: m_TagString
       value: Terrain
+      objectReference: {fileID: 0}
+    - target: {fileID: 100036, guid: 71ff0e77341aa304c921a48a639924b6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 71ff0e77341aa304c921a48a639924b6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 71ff0e77341aa304c921a48a639924b6, type: 3}
