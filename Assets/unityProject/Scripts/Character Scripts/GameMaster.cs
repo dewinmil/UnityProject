@@ -23,8 +23,8 @@ public class GameMaster : NetworkManager
     private const int NUM_UNITS_PER_TEAM = 10;
     public List<Unit> _units;
     public int turn;
-    public GameObject winScreen;
-    public GameObject loseScreen;
+    GameObject winScreen;
+    GameObject loseScreen;
     public int connections;
     private List<UnitSpawn> _team1SpawnLocations;
     private List<UnitSpawn> _team2SpawnLocations;
