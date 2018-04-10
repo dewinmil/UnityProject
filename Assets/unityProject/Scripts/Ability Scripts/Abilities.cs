@@ -364,7 +364,7 @@ public class Abilities : NetworkBehaviour
 
     public int canCast(CharacterStatus theTarget, int _abilityNum)
     {
-        if(theTarget == null)
+        if (theTarget == null)
         {
             theTarget = _casterStatus;
         }
@@ -576,7 +576,6 @@ public class Abilities : NetworkBehaviour
                 return 0;
             }
         }
-        //holy cleave
         if (_abilityNum == 9)
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
@@ -588,7 +587,7 @@ public class Abilities : NetworkBehaviour
                 {
                     if (!rangeCheck)
                     {
-                        _unit.abil = 4;
+                        _unit.abil = 7;
                     }
                     return 3;
                 }
@@ -602,7 +601,6 @@ public class Abilities : NetworkBehaviour
                 return 0;
             }
         }
-        //dark circle
         if (_abilityNum == 10)
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
@@ -614,7 +612,7 @@ public class Abilities : NetworkBehaviour
                 {
                     if (!rangeCheck)
                     {
-                        _unit.abil = 5;
+                        _unit.abil = 8;
                     }
                     return 3;
                 }
@@ -639,7 +637,7 @@ public class Abilities : NetworkBehaviour
                 {
                     if (!rangeCheck)
                     {
-                        _unit.abil = 3;
+                        _unit.abil = 9;
                     }
                     return 3;
                 }
@@ -664,7 +662,7 @@ public class Abilities : NetworkBehaviour
                 {
                     if (!rangeCheck)
                     {
-                        _unit.abil = 12;
+                        _unit.abil = 7;
                     }
                     return 1;
                 }
@@ -689,7 +687,107 @@ public class Abilities : NetworkBehaviour
                 {
                     if (!rangeCheck)
                     {
-                        _unit.abil = 13;
+                        _unit.abil = 8;
+                    }
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        if (_abilityNum == 14)
+        {
+            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 1 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
+                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 1)
+                {
+                    if (!rangeCheck)
+                    {
+                        _unit.abil = 9;
+                    }
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        if (_abilityNum == 15)
+        {
+            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 1 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
+                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 1)
+                {
+                    if (!rangeCheck)
+                    {
+                        _unit.abil = 7;
+                    }
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        if (_abilityNum == 16)
+        {
+            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 1 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
+                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 1)
+                {
+                    if (!rangeCheck)
+                    {
+                        _unit.abil = 8;
+                    }
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        if (_abilityNum == 17)
+        {
+            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 1 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
+                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 1)
+                {
+                    if (!rangeCheck)
+                    {
+                        _unit.abil = 9;
                     }
                     return 1;
                 }
