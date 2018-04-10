@@ -23,6 +23,7 @@ public class GameMaster : NetworkManager
     private const int NUM_UNITS_PER_TEAM = 10;
     public List<Unit> _units;
     public int turn;
+    public CharacterStatus _currentStatus;
     public GameObject winScreen;
     public GameObject loseScreen;
     public int connections;
@@ -221,10 +222,25 @@ public class GameMaster : NetworkManager
         return unit;
     }
 
-    private void UpdateCharacterStatus(CharacterStatus status, int teamNum)
+    public void endTurn()
     {
-        status.teamNum = teamNum;
+        //CharacterStatus _currentStatus = GetComponent("CharacterStatus") as CharacterStatus;
+        //if (_currentStatus.getTeamNum() == turn)
+        //{
+        if (turn == 1)
+        {
+            turn = 2;
+        }
+        else
+        {
+            turn = 1;
+        }
     }
+
+        private void UpdateCharacterStatus(CharacterStatus status, int teamNum)
+        {
+            status.teamNum = teamNum;
+        }
 
 }
 

@@ -4090,6 +4090,7 @@ MonoBehaviour:
   react: 0
   _numMoves: 4
   _rigidbody: {fileID: 54451859030305054}
+  _costToMove: 1
 --- !u!114 &114275566407466802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5366,6 +5367,7 @@ MonoBehaviour:
   currentHealth: 20
   physicalArmor: 0
   magicArmor: 0
+  dotAffected: 0
   healthBar: {fileID: 114736551055036842}
   actionBar: {fileID: 114027918883912696}
   healthBarText: {fileID: 114263983645781634}
@@ -5380,6 +5382,7 @@ MonoBehaviour:
   isLeader: 0
   winScreen: {fileID: 0}
   loseScreen: {fileID: 0}
+  _numMovesRemaining: 0
 --- !u!114 &114855168530491128
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5425,6 +5428,7 @@ MonoBehaviour:
   currentHealth: 20
   physicalArmor: 0
   magicArmor: 0
+  dotAffected: 0
   healthBar: {fileID: 114736551055036842}
   actionBar: {fileID: 114027918883912696}
   healthBarText: {fileID: 114263983645781634}
@@ -5439,6 +5443,7 @@ MonoBehaviour:
   isLeader: 0
   winScreen: {fileID: 0}
   loseScreen: {fileID: 0}
+  _numMovesRemaining: 0
 --- !u!114 &114895938186009692
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5638,6 +5643,7 @@ MonoBehaviour:
   react: 0
   _numMoves: 0
   _rigidbody: {fileID: 54448132883141528}
+  _costToMove: 0
 --- !u!136 &136177080473963164
 CapsuleCollider:
   m_ObjectHideFlags: 1

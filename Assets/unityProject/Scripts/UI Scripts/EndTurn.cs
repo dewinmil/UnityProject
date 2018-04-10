@@ -9,6 +9,12 @@ public class EndTurn : NetworkBehaviour
     [SyncVar]
     public int turn;
     public AudioManager _manager;
+    public TileMap _map;
+
+    void Start()
+    {
+        _map = FindObjectOfType<TileMap>();
+    }
 
     public void endTurn()
     {
@@ -28,5 +34,7 @@ public class EndTurn : NetworkBehaviour
                 turn = 1;
             }
         }
+        //unhighlight tiles
+        _map.UnhighlightWalkableTiles();
     }
 }

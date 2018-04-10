@@ -19,6 +19,7 @@ public class CharacterStatus : NetworkBehaviour {
     public float physicalArmor;//a value of 1 is 100% resistance
     [SyncVar]
     public float magicArmor;//a value of 1 is 100% resistance
+    public bool dotAffected;
     public Image healthBar;
     public Image actionBar;
     public Text healthBarText;
@@ -72,6 +73,8 @@ public class CharacterStatus : NetworkBehaviour {
                 startOfTurn = false;
                 if (currentHealth > 0)
                 {
+                    gainAction();
+                    if(currentAction > maxAction)
                     currentAction = currentAction + 5;
                     CmdUpdateValuesAfterTurn();
                     if (currentAction > maxAction)
@@ -129,7 +132,12 @@ public class CharacterStatus : NetworkBehaviour {
     public void gainAction()
     {
         // At the beginning of the turn
-        currentAction += 8;
+        currentAction += 5;
+    }
+
+    public int getTeamNum()
+    {
+        return teamNum;
     }
 
     public bool CanMove(int tilesToMove, int apCostPerTile)
