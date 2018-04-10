@@ -2707,6 +2707,7 @@ MonoBehaviour:
   react: 0
   _numMoves: 4
   _rigidbody: {fileID: 54942931649065288}
+  _costToMove: 1
 --- !u!114 &114578928672171764
 MonoBehaviour:
   m_ObjectHideFlags: 1

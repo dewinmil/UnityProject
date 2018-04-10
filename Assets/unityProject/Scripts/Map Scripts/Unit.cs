@@ -27,7 +27,7 @@ public class Unit : NetworkBehaviour
     public Rigidbody _rigidbody;
     private Vector3 _nextTile;
     private const float MOVEMENT_SPEED = 100f;
-    private const int MOVEMENT_AP_COST = 2;
+    public int _costToMove;
     private List<Node> _tilesToMove;
     public List<Node> _currentPath = null;
     private CharacterStatus _characterStatus;
@@ -133,7 +133,7 @@ public class Unit : NetworkBehaviour
                 if (_currentPath == null)
                     return;
 
-                if (_characterStatus.CanMove(_currentPath.Count-1, MOVEMENT_AP_COST))
+                if (_characterStatus.CanMove(_currentPath.Count-1, _costToMove))
                 {
                     _nextTile = _map.TileCoordToWorldCoord(_currentPath[0].x, _currentPath[0].z);
                     _map.CmdSetTileWalkable(this.tileX, this.tileZ, true);

@@ -1544,6 +1544,7 @@ MonoBehaviour:
   react: 0
   _numMoves: 4
   _rigidbody: {fileID: 54617411950653290}
+  _costToMove: 1
 --- !u!114 &114046107764919214
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3268,6 +3269,7 @@ MonoBehaviour:
   currentHealth: 20
   physicalArmor: 0
   magicArmor: 0
+  dotAffected: 0
   healthBar: {fileID: 114425034986680298}
   actionBar: {fileID: 114676881994390982}
   healthBarText: {fileID: 114009578536014236}
@@ -3282,6 +3284,7 @@ MonoBehaviour:
   isLeader: 1
   winScreen: {fileID: 0}
   loseScreen: {fileID: 0}
+  _numMovesRemaining: 0
 --- !u!114 &114941447681070626
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -30,6 +30,7 @@ public class MoveInput : NetworkBehaviour
                 //select the unit
                 isSelected = false;
                 _unit.SelectedUnitChanged();
+                _unit.UnhighlightWalkableTiles();
             }
 
             //check whether a spell has been cast upon the owner of this script and if so
@@ -37,6 +38,7 @@ public class MoveInput : NetworkBehaviour
             if (targetedBySpell)
             {
                 isSelected = false;
+                _unit.UnhighlightWalkableTiles();
             }
 
             //if the left mouse button is pressed
@@ -118,6 +120,7 @@ public class MoveInput : NetworkBehaviour
                                             //de-select this unit
                                             isSelected = false;
                                             _unit._map.charSelect = false;
+                                            _unit.UnhighlightWalkableTiles();
                                         }
                                     }
                                     //if we were casting an ability

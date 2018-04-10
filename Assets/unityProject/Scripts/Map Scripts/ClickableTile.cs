@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ClickableTile : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class ClickableTile : MonoBehaviour
     void OnMouseUp()
     {
         Unit selectedUnit = map._selectedUnit.GetComponent<Unit>();
-        if (selectedUnit.moveToggle)
+        if (selectedUnit.moveToggle && EventSystem.current.IsPointerOverGameObject() == false)
         {
             //see if this tile is withing the moveable range of the unit
             if (selectedUnit.InRangeOfSelectedTile(tileX, tileZ))
