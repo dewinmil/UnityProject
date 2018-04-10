@@ -12,6 +12,7 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance;
     public bool volumeChanged;
     public AudioMixerGroup mixerGroup;
+    int uiPressed;
 
     public Sound[] sounds;
     Sound music;
@@ -19,6 +20,7 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
+        uiPressed = 0;
         songPlaying = 0;
         maxVolume = 0;
     }
@@ -127,6 +129,27 @@ public class AudioManager : MonoBehaviour
     {
         Sound sound;
         sound = Array.Find(sounds, item => item.name == "endTurnSound");
+        Play(sound.name);
+    }
+
+    public void uiSelected()
+    {
+        Sound sound;
+        if(uiPressed == 0)
+        {
+            sound = Array.Find(sounds, item => item.name == "uiButtonSound1");
+            uiPressed++;
+        }
+        else if (uiPressed == 1)
+        {
+            sound = Array.Find(sounds, item => item.name == "uiButtonSound2");
+            uiPressed++;
+        }
+        else
+        {
+            sound = Array.Find(sounds, item => item.name == "uiButtonSound3");
+            uiPressed = 0;
+        }
         Play(sound.name);
     }
 
