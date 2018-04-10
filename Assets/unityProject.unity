@@ -663,7 +663,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0.25
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -9023,7 +9023,6 @@ GameObject:
   - component: {fileID: 1014215459}
   - component: {fileID: 1014215458}
   - component: {fileID: 1014215457}
-  - component: {fileID: 1014215461}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -9151,38 +9150,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
---- !u!114 &1014215461
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1014215455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 0
-    i1: 0
-    i2: 0
-    i3: 0
-    i4: 0
-    i5: 0
-    i6: 0
-    i7: 0
-    i8: 0
-    i9: 0
-    i10: 0
-    i11: 0
-    i12: 0
-    i13: 0
-    i14: 0
-    i15: 0
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
 --- !u!1001 &1014920815
 Prefab:
   m_ObjectHideFlags: 0
@@ -11388,7 +11355,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0.25
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -11785,7 +11752,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1378841716
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12466,7 +12433,6 @@ MonoBehaviour:
   winScreen: {fileID: 299944742}
   loseScreen: {fileID: 29559240}
   connections: 0
-  spellInd: {fileID: 1378841718}
 --- !u!4 &1451940021
 Transform:
   m_ObjectHideFlags: 0
