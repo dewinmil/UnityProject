@@ -320,129 +320,25 @@ public class CastSpell : NetworkBehaviour
         {
             _caster.castAbility(targetCharacterStatus, 5, 0, 3, 0, 0, 0, true);
         }
+        else if (abilityUsed == 13)
+        {
+            _caster.castAbility(targetCharacterStatus, 5, 0, 3, 0, 0, 0, true);
+        }
+        else if (abilityUsed == 14)
+        {
+            _caster.castAbility(targetCharacterStatus, 5, 0, 3, 0, 0, 0, true);
+        }
+        else if (abilityUsed == 15)
+        {
+            _caster.castAbility(targetCharacterStatus, 5, 0, 3, 0, 0, 0, true);
+        }
+        else if (abilityUsed == 16)
+        {
+            _caster.castAbility(targetCharacterStatus, 5, 0, 3, 0, 0, 0, true);
+        }
+        else if (abilityUsed == 17)
+        {
+            _caster.castAbility(targetCharacterStatus, 5, 0, 3, 0, 0, 0, true);
+        }
     }
-
-    /*
-    public void canCast(CharacterStatus theTarget, int _abilityNum)
-    {
-        Unit _unit = gameObject.GetComponentInParent<CharacterStatus>()._unit;
-        FindObjectOfType<TileMap>().HighlightTargetableTiles(_unit.tileX, _unit.tileZ, 1);
-        if (_abilityNum == 1)
-        {
-            if (_caster._casterStatus.currentAction > 3 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
-            {
-                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 12)
-                {
-                    cast(_abilityNum);
-                }
-            }
-        }
-        if (_abilityNum == 2)
-        {
-            if (_caster._casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
-            {
-                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
-                {
-                    cast(_abilityNum);
-                }
-            }
-        }
-        if (_abilityNum == 3)
-        {
-            if (_caster._casterStatus.currentAction > 5 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
-            {
-                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
-                {
-                    cast(_abilityNum);
-                }
-            }
-        }
-        if (_abilityNum == 4)
-        {
-            if (_caster._casterStatus.currentAction > 4 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
-            {
-                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 9)
-                {
-                    cast(_abilityNum);
-                }
-            }
-        }
-        if (_abilityNum == 5)
-        {
-            if (_caster._casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
-            {
-                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
-                {
-                    cast(_abilityNum);
-                }
-            }
-        }
-        if (_abilityNum == 6)
-        {
-            if (_caster._casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
-            {
-                Vector3 test = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);
-                Vector3 test1 = new Vector3(target.transform.position.x, 0, target.transform.position.z);
-                print("right after this");
-                print(gameObject.transform.position.x);
-                print(gameObject.transform.position.z);
-                print(target.transform.position.x);
-                print(target.transform.position.z);
-                if (Vector3.Distance(test, test1) <= 1)
-                {
-                    cast(_abilityNum);
-                }
-            }
-        }
-        if (_abilityNum == 7)
-        {
-            if (_caster._casterStatus.currentAction > 5 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
-            {
-                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
-                {
-                    cast(_abilityNum);
-                }
-            }
-        }
-        if (_abilityNum == 8)
-        {
-            if (_caster._casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
-            {
-                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
-                {
-                    cast(_abilityNum);
-                }
-            }
-        }
-        if (_abilityNum == 9)
-        {
-            if (_caster._casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
-            {
-                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
-                {
-                    cast(_abilityNum);
-                }
-            }
-        }
-        if (_abilityNum == 10)
-        {
-            if (_caster._casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
-            {
-                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
-                {
-                    cast(_abilityNum);
-                }
-            }
-        }
-        if (_abilityNum == 11)
-        {
-            if (_caster._casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
-            {
-                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
-                {
-                    cast(_abilityNum);
-                }
-            }
-        }
-    }*/
 }
