@@ -11,7 +11,7 @@ public class ShowCharacterUI : MonoBehaviour {
 	void Update () {
         if (character.isSelected == true)
         {
-            if(gameObject.GetComponent<Canvas>().enabled == false)
+            if (gameObject.GetComponent<Canvas>().enabled == false)
             {
                 gameObject.GetComponent<Canvas>().enabled = true;
             }
