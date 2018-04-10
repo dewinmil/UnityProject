@@ -32,9 +32,11 @@ public class Abilities : NetworkBehaviour
     public GameObject loseScreen;
     int buttonPressed;
     bool rangeCheck;
+    AudioManager audioManager;
 
     void Start()
     {
+        audioManager = FindObjectOfType<AudioManager>();
         rangeCheck = false;
         winScreen = GameObject.FindWithTag("winScreen");
         loseScreen = GameObject.FindWithTag("loseScreen");
@@ -58,6 +60,7 @@ public class Abilities : NetworkBehaviour
     // called on buttonpress
     public void useAbility(int ability)
     {
+        audioManager.uiSelected();
         //toggle casting determins whether your next click will cast a spell or not
         //it is a toggle so you can reselect a spell to cancel casting
         rangeCheck = true;
@@ -181,6 +184,7 @@ public class Abilities : NetworkBehaviour
 
     public void toggleMovement()
     {
+        audioManager.uiSelected();
         //if an ability is being used cancel the ability
         if (usingAbility)
         {
