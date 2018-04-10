@@ -19130,6 +19130,33 @@ MonoBehaviour:
     loop: 0
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  - name: uiButtonSound1
+    clip: {fileID: 8300000, guid: cd7044bf418f642df9a2130900bd3fd5, type: 3}
+    volume: 0.15
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: uiButtonSound2
+    clip: {fileID: 8300000, guid: ae0801339b90a41d58f3b568a9943510, type: 3}
+    volume: 0.15
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: uiButtonSound3
+    clip: {fileID: 8300000, guid: f5ab874fd1f4a4c7cb3ff691b729fbfa, type: 3}
+    volume: 0.15
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
 --- !u!4 &1097226109
 Transform:
   m_ObjectHideFlags: 0
