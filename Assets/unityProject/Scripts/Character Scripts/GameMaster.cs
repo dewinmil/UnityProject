@@ -212,6 +212,7 @@ public class GameMaster : NetworkManager
         FindObjectOfType<ToggleActive>().playerDisconnected();
         NetworkManager.Shutdown();
         SceneManager.LoadScene(0);
+        print("why u no work");
     }
 
     //method used for creating the unit. Set all values here

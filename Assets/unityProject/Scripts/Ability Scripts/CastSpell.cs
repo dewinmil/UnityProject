@@ -316,6 +316,10 @@ public class CastSpell : NetworkBehaviour
         {
             _caster.castAbility(targetCharacterStatus, 5, 0, 6, 0, 1, 0, true);
         }
+        else if (abilityUsed == 12)
+        {
+            _caster.castAbility(targetCharacterStatus, 5, 0, 3, 0, 0, 0, true);
+        }
     }
 
     /*
