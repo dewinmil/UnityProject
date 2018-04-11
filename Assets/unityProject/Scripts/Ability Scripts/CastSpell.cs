@@ -221,6 +221,14 @@ public class CastSpell : NetworkBehaviour
         rotation = 0;
 
 
+        if(xVal == 0)
+        {
+            xVal = .1f;
+        }
+        if(zVal == 0)
+        {
+            zVal = .1f;
+        }
         while (Mathf.Abs(xVal) < 1 || Mathf.Abs(zVal) < 1)
         {
             xVal = xVal + xVal;

@@ -12,11 +12,14 @@ public class Unit : NetworkBehaviour
     public int tileZ;
     public int unitId;
     public TileMap _map;
+    [SyncVar]
     public bool _isMoving;
     public MoveInput _characterMoveInput;
     public bool moveToggle;
     public Animator anim;
+    [SyncVar]
     public int abil;
+    [SyncVar]
     public bool react;
     //number of tiles the unit can move
     /// /////////////////////////////////////
@@ -54,11 +57,18 @@ public class Unit : NetworkBehaviour
         anim.SetBool("React", react);
         react = false;
     }
-
-    public void DeathAnim() {
+    
+    [Command]
+    public void CmdDeathAnim() {
+        RpcDeathAnim();
         anim.SetBool("Dead", true);
     }
 
+    [ClientRpc]
+    public void RpcDeathAnim()
+    {
+        anim.SetBool("Dead", true);
+    }
     void FixedUpdate()
     {
         if (_currentPath != null && _isMoving)
@@ -109,6 +119,7 @@ public class Unit : NetworkBehaviour
             _currentPath = null;
             _isMoving = false;
             moveToggle = false;
+            CmdSynchAnimations(abil, _isMoving, react);
         }
         else
         {
@@ -139,6 +150,7 @@ public class Unit : NetworkBehaviour
                     _map.CmdSetTileWalkable(this.tileX, this.tileZ, true);
                     MoveToNextTile();
                     _isMoving = true;
+                    CmdSynchAnimations(abil, _isMoving, react);
                 }
             }
         }
@@ -183,5 +195,22 @@ public class Unit : NetworkBehaviour
             return true;
 
         return false;
+    }
+
+    [Command]
+    public void CmdSynchAnimations(int _abil, bool moving, bool _react)
+    {
+        abil = _abil;
+        _isMoving = moving;
+        react = _react;
+        RpcSynchAnimations(_abil, moving, _react);
+    }
+
+    [ClientRpc]
+    public void RpcSynchAnimations(int _abil, bool moving, bool _react)
+    {
+        abil = _abil;
+        _isMoving = moving;
+        react = _react;
     }
 }

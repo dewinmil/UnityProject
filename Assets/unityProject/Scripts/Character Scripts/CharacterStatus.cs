@@ -69,41 +69,53 @@ public class CharacterStatus : NetworkBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if(endTurn.turn != previousTurn)
+        if(currentHealth <= 0)
         {
-            FindObjectOfType<AudioManager>().endTurn();
-            previousTurn = endTurn.turn;
-            if (hasAuthority)
-            {
-                CmdUpdateTurn(endTurn.turn);
-            }
+            _unit.CmdDeathAnim();
         }
-        if (endTurn.turn == teamNum)
+        if (endTurn == null)
         {
-            if(startOfTurn == true)
-            {
-                startOfTurn = false;
-                if (currentHealth > 0)
-                {
-                    gainAction();
-                    if(currentAction > maxAction)
-                    currentAction = currentAction + 5;
-                    CmdUpdateValuesAfterTurn();
-                    if (currentAction > maxAction)
-                    {
-                        currentAction = maxAction;
-                    }
-                }
-            }
+            endTurn = FindObjectOfType<EndTurn>();
         }
         else
         {
-            startOfTurn = true;
-        }
-        updateStatusBars();
-        if(currentHealth <= 0)
-        {
-            _unit.DeathAnim();
+            if (endTurn.turn != previousTurn)
+            {
+                FindObjectOfType<AudioManager>().endTurn();
+                previousTurn = endTurn.turn;
+                if (hasAuthority)
+                {
+                    CmdUpdateTurn(endTurn.turn);
+                }
+            }
+            if (endTurn.turn == teamNum)
+            {
+                if (startOfTurn == true)
+                {
+                    startOfTurn = false;
+                    if (currentHealth > 0)
+                    {
+                        gainAction();
+                        if (currentAction > maxAction)
+                            currentAction = currentAction + 5;
+                        CmdUpdateValuesAfterTurn();
+                        if (currentAction > maxAction)
+                        {
+                            currentAction = maxAction;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                startOfTurn = true;
+            }
+            updateStatusBars();
+            if (currentHealth <= 0)
+            {
+                //_unit.CmdDeathAnim();
+
+            }
         }
     }
 
@@ -131,6 +143,7 @@ public class CharacterStatus : NetworkBehaviour {
     {
         currentHealth -= damage;
         _unit.react = true;
+        _unit.CmdSynchAnimations(_unit.abil, _unit._isMoving, true);
     }
     public void gainHealth(float healing)
     {

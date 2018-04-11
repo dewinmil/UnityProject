@@ -539,6 +539,7 @@ public class Abilities : NetworkBehaviour
                 if (!rangeCheck)
                 {
                     _unit.abil = abilNum;
+                    _unit.CmdSynchAnimations(abilNum, _unit._isMoving, _unit.react);
                 }
                 return range;
             }
@@ -560,7 +561,7 @@ public class Abilities : NetworkBehaviour
             if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= range &&
                 Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= range)
             {
-                if (range != 0)
+                if (range != 0 && range != 1)
                 {
                     if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == range &&
                     Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == range)
