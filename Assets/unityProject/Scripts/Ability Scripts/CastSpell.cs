@@ -14,6 +14,7 @@ public class CastSpell : NetworkBehaviour
     public GameObject abilityAnimation;
     public GameObject abilityHitAnimation;
     public Abilities _caster;
+    CharacterStatus _casterStatus;
     public bool spellMoves;
     private GameObject currentAnimation;
     private CharacterStatus spellTarget;
@@ -25,7 +26,7 @@ public class CastSpell : NetworkBehaviour
     // Use this for initialization
     void Start()
     {
-
+        _casterStatus = _caster.GetComponentInParent<CharacterStatus>();
     }
 
     // Update is called once per frame
@@ -127,7 +128,7 @@ public class CastSpell : NetworkBehaviour
         else
         {
             //if spell does not move set it's position to that of the target
-            serverAnimation.transform.position = new Vector3(serverAnimation.transform.position.x, 0, serverAnimation.transform.position.z);
+            serverAnimation.transform.position = new Vector3(serverAnimation.transform.position.x, -.15f, serverAnimation.transform.position.z);
         }
         serverAnimation.transform.parent = gameObject.transform;
 
@@ -339,6 +340,61 @@ public class CastSpell : NetworkBehaviour
         else if (abilityUsed == 17)
         {
             _caster.castAbility(targetCharacterStatus, 5, 0, 3, 0, 0, 0, true);
+        }
+        else if (abilityUsed == 18)
+        {
+            _caster.castAbility(targetCharacterStatus, 0, 5, 5, 0, 0, 0, true);
+        }
+        else if (abilityUsed == 19)
+        {
+            if (_casterStatus.currentAction >= 8 && _casterStatus.currentHealth > 0)
+            {
+                if (_casterStatus.tempMagicArmor < .3f || _casterStatus.tempPhysicalArmor < .3f)
+                {
+                    _casterStatus.currentAction -= 8;
+                    _casterStatus.tempPhysicalArmor = .3f;
+                    _casterStatus.tempMagicArmor = .3f;
+                }
+            }
+        }
+        else if (abilityUsed == 20)
+        {
+            if (_casterStatus.currentAction >= 5 && _casterStatus.currentHealth > 0)
+            {
+                if (_casterStatus.tempArmorPen < .3f)
+                {
+                    _casterStatus.currentAction -= 5;
+                    _casterStatus.tempArmorPen = .3f;
+                }
+            }
+        }
+        else if (abilityUsed == 21)
+        {
+            if (_casterStatus.currentAction >= 3 && _casterStatus.currentHealth > 0)
+            {
+                _casterStatus.currentAction -= 3;
+                _casterStatus._numMovesRemaining += 3;
+            }
+        }
+        else if (abilityUsed == 22)
+        {
+            if(_casterStatus._numMovesRemaining > 0 && _casterStatus.currentAction < _casterStatus.maxAction)
+            {
+                _casterStatus.currentAction += _casterStatus._numMovesRemaining;
+                _casterStatus._numMovesRemaining = 0;
+                if(_casterStatus.currentAction > _casterStatus.maxAction)
+                {
+                    _casterStatus.currentAction = _casterStatus.maxAction;
+                }
+            }
+        }
+        else if (abilityUsed == 23)
+        {
+            if (_casterStatus.currentHealth > 5)
+            {
+                _casterStatus.currentHealth -= 5;
+                _casterStatus._numMovesRemaining += 5;
+            }
         }
     }
 }
