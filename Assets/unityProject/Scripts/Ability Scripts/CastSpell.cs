@@ -273,78 +273,97 @@ public class CastSpell : NetworkBehaviour
         {
             targetCharacterStatus = spellTarget;
         }
+        //fireball
         if (abilityUsed == 1)
         {
-            _caster.castAbility(targetCharacterStatus, 3, 0, 3, 0, (float).5, 0, true);
+            _caster.castAbility(targetCharacterStatus, 3, 0, 3, 0, .2f, 0, true);
         }
+        //flame circle
         else if (abilityUsed == 2)
         {
-            _caster.castAbility(targetCharacterStatus, 7, 0, 6, 0, 0, 0, true);
+            _caster.castAbility(targetCharacterStatus, 4, 0, 5, 0, 0, .5f, true);
         }
+        //healing circle
         else if (abilityUsed == 3)
         {
             _caster.castAbility(targetCharacterStatus, 0, 5, 5, 0, 0, 0, true);
         }
+        //shockwave
         else if (abilityUsed == 4)
         {
             _caster.castAbility(targetCharacterStatus, 5, 0, 4, (float).25, 0, 0, false);
         }
+        //dark circle
         else if (abilityUsed == 5)
         {
-            _caster.castAbility(targetCharacterStatus, 5, 0, 6, 0, 1, 0, true);
+            _caster.castAbility(targetCharacterStatus, 5, 0, 7, 0, .8f, 0, true);
         }
+        //smite
         else if (abilityUsed == 6)
         {
-            _caster.castAbility(targetCharacterStatus, 5, 0, 6, .25f, .25f, 0, true);
+            _caster.castAbility(targetCharacterStatus, 3, 0, 4, 0, .25f, 0, true);
         }
+        //ap buff
         else if (abilityUsed == 7)
         {
             _caster.castAbility(targetCharacterStatus, 0, 0, 12, 0, 0, 5, true);
         }
+        //health buff
         else if (abilityUsed == 8)
         {
             _caster.castAbility(targetCharacterStatus, 0, 0, 12, 0, 0, 5, false);
         }
+        //knight attack1
         else if (abilityUsed == 9)
         {
-            _caster.castAbility(targetCharacterStatus, 5, 0, 6, 0, 1, 0, true);
+            _caster.castAbility(targetCharacterStatus, 8, 0, 3, 0, 0, 0, false);
         }
+        //knight attack2
         else if (abilityUsed == 10)
         {
-            _caster.castAbility(targetCharacterStatus, 5, 0, 6, 0, 1, 0, true);
+            _caster.castAbility(targetCharacterStatus, 8, 0, 5, .5f, 0, 0, false);
         }
+        //knight attack3
         else if (abilityUsed == 11)
         {
-            _caster.castAbility(targetCharacterStatus, 5, 0, 6, 0, 1, 0, true);
+            _caster.castAbility(targetCharacterStatus, 8, 0, 8, .8f, 0, 0, false);
         }
+        //spearman attack1
         else if (abilityUsed == 12)
         {
-            _caster.castAbility(targetCharacterStatus, 5, 0, 3, 0, 0, 0, true);
+            _caster.castAbility(targetCharacterStatus, 5, 0, 3, 0, 0, 0, false);
         }
+        //spearman attack2
         else if (abilityUsed == 13)
         {
-            _caster.castAbility(targetCharacterStatus, 5, 0, 3, 0, 0, 0, true);
+            _caster.castAbility(targetCharacterStatus, 5, 0, 5, .2f, 0, 0, false);
         }
+        //spearman attack3
         else if (abilityUsed == 14)
         {
-            _caster.castAbility(targetCharacterStatus, 5, 0, 3, 0, 0, 0, true);
+            _caster.castAbility(targetCharacterStatus, 5, 0, 7, .4f, 0, 0, false);
         }
+        //warrior attack3
         else if (abilityUsed == 15)
         {
-            _caster.castAbility(targetCharacterStatus, 5, 0, 3, 0, 0, 0, true);
+            _caster.castAbility(targetCharacterStatus, 4, 0, 3, 0, 0, 0, true);
         }
+        //warrior attack3
         else if (abilityUsed == 16)
         {
-            _caster.castAbility(targetCharacterStatus, 5, 0, 3, 0, 0, 0, true);
+            _caster.castAbility(targetCharacterStatus, 4, 0, 5, .1f, 0, 0, true);
         }
+        //warrior attack3
         else if (abilityUsed == 17)
         {
-            _caster.castAbility(targetCharacterStatus, 5, 0, 3, 0, 0, 0, true);
+            _caster.castAbility(targetCharacterStatus, 4, 0, 6, .3f, 0, 0, true);
         }
+        //self heal
         else if (abilityUsed == 18)
         {
             _caster.castAbility(targetCharacterStatus, 0, 5, 5, 0, 0, 0, true);
         }
+        //full armor buff
         else if (abilityUsed == 19)
         {
             if (_casterStatus.currentAction >= 8 && _casterStatus.currentHealth > 0)
@@ -357,6 +376,7 @@ public class CastSpell : NetworkBehaviour
                 }
             }
         }
+        //armor pen buff
         else if (abilityUsed == 20)
         {
             if (_casterStatus.currentAction >= 5 && _casterStatus.currentHealth > 0)
@@ -368,6 +388,7 @@ public class CastSpell : NetworkBehaviour
                 }
             }
         }
+        //keep moving
         else if (abilityUsed == 21)
         {
             if (_casterStatus.currentAction >= 3 && _casterStatus.currentHealth > 0)
@@ -376,6 +397,7 @@ public class CastSpell : NetworkBehaviour
                 _casterStatus._numMovesRemaining += 3;
             }
         }
+        //take a rest
         else if (abilityUsed == 22)
         {
             if(_casterStatus._numMovesRemaining > 0 && _casterStatus.currentAction < _casterStatus.maxAction)
@@ -388,6 +410,7 @@ public class CastSpell : NetworkBehaviour
                 }
             }
         }
+        //death march
         else if (abilityUsed == 23)
         {
             if (_casterStatus.currentHealth > 5)

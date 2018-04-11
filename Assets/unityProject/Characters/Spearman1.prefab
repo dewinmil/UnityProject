@@ -3271,11 +3271,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamNum: 1
   maxAction: 20
-  currentAction: 20
-  maxHealth: 20
-  currentHealth: 20
-  physicalArmor: 0
-  magicArmor: 0
+  currentAction: 10
+  maxHealth: 30
+  currentHealth: 30
+  physicalArmor: 0.35
+  magicArmor: 0.35
   tempPhysicalArmor: 0
   tempMagicArmor: 0
   tempArmorPen: 0
