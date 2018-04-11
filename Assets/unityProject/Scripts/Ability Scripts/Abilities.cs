@@ -66,7 +66,7 @@ public class Abilities : NetworkBehaviour
         rangeCheck = true;
         int spellRange = canCast(null, ability);
         rangeCheck = false;
-        if (spellRange != 0)
+        if (spellRange != -1)
         {
             Unit _unit = gameObject.GetComponentInParent<CharacterStatus>()._unit;
             FindObjectOfType<TileMap>().HighlightTargetableTiles(_unit.tileX, _unit.tileZ, spellRange);
@@ -95,29 +95,43 @@ public class Abilities : NetworkBehaviour
                 //check if the spell effect is reduced by magic resistance or armor
                 if (isMagic)
                 {
-
+                    magicPen += _casterStatus.tempMagicPen;
                     if (magicPen == 0)
                     {
-                        resistance = target.magicArmor;
+                        resistance = target.magicArmor + target.tempPhysicalArmor;
                     }
                     else
                     {
-                        resistance = target.magicArmor * (1 - magicPen);
+                        resistance = (target.magicArmor + target.tempMagicArmor) * (1 - magicPen);
                     }
-
                     //ensure penetration doesnt add damage and that resistance doesn't cause healing
-                    if (resistance < 0 || resistance >= 1) //bad spell
+                    if (resistance < 0)
                     {
                         resistance = 0;
+                    }
+                    if(resistance >= 1)
+                    {
+                        resistance = 1;
+                    }
+                    target.tempMagicArmor -= .1f;
+                    _casterStatus.tempMagicPen -= .1f;
+                    if (target.tempMagicArmor < 0)
+                    {
+                        target.tempMagicArmor = 0;
+                    }
+                    if (_casterStatus.tempMagicPen < 0)
+                    {
+                        _casterStatus.tempMagicPen = 0;
                     }
                     //deal damage wieghted by resistance
                     target.loseHealth(damage * (1 - resistance));
                 }
                 else
                 {
+                    armorPen += _casterStatus.tempArmorPen;
                     if (armorPen == 0)
                     {
-                        resistance = target.physicalArmor;
+                        resistance = target.physicalArmor + target.tempPhysicalArmor;
                     }
                     else
                     {
@@ -125,9 +139,24 @@ public class Abilities : NetworkBehaviour
                     }
 
                     //ensure penetration doesnt add damage and that resistance doesn't cause healing
-                    if (resistance < 0 || resistance >= 1)//bad spell
+                    if (resistance < 0)
                     {
                         resistance = 0;
+                    }
+                    if(resistance >= 1)
+                    {
+                        resistance = 1;
+                    }
+
+                    target.tempPhysicalArmor -= .1f;
+                    _casterStatus.tempArmorPen -= .1f;
+                    if (target.tempPhysicalArmor < 0)
+                    {
+                        target.tempPhysicalArmor = 0;
+                    }
+                    if (_casterStatus.tempArmorPen < 0)
+                    {
+                        _casterStatus.tempArmorPen = 0;
                     }
 
                     //deal damage weighted by resistance
@@ -262,7 +291,7 @@ public class Abilities : NetworkBehaviour
                         {
                             //_unit.abil = abilityUsed;
 
-                            if (canCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), abilityUsed) != 0)
+                            if (canCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), abilityUsed) != -1)
                             {
                                 //cast an ability
                                 if (buttonPressed == 1)
@@ -390,12 +419,12 @@ public class Abilities : NetworkBehaviour
                 }
                 else
                 {
-                    return 0;
+                    return -1;
                 }
             }
             else
             {
-                return 0;
+                return -1;
             }
         }
         //flamecircle
@@ -416,12 +445,12 @@ public class Abilities : NetworkBehaviour
                 }
                 else
                 {
-                    return 0;
+                    return -1;
                 }
             }
             else
             {
-                return 0;
+                return -1;
             }
         }
         //healing circle
@@ -442,12 +471,12 @@ public class Abilities : NetworkBehaviour
                 }
                 else
                 {
-                    return 0;
+                    return -1;
                 }
             }
             else
             {
-                return 0;
+                return -1;
             }
         }
         //cleave
@@ -468,12 +497,12 @@ public class Abilities : NetworkBehaviour
                 }
                 else
                 {
-                    return 0;
+                    return -1;
                 }
             }
             else
             {
-                return 0;
+                return -1;
             }
         }
         //dark circle
@@ -494,12 +523,12 @@ public class Abilities : NetworkBehaviour
                 }
                 else
                 {
-                    return 0;
+                    return -1;
                 }
             }
             else
             {
-                return 0;
+                return -1;
             }
         }
         //smite
@@ -520,12 +549,12 @@ public class Abilities : NetworkBehaviour
                 }
                 else
                 {
-                    return 0;
+                    return -1;
                 }
             }
             else
             {
-                return 0;
+                return -1;
             }
         }
         //ap buff
@@ -546,12 +575,12 @@ public class Abilities : NetworkBehaviour
                 }
                 else
                 {
-                    return 0;
+                    return -1;
                 }
             }
             else
             {
-                return 0;
+                return -1;
             }
         }
         //healthbuff
@@ -572,14 +601,15 @@ public class Abilities : NetworkBehaviour
                 }
                 else
                 {
-                    return 0;
+                    return -1;
                 }
             }
             else
             {
-                return 0;
+                return -1;
             }
         }
+        //attack 1
         if (_abilityNum == 9)
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
@@ -593,18 +623,19 @@ public class Abilities : NetworkBehaviour
                     {
                         _unit.abil = 7;
                     }
-                    return 3;
+                    return 1;
                 }
                 else
                 {
-                    return 0;
+                    return -1;
                 }
             }
             else
             {
-                return 0;
+                return -1;
             }
         }
+        //attack 2
         if (_abilityNum == 10)
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
@@ -618,18 +649,19 @@ public class Abilities : NetworkBehaviour
                     {
                         _unit.abil = 8;
                     }
-                    return 3;
+                    return 1;
                 }
                 else
                 {
-                    return 0;
+                    return -1;
                 }
             }
             else
             {
-                return 0;
+                    return -1;
             }
         }
+        //attack 3
         if (_abilityNum == 11)
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
@@ -643,18 +675,19 @@ public class Abilities : NetworkBehaviour
                     {
                         _unit.abil = 9;
                     }
-                    return 3;
+                    return 1;
                 }
                 else
                 {
-                    return 0;
+                    return -1;
                 }
             }
             else
             {
-                return 0;
+                return -1;
             }
         }
+        //attack 1
         if (_abilityNum == 12)
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
@@ -672,14 +705,15 @@ public class Abilities : NetworkBehaviour
                 }
                 else
                 {
-                    return 0;
+                    return -1;
                 }
             }
             else
             {
-                return 0;
+                return -1;
             }
         }
+        //attack 2
         if (_abilityNum == 13)
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
@@ -697,14 +731,15 @@ public class Abilities : NetworkBehaviour
                 }
                 else
                 {
-                    return 0;
+                    return -1;
                 }
             }
             else
             {
-                return 0;
+                return -1;
             }
         }
+        //attack 3
         if (_abilityNum == 14)
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
@@ -722,14 +757,15 @@ public class Abilities : NetworkBehaviour
                 }
                 else
                 {
-                    return 0;
+                    return -1;
                 }
             }
             else
             {
-                return 0;
+                return -1;
             }
         }
+        //attack 1
         if (_abilityNum == 15)
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
@@ -747,14 +783,15 @@ public class Abilities : NetworkBehaviour
                 }
                 else
                 {
-                    return 0;
+                    return -1;
                 }
             }
             else
             {
-                return 0;
+                return -1;
             }
         }
+        //attack 2
         if (_abilityNum == 16)
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
@@ -772,14 +809,15 @@ public class Abilities : NetworkBehaviour
                 }
                 else
                 {
-                    return 0;
+                    return -1;
                 }
             }
             else
             {
-                return 0;
+                return -1;
             }
         }
+        //attack 3
         if (_abilityNum == 17)
         {
             if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
@@ -797,17 +835,78 @@ public class Abilities : NetworkBehaviour
                 }
                 else
                 {
-                    return 0;
+                    return -1;
                 }
             }
             else
             {
-                return 0;
+                return -1;
+            }
+        }
+        //healing circle
+        if (_abilityNum == 18)
+        {
+            if (_casterStatus.currentAction > 5 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 0 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
+                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 0)
+                {
+                    if (!rangeCheck)
+                    {
+                        _unit.abil = 3;
+                    }
+                    return 0;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            else
+            {
+                return -1;
+            }
+        }
+        //Armor Buff
+        if (_abilityNum == 19)
+        {
+            if (_casterStatus.currentAction > 5 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            {
+                print(Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX));
+                print(Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ));
+
+                print(Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 0 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
+                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 0);
+
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 0 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
+                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 0)
+                {
+                    if (!rangeCheck)
+                    {
+                        _unit.abil = 3;
+                    }
+                    return 0;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            else
+            {
+                return -1;
             }
         }
         else
         {
-            return 0;
+            return -1;
         }
     }
+
 }

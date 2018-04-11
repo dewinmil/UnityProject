@@ -14,6 +14,7 @@ public class CastSpell : NetworkBehaviour
     public GameObject abilityAnimation;
     public GameObject abilityHitAnimation;
     public Abilities _caster;
+    CharacterStatus _casterStatus;
     public bool spellMoves;
     private GameObject currentAnimation;
     private CharacterStatus spellTarget;
@@ -25,7 +26,7 @@ public class CastSpell : NetworkBehaviour
     // Use this for initialization
     void Start()
     {
-
+        _casterStatus = _caster.GetComponentInParent<CharacterStatus>();
     }
 
     // Update is called once per frame
@@ -339,6 +340,19 @@ public class CastSpell : NetworkBehaviour
         else if (abilityUsed == 17)
         {
             _caster.castAbility(targetCharacterStatus, 5, 0, 3, 0, 0, 0, true);
+        }
+        else if (abilityUsed == 18)
+        {
+            _caster.castAbility(targetCharacterStatus, 0, 5, 5, 0, 0, 0, true);
+        }
+        else if (abilityUsed == 19)
+        {
+            if (_casterStatus.currentAction >= 8 && _casterStatus.currentHealth > 0)
+            {
+                _casterStatus.currentAction -= 8;
+                _casterStatus.tempPhysicalArmor = .3f;
+                _casterStatus.tempMagicArmor = .3f;
+            }
         }
     }
 }
