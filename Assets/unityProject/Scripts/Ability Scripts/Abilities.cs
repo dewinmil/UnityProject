@@ -459,17 +459,17 @@ public class Abilities : NetworkBehaviour
         //attack 1
         if (_abilityNum == 12)
         {
-            return runCheck(theTarget, 3, 7, 1);
+            return runCheck(theTarget, 3, 7, 2);
         }
         //attack 2
         if (_abilityNum == 13)
         {
-            return runCheck(theTarget, 3, 8, 1);
+            return runCheck(theTarget, 3, 8, 2);
         }
         //attack 3
         if (_abilityNum == 14)
         {
-            return runCheck(theTarget, 3, 9, 1);
+            return runCheck(theTarget, 3, 9, 2);
         }
         //attack 1
         if (_abilityNum == 15)
@@ -502,7 +502,7 @@ public class Abilities : NetworkBehaviour
         }
         if (_abilityNum == 21)
         {
-            return runCheck(theTarget, 5, 3, 0);
+            return runCheck(theTarget, 3, 3, 0);
         }
         if (_abilityNum == 22)
         {
@@ -510,7 +510,7 @@ public class Abilities : NetworkBehaviour
         }
         if (_abilityNum == 23)
         {
-            return runCheck(theTarget, 5, 3, 0);
+            return runCheck(theTarget, 0, 3, 0);
         }
         return -1;
     }
@@ -522,10 +522,13 @@ public class Abilities : NetworkBehaviour
             if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= range &&
                 Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= range)
             {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == range &&
-                Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == range)
+                if (range != 0)
                 {
-                    return -1;
+                    if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == range &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == range)
+                    {
+                        return -1;
+                    }
                 }
                 if (!rangeCheck)
                 {

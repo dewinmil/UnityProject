@@ -349,26 +349,52 @@ public class CastSpell : NetworkBehaviour
         {
             if (_casterStatus.currentAction >= 8 && _casterStatus.currentHealth > 0)
             {
-                _casterStatus.currentAction -= 8;
-                _casterStatus.tempPhysicalArmor = .3f;
-                _casterStatus.tempMagicArmor = .3f;
+                if (_casterStatus.tempMagicArmor < .3f || _casterStatus.tempPhysicalArmor < .3f)
+                {
+                    _casterStatus.currentAction -= 8;
+                    _casterStatus.tempPhysicalArmor = .3f;
+                    _casterStatus.tempMagicArmor = .3f;
+                }
             }
         }
-        else if (abilityUsed == 18)
+        else if (abilityUsed == 20)
         {
-
+            if (_casterStatus.currentAction >= 5 && _casterStatus.currentHealth > 0)
+            {
+                if (_casterStatus.tempArmorPen < .3f)
+                {
+                    _casterStatus.currentAction -= 5;
+                    _casterStatus.tempArmorPen = .3f;
+                }
+            }
         }
-        else if (abilityUsed == 18)
+        else if (abilityUsed == 21)
         {
-
+            if (_casterStatus.currentAction >= 3 && _casterStatus.currentHealth > 0)
+            {
+                _casterStatus.currentAction -= 3;
+                _casterStatus._numMovesRemaining += 3;
+            }
         }
-        else if (abilityUsed == 18)
+        else if (abilityUsed == 22)
         {
-
+            if(_casterStatus._numMovesRemaining > 0 && _casterStatus.currentAction < _casterStatus.maxAction)
+            {
+                _casterStatus.currentAction += _casterStatus._numMovesRemaining;
+                _casterStatus._numMovesRemaining = 0;
+                if(_casterStatus.currentAction > _casterStatus.maxAction)
+                {
+                    _casterStatus.currentAction = _casterStatus.maxAction;
+                }
+            }
         }
-        else if (abilityUsed == 18)
+        else if (abilityUsed == 23)
         {
-
+            if (_casterStatus.currentHealth > 5)
+            {
+                _casterStatus.currentHealth -= 5;
+                _casterStatus._numMovesRemaining += 5;
+            }
         }
     }
 }
