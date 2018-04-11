@@ -3872,8 +3872,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamNum: 1
-  maxAction: 20
-  currentAction: 20
+  maxAction: 30
+  currentAction: 15
   maxHealth: 20
   currentHealth: 20
   physicalArmor: 0
