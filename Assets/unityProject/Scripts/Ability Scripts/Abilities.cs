@@ -510,7 +510,7 @@ public class Abilities : NetworkBehaviour
         }
         if (_abilityNum == 23)
         {
-            return runCheck(theTarget, 0, 3, 0);
+            return runCheckWithHealth(theTarget, 5, 3, 0);
         }
         return -1;
     }
@@ -518,6 +518,38 @@ public class Abilities : NetworkBehaviour
     public int runCheck(CharacterStatus theTarget, int AP, int abilNum, int range)
     {
         if (_casterStatus.currentAction > AP && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+        {
+            if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= range &&
+                Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= range)
+            {
+                if (range != 0)
+                {
+                    if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == range &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == range)
+                    {
+                        return -1;
+                    }
+                }
+                if (!rangeCheck)
+                {
+                    _unit.abil = abilNum;
+                }
+                return range;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    public int runCheckWithHealth(CharacterStatus theTarget, int health, int abilNum, int range)
+    {
+        if (_casterStatus.currentHealth > health && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
         {
             if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= range &&
                 Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= range)
