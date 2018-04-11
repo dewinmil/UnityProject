@@ -2742,8 +2742,8 @@ MonoBehaviour:
   currentAction: 15
   maxHealth: 40
   currentHealth: 40
-  physicalArmor: 50
-  magicArmor: 50
+  physicalArmor: 0.5
+  magicArmor: 0.5
   tempPhysicalArmor: 0
   tempMagicArmor: 0
   tempArmorPen: 0

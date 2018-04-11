@@ -111,6 +111,7 @@ public class Abilities : NetworkBehaviour
                     }
                     if(resistance >= 1)
                     {
+                        print("resistances too big");
                         resistance = 1;
                     }
                     target.tempMagicArmor -= .1f;
@@ -145,6 +146,7 @@ public class Abilities : NetworkBehaviour
                     }
                     if(resistance >= 1)
                     {
+                        print("resistances too big");
                         resistance = 1;
                     }
 

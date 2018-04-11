@@ -3877,7 +3877,7 @@ MonoBehaviour:
   maxHealth: 20
   currentHealth: 20
   physicalArmor: 0
-  magicArmor: 85
+  magicArmor: 0.85
   tempPhysicalArmor: 0
   tempMagicArmor: 0
   tempArmorPen: 0
