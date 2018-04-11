@@ -404,499 +404,134 @@ public class Abilities : NetworkBehaviour
         //fireball
         if (_abilityNum == 1)
         {
-            if (_casterStatus.currentAction > 3 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
-            {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
-                {
-                    if (!rangeCheck)
-                    {
-                        _unit.abil = 1;
-                    }
-                    return 3;
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-            else
-            {
-                return -1;
-            }
+            return runCheck(theTarget, 3, 1, 3);
         }
         //flamecircle
         if (_abilityNum == 2)
         {
-            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
-            {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
-                {
-                    if (!rangeCheck)
-                    {
-                        _unit.abil = 2;
-                    }
-                    return 3;
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-            else
-            {
-                return -1;
-            }
+            return runCheck(theTarget, 6, 2, 3);
         }
         //healing circle
         if (_abilityNum == 3)
         {
-            if (_casterStatus.currentAction > 5 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
-            {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
-                {
-                    if (!rangeCheck)
-                    {
-                        _unit.abil = 3;
-                    }
-                    return 3;
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-            else
-            {
-                return -1;
-            }
+            return runCheck(theTarget, 5, 3, 3);
         }
         //cleave
         if (_abilityNum == 4)
         {
-            if (_casterStatus.currentAction > 4 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
-            {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
-                {
-                    if (!rangeCheck)
-                    {
-                        _unit.abil = 4;
-                    }
-                    return 3;
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-            else
-            {
-                return -1;
-            }
+            return runCheck(theTarget, 4, 4, 3);
         }
         //dark circle
         if (_abilityNum == 5)
         {
-            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
-            {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
-                {
-                    if (!rangeCheck)
-                    {
-                        _unit.abil = 5;
-                    }
-                    return 3;
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-            else
-            {
-                return -1;
-            }
+            return runCheck(theTarget, 6, 5, 3);
         }
         //smite
         if (_abilityNum == 6)
         {
-            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
-            {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
-                {
-                    if (!rangeCheck)
-                    {
-                        _unit.abil = 1;
-                    }
-                    return 3;
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-            else
-            {
-                return -1;
-            }
+            return runCheck(theTarget, 6, 1, 3);
         }
         //ap buff
         if (_abilityNum == 7)
         {
-            if (_casterStatus.currentAction > 5 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
-            {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
-                {
-                    if (!rangeCheck)
-                    {
-                        _unit.abil = 2;
-                    }
-                    return 3;
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-            else
-            {
-                return -1;
-            }
+            return runCheck(theTarget, 12, 2, 3);
         }
         //healthbuff
         if (_abilityNum == 8)
         {
-            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
-            {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 3 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 3)
-                {
-                    if (!rangeCheck)
-                    {
-                        _unit.abil = 2;
-                    }
-                    return 3;
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-            else
-            {
-                return -1;
-            }
+            return runCheck(theTarget, 12, 2, 3);
         }
         //attack 1
         if (_abilityNum == 9)
         {
-            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
-            {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 1 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 1)
-                {
-                    if (!rangeCheck)
-                    {
-                        _unit.abil = 7;
-                    }
-                    return 1;
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-            else
-            {
-                return -1;
-            }
+            return runCheck(theTarget, 6, 7, 1);
         }
         //attack 2
         if (_abilityNum == 10)
         {
-            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
-            {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 1 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 1)
-                {
-                    if (!rangeCheck)
-                    {
-                        _unit.abil = 8;
-                    }
-                    return 1;
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-            else
-            {
-                    return -1;
-            }
+            return runCheck(theTarget, 6, 8, 1);
         }
         //attack 3
         if (_abilityNum == 11)
         {
-            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
-            {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 1 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 1)
-                {
-                    if (!rangeCheck)
-                    {
-                        _unit.abil = 9;
-                    }
-                    return 1;
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-            else
-            {
-                return -1;
-            }
+            return runCheck(theTarget, 6, 9, 1);
         }
         //attack 1
         if (_abilityNum == 12)
         {
-            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
-            {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 1 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 1)
-                {
-                    if (!rangeCheck)
-                    {
-                        _unit.abil = 7;
-                    }
-                    return 1;
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-            else
-            {
-                return -1;
-            }
+            return runCheck(theTarget, 3, 7, 1);
         }
         //attack 2
         if (_abilityNum == 13)
         {
-            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
-            {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 1 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 1)
-                {
-                    if (!rangeCheck)
-                    {
-                        _unit.abil = 8;
-                    }
-                    return 1;
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-            else
-            {
-                return -1;
-            }
+            return runCheck(theTarget, 3, 8, 1);
         }
         //attack 3
         if (_abilityNum == 14)
         {
-            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
-            {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 1 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 1)
-                {
-                    if (!rangeCheck)
-                    {
-                        _unit.abil = 9;
-                    }
-                    return 1;
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-            else
-            {
-                return -1;
-            }
+            return runCheck(theTarget, 3, 9, 1);
         }
         //attack 1
         if (_abilityNum == 15)
         {
-            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
-            {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 1 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 1)
-                {
-                    if (!rangeCheck)
-                    {
-                        _unit.abil = 7;
-                    }
-                    return 1;
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-            else
-            {
-                return -1;
-            }
+            return runCheck(theTarget, 3, 7, 1);
         }
         //attack 2
         if (_abilityNum == 16)
         {
-            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
-            {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 1 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 1)
-                {
-                    if (!rangeCheck)
-                    {
-                        _unit.abil = 8;
-                    }
-                    return 1;
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-            else
-            {
-                return -1;
-            }
+            return runCheck(theTarget, 3, 8, 1);
         }
         //attack 3
         if (_abilityNum == 17)
         {
-            if (_casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
-            {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 1 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 1)
-                {
-                    if (!rangeCheck)
-                    {
-                        _unit.abil = 9;
-                    }
-                    return 1;
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-            else
-            {
-                return -1;
-            }
+            return runCheck(theTarget, 3, 9, 1);
         }
         //healing circle
         if (_abilityNum == 18)
         {
-            if (_casterStatus.currentAction > 5 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
-            {
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 0)
-                {
-                    if (!rangeCheck)
-                    {
-                        _unit.abil = 3;
-                    }
-                    return 0;
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-            else
-            {
-                return -1;
-            }
+            return runCheck(theTarget, 5, 3, 0);
         }
-        //Armor Buff
+        //Full Armor Buff
         if (_abilityNum == 19)
         {
-            if (_casterStatus.currentAction > 5 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+            return runCheck(theTarget, 8, 3, 0);
+        }
+        if (_abilityNum == 20)
+        {
+            return runCheck(theTarget, 5, 3, 0);
+        }
+        if (_abilityNum == 21)
+        {
+            return runCheck(theTarget, 5, 3, 0);
+        }
+        if (_abilityNum == 22)
+        {
+            return runCheck(theTarget, 5, 3, 0);
+        }
+        if (_abilityNum == 23)
+        {
+            return runCheck(theTarget, 5, 3, 0);
+        }
+        return -1;
+    }
+
+    public int runCheck(CharacterStatus theTarget, int AP, int abilNum, int range)
+    {
+        if (_casterStatus.currentAction > AP && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+        {
+            if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= range &&
+                Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= range)
             {
-                print(Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX));
-                print(Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ));
-
-                print(Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 0);
-
-                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == 0 ||
-                    Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == 0 &&
-                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= 0)
-                {
-                    if (!rangeCheck)
-                    {
-                        _unit.abil = 3;
-                    }
-                    return 0;
-                }
-                else
+                if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == range &&
+                Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == range)
                 {
                     return -1;
                 }
+                if (!rangeCheck)
+                {
+                    _unit.abil = abilNum;
+                }
+                return range;
             }
             else
             {

@@ -128,7 +128,7 @@ public class CastSpell : NetworkBehaviour
         else
         {
             //if spell does not move set it's position to that of the target
-            serverAnimation.transform.position = new Vector3(serverAnimation.transform.position.x, 0, serverAnimation.transform.position.z);
+            serverAnimation.transform.position = new Vector3(serverAnimation.transform.position.x, -.15f, serverAnimation.transform.position.z);
         }
         serverAnimation.transform.parent = gameObject.transform;
 
@@ -353,6 +353,22 @@ public class CastSpell : NetworkBehaviour
                 _casterStatus.tempPhysicalArmor = .3f;
                 _casterStatus.tempMagicArmor = .3f;
             }
+        }
+        else if (abilityUsed == 18)
+        {
+
+        }
+        else if (abilityUsed == 18)
+        {
+
+        }
+        else if (abilityUsed == 18)
+        {
+
+        }
+        else if (abilityUsed == 18)
+        {
+
         }
     }
 }
