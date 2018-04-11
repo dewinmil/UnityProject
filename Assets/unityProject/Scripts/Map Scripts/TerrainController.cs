@@ -20,7 +20,7 @@ public class TerrainController : MonoBehaviour {
         }
         else
         {
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, .005f, gameObject.transform.position.z);
         }
 
     }
