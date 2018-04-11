@@ -5367,6 +5367,10 @@ MonoBehaviour:
   currentHealth: 20
   physicalArmor: 0
   magicArmor: 0
+  tempPhysicalArmor: 0
+  tempMagicArmor: 0
+  tempArmorPen: 0
+  tempMagicPen: 0
   dotAffected: 0
   healthBar: {fileID: 114736551055036842}
   actionBar: {fileID: 114027918883912696}
@@ -5424,10 +5428,14 @@ MonoBehaviour:
   teamNum: 2
   maxAction: 20
   currentAction: 20
-  maxHealth: 20
-  currentHealth: 20
+  maxHealth: 15
+  currentHealth: 15
   physicalArmor: 0
-  magicArmor: 0
+  magicArmor: 85
+  tempPhysicalArmor: 0
+  tempMagicArmor: 0
+  tempArmorPen: 0
+  tempMagicPen: 0
   dotAffected: 0
   healthBar: {fileID: 114736551055036842}
   actionBar: {fileID: 114027918883912696}

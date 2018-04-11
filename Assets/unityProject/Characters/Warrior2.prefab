@@ -1474,10 +1474,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamNum: 2
   maxAction: 20
-  currentAction: 20
+  currentAction: 10
   maxHealth: 20
   currentHealth: 20
-  physicalArmor: 0
+  physicalArmor: 25
   magicArmor: 0
   tempPhysicalArmor: 0
   tempMagicArmor: 0

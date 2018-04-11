@@ -409,7 +409,7 @@ public class Abilities : NetworkBehaviour
         //flamecircle
         if (_abilityNum == 2)
         {
-            return runCheck(theTarget, 6, 2, 3);
+            return runCheck(theTarget, 5, 2, 3);
         }
         //healing circle
         if (_abilityNum == 3)
@@ -424,12 +424,12 @@ public class Abilities : NetworkBehaviour
         //dark circle
         if (_abilityNum == 5)
         {
-            return runCheck(theTarget, 6, 5, 3);
+            return runCheck(theTarget, 7, 5, 3);
         }
         //smite
         if (_abilityNum == 6)
         {
-            return runCheck(theTarget, 6, 1, 3);
+            return runCheck(theTarget, 4, 1, 3);
         }
         //ap buff
         if (_abilityNum == 7)
@@ -441,50 +441,50 @@ public class Abilities : NetworkBehaviour
         {
             return runCheck(theTarget, 12, 2, 3);
         }
-        //attack 1
+        //knight attack 1
         if (_abilityNum == 9)
         {
-            return runCheck(theTarget, 6, 7, 1);
+            return runCheck(theTarget, 3, 7, 1);
         }
-        //attack 2
+        //knight attack 2
         if (_abilityNum == 10)
         {
-            return runCheck(theTarget, 6, 8, 1);
+            return runCheck(theTarget, 5, 8, 1);
         }
-        //attack 3
+        //knight attack 3
         if (_abilityNum == 11)
         {
-            return runCheck(theTarget, 6, 9, 1);
+            return runCheck(theTarget, 8, 9, 1);
         }
-        //attack 1
+        //spearman attack 1
         if (_abilityNum == 12)
         {
             return runCheck(theTarget, 3, 7, 2);
         }
-        //attack 2
+        //spearman attack 2
         if (_abilityNum == 13)
         {
-            return runCheck(theTarget, 3, 8, 2);
+            return runCheck(theTarget, 5, 8, 2);
         }
-        //attack 3
+        //spearman attack 3
         if (_abilityNum == 14)
         {
-            return runCheck(theTarget, 3, 9, 2);
+            return runCheck(theTarget, 7, 9, 2);
         }
-        //attack 1
+        //warrior attack 1
         if (_abilityNum == 15)
         {
             return runCheck(theTarget, 3, 7, 1);
         }
-        //attack 2
+        //warrior attack 2
         if (_abilityNum == 16)
         {
-            return runCheck(theTarget, 3, 8, 1);
+            return runCheck(theTarget, 5, 8, 1);
         }
-        //attack 3
+        //warrior attack 3
         if (_abilityNum == 17)
         {
-            return runCheck(theTarget, 3, 9, 1);
+            return runCheck(theTarget, 6, 9, 1);
         }
         //healing circle
         if (_abilityNum == 18)
@@ -496,18 +496,22 @@ public class Abilities : NetworkBehaviour
         {
             return runCheck(theTarget, 8, 3, 0);
         }
+        //self heal
         if (_abilityNum == 20)
         {
             return runCheck(theTarget, 5, 3, 0);
         }
+        //keep moving
         if (_abilityNum == 21)
         {
             return runCheck(theTarget, 3, 3, 0);
         }
+        //take a rest
         if (_abilityNum == 22)
         {
             return runCheck(theTarget, 5, 3, 0);
         }
+        //death march
         if (_abilityNum == 23)
         {
             return runCheckWithHealth(theTarget, 5, 3, 0);
