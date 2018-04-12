@@ -69,10 +69,6 @@ public class CharacterStatus : NetworkBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if(currentHealth <= 0)
-        {
-            _unit.CmdDeathAnim();
-        }
         if (endTurn == null)
         {
             endTurn = FindObjectOfType<EndTurn>();
@@ -115,6 +111,8 @@ public class CharacterStatus : NetworkBehaviour {
             {
                 //_unit.CmdDeathAnim();
 
+                _unit.dead = true;
+                _unit.CmdSynchAnimations(_unit.abil, _unit._isMoving, _unit.react, _unit.dead);
             }
         }
     }
@@ -143,7 +141,7 @@ public class CharacterStatus : NetworkBehaviour {
     {
         currentHealth -= damage;
         _unit.react = true;
-        _unit.CmdSynchAnimations(_unit.abil, _unit._isMoving, true);
+        _unit.CmdSynchAnimations(_unit.abil, _unit._isMoving, _unit.react, _unit.dead);
     }
     public void gainHealth(float healing)
     {

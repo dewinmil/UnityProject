@@ -220,12 +220,12 @@ public class CastSpell : NetworkBehaviour
         float difference;
         rotation = 0;
 
-
         if(xVal == 0)
         {
             xVal = .1f;
         }
-        if(zVal == 0)
+
+        if (zVal == 0)
         {
             zVal = .1f;
         }
