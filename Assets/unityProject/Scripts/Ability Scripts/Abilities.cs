@@ -537,7 +537,7 @@ public class Abilities : NetworkBehaviour
                 if (!rangeCheck)
                 {
                     _unit.abil = abilNum;
-                    _unit.CmdSynchAnimations(abilNum, _unit._isMoving, _unit.react);
+                    _unit.CmdSynchAnimations(abilNum, _unit._isMoving, _unit.react, _unit.dead);
                 }
                 return range;
             }

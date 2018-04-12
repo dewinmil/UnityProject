@@ -22,6 +22,8 @@ public class Unit : NetworkBehaviour
     public int abil;
     [SyncVar]
     public bool react;
+    [SyncVar]
+    public bool dead;
     //number of tiles the unit can move
     /// /////////////////////////////////////
     //DO NOT CHANGE THIS VALUE IN THIS FILE
@@ -42,6 +44,7 @@ public class Unit : NetworkBehaviour
         anim = GetComponentInChildren<Animator>();
         abil = 0;
         react = false;
+        dead = false;
         if (_map == null)
             _map = FindObjectOfType<TileMap>();
 
@@ -56,8 +59,13 @@ public class Unit : NetworkBehaviour
         abil = 0;
         anim.SetBool("React", react);
         react = false;
+        if (dead)
+        {
+            anim.SetBool("Dead", true);
+        }
     }
 
+    /*
     [Command]
     public void CmdDeathAnim()
     {
@@ -70,7 +78,7 @@ public class Unit : NetworkBehaviour
     {
         anim.SetBool("Dead", true);
     }
-
+    */
     void FixedUpdate()
     {
         if (_currentPath != null && _isMoving)
@@ -121,7 +129,7 @@ public class Unit : NetworkBehaviour
             _currentPath = null;
             _isMoving = false;
             moveToggle = false;
-            CmdSynchAnimations(abil, _isMoving, react);
+            CmdSynchAnimations(abil, _isMoving, react, dead);
         }
         else
         {
@@ -152,7 +160,7 @@ public class Unit : NetworkBehaviour
                     _map.CmdSetTileWalkable(this.tileX, this.tileZ, true);
                     MoveToNextTile();
                     _isMoving = true;
-                    CmdSynchAnimations(abil, _isMoving, react);
+                    CmdSynchAnimations(abil, _isMoving, react, dead);
                 }
             }
         }
@@ -200,19 +208,21 @@ public class Unit : NetworkBehaviour
     }
 
     [Command]
-    public void CmdSynchAnimations(int _abil, bool moving, bool _react)
+    public void CmdSynchAnimations(int _abil, bool moving, bool _react, bool _dead)
     {
         abil = _abil;
         _isMoving = moving;
         react = _react;
-        RpcSynchAnimations(abil, _isMoving, react);
+        dead = _dead;
+        RpcSynchAnimations(abil, _isMoving, react, dead);
     }
 
     [ClientRpc]
-    public void RpcSynchAnimations(int _abil, bool moving, bool _react)
+    public void RpcSynchAnimations(int _abil, bool moving, bool _react, bool _dead)
     {
         abil = _abil;
         _isMoving = moving;
         react = _react;
+        dead = _dead;
     }
 }
