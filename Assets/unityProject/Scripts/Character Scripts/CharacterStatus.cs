@@ -103,7 +103,7 @@ public class CharacterStatus : NetworkBehaviour {
         updateStatusBars();
         if(currentHealth <= 0)
         {
-            _unit.DeathAnim();
+            _unit.CmdDeathAnim();
         }
     }
 
@@ -131,6 +131,7 @@ public class CharacterStatus : NetworkBehaviour {
     {
         currentHealth -= damage;
         _unit.react = true;
+        _unit.CmdSynchAnimations(_unit.abil, _unit._isMoving, _unit.react);
     }
     public void gainHealth(float healing)
     {

@@ -12,18 +12,22 @@ public class Unit : NetworkBehaviour
     public int tileZ;
     public int unitId;
     public TileMap _map;
+    [SyncVar]
     public bool _isMoving;
     public MoveInput _characterMoveInput;
+    [SyncVar]
     public bool moveToggle;
     public Animator anim;
+    [SyncVar]
     public int abil;
+    [SyncVar]
     public bool react;
     //number of tiles the unit can move
     /// /////////////////////////////////////
     //DO NOT CHANGE THIS VALUE IN THIS FILE
     public int _numMoves;
     /// //////////////////////////////////////
-    
+
     public Rigidbody _rigidbody;
     private Vector3 _nextTile;
     private const float MOVEMENT_SPEED = 100f;
@@ -47,7 +51,6 @@ public class Unit : NetworkBehaviour
 
     void Update()
     {
-
         anim.SetBool("Moving", _isMoving);
         anim.SetInteger("Ability", abil);
         abil = 0;
@@ -55,7 +58,16 @@ public class Unit : NetworkBehaviour
         react = false;
     }
 
-    public void DeathAnim() {
+    [Command]
+    public void CmdDeathAnim()
+    {
+        anim.SetBool("Dead", true);
+        RpcDeathAnim();
+    }
+
+    [ClientRpc]
+    public void RpcDeathAnim()
+    {
         anim.SetBool("Dead", true);
     }
 
@@ -109,6 +121,7 @@ public class Unit : NetworkBehaviour
             _currentPath = null;
             _isMoving = false;
             moveToggle = false;
+            CmdSynchAnimations(abil, _isMoving, react);
         }
         else
         {
@@ -133,12 +146,13 @@ public class Unit : NetworkBehaviour
                 if (_currentPath == null)
                     return;
 
-                if (_characterStatus.CanMove(_currentPath.Count-1, _costToMove))
+                if (_characterStatus.CanMove(_currentPath.Count - 1, _costToMove))
                 {
                     _nextTile = _map.TileCoordToWorldCoord(_currentPath[0].x, _currentPath[0].z);
                     _map.CmdSetTileWalkable(this.tileX, this.tileZ, true);
                     MoveToNextTile();
                     _isMoving = true;
+                    CmdSynchAnimations(abil, _isMoving, react);
                 }
             }
         }
@@ -183,5 +197,22 @@ public class Unit : NetworkBehaviour
             return true;
 
         return false;
+    }
+
+    [Command]
+    public void CmdSynchAnimations(int _abil, bool moving, bool _react)
+    {
+        abil = _abil;
+        _isMoving = moving;
+        react = _react;
+        RpcSynchAnimations(abil, _isMoving, react);
+    }
+
+    [ClientRpc]
+    public void RpcSynchAnimations(int _abil, bool moving, bool _react)
+    {
+        abil = _abil;
+        _isMoving = moving;
+        react = _react;
     }
 }
