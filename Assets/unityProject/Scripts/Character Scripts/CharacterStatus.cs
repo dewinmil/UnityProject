@@ -110,6 +110,7 @@ public class CharacterStatus : NetworkBehaviour {
             if (currentHealth <= 0)
             {
                 //_unit.CmdDeathAnim();
+
                 _unit.dead = true;
                 _unit.CmdSynchAnimations(_unit.abil, _unit._isMoving, _unit.react, _unit.dead);
             }

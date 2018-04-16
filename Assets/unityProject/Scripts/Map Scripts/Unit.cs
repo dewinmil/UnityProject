@@ -69,6 +69,7 @@ public class Unit : NetworkBehaviour
     [Command]
     public void CmdDeathAnim()
     {
+>>>>>>> 05ac7a4d59ee04c018d72e3b781d2d0b8ae27fce
         anim.SetBool("Dead", true);
         RpcDeathAnim();
     }
@@ -78,7 +79,10 @@ public class Unit : NetworkBehaviour
     {
         anim.SetBool("Dead", true);
     }
+<<<<<<< HEAD
+=======
     */
+
     void FixedUpdate()
     {
         if (_currentPath != null && _isMoving)
@@ -129,6 +133,7 @@ public class Unit : NetworkBehaviour
             _currentPath = null;
             _isMoving = false;
             moveToggle = false;
+
             CmdSynchAnimations(abil, _isMoving, react, dead);
         }
         else
@@ -160,6 +165,7 @@ public class Unit : NetworkBehaviour
                     _map.CmdSetTileWalkable(this.tileX, this.tileZ, true);
                     MoveToNextTile();
                     _isMoving = true;
+
                     CmdSynchAnimations(abil, _isMoving, react, dead);
                 }
             }
@@ -213,6 +219,7 @@ public class Unit : NetworkBehaviour
         abil = _abil;
         _isMoving = moving;
         react = _react;
+
         dead = _dead;
         RpcSynchAnimations(abil, _isMoving, react, dead);
     }

@@ -224,6 +224,7 @@ public class CastSpell : NetworkBehaviour
         {
             xVal = .1f;
         }
+
         if (zVal == 0)
         {
             zVal = .1f;
