@@ -158,4 +158,5 @@ public class AudioManager : MonoBehaviour
         music.source.volume = volumeSlider.value;
         volumeChanged = true;
     }
+    
 }
