@@ -14,6 +14,7 @@ public class CastSpell : NetworkBehaviour
     public GameObject abilityAnimation;
     public GameObject abilityHitAnimation;
     public Abilities _caster;
+    CharacterStatus _casterStatus;
     public bool spellMoves;
     private GameObject currentAnimation;
     private CharacterStatus spellTarget;
@@ -25,7 +26,7 @@ public class CastSpell : NetworkBehaviour
     // Use this for initialization
     void Start()
     {
-
+        _casterStatus = _caster.GetComponentInParent<CharacterStatus>();
     }
 
     // Update is called once per frame
@@ -127,7 +128,7 @@ public class CastSpell : NetworkBehaviour
         else
         {
             //if spell does not move set it's position to that of the target
-            serverAnimation.transform.position = new Vector3(serverAnimation.transform.position.x, 0, serverAnimation.transform.position.z);
+            serverAnimation.transform.position = new Vector3(serverAnimation.transform.position.x, -.15f, serverAnimation.transform.position.z);
         }
         serverAnimation.transform.parent = gameObject.transform;
 
@@ -219,7 +220,15 @@ public class CastSpell : NetworkBehaviour
         float difference;
         rotation = 0;
 
+        if(xVal == 0)
+        {
+            xVal = .1f;
+        }
 
+        if (zVal == 0)
+        {
+            zVal = .1f;
+        }
         while (Mathf.Abs(xVal) < 1 || Mathf.Abs(zVal) < 1)
         {
             xVal = xVal + xVal;
@@ -272,177 +281,151 @@ public class CastSpell : NetworkBehaviour
         {
             targetCharacterStatus = spellTarget;
         }
+        //fireball
         if (abilityUsed == 1)
         {
-            _caster.castAbility(targetCharacterStatus, 3, 0, 3, 0, (float).5, 0, true);
+            _caster.castAbility(targetCharacterStatus, 3, 0, 3, 0, .2f, 0, true);
         }
+        //flame circle
         else if (abilityUsed == 2)
         {
-            _caster.castAbility(targetCharacterStatus, 7, 0, 6, 0, 0, 0, true);
+            _caster.castAbility(targetCharacterStatus, 4, 0, 5, 0, 0, .5f, true);
         }
+        //healing circle
         else if (abilityUsed == 3)
         {
             _caster.castAbility(targetCharacterStatus, 0, 5, 5, 0, 0, 0, true);
         }
+        //shockwave
         else if (abilityUsed == 4)
         {
             _caster.castAbility(targetCharacterStatus, 5, 0, 4, (float).25, 0, 0, false);
         }
+        //dark circle
         else if (abilityUsed == 5)
         {
-            _caster.castAbility(targetCharacterStatus, 5, 0, 6, 0, 1, 0, true);
+            _caster.castAbility(targetCharacterStatus, 5, 0, 7, 0, .8f, 0, true);
         }
+        //smite
         else if (abilityUsed == 6)
         {
-            _caster.castAbility(targetCharacterStatus, 5, 0, 6, .25f, .25f, 0, true);
+            _caster.castAbility(targetCharacterStatus, 3, 0, 4, 0, .25f, 0, true);
         }
+        //ap buff
         else if (abilityUsed == 7)
         {
             _caster.castAbility(targetCharacterStatus, 0, 0, 12, 0, 0, 5, true);
         }
+        //health buff
         else if (abilityUsed == 8)
         {
             _caster.castAbility(targetCharacterStatus, 0, 0, 12, 0, 0, 5, false);
         }
+        //knight attack1
         else if (abilityUsed == 9)
         {
-            _caster.castAbility(targetCharacterStatus, 5, 0, 6, 0, 1, 0, true);
+            _caster.castAbility(targetCharacterStatus, 8, 0, 3, 0, 0, 0, false);
         }
+        //knight attack2
         else if (abilityUsed == 10)
         {
-            _caster.castAbility(targetCharacterStatus, 5, 0, 6, 0, 1, 0, true);
+            _caster.castAbility(targetCharacterStatus, 8, 0, 5, .5f, 0, 0, false);
         }
+        //knight attack3
         else if (abilityUsed == 11)
         {
-            _caster.castAbility(targetCharacterStatus, 5, 0, 6, 0, 1, 0, true);
+            _caster.castAbility(targetCharacterStatus, 8, 0, 8, .8f, 0, 0, false);
         }
+        //spearman attack1
         else if (abilityUsed == 12)
         {
-            _caster.castAbility(targetCharacterStatus, 5, 0, 3, 0, 0, 0, true);
+            _caster.castAbility(targetCharacterStatus, 5, 0, 3, 0, 0, 0, false);
+        }
+        //spearman attack2
+        else if (abilityUsed == 13)
+        {
+            _caster.castAbility(targetCharacterStatus, 5, 0, 5, .2f, 0, 0, false);
+        }
+        //spearman attack3
+        else if (abilityUsed == 14)
+        {
+            _caster.castAbility(targetCharacterStatus, 5, 0, 7, .4f, 0, 0, false);
+        }
+        //warrior attack3
+        else if (abilityUsed == 15)
+        {
+            _caster.castAbility(targetCharacterStatus, 4, 0, 3, 0, 0, 0, true);
+        }
+        //warrior attack3
+        else if (abilityUsed == 16)
+        {
+            _caster.castAbility(targetCharacterStatus, 4, 0, 5, .1f, 0, 0, true);
+        }
+        //warrior attack3
+        else if (abilityUsed == 17)
+        {
+            _caster.castAbility(targetCharacterStatus, 4, 0, 6, .3f, 0, 0, true);
+        }
+        //self heal
+        else if (abilityUsed == 18)
+        {
+            _caster.castAbility(targetCharacterStatus, 0, 5, 5, 0, 0, 0, true);
+        }
+        //full armor buff
+        else if (abilityUsed == 19)
+        {
+            if (_casterStatus.currentAction >= 8 && _casterStatus.currentHealth > 0)
+            {
+                if (_casterStatus.tempMagicArmor < .3f || _casterStatus.tempPhysicalArmor < .3f)
+                {
+                    _casterStatus.currentAction -= 8;
+                    _casterStatus.tempPhysicalArmor = .3f;
+                    _casterStatus.tempMagicArmor = .3f;
+                }
+            }
+        }
+        //armor pen buff
+        else if (abilityUsed == 20)
+        {
+            if (_casterStatus.currentAction >= 5 && _casterStatus.currentHealth > 0)
+            {
+                if (_casterStatus.tempArmorPen < .3f)
+                {
+                    _casterStatus.currentAction -= 5;
+                    _casterStatus.tempArmorPen = .3f;
+                }
+            }
+        }
+        //keep moving
+        else if (abilityUsed == 21)
+        {
+            if (_casterStatus.currentAction >= 3 && _casterStatus.currentHealth > 0)
+            {
+                _casterStatus.currentAction -= 3;
+                _casterStatus._numMovesRemaining += 3;
+            }
+        }
+        //take a rest
+        else if (abilityUsed == 22)
+        {
+            if(_casterStatus._numMovesRemaining > 0 && _casterStatus.currentAction < _casterStatus.maxAction)
+            {
+                _casterStatus.currentAction += _casterStatus._numMovesRemaining;
+                _casterStatus._numMovesRemaining = 0;
+                if(_casterStatus.currentAction > _casterStatus.maxAction)
+                {
+                    _casterStatus.currentAction = _casterStatus.maxAction;
+                }
+            }
+        }
+        //death march
+        else if (abilityUsed == 23)
+        {
+            if (_casterStatus.currentHealth > 5)
+            {
+                _casterStatus.currentHealth -= 5;
+                _casterStatus._numMovesRemaining += 5;
+            }
         }
     }
-
-    /*
-    public void canCast(CharacterStatus theTarget, int _abilityNum)
-    {
-        Unit _unit = gameObject.GetComponentInParent<CharacterStatus>()._unit;
-        FindObjectOfType<TileMap>().HighlightTargetableTiles(_unit.tileX, _unit.tileZ, 1);
-        if (_abilityNum == 1)
-        {
-            if (_caster._casterStatus.currentAction > 3 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
-            {
-                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 12)
-                {
-                    cast(_abilityNum);
-                }
-            }
-        }
-        if (_abilityNum == 2)
-        {
-            if (_caster._casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
-            {
-                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
-                {
-                    cast(_abilityNum);
-                }
-            }
-        }
-        if (_abilityNum == 3)
-        {
-            if (_caster._casterStatus.currentAction > 5 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
-            {
-                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
-                {
-                    cast(_abilityNum);
-                }
-            }
-        }
-        if (_abilityNum == 4)
-        {
-            if (_caster._casterStatus.currentAction > 4 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
-            {
-                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 9)
-                {
-                    cast(_abilityNum);
-                }
-            }
-        }
-        if (_abilityNum == 5)
-        {
-            if (_caster._casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
-            {
-                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
-                {
-                    cast(_abilityNum);
-                }
-            }
-        }
-        if (_abilityNum == 6)
-        {
-            if (_caster._casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
-            {
-                Vector3 test = new Vector3(gameObject.transform.position.x, 0, gameObject.transform.position.z);
-                Vector3 test1 = new Vector3(target.transform.position.x, 0, target.transform.position.z);
-                print("right after this");
-                print(gameObject.transform.position.x);
-                print(gameObject.transform.position.z);
-                print(target.transform.position.x);
-                print(target.transform.position.z);
-                if (Vector3.Distance(test, test1) <= 1)
-                {
-                    cast(_abilityNum);
-                }
-            }
-        }
-        if (_abilityNum == 7)
-        {
-            if (_caster._casterStatus.currentAction > 5 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
-            {
-                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
-                {
-                    cast(_abilityNum);
-                }
-            }
-        }
-        if (_abilityNum == 8)
-        {
-            if (_caster._casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
-            {
-                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
-                {
-                    cast(_abilityNum);
-                }
-            }
-        }
-        if (_abilityNum == 9)
-        {
-            if (_caster._casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
-            {
-                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
-                {
-                    cast(_abilityNum);
-                }
-            }
-        }
-        if (_abilityNum == 10)
-        {
-            if (_caster._casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
-            {
-                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
-                {
-                    cast(_abilityNum);
-                }
-            }
-        }
-        if (_abilityNum == 11)
-        {
-            if (_caster._casterStatus.currentAction > 6 && theTarget.currentHealth > 0 && _caster._casterStatus.currentHealth > 0)
-            {
-                if (Vector3.Distance(gameObject.transform.position, theTarget.transform.position) < 7)
-                {
-                    cast(_abilityNum);
-                }
-            }
-        }
-    }*/
 }

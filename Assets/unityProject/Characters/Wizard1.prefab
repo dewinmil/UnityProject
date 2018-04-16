@@ -3600,6 +3600,11 @@ MonoBehaviour:
   currentHealth: 20
   physicalArmor: 0
   magicArmor: 0
+  tempPhysicalArmor: 0
+  tempMagicArmor: 0
+  tempArmorPen: 0
+  tempMagicPen: 0
+  dotAffected: 0
   healthBar: {fileID: 114282891680746150}
   actionBar: {fileID: 114843852561827750}
   healthBarText: {fileID: 114760797371033404}
@@ -3614,6 +3619,7 @@ MonoBehaviour:
   isLeader: 0
   winScreen: {fileID: 0}
   loseScreen: {fileID: 0}
+  _numMovesRemaining: 0
 --- !u!114 &114021559098807616
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3745,7 +3751,7 @@ MonoBehaviour:
   m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TransformSyncMode: 1
+  m_TransformSyncMode: 3
   m_SendInterval: 0.033333335
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
@@ -3866,12 +3872,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamNum: 1
-  maxAction: 20
-  currentAction: 20
+  maxAction: 30
+  currentAction: 15
   maxHealth: 20
   currentHealth: 20
   physicalArmor: 0
-  magicArmor: 0
+  magicArmor: 0.85
+  tempPhysicalArmor: 0
+  tempMagicArmor: 0
+  tempArmorPen: 0
+  tempMagicPen: 0
+  dotAffected: 0
   healthBar: {fileID: 114282891680746150}
   actionBar: {fileID: 114843852561827750}
   healthBarText: {fileID: 114760797371033404}
@@ -3886,6 +3897,7 @@ MonoBehaviour:
   isLeader: 0
   winScreen: {fileID: 0}
   loseScreen: {fileID: 0}
+  _numMovesRemaining: 0
 --- !u!114 &114231020154421054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5226,6 +5238,7 @@ MonoBehaviour:
   react: 0
   _numMoves: 0
   _rigidbody: {fileID: 54082017879335532}
+  _costToMove: 0
 --- !u!114 &114760797371033404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5402,6 +5415,7 @@ MonoBehaviour:
   react: 0
   _numMoves: 4
   _rigidbody: {fileID: 54541638342017020}
+  _costToMove: 1
 --- !u!114 &114886850521831144
 MonoBehaviour:
   m_ObjectHideFlags: 1

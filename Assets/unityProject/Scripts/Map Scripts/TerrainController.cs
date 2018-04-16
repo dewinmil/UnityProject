@@ -16,11 +16,11 @@ public class TerrainController : MonoBehaviour {
 
         if (_map.charSelect == true)
         {
-            this.GetComponent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, -.005f, gameObject.transform.position.z);
         }
         else
         {
-            this.GetComponent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, .005f, gameObject.transform.position.z);
         }
 
     }

@@ -19,6 +19,14 @@ public class CharacterStatus : NetworkBehaviour {
     public float physicalArmor;//a value of 1 is 100% resistance
     [SyncVar]
     public float magicArmor;//a value of 1 is 100% resistance
+    [SyncVar]
+    public float tempPhysicalArmor;//a value of 1 is 100% resistance
+    [SyncVar]
+    public float tempMagicArmor;//a value of 1 is 100% resistance
+    [SyncVar]
+    public float tempArmorPen;//a value of 1 is 100% penetration
+    [SyncVar]
+    public float tempMagicPen;//a value of 1 is 100% penetration
     public bool dotAffected;
     public Image healthBar;
     public Image actionBar;
@@ -46,6 +54,10 @@ public class CharacterStatus : NetworkBehaviour {
     // Use this for initialization
     void Start()
     {
+        tempPhysicalArmor = 0;
+        tempMagicArmor = 0;
+        tempArmorPen = 0;
+        tempMagicPen = 0;
         previousTurn = 1;
         endTurn = FindObjectOfType<EndTurn>();
         startOfTurn = false;
@@ -57,41 +69,51 @@ public class CharacterStatus : NetworkBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if(endTurn.turn != previousTurn)
+        if (endTurn == null)
         {
-            FindObjectOfType<AudioManager>().endTurn();
-            previousTurn = endTurn.turn;
-            if (hasAuthority)
-            {
-                CmdUpdateTurn(endTurn.turn);
-            }
-        }
-        if (endTurn.turn == teamNum)
-        {
-            if(startOfTurn == true)
-            {
-                startOfTurn = false;
-                if (currentHealth > 0)
-                {
-                    gainAction();
-                    if(currentAction > maxAction)
-                    currentAction = currentAction + 5;
-                    CmdUpdateValuesAfterTurn();
-                    if (currentAction > maxAction)
-                    {
-                        currentAction = maxAction;
-                    }
-                }
-            }
+            endTurn = FindObjectOfType<EndTurn>();
         }
         else
         {
-            startOfTurn = true;
-        }
-        updateStatusBars();
-        if(currentHealth <= 0)
-        {
-            _unit.DeathAnim();
+            if (endTurn.turn != previousTurn)
+            {
+                FindObjectOfType<AudioManager>().endTurn();
+                previousTurn = endTurn.turn;
+                if (hasAuthority)
+                {
+                    CmdUpdateTurn(endTurn.turn);
+                }
+            }
+            if (endTurn.turn == teamNum)
+            {
+                if (startOfTurn == true)
+                {
+                    startOfTurn = false;
+                    if (currentHealth > 0)
+                    {
+                        gainAction();
+                        if (currentAction > maxAction)
+                            currentAction = currentAction + 5;
+                        CmdUpdateValuesAfterTurn();
+                        if (currentAction > maxAction)
+                        {
+                            currentAction = maxAction;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                startOfTurn = true;
+            }
+            updateStatusBars();
+            if (currentHealth <= 0)
+            {
+                //_unit.CmdDeathAnim();
+
+                _unit.dead = true;
+                _unit.CmdSynchAnimations(_unit.abil, _unit._isMoving, _unit.react, _unit.dead);
+            }
         }
     }
 
@@ -119,6 +141,7 @@ public class CharacterStatus : NetworkBehaviour {
     {
         currentHealth -= damage;
         _unit.react = true;
+        _unit.CmdSynchAnimations(_unit.abil, _unit._isMoving, _unit.react, _unit.dead);
     }
     public void gainHealth(float healing)
     {

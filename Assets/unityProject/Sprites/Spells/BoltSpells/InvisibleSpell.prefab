@@ -187,8 +187,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de0abd33870fefb4c9fc364fc0624a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onHitAnimation: {fileID: 100672, guid: 7dc0b63f67faaf9479803bcfdff7f71e, type: 2}
-  spellSound: {fileID: 8300000, guid: 474a1ae1d11994045bbb835d3b7a8ee8, type: 3}
+  onHitAnimation: {fileID: 1689124761279422, guid: e92c40f7171890e4994607dd972937c8,
+    type: 2}
+  spellSound: {fileID: 8300000, guid: 811d36b4845c63a42a32f3e13ab3a5d9, type: 3}
   spellMoves: 1
   serverSpell: 0
   _parentCastSpell: {fileID: 0}

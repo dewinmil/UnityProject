@@ -54,6 +54,13 @@ public class GameMaster : NetworkManager
         //add all inital spawns to the list. Used for highlighting the initial tiles
         _initialSpawns.AddRange(_team1SpawnLocations);
         _initialSpawns.AddRange(_team2SpawnLocations);
+
+        //NetworkServer.RegisterHandler(37, DoNothing);
+    }
+
+    void DoNothing(NetworkMessage msg)
+    {
+        print(msg);
     }
 
     public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
@@ -173,7 +180,7 @@ public class GameMaster : NetworkManager
 
     public override void OnClientConnect(NetworkConnection conn)
     {
-
+        conn.RegisterHandler(37, DoNothing);
         AddPlayers(conn, NUM_UNITS_PER_TEAM);
         FindObjectOfType<ToggleActive>().playerConnected();
     }
