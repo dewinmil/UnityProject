@@ -65,24 +65,6 @@ public class Unit : NetworkBehaviour
         }
     }
 
-    /*
-    [Command]
-    public void CmdDeathAnim()
-    {
->>>>>>> 05ac7a4d59ee04c018d72e3b781d2d0b8ae27fce
-        anim.SetBool("Dead", true);
-        RpcDeathAnim();
-    }
-
-    [ClientRpc]
-    public void RpcDeathAnim()
-    {
-        anim.SetBool("Dead", true);
-    }
-<<<<<<< HEAD
-=======
-    */
-
     void FixedUpdate()
     {
         if (_currentPath != null && _isMoving)

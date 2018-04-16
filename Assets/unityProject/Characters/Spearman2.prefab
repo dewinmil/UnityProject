@@ -2106,9 +2106,10 @@ MonoBehaviour:
   anim: {fileID: 0}
   abil: 0
   react: 0
+  dead: 0
   _numMoves: 4
   _rigidbody: {fileID: 54492740765787352}
-  _costToMove: 0
+  _costToMove: 1
 --- !u!114 &114288763309587506
 MonoBehaviour:
   m_ObjectHideFlags: 1
