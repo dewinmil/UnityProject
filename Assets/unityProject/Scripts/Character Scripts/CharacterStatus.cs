@@ -93,7 +93,7 @@ public class CharacterStatus : NetworkBehaviour {
                     {
                         gainAction();
                         if (currentAction > maxAction)
-                            currentAction = currentAction + 5;
+                            currentAction = currentAction + 8;
                         CmdUpdateValuesAfterTurn();
                         if (currentAction > maxAction)
                         {
