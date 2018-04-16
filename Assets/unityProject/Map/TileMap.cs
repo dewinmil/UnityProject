@@ -407,12 +407,10 @@ public class TileMap : NetworkBehaviour
         currentPath.CopyTo(_currentPath);
 
         //set destination to be occupied
-        //SetTileWalkable(currentPath[currentPath.Count - 1].x, currentPath[currentPath.Count - 1].z, false);
-        CmdSetTileWalkable(currentPath[currentPath.Count - 1].x, currentPath[currentPath.Count - 1].z, false);
+        _selectedUnit.GetComponent<Unit>().updateMap(currentPath[currentPath.Count - 1].x, currentPath[currentPath.Count - 1].z, false);
 
         //set origin to be walkable
-        //SetTileWalkable(currentPath[0].x, currentPath[0].z, true);
-        CmdSetTileWalkable(currentPath[0].x, currentPath[0].z, true);
+        _selectedUnit.GetComponent<Unit>().updateMap(currentPath[0].x, currentPath[0].z, true);
 
         _selectedUnit.GetComponent<Unit>()._currentPath = currentPath;
     }
@@ -498,7 +496,7 @@ public class TileMap : NetworkBehaviour
         }
     }
 
-    private void SetTileWalkable(int x, int z, bool isWalkable)
+    public void SetTileWalkable(int x, int z, bool isWalkable)
     {
         //if we pass in true, make the tile walkable (0)
         //if we pass in false, make the tile unwalkable (1)

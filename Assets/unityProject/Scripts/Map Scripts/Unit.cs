@@ -214,4 +214,24 @@ public class Unit : NetworkBehaviour
         react = _react;
         dead = _dead;
     }
+
+    public void updateMap(int x, int z, bool isWalkable)
+    {
+        CmdSetTileWalkable(x, z, isWalkable);
+    }
+
+    //This is called by the client when they move
+    [Command]
+    public void CmdSetTileWalkable(int x, int z, bool isWalkable)
+    {
+        _map.SetTileWalkable(x, z, isWalkable);
+        RpcUnitMoved(x, z, isWalkable);
+    }
+
+    //this sends the message to the other client about their unit moving
+    [ClientRpc]
+    public void RpcUnitMoved(int x, int z, bool isWalkable)
+    {
+        _map.SetTileWalkable(x, z, isWalkable);
+    }
 }
