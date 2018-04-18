@@ -354,17 +354,17 @@ public class CastSpell : NetworkBehaviour
         //warrior attack3
         else if (abilityUsed == 15)
         {
-            _caster.castAbility(targetCharacterStatus, 4, 0, 3, 0, 0, 0, true);
+            _caster.castAbility(targetCharacterStatus, 4, 0, 3, 0, 0, 0, false);
         }
         //warrior attack3
         else if (abilityUsed == 16)
         {
-            _caster.castAbility(targetCharacterStatus, 4, 0, 5, .1f, 0, 0, true);
+            _caster.castAbility(targetCharacterStatus, 4, 0, 5, .1f, 0, 0, false);
         }
         //warrior attack3
         else if (abilityUsed == 17)
         {
-            _caster.castAbility(targetCharacterStatus, 4, 0, 6, .3f, 0, 0, true);
+            _caster.castAbility(targetCharacterStatus, 4, 0, 6, .3f, 0, 0, false);
         }
         //self heal
         else if (abilityUsed == 18)
