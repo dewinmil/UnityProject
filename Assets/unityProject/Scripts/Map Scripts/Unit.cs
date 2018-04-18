@@ -105,8 +105,8 @@ public class Unit : NetworkBehaviour
         if (_currentPath.Count == 1)
         {
             //update the units X/Y
-            this.tileX = _currentPath[0].x;
-            this.tileZ = _currentPath[0].z;
+            //this.tileX = _currentPath[0].x;
+            //this.tileZ = _currentPath[0].z;
             //remove the path highlight
             _map.UnhighlightTilesInCurrentPath();
             //set the tile to be unwalkable since the unit is on top of it
@@ -224,6 +224,8 @@ public class Unit : NetworkBehaviour
     [Command]
     public void CmdSetTileWalkable(int x, int z, bool isWalkable)
     {
+        this.tileX = x;
+        this.tileZ = z;
         _map.SetTileWalkable(x, z, isWalkable);
         RpcUnitMoved(x, z, isWalkable);
     }
@@ -232,6 +234,8 @@ public class Unit : NetworkBehaviour
     [ClientRpc]
     public void RpcUnitMoved(int x, int z, bool isWalkable)
     {
+        this.tileX = x;
+        this.tileZ = z;
         _map.SetTileWalkable(x, z, isWalkable);
     }
 
