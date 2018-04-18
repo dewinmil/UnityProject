@@ -827,6 +827,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224254130204706822}
   - component: {fileID: 222320311980134410}
+  - component: {fileID: 114730142018212340}
   - component: {fileID: 114601226390991994}
   m_Layer: 5
   m_Name: Tooltip Text
@@ -1053,7 +1054,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1972396443182656}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -17.835663, y: -23.294933, z: 30.105438}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224424041179157014}
@@ -1617,13 +1618,13 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114601226390991994}
-          m_MethodName: set_text
-          m_Mode: 5
+        - m_Target: {fileID: 114730142018212340}
+          m_MethodName: setToolTip
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 8
             m_FloatArgument: 0
             m_StringArgument: AP Cost - 5    Healing - 5           Type - Magic
             m_BoolArgument: 0
@@ -1704,16 +1705,16 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114601226390991994}
-          m_MethodName: set_text
-          m_Mode: 5
+        - m_Target: {fileID: 114730142018212340}
+          m_MethodName: setToolTip
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 6
             m_FloatArgument: 0
-            m_StringArgument: AP Cost - 3    Damage - 3           Type - Magic Projectile                   Penetration
-              - 50%
+            m_StringArgument: 'Description: Does small amount of magic damage Damage
+              Type:  Range: Cost: 4 Damage: 3 Penetration: .25 MP'
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 114278067570013550}
@@ -2201,13 +2202,13 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114601226390991994}
-          m_MethodName: set_text
-          m_Mode: 5
+        - m_Target: {fileID: 114730142018212340}
+          m_MethodName: setToolTip
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 7
             m_FloatArgument: 0
             m_StringArgument: AP Cost - 6    Damage - 7           Type - Magic Targeted                   Penetration
               - 0%
@@ -2560,6 +2561,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   abil: 0
   react: 0
+  dead: 0
   _numMoves: 4
   _rigidbody: {fileID: 54330774442555160}
   _costToMove: 1
@@ -2627,7 +2629,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 10
+    m_FontSize: 7
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -2842,13 +2844,13 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114601226390991994}
-          m_MethodName: set_text
-          m_Mode: 5
+        - m_Target: {fileID: 114730142018212340}
+          m_MethodName: setToolTip
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 4
             m_FloatArgument: 0
             m_StringArgument: AP Cost - 4    Damage - 5           Type - Magic Projectile                   Penetration
               - 25%
@@ -2896,6 +2898,17 @@ MonoBehaviour:
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
+--- !u!114 &114730142018212340
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1843106768473972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5bb527981338c4594063c4a28d0394, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114732144154876530
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2930,13 +2943,13 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114601226390991994}
-          m_MethodName: set_text
-          m_Mode: 5
+        - m_Target: {fileID: 114730142018212340}
+          m_MethodName: setToolTip
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 5
             m_FloatArgument: 0
             m_StringArgument: AP Cost - 6    Damage - 5           Type - Magic Targeted                   Penetration
               - 100%
@@ -3277,9 +3290,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114601226390991994}
-          m_MethodName: set_text
-          m_Mode: 5
+        - m_Target: {fileID: 114730142018212340}
+          m_MethodName: setToolTip
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3939,7 +3952,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -142.04, y: -268.52002}
-  m_SizeDelta: {x: 142.46, y: 36.02}
+  m_SizeDelta: {x: 210, y: 36.02}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224274504787140862
 RectTransform:
@@ -3975,7 +3988,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -142.03, y: -267}
-  m_SizeDelta: {x: 150.98, y: 39.06}
+  m_SizeDelta: {x: 225, y: 39.06}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224368457318972346
 RectTransform:
@@ -4092,7 +4105,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -386.75476, y: 16.199997}
+  m_AnchoredPosition: {x: -386.75476, y: 16.199951}
   m_SizeDelta: {x: -784.77, y: 32.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224596908068485178

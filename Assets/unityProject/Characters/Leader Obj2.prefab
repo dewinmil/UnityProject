@@ -681,6 +681,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224889162295105096}
   - component: {fileID: 222729983948296856}
+  - component: {fileID: 114295090756540892}
   - component: {fileID: 114475912688098174}
   m_Layer: 5
   m_Name: Tooltip Text
@@ -1086,7 +1087,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1248077650733106}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.908558, y: -0.9, z: -0.4564395}
+  m_LocalPosition: {x: -20.259872, y: -23.155153, z: 32.427475}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224961942058778874}
@@ -1504,9 +1505,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114475912688098174}
-          m_MethodName: set_text
-          m_Mode: 5
+        - m_Target: {fileID: 114295090756540892}
+          m_MethodName: setToolTip
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1573,13 +1574,13 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114475912688098174}
-          m_MethodName: set_text
-          m_Mode: 5
+        - m_Target: {fileID: 114295090756540892}
+          m_MethodName: setToolTip
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 6
             m_FloatArgument: 0
             m_StringArgument: AP Cost - 3    Damage - 3           Type - Magic Projectile                   Penetration
               - 50%
@@ -1737,13 +1738,13 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114475912688098174}
-          m_MethodName: set_text
-          m_Mode: 5
+        - m_Target: {fileID: 114295090756540892}
+          m_MethodName: setToolTip
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 4
             m_FloatArgument: 0
             m_StringArgument: AP Cost - 4    Damage - 5           Type - Magic Projectile                   Penetration
               - 25%
@@ -2037,6 +2038,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114295090756540892
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1720545007712320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5bb527981338c4594063c4a28d0394, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114310163483658110
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2320,7 +2332,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 10
+    m_FontSize: 7
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -2868,6 +2880,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   abil: 0
   react: 0
+  dead: 0
   _numMoves: 4
   _rigidbody: {fileID: 54829286186250826}
   _costToMove: 1
@@ -3109,13 +3122,13 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114475912688098174}
-          m_MethodName: set_text
-          m_Mode: 5
+        - m_Target: {fileID: 114295090756540892}
+          m_MethodName: setToolTip
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 7
             m_FloatArgument: 0
             m_StringArgument: AP Cost - 6    Damage - 7           Type - Magic Targeted                   Penetration
               - 0%
@@ -3342,13 +3355,13 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114475912688098174}
-          m_MethodName: set_text
-          m_Mode: 5
+        - m_Target: {fileID: 114295090756540892}
+          m_MethodName: setToolTip
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 5
             m_FloatArgument: 0
             m_StringArgument: AP Cost - 6    Damage - 5           Type - Magic Targeted                   Penetration
               - 100%
@@ -4020,7 +4033,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -142.03, y: -267}
-  m_SizeDelta: {x: 150.98, y: 39.06}
+  m_SizeDelta: {x: 225, y: 39.06}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224348914800799868
 RectTransform:
@@ -4224,7 +4237,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -142.04, y: -268.52002}
-  m_SizeDelta: {x: 142.46, y: 36.02}
+  m_SizeDelta: {x: 210, y: 36.02}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224895713164472952
 RectTransform:
