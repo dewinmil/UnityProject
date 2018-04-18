@@ -406,11 +406,11 @@ public class TileMap : NetworkBehaviour
         _currentPath = new Node[currentPath.Count];
         currentPath.CopyTo(_currentPath);
 
-        //set destination to be occupied
-        _selectedUnit.GetComponent<Unit>().updateMap(currentPath[currentPath.Count - 1].x, currentPath[currentPath.Count - 1].z, false);
+        ////set destination to be occupied
+        //_selectedUnit.GetComponent<Unit>().updateMap(currentPath[currentPath.Count - 1].x, currentPath[currentPath.Count - 1].z, false);
 
-        //set origin to be walkable
-        _selectedUnit.GetComponent<Unit>().updateMap(currentPath[0].x, currentPath[0].z, true);
+        ////set origin to be walkable
+        //_selectedUnit.GetComponent<Unit>().updateMap(currentPath[0].x, currentPath[0].z, true);
 
         _selectedUnit.GetComponent<Unit>()._currentPath = currentPath;
     }
@@ -1156,29 +1156,4 @@ public class TileMap : NetworkBehaviour
         _highlightedTiles.Clear();
     }
 
-    //This is called by the client when they move
-    [Command]
-    public void CmdSetTileWalkable(int x, int z, bool isWalkable)
-    {
-        SetTileWalkable(x, z, isWalkable);
-        RpcUnitMoved(x, z, isWalkable);
-    }
-
-    //this sends the message to the other client about their unit moving
-    [ClientRpc]
-    public void RpcUnitMoved(int x, int z, bool isWalkable)
-    {
-        SetTileWalkable(x, z, isWalkable);
-    }
-
-    //command used to update the current clients map
-    [Command]
-    public void CmdUpdateMap()
-    {
-        GameMaster gm = FindObjectOfType<GameMaster>();
-        foreach (Unit unit in gm._units)
-        {
-            RpcUnitMoved(unit.tileX, unit.tileZ, false);
-        }
-    }
 }
