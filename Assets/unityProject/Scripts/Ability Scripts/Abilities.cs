@@ -510,7 +510,7 @@ public class Abilities : NetworkBehaviour
         //take a rest
         if (_abilityNum == 22)
         {
-            return runCheck(theTarget, 5, 3, 0);
+            return runCheckWithMovement(theTarget, 3, 0);
         }
         //death march
         if (_abilityNum == 23)
@@ -557,6 +557,38 @@ public class Abilities : NetworkBehaviour
     public int runCheckWithHealth(CharacterStatus theTarget, int health, int abilNum, int range)
     {
         if (_casterStatus.currentHealth > health && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+        {
+            if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= range &&
+                Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= range)
+            {
+                if (range != 0 && range != 1)
+                {
+                    if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == range &&
+                    Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == range)
+                    {
+                        return -1;
+                    }
+                }
+                if (!rangeCheck)
+                {
+                    _unit.abil = abilNum;
+                }
+                return range;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    public int runCheckWithMovement(CharacterStatus theTarget, int abilNum, int range)
+    {
+        if (_casterStatus._numMovesRemaining > 0 && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0 && _casterStatus.currentAction < _casterStatus.maxAction)
         {
             if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= range &&
                 Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= range)
