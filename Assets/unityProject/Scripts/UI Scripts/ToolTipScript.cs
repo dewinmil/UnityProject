@@ -39,7 +39,7 @@ public class ToolTipScript : MonoBehaviour {
         }
         if (abilityNum == 4)
         {
-            toolTip.text = string.Format("Description-Projectile lightning attack " + " " +
+            toolTip.text = string.Format("Description-Projectile spell that does medium damage" + " " +
                                          "{0}Damage Type-Magic    Range-3    Cost-3     Damage-3     Penetration-20% MP", Environment.NewLine);
         }
         if (abilityNum == 5)
