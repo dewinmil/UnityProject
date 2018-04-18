@@ -110,8 +110,7 @@ public class Unit : NetworkBehaviour
             //remove the path highlight
             _map.UnhighlightTilesInCurrentPath();
             //set the tile to be unwalkable since the unit is on top of it
-            //_map.SetTileWalkable(this.tileX, this.tileZ, false);
-            _map.CmdSetTileWalkable(this.tileX, this.tileZ, false);
+            CmdSetTileWalkable(this.tileX, this.tileZ, false);
             _currentPath = null;
             _isMoving = false;
             moveToggle = false;
@@ -144,7 +143,8 @@ public class Unit : NetworkBehaviour
                 if (_characterStatus.CanMove(_currentPath.Count - 1, _costToMove))
                 {
                     _nextTile = _map.TileCoordToWorldCoord(_currentPath[0].x, _currentPath[0].z);
-                    _map.CmdSetTileWalkable(this.tileX, this.tileZ, true);
+                    //set their origin tile to be walkable
+                    CmdSetTileWalkable(this.tileX, this.tileZ, true);
                     MoveToNextTile();
                     _isMoving = true;
 
