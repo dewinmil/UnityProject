@@ -510,12 +510,23 @@ public class TileMap : NetworkBehaviour
     //Params are current units x/z coords and the number of tiles the unit can move
     public List<Node> HighlightWalkableTiles(int playerX, int playerZ, int numMoves)
     {
+        Unit _currentUnit = _selectedUnit.GetComponent<Unit>();
+        Double num;
+        if (_currentUnit._characterStatus.currentAction / _currentUnit._costToMove < numMoves)
+        {
+            num = Math.Floor(_currentUnit._characterStatus.currentAction / _currentUnit._costToMove);
+        }
+        else
+        {
+            num = numMoves;
+        }
+
         List<Node> neighbors = null;
         if (playerZ % 2 == 0)
-            neighbors = BuildQuadrantsEven(playerX, playerZ, numMoves);
+            neighbors = BuildQuadrantsEven(playerX, playerZ, (int)num);
 
         else
-            neighbors = BuildQuadrantsOdd(playerX, playerZ, numMoves);
+            neighbors = BuildQuadrantsOdd(playerX, playerZ, (int)num);
 
         foreach (Node node in neighbors)
         {
