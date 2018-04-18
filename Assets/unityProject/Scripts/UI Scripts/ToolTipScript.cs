@@ -74,7 +74,8 @@ public class ToolTipScript : MonoBehaviour {
         }
         if (abilityNum == 11)
         {
-            toolTip.text = "";
+            toolTip.text = string.Format("Description: High damage, high cost, high penetration" +
+                "{0}Damage Type-Physical    Range-1   Cost-8     Damage-8   Penetration-80%", Environment.NewLine);
         }
         if (abilityNum == 12)
         {
@@ -108,7 +109,8 @@ public class ToolTipScript : MonoBehaviour {
         }
         if (abilityNum == 18)
         {
-            toolTip.text = "";
+            toolTip.text = string.Format("Description: Self heal" +
+                "{0}Damage Type-N/A    Range-0   Cost-5     Healing-5   Penetration-N/A", Environment.NewLine);
         }
         if (abilityNum == 19)
         {
