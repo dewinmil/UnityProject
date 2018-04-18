@@ -234,4 +234,19 @@ public class Unit : NetworkBehaviour
     {
         _map.SetTileWalkable(x, z, isWalkable);
     }
+
+    [Command]
+    public void CmdLookAt(GameObject _target)
+    {
+        gameObject.transform.LookAt(_target.transform.position);
+        _target.transform.LookAt(gameObject.transform.position);
+        RpcLookAt(_target);
+    }
+
+    [ClientRpc]
+    public void RpcLookAt(GameObject _target)
+    {
+        gameObject.transform.LookAt(_target.transform.position);
+        _target.transform.LookAt(gameObject.transform.position);
+    }
 }
