@@ -1684,7 +1684,7 @@ MonoBehaviour:
     TileVisuallPrefab: {fileID: 1041883840204490, guid: a25e0220899d3eb44b17cce916d21c67,
       type: 2}
     IsWalkable: 0
-  _selectedUnit: {fileID: 1419126847009228, guid: 852adba9a5a1e814c9ed6a1321fe5cd5,
+  _selectedUnit: {fileID: 1914662640277300, guid: 852adba9a5a1e814c9ed6a1321fe5cd5,
     type: 2}
   genDone: 0
   charSelect: 0
