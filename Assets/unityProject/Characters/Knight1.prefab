@@ -4191,7 +4191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8162a006436944bd58b111e2457e4508, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSelected: 1
+  isSelected: 0
   targetedBySpell: 0
   castingSpell: 0
   _characterAbilities: {fileID: 114176074628963016}
