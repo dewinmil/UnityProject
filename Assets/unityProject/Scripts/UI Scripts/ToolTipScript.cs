@@ -68,33 +68,33 @@ public class ToolTipScript : MonoBehaviour {
         }
         if (abilityNum == 12)
         {
-            toolTip.text = string.Format("Description-Basic attack with spear" +
-                "{0}Damage Type-Physical{0}Range-2{0}Cost-3{0}Damage-5{0}Penetration-0%", Environment.NewLine);
+            toolTip.text = string.Format("Description: Basic attack with spear" +
+                "{0}Damage Type-Physical    Range-2   Cost-3     Damage-5   Penetration-0%", Environment.NewLine);
         }
         if (abilityNum == 13)
         {
-            toolTip.text = string.Format("Description-Spear attack with some penetration" +
-                "{0}Damage Type-Physical{0}Range-2{0}Cost-5{0}Damage-5{0}Penetration-20%", Environment.NewLine);
+            toolTip.text = string.Format("Description: Spear attack with some penetration" +
+                "{0}Damage Type-Physical    Range-2   Cost-5     Damage-5   Penetration-20%", Environment.NewLine);
         }
         if (abilityNum == 14)
         {
-            toolTip.text = string.Format("Description-High cost spear attack with medium penetration" +
-                "{0}Damage Type-Physical{0}Range-2{0}Cost-7{0}Damage-5{0}Penetration-40%", Environment.NewLine);
+            toolTip.text = string.Format("Description: High cost spear attack with medium penetration" +
+                "{0}Damage Type-Physical    Range-2   Cost-7     Damage-5   Penetration-40%", Environment.NewLine);
         }
         if (abilityNum == 15)
         {
-            toolTip.text = string.Format("Description-Basic melee attack" +
-                "{0}Damage Type-Physical{0}Range-1{0}Cost-3{0}Damage-4{0}Penetration-0%", Environment.NewLine);
+            toolTip.text = string.Format("Description: Basic melee attack" +
+                "{0}Damage Type-Physical    Range-1   Cost-3     Damage-4   Penetration-0%", Environment.NewLine);
         }
         if (abilityNum == 16)
         {
-            toolTip.text = string.Format("Description-" +
-                "{0}Damage Type-Physical{0}Range-1{0}Cost-5{0}Damage-4{0}Penetration-10%", Environment.NewLine);
+            toolTip.text = string.Format("Description: Melee attack with minimal penetration" +
+                "{0}Damage Type-Physical    Range-1   Cost-5     Damage-4   Penetration-10%", Environment.NewLine);
         }
         if (abilityNum == 17)
         {
-            toolTip.text = string.Format("Description-" +
-                "{0}Damage Type-Physical{0}Range-1{0}Cost-6{0}Damage-4{0}Penetration-30%", Environment.NewLine);
+            toolTip.text = string.Format("Description: Melee attack with higher cost and medium penetration" +
+                "{0}Damage Type-Physical    Range-1   Cost-6     Damage-4   Penetration-30%", Environment.NewLine);
         }
         if (abilityNum == 18)
         {
@@ -106,19 +106,23 @@ public class ToolTipScript : MonoBehaviour {
         }
         if (abilityNum == 20)
         {
-            toolTip.text = "";
+            toolTip.text = string.Format("Description: Penetration buff" +
+                "{0}Damage Type-Physical    Range-1   Cost-6     Damage-4   Penetration-30%", Environment.NewLine);
         }
         if (abilityNum == 21)
         {
-            toolTip.text = "";
+            toolTip.text = string.Format("Description: Gain more movement" +
+                "{0}Damage Type-Physical    Range-1   Cost-6     Damage-4   Penetration-30%", Environment.NewLine);
         }
         if (abilityNum == 22)
         {
-            toolTip.text = "";
+            toolTip.text = string.Format("Description: Gain action points from remaining moves" +
+                "{0}Damage Type-Physical    Range-1   Cost-6     Damage-4   Penetration-30%", Environment.NewLine);
         }
         if (abilityNum == 23)
         {
-            toolTip.text = "";
+            toolTip.text = string.Format("Description: Spend health to gain movements" +
+                "{0}Damage Type-Physical    Range-1   Cost-6     Damage-4   Penetration-30%", Environment.NewLine);
         }
     }
 }
