@@ -1205,6 +1205,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224652169734838668}
   - component: {fileID: 222358606388769242}
+  - component: {fileID: 114439954989819468}
   - component: {fileID: 114021559098807616}
   m_Layer: 5
   m_Name: Tooltip Text
@@ -3000,7 +3001,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1354165558716634}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -22.319977, y: -23.392963, z: 27.850952}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4161215293469030}
@@ -3641,7 +3642,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 10
+    m_FontSize: 7
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -3751,7 +3752,7 @@ MonoBehaviour:
   m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TransformSyncMode: 1
+  m_TransformSyncMode: 3
   m_SendInterval: 0.033333335
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
@@ -3789,13 +3790,13 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114021559098807616}
-          m_MethodName: set_text
-          m_Mode: 5
+        - m_Target: {fileID: 114439954989819468}
+          m_MethodName: setToolTip
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 4
             m_FloatArgument: 0
             m_StringArgument: AP Cost - 4    Damage - 5           Type - Magic Projectile                   Penetration
               - 25%
@@ -4167,13 +4168,13 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114021559098807616}
-          m_MethodName: set_text
-          m_Mode: 5
+        - m_Target: {fileID: 114439954989819468}
+          m_MethodName: setToolTip
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 3
             m_FloatArgument: 0
             m_StringArgument: AP Cost - 5    Healing - 5           Type - Magic
             m_BoolArgument: 0
@@ -4346,13 +4347,13 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114021559098807616}
-          m_MethodName: set_text
-          m_Mode: 5
+        - m_Target: {fileID: 114439954989819468}
+          m_MethodName: setToolTip
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 2
             m_FloatArgument: 0
             m_StringArgument: AP Cost - 6    Damage - 7           Type - Magic Targeted                   Penetration
               - 0%
@@ -4427,6 +4428,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114439954989819468
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1585999261673826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5bb527981338c4594063c4a28d0394, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114458449773274480
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4443,13 +4455,13 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114021559098807616}
-          m_MethodName: set_text
-          m_Mode: 5
+        - m_Target: {fileID: 114439954989819468}
+          m_MethodName: setToolTip
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 5
             m_FloatArgument: 0
             m_StringArgument: AP Cost - 6    Damage - 5           Type - Magic Targeted                   Penetration
               - 100%
@@ -4945,13 +4957,13 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114021559098807616}
-          m_MethodName: set_text
-          m_Mode: 5
+        - m_Target: {fileID: 114439954989819468}
+          m_MethodName: setToolTip
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 1
             m_FloatArgument: 0
             m_StringArgument: AP Cost - 3    Damage - 3           Type - Magic Projectile                   Penetration
               - 50%
@@ -5186,7 +5198,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 40c8c3e0dc28b4b528376525f84fa1e5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0b1c8857294754a87b00ddba848708b5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5236,6 +5248,7 @@ MonoBehaviour:
   anim: {fileID: 95859339469726198}
   abil: 0
   react: 0
+  dead: 0
   _numMoves: 0
   _rigidbody: {fileID: 54082017879335532}
   _costToMove: 0
@@ -5413,6 +5426,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   abil: 0
   react: 0
+  dead: 0
   _numMoves: 4
   _rigidbody: {fileID: 54541638342017020}
   _costToMove: 1
@@ -5483,7 +5497,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: c2efd48f02c3f4dda825950570186fcf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8e488ad39dab0445e9f9c24b9f0be75b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6449,7 +6463,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -142.04, y: -268.47}
-  m_SizeDelta: {x: 150.98, y: 39.06}
+  m_SizeDelta: {x: 225, y: 39.06}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224157086067502018
 RectTransform:
@@ -6715,7 +6729,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -142.04, y: -266.95}
-  m_SizeDelta: {x: 142.46, y: 36.02}
+  m_SizeDelta: {x: 210, y: 36.02}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224660254450713636
 RectTransform:
@@ -6867,7 +6881,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -386.75476, y: 16.199997}
+  m_AnchoredPosition: {x: -386.75476, y: 16.199951}
   m_SizeDelta: {x: -784.77, y: 32.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224977575011593156

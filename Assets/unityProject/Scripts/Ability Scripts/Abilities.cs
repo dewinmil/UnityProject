@@ -80,8 +80,9 @@ public class Abilities : NetworkBehaviour
     public void castAbility(CharacterStatus target, float damage, float healing, float apCost, float armorPen, float magicPen, float buff, bool isMagic)
     {
         _unit.UnhighlightWalkableTiles();
-        _unit.transform.LookAt(target.transform.position);
-        target.transform.LookAt(_unit.transform.position);
+        _unit.CmdLookAt(target.gameObject);
+        //_unit.transform.LookAt(target.transform.position);
+        //target.transform.LookAt(_unit.transform.position);
         //if the target is not dead
         if (target.currentHealth > 0)
         {
@@ -111,7 +112,6 @@ public class Abilities : NetworkBehaviour
                     }
                     if(resistance >= 1)
                     {
-                        print("resistances too big");
                         resistance = 1;
                     }
                     target.tempMagicArmor -= .1f;
@@ -146,7 +146,6 @@ public class Abilities : NetworkBehaviour
                     }
                     if(resistance >= 1)
                     {
-                        print("resistances too big");
                         resistance = 1;
                     }
 
@@ -528,7 +527,7 @@ public class Abilities : NetworkBehaviour
             if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= range &&
                 Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= range)
             {
-                if (range != 0)
+                if (range != 0 && range != 1)
                 {
                     if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == range &&
                     Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == range)
@@ -539,6 +538,8 @@ public class Abilities : NetworkBehaviour
                 if (!rangeCheck)
                 {
                     _unit.abil = abilNum;
+
+                    _unit.CmdSynchAnimations(abilNum, _unit._isMoving, _unit.react, _unit.dead);
                 }
                 return range;
             }
@@ -560,7 +561,7 @@ public class Abilities : NetworkBehaviour
             if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= range &&
                 Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= range)
             {
-                if (range != 0)
+                if (range != 0 && range != 1)
                 {
                     if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) == range &&
                     Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) == range)

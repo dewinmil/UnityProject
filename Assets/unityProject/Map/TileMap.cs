@@ -31,7 +31,7 @@ public class TileMap : NetworkBehaviour
     private List<GameObject> _highlightedTiles;
     private readonly Color CURRENT_PATH_TILE_COLOR = Color.yellow;
     private readonly Color TARGET_HIGHLIGHT_COLOR = Color.red;
-    private readonly Color WALKABLE_TILE_COLOR = new Color(0.49f, 1.0f, 0.47f);
+    private readonly Color WALKABLE_TILE_COLOR = new Color(0.58f, .58f, .58f);
     private readonly Color UNWALKABLE_TILE_COLOR = new Color(1.0f, 0.47f, 0.47f);
     public bool genDone = false;
     public bool charSelect = false;
@@ -68,11 +68,15 @@ public class TileMap : NetworkBehaviour
         GenerateMapObjects();
         genDone = true;
 
-        int[,] envTiles = new int[,] { { 7, 3 }, { 8, 3 }, { 9, 4 }, { 10, 4 }, { 11, 4 }, { 11, 3 }, { 12, 3 }, { 15, 3 }, { 16, 4 }, { 17, 5 }, { 16, 5 }, { 15, 5 },
-            { 17, 6 }, { 16, 6 }, { 11, 5 }, { 4, 6 }, { 2, 5 }, { 1, 5 }, { 0, 5 }, { 0, 6 }, { 1, 6 }, { 2, 6 }, { 1, 7 }, { 0, 7 }, { 8, 7 }, { 9, 10 }, { 10, 10 }, 
-            { 8, 11 }, { 9, 11 }, { 10, 11 }, { 9, 12 }, { 10, 12 }, { 4, 10 }, { 2, 11 }, { 3, 11 }, { 4, 11 }, { 5, 11 }, { 12, 10 }, { 12, 11 }, { 12, 12 }, { 15, 10 }, 
-            { 16, 10 }, { 14, 11 }, { 15, 11 }, { 16, 11 }, { 15, 12 }, { 16, 12 }, { 17, 12 }, { 14, 16 }, { 13, 17 }, { 14, 17 }, { 3, 15 }, { 4, 15 }, { 5, 15 }, { 6, 15 }, 
-            { 4, 16 }, { 5, 16 }, { 6, 16 }, { 7, 16 }, { 9, 16 }, { 10, 16 }, { 11, 16 }, { 9, 17 }, { 10, 17 } };
+        int[,] envTiles = new int[,] {{ 7, 3 }, { 8, 3 }, { 9, 4 }, { 10, 4 }, { 11, 4 }, { 11, 3 }, { 12, 3 }, { 15, 3 }, { 16, 4 }, { 17, 5 }, { 16, 5 }, { 15, 5 },
+
+            { 17, 6 }, { 16, 6 }, { 11, 5 }, { 4, 6 }, { 2, 5 }, { 1, 5 }, { 0, 5 }, { 0, 6 }, { 1, 6 }, { 2, 6 }, { 1, 7 }, { 0, 7 }, { 8, 7 }, { 9, 10 }, { 10, 10 },
+
+            { 8, 11 }, { 9, 11 }, { 10, 11 }, { 9, 12 }, { 10, 12 }, { 4, 10 }, { 2, 11 }, { 3, 11 }, { 4, 11 }, { 5, 11 }, { 12, 10 }, { 12, 11 }, { 12, 12 }, { 15, 10 },
+
+            { 16, 10 }, { 14, 11 }, { 15, 11 }, { 16, 11 }, { 15, 12 }, { 16, 12 }, { 17, 12 }, { 14, 16 }, { 13, 17 }, { 14, 17 }, { 3, 15 }, { 4, 15 }, { 5, 15 }, { 6, 15 },
+
+            { 4, 16 }, { 5, 16 }, { 6, 16 }, { 7, 16 }, { 9, 16 }, { 10, 16 }, { 11, 16 }, { 9, 17 }, { 10, 17 }  };
 
         for(int i = 0; i < envTiles.GetLength(0); i++)
         {
@@ -402,11 +406,11 @@ public class TileMap : NetworkBehaviour
         _currentPath = new Node[currentPath.Count];
         currentPath.CopyTo(_currentPath);
 
-        //set destination to be occupied
-        SetTileWalkable(currentPath[currentPath.Count - 1].x, currentPath[currentPath.Count - 1].z, false);
+        ////set destination to be occupied
+        //_selectedUnit.GetComponent<Unit>().updateMap(currentPath[currentPath.Count - 1].x, currentPath[currentPath.Count - 1].z, false);
 
-        //set origin to be walkable
-        SetTileWalkable(currentPath[0].x, currentPath[0].z, true);
+        ////set origin to be walkable
+        //_selectedUnit.GetComponent<Unit>().updateMap(currentPath[0].x, currentPath[0].z, true);
 
         _selectedUnit.GetComponent<Unit>()._currentPath = currentPath;
     }
@@ -492,7 +496,7 @@ public class TileMap : NetworkBehaviour
         }
     }
 
-    private void SetTileWalkable(int x, int z, bool isWalkable)
+    public void SetTileWalkable(int x, int z, bool isWalkable)
     {
         //if we pass in true, make the tile walkable (0)
         //if we pass in false, make the tile unwalkable (1)
@@ -515,6 +519,8 @@ public class TileMap : NetworkBehaviour
 
         foreach (Node node in neighbors)
         {
+            if(node.x == _selectedUnit.GetComponent<Unit>().tileX && node.z == _selectedUnit.GetComponent<Unit>().tileZ)
+                continue;
             string hash = GetHashString(node.x, node.z);
             MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
             mesh.material.color = CURRENT_PATH_TILE_COLOR;
@@ -577,6 +583,9 @@ public class TileMap : NetworkBehaviour
             {
                 for (int z = playerZ; z <= zMax; z++)
                 {
+                    if (x == playerX && z == playerZ)
+                        continue;
+
                     float cost = CostToEnterTile(x, z, playerX, playerZ);
                     if (cost > -1f && cost < Mathf.Infinity)
                     {
@@ -597,6 +606,8 @@ public class TileMap : NetworkBehaviour
 
                 for (int z = playerZ; z <= xMovesRemaining; z++)
                 {
+                    if (x == playerX && z == playerZ)
+                        continue;
                     float cost = CostToEnterTile(x, z, playerX, playerZ);
                     if (cost > -1f && cost < Mathf.Infinity)
                     {
@@ -639,6 +650,8 @@ public class TileMap : NetworkBehaviour
             {
                 for (int z = playerZ; z <= zMax; z++)
                 {
+                    if (x == playerX && z == playerZ)
+                        continue;
                     float cost = CostToEnterTile(x, z, playerX, playerZ);
                     if (cost > -1f && cost < Mathf.Infinity)
                     {
@@ -659,6 +672,8 @@ public class TileMap : NetworkBehaviour
 
                 for (int z = playerZ; z <= xMovesRemaining; z++)
                 {
+                    if (x == playerX && z == playerZ)
+                        continue;
                     float cost = CostToEnterTile(x, z, playerX, playerZ);
                     if (cost > -1f && cost < Mathf.Infinity)
                     {
@@ -674,6 +689,8 @@ public class TileMap : NetworkBehaviour
             {
                 for (int z = playerZ; z <= (playerZ + 1); z++)
                 {
+                    if (x == playerX && z == playerZ)
+                        continue;
                     float cost = CostToEnterTile(x, z, playerX, playerZ);
                     if (cost > -1f && cost < Mathf.Infinity)
                     {
@@ -705,6 +722,8 @@ public class TileMap : NetworkBehaviour
             {
                 for (int z = playerZ; z >= zMin; z--)
                 {
+                    if (x == playerX && z == playerZ)
+                        continue;
                     float cost = CostToEnterTile(x, z, playerX, playerZ);
                     if (cost > -1f && cost < Mathf.Infinity)
                     {
@@ -725,6 +744,8 @@ public class TileMap : NetworkBehaviour
 
                 for (int z = playerZ; z >= xMovesRemaining; z--)
                 {
+                    if (x == playerX && z == playerZ)
+                        continue;
                     float cost = CostToEnterTile(x, z, playerX, playerZ);
                     if (cost > -1f && cost < Mathf.Infinity)
                     {
@@ -769,6 +790,8 @@ public class TileMap : NetworkBehaviour
             {
                 for (int z = playerZ; z >= zMin; z--)
                 {
+                    if (x == playerX && z == playerZ)
+                        continue;
                     float cost = CostToEnterTile(x, z, playerX, playerZ);
                     if (cost > -1f && cost < Mathf.Infinity)
                     {
@@ -789,6 +812,8 @@ public class TileMap : NetworkBehaviour
 
                 for (int z = playerZ; z >= xMovesRemaining; z--)
                 {
+                    if (x == playerX && z == playerZ)
+                        continue;
                     float cost = CostToEnterTile(x, z, playerX, playerZ);
                     if (cost > -1f && cost < Mathf.Infinity)
                     {
@@ -804,6 +829,8 @@ public class TileMap : NetworkBehaviour
             {
                 for (int z = playerZ; z >= (playerZ - 1); z--)
                 {
+                    if (x == playerX && z == playerZ)
+                        continue;
                     float cost = CostToEnterTile(x, z, playerX, playerZ);
                     if (cost > -1f && cost < Mathf.Infinity)
                     {
@@ -852,6 +879,8 @@ public class TileMap : NetworkBehaviour
             {
                 for (int z = playerZ; z <= zMax; z++)
                 {
+                    if (x == playerX && z == playerZ)
+                        continue;
                     float cost = CostToEnterTile(x, z, playerX, playerZ);
                     if (cost > -1f && cost < Mathf.Infinity)
                     {
@@ -872,6 +901,8 @@ public class TileMap : NetworkBehaviour
 
                 for (int z = playerZ; z <= xMovesRemaining; z++)
                 {
+                    if (x == playerX && z == playerZ)
+                        continue;
                     float cost = CostToEnterTile(x, z, playerX, playerZ);
                     if (cost > -1f && cost < Mathf.Infinity)
                     {
@@ -886,6 +917,8 @@ public class TileMap : NetworkBehaviour
             {
                 for (int z = playerZ; z <= (playerZ + 1); z++)
                 {
+                    if (x == playerX && z == playerZ)
+                        continue;
                     float cost = CostToEnterTile(x, z, playerX, playerZ);
                     if (cost > -1f && cost < Mathf.Infinity)
                     {
@@ -917,6 +950,8 @@ public class TileMap : NetworkBehaviour
             {
                 for (int z = playerZ; z <= zMax; z++)
                 {
+                    if (x == playerX && z == playerZ)
+                        continue;
                     float cost = CostToEnterTile(x, z, playerX, playerZ);
                     if (cost > -1f && cost < Mathf.Infinity)
                     {
@@ -937,6 +972,8 @@ public class TileMap : NetworkBehaviour
 
                 for (int z = playerZ; z <= xMovesRemaining; z++)
                 {
+                    if (x == playerX && z == playerZ)
+                        continue;
                     float cost = CostToEnterTile(x, z, playerX, playerZ);
                     if (cost > -1f && cost < Mathf.Infinity)
                     {
@@ -980,6 +1017,8 @@ public class TileMap : NetworkBehaviour
             {
                 for (int z = playerZ; z >= zMin; z--)
                 {
+                    if (x == playerX && z == playerZ)
+                        continue;
                     float cost = CostToEnterTile(x, z, playerX, playerZ);
                     if (cost > -1f && cost < Mathf.Infinity)
                     {
@@ -1000,6 +1039,8 @@ public class TileMap : NetworkBehaviour
 
                 for (int z = playerZ; z >= xMovesRemaining; z--)
                 {
+                    if (x == playerX && z == playerZ)
+                        continue;
                     float cost = CostToEnterTile(x, z, playerX, playerZ);
                     if (cost > -1f && cost < Mathf.Infinity)
                     {
@@ -1014,6 +1055,8 @@ public class TileMap : NetworkBehaviour
             {
                 for (int z = playerZ; z >= (playerZ - 1); z--)
                 {
+                    if (x == playerX && z == playerZ)
+                        continue;
                     float cost = CostToEnterTile(x, z, playerX, playerZ);
                     if (cost > -1f && cost < Mathf.Infinity)
                     {
@@ -1047,6 +1090,8 @@ public class TileMap : NetworkBehaviour
             {
                 for (int z = playerZ; z >= zMin; z--)
                 {
+                    if (x == playerX && z == playerZ)
+                        continue;
                     float cost = CostToEnterTile(x, z, playerX, playerZ);
                     if (cost > -1f && cost < Mathf.Infinity)
                     {
@@ -1067,6 +1112,8 @@ public class TileMap : NetworkBehaviour
 
                 for (int z = playerZ; z >= xMovesRemaining; z--)
                 {
+                    if (x == playerX && z == playerZ)
+                        continue;
                     float cost = CostToEnterTile(x, z, playerX, playerZ);
                     if (cost > -1f && cost < Mathf.Infinity)
                     {
@@ -1094,36 +1141,19 @@ public class TileMap : NetworkBehaviour
 
     public void UnhighlightWalkableTiles()
     {
-        foreach (var tile in _highlightedTiles)
+        foreach (GameObject tile in _highlightedTiles)
         {
+            //check if tile is already unwalkable, if it is skip this
+            ClickableTile ct = tile.GetComponent<ClickableTile>();
+            Unit unit = _selectedUnit.GetComponent<Unit>();
+            if (!_tileTypes[_tiles[ct.tileX, ct.tileZ]].IsWalkable ||
+                (ct.tileX == unit.tileX && ct.tileZ == unit.tileZ))
+                continue;
+            
             MeshRenderer mesh = tile.GetComponent<MeshRenderer>();
             mesh.material.color = WALKABLE_TILE_COLOR;
         }
+        _highlightedTiles.Clear();
     }
 
-    //This is called by the client when they move
-    [Command]
-    public void CmdSetTileWalkable(int x, int z, bool isWalkable)
-    {
-        SetTileWalkable(x, z, isWalkable);
-        RpcUnitMoved(x, z, isWalkable);
-    }
-
-    //this sends the message to the other client about their unit moving
-    [ClientRpc]
-    public void RpcUnitMoved(int x, int z, bool isWalkable)
-    {
-        SetTileWalkable(x, z, isWalkable);
-    }
-
-    //command used to update the current clients map
-    [Command]
-    public void CmdUpdateMap()
-    {
-        GameMaster gm = FindObjectOfType<GameMaster>();
-        foreach (Unit unit in gm._units)
-        {
-            RpcUnitMoved(unit.tileX, unit.tileZ, false);
-        }
-    }
 }
