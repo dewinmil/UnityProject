@@ -25384,8 +25384,8 @@ MonoBehaviour:
     type: 2}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 1
-  m_OfflineScene: unityProject
-  m_OnlineScene: unityProject
+  m_OfflineScene: 
+  m_OnlineScene: 
   m_SpawnPrefabs:
   - {fileID: 1056886370882314, guid: 4a1ae98f5cd07ab429f2782dc51d0e54, type: 2}
   - {fileID: 1764942340897686, guid: f212e4d8eb63da34899fabf511942b23, type: 2}
@@ -25408,10 +25408,10 @@ MonoBehaviour:
   - {fileID: 1606907050001774, guid: 786c53dde62f73a42a6a1d6d0f60b133, type: 2}
   - {fileID: 1972396443182656, guid: 29977ff9cb8bc3b46a3a25fe87c8d39c, type: 2}
   - {fileID: 1248077650733106, guid: ace76aa0f94f129488a5b9ff64615d74, type: 2}
-  - {fileID: 1203070051539434, guid: 1fedc773a0e5ca242b6497870e24151d, type: 2}
-  - {fileID: 1738913404694178, guid: 099488c1c5d11974480c2bfb8460217a, type: 2}
-  - {fileID: 1826784893692738, guid: 4ff7c1f0543b6894983c748131b73025, type: 2}
-  - {fileID: 1858046779216112, guid: cf64ca6d2b3efc048a92f90ddfeb9c5e, type: 2}
+  - {fileID: 1903017085303842, guid: 219f0058b7fdfb44a8cea277b73ba883, type: 2}
+  - {fileID: 1805880158202974, guid: 099488c1c5d11974480c2bfb8460217a, type: 2}
+  - {fileID: 1933068524198146, guid: 4ff7c1f0543b6894983c748131b73025, type: 2}
+  - {fileID: 1199713668875136, guid: cf64ca6d2b3efc048a92f90ddfeb9c5e, type: 2}
   - {fileID: 1354165558716634, guid: 371018ce323ecec46ae2ae34abad593e, type: 2}
   - {fileID: 1748349343942068, guid: f1283d7d45bb06344bf73ce7f1ec1547, type: 2}
   - {fileID: 1895661344832740, guid: 8906de79e38d722448ed84e0c648ed37, type: 2}
@@ -25478,14 +25478,14 @@ MonoBehaviour:
   matchSize: 4
   isNetworkActive: 0
   matchMaker: {fileID: 0}
-  Warrior1: {fileID: 1826784893692738, guid: 4ff7c1f0543b6894983c748131b73025, type: 2}
-  Warrior2: {fileID: 1858046779216112, guid: cf64ca6d2b3efc048a92f90ddfeb9c5e, type: 2}
+  Warrior1: {fileID: 1933068524198146, guid: 4ff7c1f0543b6894983c748131b73025, type: 2}
+  Warrior2: {fileID: 1199713668875136, guid: cf64ca6d2b3efc048a92f90ddfeb9c5e, type: 2}
   Knight1: {fileID: 1914662640277300, guid: 852adba9a5a1e814c9ed6a1321fe5cd5, type: 2}
   Knight2: {fileID: 1606907050001774, guid: 786c53dde62f73a42a6a1d6d0f60b133, type: 2}
   Wizard1: {fileID: 1354165558716634, guid: 371018ce323ecec46ae2ae34abad593e, type: 2}
   Wizard2: {fileID: 1748349343942068, guid: f1283d7d45bb06344bf73ce7f1ec1547, type: 2}
-  Spearman1: {fileID: 1203070051539434, guid: 1fedc773a0e5ca242b6497870e24151d, type: 2}
-  Spearman2: {fileID: 1738913404694178, guid: 099488c1c5d11974480c2bfb8460217a, type: 2}
+  Spearman1: {fileID: 1903017085303842, guid: 219f0058b7fdfb44a8cea277b73ba883, type: 2}
+  Spearman2: {fileID: 1805880158202974, guid: 099488c1c5d11974480c2bfb8460217a, type: 2}
   Leader1: {fileID: 1972396443182656, guid: 29977ff9cb8bc3b46a3a25fe87c8d39c, type: 2}
   Leader2: {fileID: 1248077650733106, guid: ace76aa0f94f129488a5b9ff64615d74, type: 2}
   _playerID: 0
