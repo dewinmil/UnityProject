@@ -36,7 +36,7 @@ public class Unit : NetworkBehaviour
     public int _costToMove;
     private List<Node> _tilesToMove;
     public List<Node> _currentPath = null;
-    private CharacterStatus _characterStatus;
+    public CharacterStatus _characterStatus;
 
     private void Start()
     {
