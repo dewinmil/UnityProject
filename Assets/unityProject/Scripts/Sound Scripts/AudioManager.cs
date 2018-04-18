@@ -93,7 +93,6 @@ public class AudioManager : MonoBehaviour
                 {
                     songPlaying = 1;
                 }
-                music = Array.Find(sounds, item => item.name == sound);
                 if (music == null)
                     return;
                 if (songPlaying == 1)
@@ -112,6 +111,7 @@ public class AudioManager : MonoBehaviour
                 {
                     sound = "Song4";
                 }
+                music = Array.Find(sounds, item => item.name == sound);
                 Play(music.name);
             }
         }
