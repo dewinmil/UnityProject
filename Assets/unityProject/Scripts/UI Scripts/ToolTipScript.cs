@@ -25,7 +25,7 @@ public class ToolTipScript : MonoBehaviour {
         if(abilityNum == 1)
         {
             toolTip.text = string.Format("Description-Targeted spell that does a small amount of magic damage" +
-                                         "{0}Type-magic     Range-3    Cost-3     Damage-3     Penetration-20%", Environment.NewLine);
+                "{0}Type-magic     Range-3    Cost-3     Damage-3     Penetration-20%", Environment.NewLine);
         }
         if (abilityNum == 2)
         {
@@ -35,12 +35,12 @@ public class ToolTipScript : MonoBehaviour {
         if (abilityNum == 3)
         {
             toolTip.text = string.Format("Description-Targeted healing ability " +
-                                         "{0}Type-Magic     Range-3    Cost-5     Healing-5", Environment.NewLine);
+                "{0}Type-Magic     Range-3    Cost-5     Healing-5", Environment.NewLine);
         }
         if (abilityNum == 4)
         {
             toolTip.text = string.Format("Description-Projectile spell that does medium damage" +
-                                         "{0}Type-Magic    Range-3    Cost-3     Damage-3     Penetration-20%", Environment.NewLine);
+                "{0}Type-Magic    Range-3    Cost-3     Damage-3     Penetration-20%", Environment.NewLine);
         }
         if (abilityNum == 5)
         {
@@ -109,7 +109,8 @@ public class ToolTipScript : MonoBehaviour {
         }
         if (abilityNum == 18)
         {
-            toolTip.text = "";
+            toolTip.text = string.Format("Description: Self heal" +
+                "{0}Type-Buff    Range-Self   Cost-5     Healing-5", Environment.NewLine);
         }
         if (abilityNum == 19)
         {
