@@ -3721,9 +3721,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114695977435115546}
-          m_MethodName: setToolTip
-          m_Mode: 3
+        - m_Target: {fileID: 114705612298060048}
+          m_MethodName: set_text
+          m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4093,6 +4093,7 @@ MonoBehaviour:
   _numMoves: 4
   _rigidbody: {fileID: 54451859030305054}
   _costToMove: 1
+  _characterStatus: {fileID: 0}
 --- !u!114 &114275566407466802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5666,6 +5667,7 @@ MonoBehaviour:
   _numMoves: 0
   _rigidbody: {fileID: 54448132883141528}
   _costToMove: 0
+  _characterStatus: {fileID: 0}
 --- !u!136 &136177080473963164
 CapsuleCollider:
   m_ObjectHideFlags: 1
