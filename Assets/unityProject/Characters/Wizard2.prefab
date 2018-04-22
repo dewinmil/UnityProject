@@ -3781,9 +3781,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114695977435115546}
-          m_MethodName: setToolTip
-          m_Mode: 3
+        - m_Target: {fileID: 114705612298060048}
+          m_MethodName: set_text
+          m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
