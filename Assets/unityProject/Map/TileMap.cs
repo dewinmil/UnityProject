@@ -80,7 +80,7 @@ public class TileMap : NetworkBehaviour
 
         for (int i = 0; i < envTiles.GetLength(0); i++)
         {
-            SetTileWalkable(envTiles[i, 0], envTiles[i, 1], false);
+            SetTileWalkable(envTiles[i, 0], envTiles[i, 1], false, null);
         }
 
     }
@@ -160,7 +160,7 @@ public class TileMap : NetworkBehaviour
 
         //highlight initial spawn locations for units
         foreach (UnitSpawn spawn in _initialSpawns)
-            SetTileWalkable(spawn._x, spawn._z, false);
+            SetTileWalkable(spawn._x, spawn._z, false, null);
     }
 
     private List<UnitSpawn> InitTeam1Spawns()
@@ -498,7 +498,7 @@ public class TileMap : NetworkBehaviour
         }
     }
 
-    public void SetTileWalkable(int x, int z, bool isWalkable)
+    public void SetTileWalkable(int x, int z, bool isWalkable, GameObject unit)
     {
         //if we pass in true, make the tile walkable (0)
         //if we pass in false, make the tile unwalkable (1)
@@ -507,6 +507,17 @@ public class TileMap : NetworkBehaviour
         string hash = GetHashString(x, z);
         MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
         mesh.material.color = isWalkable ? WALKABLE_TILE_COLOR : UNWALKABLE_TILE_COLOR;
+
+        if (isWalkable == false && unit != null)
+        {
+            ClickableTile ct = _tileObjects[hash].GetComponent<ClickableTile>();
+            ct._occupyingUnit = unit;
+        }
+        else
+        {
+            ClickableTile ct = _tileObjects[hash].GetComponent<ClickableTile>();
+            ct._occupyingUnit = null;
+        }
     }
 
     //Params are current units x/z coords and the number of tiles the unit can move
