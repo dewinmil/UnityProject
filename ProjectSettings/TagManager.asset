@@ -8,6 +8,7 @@ TagManager:
   - Unit
   - winScreen
   - loseScreen
+  - UI
   layers:
   - Default
   - TransparentFX

@@ -230,9 +230,11 @@ GameObject:
   - component: {fileID: 224958461469622528}
   - component: {fileID: 222831580636877000}
   - component: {fileID: 114942976075216090}
+  - component: {fileID: 65495128051904814}
+  - component: {fileID: 54407302671238488}
   m_Layer: 5
   m_Name: Ability Panel
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -565,6 +567,7 @@ GameObject:
   - component: {fileID: 114052774143239584}
   - component: {fileID: 114688411430943326}
   - component: {fileID: 114390889927710188}
+  - component: {fileID: 114439296476427128}
   m_Layer: 5
   m_Name: Character UI
   m_TagString: Untagged
@@ -1763,9 +1766,11 @@ GameObject:
   - component: {fileID: 224224453328842796}
   - component: {fileID: 222851678577365954}
   - component: {fileID: 114050771160797156}
+  - component: {fileID: 54020804973383108}
+  - component: {fileID: 65995852985644006}
   m_Layer: 5
   m_Name: Status Background
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1918,6 +1923,7 @@ GameObject:
   - component: {fileID: 114985309399740002}
   - component: {fileID: 114150143967436394}
   - component: {fileID: 114973943095436274}
+  - component: {fileID: 114345226152387588}
   m_Layer: 5
   m_Name: CharacterUIHealth
   m_TagString: Untagged
@@ -3503,6 +3509,36 @@ Transform:
   m_Father: {fileID: 4163244839030900}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &54020804973383108
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1846842807936062}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!54 &54407302671238488
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1101746457274766}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!54 &54448132883141528
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -3533,6 +3569,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &65495128051904814
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1101746457274766}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 239.42479, y: 36.82391, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65995852985644006
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1846842807936062}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 238.35692, y: 29.940067, z: 1}
+  m_Center: {x: -0.24725974, y: 0, z: 0}
 --- !u!95 &95224207494516702
 Animator:
   serializedVersion: 3
@@ -4093,6 +4153,7 @@ MonoBehaviour:
   _numMoves: 4
   _rigidbody: {fileID: 54451859030305054}
   _costToMove: 1
+  _characterStatus: {fileID: 0}
 --- !u!114 &114275566407466802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4248,6 +4309,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114345226152387588
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1940222037915144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 808a5550098bd274686e41f855aa24a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114379525309978476
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4512,6 +4584,17 @@ MonoBehaviour:
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
+--- !u!114 &114439296476427128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1265749486676334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 808a5550098bd274686e41f855aa24a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114448017197108048
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5666,6 +5749,7 @@ MonoBehaviour:
   _numMoves: 0
   _rigidbody: {fileID: 54448132883141528}
   _costToMove: 0
+  _characterStatus: {fileID: 0}
 --- !u!136 &136177080473963164
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -6881,8 +6965,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 110, y: -268.53918}
-  m_SizeDelta: {x: -780, y: -536.86}
+  m_AnchoredPosition: {x: 110, y: -267.55}
+  m_SizeDelta: {x: -780, y: -534.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224985769195124852
 RectTransform:
