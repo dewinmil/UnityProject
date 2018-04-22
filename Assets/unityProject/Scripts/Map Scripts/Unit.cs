@@ -226,7 +226,7 @@ public class Unit : NetworkBehaviour
     {
         this.tileX = x;
         this.tileZ = z;
-        _map.SetTileWalkable(x, z, isWalkable);
+        _map.SetTileWalkable(x, z, isWalkable, this.gameObject);
         RpcUnitMoved(x, z, isWalkable);
     }
 
@@ -236,7 +236,7 @@ public class Unit : NetworkBehaviour
     {
         this.tileX = x;
         this.tileZ = z;
-        _map.SetTileWalkable(x, z, isWalkable);
+        _map.SetTileWalkable(x, z, isWalkable, this.gameObject);
     }
 
     [Command]
