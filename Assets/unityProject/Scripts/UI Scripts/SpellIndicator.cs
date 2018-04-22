@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 /*
  * This is a class that upon having a spell selected or the movement toggle active
  * creates a pointer rotated towards the target
- */ 
+ */
 public class SpellIndicator : MonoBehaviour
 {
 
@@ -29,6 +30,7 @@ public class SpellIndicator : MonoBehaviour
 
     void Update()
     {
+
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (firstTargetSelected)
         {
@@ -41,16 +43,23 @@ public class SpellIndicator : MonoBehaviour
         {
             if (Physics.Raycast(ray, out hit, 100))
             {
-                if (hit.collider.gameObject.GetComponent<MoveInput>())
+                if (hit.collider.tag == "UI")
                 {
-                    if (usingAbility)
+                    hit = new RaycastHit();
+                }
+                else
+                {
+                    if (hit.collider.gameObject.GetComponent<MoveInput>())
                     {
-                        usingAbility = false;
-                    }
-                    else
-                    {
-                        firstTargetSelected = true;
-                        _selected = hit.collider.gameObject.GetComponent<MoveInput>();
+                        if (usingAbility)
+                        {
+                            usingAbility = false;
+                        }
+                        else
+                        {
+                            firstTargetSelected = true;
+                            _selected = hit.collider.gameObject.GetComponent<MoveInput>();
+                        }
                     }
                 }
             }
@@ -158,20 +167,20 @@ public class SpellIndicator : MonoBehaviour
                                     list[list.Count - 2].GetComponent<Renderer>().material.color = Color.white;
                                 }
                             }
-                            if (distance < list.Count + 2 && list.Count >=3)
+                            if (distance < list.Count + 2 && list.Count >= 3)
                             {
                                 GameObject.Destroy(list[list.Count - 1]);
                                 list.RemoveAt(list.Count - 1);
                                 GameObject.Destroy(list[list.Count - 1]);
                                 list.RemoveAt(list.Count - 1);
                             }
-                            if(list.Count == 1)
+                            if (list.Count == 1)
                             {
                                 //halfway berween transform and _selected (but on the same plane as transform)
 
-                                line.transform.position = new Vector3(_selected.transform.position.x + (transform.position.x - _selected.transform.position.x)/2,
+                                line.transform.position = new Vector3(_selected.transform.position.x + (transform.position.x - _selected.transform.position.x) / 2,
                                     transform.position.y,
-                                    _selected.transform.position.z + (transform.position.z - _selected.transform.position.z)/2);
+                                    _selected.transform.position.z + (transform.position.z - _selected.transform.position.z) / 2);
 
                                 line.transform.eulerAngles = new Vector3(line.transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
                             }
@@ -187,7 +196,7 @@ public class SpellIndicator : MonoBehaviour
                                 }
                             }
                         }
-                        
+
                     }
                     else
                     {
@@ -201,12 +210,13 @@ public class SpellIndicator : MonoBehaviour
                 }
             }
         }
+
     }
 
     public void clearList()
     {
         int max = list.Count;
-        if(max == 1)
+        if (max == 1)
         {
             transform.GetComponent<SpriteRenderer>().enabled = false;
             list[0].transform.GetComponent<MeshRenderer>().enabled = false;

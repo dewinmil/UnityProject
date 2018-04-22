@@ -75,7 +75,7 @@ public class Abilities : NetworkBehaviour
             abilityUsed = ability;
         }
     }
-    
+
     //this function actually applies the spell effect to the target
     public void castAbility(CharacterStatus target, float damage, float healing, float apCost, float armorPen, float magicPen, float buff, bool isMagic)
     {
@@ -110,7 +110,7 @@ public class Abilities : NetworkBehaviour
                     {
                         resistance = 0;
                     }
-                    if(resistance >= 1)
+                    if (resistance >= 1)
                     {
                         resistance = 1;
                     }
@@ -144,7 +144,7 @@ public class Abilities : NetworkBehaviour
                     {
                         resistance = 0;
                     }
-                    if(resistance >= 1)
+                    if (resistance >= 1)
                     {
                         resistance = 1;
                     }
@@ -169,6 +169,7 @@ public class Abilities : NetworkBehaviour
                 {
                     target.GetComponent<CapsuleCollider>().enabled = false;
                     target.currentHealth = 0;
+                    target.GetComponentInChildren<StatusBars>().gameObject.SetActive(false);
                     if (target.isLeader)
                     {
                         _casterStatus.CmdEndGame(target.teamNum);
@@ -182,7 +183,7 @@ public class Abilities : NetworkBehaviour
                     {
                         target.currentHealth = target.maxHealth;
                     }
-                    if(buff > 0)
+                    if (buff > 0)
                     {
                         if (isMagic)
                         {
@@ -279,59 +280,60 @@ public class Abilities : NetworkBehaviour
             //if the left mouse button is pressed
             if (Input.GetButtonUp("Fire1"))
             {
-                //if the mouse is not over a UI element 
-                if (EventSystem.current.IsPointerOverGameObject() == false)
+                //cast a ray from the main camera to the mouse
+                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit, 100))
                 {
-                    //cast a ray from the main camera to the mouse
-                    ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    RaycastHit hit;
-                    if (Physics.Raycast(ray, out hit, 100))
+                    //if the ray hits an object with the Unit tag
+                    if (hit.collider.tag == "UI")
                     {
-                        //if the ray hits an object with the Unit tag
-                        if (hit.collider.tag == "Unit")
-                        {
-                            //_unit.abil = abilityUsed;
+                        _unit.UnhighlightWalkableTiles();
+                        hit = new RaycastHit();
+                    }
+                    else if (hit.collider.tag == "Unit")
+                    {
 
-                            if (canCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), abilityUsed) != -1)
+                        if (canCast(hit.collider.gameObject.GetComponent<CharacterStatus>(), abilityUsed) != -1)
+                        {
+                            //cast an ability
+                            if (buttonPressed == 1)
                             {
-                                //cast an ability
-                                if (buttonPressed == 1)
-                                {
-                                    copyInfo(Button1Animation);
-                                    gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
-                                        abilityUsed, 1);
-                                }
-                                if (buttonPressed == 2)
-                                {
-                                    copyInfo(Button2Animation);
-                                    gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
-                                        abilityUsed, 2);
-                                }
-                                if (buttonPressed == 3)
-                                {
-                                    copyInfo(Button3Animation);
-                                    gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
-                                        abilityUsed, 3);
-                                }
-                                if (buttonPressed == 4)
-                                {
-                                    copyInfo(Button4Animation);
-                                    gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
-                                        abilityUsed, 4);
-                                }
-                                if (buttonPressed == 5)
-                                {
-                                    copyInfo(Button5Animation);
-                                    gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
-                                        abilityUsed, 5);
-                                }
+                                copyInfo(Button1Animation);
+                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
+                                    abilityUsed, 1);
+                            }
+                            if (buttonPressed == 2)
+                            {
+                                copyInfo(Button2Animation);
+                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
+                                    abilityUsed, 2);
+                            }
+                            if (buttonPressed == 3)
+                            {
+                                copyInfo(Button3Animation);
+                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
+                                    abilityUsed, 3);
+                            }
+                            if (buttonPressed == 4)
+                            {
+                                copyInfo(Button4Animation);
+                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
+                                    abilityUsed, 4);
+                            }
+                            if (buttonPressed == 5)
+                            {
+                                copyInfo(Button5Animation);
+                                gameObject.GetComponentInParent<CastSpell>().callCast(hit.collider.gameObject.GetComponent<CharacterStatus>(),
+                                    abilityUsed, 5);
                             }
                         }
                     }
-                    //ability has been cast so de-select it
-                    usingAbility = false;
-                    abilityUsed = 0;
                 }
+                //ability has been cast so de-select it
+                usingAbility = false;
+                abilityUsed = 0;
+                //}
 
             }
         }
@@ -346,6 +348,7 @@ public class Abilities : NetworkBehaviour
             //set cast indicator to be invisible
             FindObjectOfType<SpellIndicator>().clearList();
             _unit.moveToggle = false;
+            _unit.UnhighlightWalkableTiles();
         }
         else
         {
@@ -522,7 +525,7 @@ public class Abilities : NetworkBehaviour
 
     public int runCheck(CharacterStatus theTarget, int AP, int abilNum, int range)
     {
-        if (_casterStatus.currentAction > AP && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+        if (_casterStatus.currentAction >= AP && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
         {
             if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= range &&
                 Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= range)
@@ -556,7 +559,7 @@ public class Abilities : NetworkBehaviour
 
     public int runCheckWithHealth(CharacterStatus theTarget, int health, int abilNum, int range)
     {
-        if (_casterStatus.currentHealth > health && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
+        if (_casterStatus.currentHealth >= health && theTarget.currentHealth > 0 && _casterStatus.currentHealth > 0)
         {
             if (Math.Abs(_unit.tileX - theTarget.GetComponent<Unit>().tileX) <= range &&
                 Math.Abs(_unit.tileZ - theTarget.GetComponent<Unit>().tileZ) <= range)

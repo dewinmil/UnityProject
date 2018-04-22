@@ -78,11 +78,11 @@ public class TileMap : NetworkBehaviour
 
             { 4, 16 }, { 5, 16 }, { 6, 16 }, { 7, 16 }, { 9, 16 }, { 10, 16 }, { 11, 16 }, { 9, 17 }, { 10, 17 }  };
 
-        for(int i = 0; i < envTiles.GetLength(0); i++)
+        for (int i = 0; i < envTiles.GetLength(0); i++)
         {
             SetTileWalkable(envTiles[i, 0], envTiles[i, 1], false, null);
         }
-       
+
     }
 
     private void Update()
@@ -93,28 +93,30 @@ public class TileMap : NetworkBehaviour
         }
         if (Input.GetButtonUp("Fire1"))
         {
-            if (EventSystem.current.IsPointerOverGameObject() == false)
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 100))
             {
-                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                if (Physics.Raycast(ray, out hit, 100))
+                if (hit.collider.tag == "UI")
                 {
-                    if (hit.collider.tag == "Unit")
+                    hit = new RaycastHit();
+                }
+                else if (hit.collider.tag == "Unit")
+                {
+                    if (_selectedUnit.GetComponent<Unit>().moveToggle == false)
                     {
-                        if (_selectedUnit.GetComponent<Unit>().moveToggle == false)
+                        if (wasCasting == false)
                         {
-                            if (wasCasting == false)
-                            {
-                                _selectedUnit = hit.collider.gameObject;
-                            }
-                            else
-                            {
-                                wasCasting = false;
-                            }
+                            _selectedUnit = hit.collider.gameObject;
+                        }
+                        else
+                        {
+                            wasCasting = false;
                         }
                     }
                 }
             }
+
         }
     }
 
@@ -541,7 +543,7 @@ public class TileMap : NetworkBehaviour
 
         foreach (Node node in neighbors)
         {
-            if(node.x == _selectedUnit.GetComponent<Unit>().tileX && node.z == _selectedUnit.GetComponent<Unit>().tileZ)
+            if (node.x == _selectedUnit.GetComponent<Unit>().tileX && node.z == _selectedUnit.GetComponent<Unit>().tileZ)
                 continue;
             string hash = GetHashString(node.x, node.z);
             MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
@@ -1171,7 +1173,7 @@ public class TileMap : NetworkBehaviour
             if (!_tileTypes[_tiles[ct.tileX, ct.tileZ]].IsWalkable ||
                 (ct.tileX == unit.tileX && ct.tileZ == unit.tileZ))
                 continue;
-            
+
             MeshRenderer mesh = tile.GetComponent<MeshRenderer>();
             mesh.material.color = WALKABLE_TILE_COLOR;
         }

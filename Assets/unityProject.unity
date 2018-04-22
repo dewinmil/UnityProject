@@ -16380,7 +16380,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 1014215456}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -17013,7 +17013,7 @@ GameObject:
   - component: {fileID: 916485986}
   m_Layer: 5
   m_Name: Button
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19550,9 +19550,10 @@ GameObject:
   - component: {fileID: 1080998726}
   - component: {fileID: 1080998728}
   - component: {fileID: 1080998727}
+  - component: {fileID: 1080998729}
   m_Layer: 5
   m_Name: End Turn
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19609,6 +19610,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1080998725}
+--- !u!65 &1080998729
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1080998725}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 78.101654, y: 47.515648, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1087221157
 GameObject:
   m_ObjectHideFlags: 0
@@ -24556,7 +24569,7 @@ GameObject:
   - component: {fileID: 1378841718}
   m_Layer: 0
   m_Name: Spell Indicator
-  m_TagString: Unit
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26348,9 +26361,10 @@ GameObject:
   - component: {fileID: 1470201231}
   - component: {fileID: 1470201233}
   - component: {fileID: 1470201232}
+  - component: {fileID: 1470201234}
   m_Layer: 5
   m_Name: Options
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26407,6 +26421,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1470201230}
+--- !u!65 &1470201234
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1470201230}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 28.681395, y: 28.158104, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1477713563
 GameObject:
   m_ObjectHideFlags: 0
@@ -31297,7 +31323,7 @@ GameObject:
   - component: {fileID: 1769402212}
   m_Layer: 5
   m_Name: Button
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34734,7 +34760,7 @@ GameObject:
   - component: {fileID: 1929530445}
   m_Layer: 5
   m_Name: Game UI
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
