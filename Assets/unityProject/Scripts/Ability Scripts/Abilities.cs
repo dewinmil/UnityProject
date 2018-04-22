@@ -169,6 +169,7 @@ public class Abilities : NetworkBehaviour
                 {
                     target.GetComponent<CapsuleCollider>().enabled = false;
                     target.currentHealth = 0;
+                    target.GetComponentInChildren<StatusBars>().gameObject.SetActive(false);
                     if (target.isLeader)
                     {
                         _casterStatus.CmdEndGame(target.teamNum);
@@ -287,6 +288,7 @@ public class Abilities : NetworkBehaviour
                     //if the ray hits an object with the Unit tag
                     if (hit.collider.tag == "UI")
                     {
+                        _unit.UnhighlightWalkableTiles();
                         hit = new RaycastHit();
                     }
                     else if (hit.collider.tag == "Unit")
@@ -346,6 +348,7 @@ public class Abilities : NetworkBehaviour
             //set cast indicator to be invisible
             FindObjectOfType<SpellIndicator>().clearList();
             _unit.moveToggle = false;
+            _unit.UnhighlightWalkableTiles();
         }
         else
         {

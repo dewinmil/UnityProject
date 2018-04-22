@@ -12,9 +12,7 @@ public class MainMenu : MonoBehaviour
     {
         //tutorial had me tack a +1 after build index / don't know why it isn't
         //starting at 0, - may have to change later if we encounter problems.
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        //SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(SceneManager.GetActiveScene().buildIndex + 1));
     }
 
     public void BackToMenu()
