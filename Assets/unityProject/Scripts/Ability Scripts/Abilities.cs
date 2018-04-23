@@ -81,8 +81,6 @@ public class Abilities : NetworkBehaviour
     {
         _unit.UnhighlightWalkableTiles();
         _unit.CmdLookAt(target.gameObject);
-        //_unit.transform.LookAt(target.transform.position);
-        //target.transform.LookAt(_unit.transform.position);
         //if the target is not dead
         if (target.currentHealth > 0)
         {

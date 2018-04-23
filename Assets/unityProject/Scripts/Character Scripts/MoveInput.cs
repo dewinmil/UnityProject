@@ -59,8 +59,7 @@ public class MoveInput : NetworkBehaviour
                         Debug.DrawLine(ray.origin, hit.point);
                         Vector3 selectedPosition = new Vector3(hit.point.x, hit.point.y - hit.point.y - .416f, hit.point.z);
 
-                        //if we did selected an area right on top of / near the owner of this script
-                        if (Vector3.Distance(selectedPosition, _characterAbilities.transform.position) <= .9)
+                        if (hit.collider == _characterAbilities.GetComponentInParent<CapsuleCollider>())
                         {
                             //if they are not having an ability cast upon them
                             if (targetedBySpell == false)
