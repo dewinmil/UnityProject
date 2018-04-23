@@ -286,7 +286,6 @@ public class Abilities : NetworkBehaviour
                     //if the ray hits an object with the Unit tag
                     if (hit.collider.tag == "UI")
                     {
-                        _unit.UnhighlightWalkableTiles();
                         hit = new RaycastHit();
                     }
                     else if (hit.collider.tag == "Unit")
@@ -326,11 +325,12 @@ public class Abilities : NetworkBehaviour
                                     abilityUsed, 5);
                             }
                         }
+                        //ability has been cast so de-select it
+                        usingAbility = false;
+                        abilityUsed = 0;
                     }
                 }
-                //ability has been cast so de-select it
-                usingAbility = false;
-                abilityUsed = 0;
+
                 //}
 
             }
