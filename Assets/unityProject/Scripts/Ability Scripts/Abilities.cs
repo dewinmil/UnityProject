@@ -330,9 +330,6 @@ public class Abilities : NetworkBehaviour
                         abilityUsed = 0;
                     }
                 }
-
-                //}
-
             }
         }
     }
