@@ -16,43 +16,32 @@ public class ClickableTile : MonoBehaviour
     void OnMouseUp()
     {
         Unit selectedUnit = map._selectedUnit.GetComponent<Unit>();
-        if (selectedUnit.moveToggle)
+        if (selectedUnit.moveToggle && EventSystem.current.IsPointerOverGameObject() == false)
         {
-            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 100))
+            //see if this tile is withing the moveable range of the unit
+            if (selectedUnit.InRangeOfSelectedTile(tileX, tileZ))
             {
-                if (hit.collider.tag == "UI")
+                map.GeneratePathTo(tileX, tileZ);
+                selectedUnit.BeginMovement();
+                selectedUnit.UnhighlightWalkableTiles();
+            }
+        }
+        else if (_occupyingUnit != null)
+        {
+            MoveInput mi = _occupyingUnit.GetComponent<MoveInput>();
+            Unit unit = _occupyingUnit.GetComponent<Unit>();
+            if (mi.targetedBySpell == false)
+            {
+                if (mi.endTurn.turn == _occupyingUnit.GetComponent<CharacterStatus>().teamNum
+                    && _occupyingUnit.GetComponent<CharacterStatus>().currentHealth > 0)
                 {
-                    hit = new RaycastHit();
-                    if (_occupyingUnit != null)
-                    {
-                        MoveInput mi = _occupyingUnit.GetComponent<MoveInput>();
-                        Unit unit = _occupyingUnit.GetComponent<Unit>();
-                        if (mi.targetedBySpell == false)
-                        {
-                            if (mi.endTurn.turn == _occupyingUnit.GetComponent<CharacterStatus>().teamNum
-                                && _occupyingUnit.GetComponent<CharacterStatus>().currentHealth > 0)
-                            {
-                                //select the unit
-                                mi.isSelected = true;
-                                unit.SelectedUnitChanged();
-                                unit._map.charSelect = true;
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    //see if this tile is withing the moveable range of the unit
-                    if (selectedUnit.InRangeOfSelectedTile(tileX, tileZ))
-                    {
-                        map.GeneratePathTo(tileX, tileZ);
-                        selectedUnit.BeginMovement();
-                        selectedUnit.UnhighlightWalkableTiles();
-                    }
+                    //select the unit
+                    mi.isSelected = true;
+                    unit.SelectedUnitChanged();
+                    unit._map.charSelect = true;
                 }
             }
         }
+
     }
 }
