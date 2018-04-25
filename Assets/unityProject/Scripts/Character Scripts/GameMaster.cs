@@ -189,6 +189,14 @@ public class GameMaster : NetworkManager
 
     public override void OnClientConnect(NetworkConnection conn)
     {
+        ConnectionConfig config = new ConnectionConfig();
+        config.AddChannel(QosType.Unreliable);
+        config.AddChannel(QosType.UnreliableFragmented);
+        config.NetworkDropThreshold = 60;
+        config.OverflowDropThreshold = 60;
+        config.AckDelay = 200;
+        config.AcksType = ConnectionAcksType.Acks128;
+        config.MaxSentMessageQueueSize = 300;
         conn.RegisterHandler(37, DoNothing);
         AddPlayers(conn, NUM_UNITS_PER_TEAM);
         FindObjectOfType<ToggleActive>().playerConnected();
