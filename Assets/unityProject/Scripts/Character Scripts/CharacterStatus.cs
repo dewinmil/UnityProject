@@ -112,7 +112,10 @@ public class CharacterStatus : NetworkBehaviour {
                 //_unit.CmdDeathAnim();
 
                 _unit.dead = true;
-                _unit.CmdSynchAnimations(_unit.abil, _unit._isMoving, _unit.react, _unit.dead);
+                if(!isServer)
+                    _unit.CmdSynchAnimations(_unit.abil, _unit._isMoving, _unit.react, _unit.dead);
+                else
+                    _unit.RpcSynchAnimations(_unit.abil, _unit._isMoving, _unit.react, _unit.dead);
             }
         }
     }
