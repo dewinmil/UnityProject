@@ -106,13 +106,10 @@ public class MoveInput : NetworkBehaviour
                                     //if we were not casting an ability
                                     else
                                     {
-                                        //if we were not attempting to move
-                                        if (_unit._isMoving == false)
-                                        {
-                                            //de-select this unit
-                                            isSelected = false;
-                                            _unit.UnhighlightWalkableTiles();
-                                        }
+                                        //de-select this unit
+                                        isSelected = false;
+                                        _unit.UnhighlightWalkableTiles();
+
                                     }
                                 }
                                 //if we selcted the ground somewhere
