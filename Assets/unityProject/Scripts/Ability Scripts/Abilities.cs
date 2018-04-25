@@ -539,6 +539,7 @@ public class Abilities : NetworkBehaviour
 
                     _unit.CmdSynchAnimations(abilNum, _unit._isMoving, _unit.react, _unit.dead);
                 }
+                _unit.UnhighlightWalkableTiles();
                 return range;
             }
             else
@@ -571,6 +572,7 @@ public class Abilities : NetworkBehaviour
                 {
                     _unit.abil = abilNum;
                 }
+                _unit.UnhighlightWalkableTiles();
                 return range;
             }
             else
@@ -603,6 +605,7 @@ public class Abilities : NetworkBehaviour
                 {
                     _unit.abil = abilNum;
                 }
+                _unit.UnhighlightWalkableTiles();
                 return range;
             }
             else

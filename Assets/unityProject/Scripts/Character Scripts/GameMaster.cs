@@ -58,8 +58,11 @@ public class GameMaster : NetworkManager
         ConnectionConfig config = new ConnectionConfig();
         config.AddChannel(QosType.Unreliable);
         config.AddChannel(QosType.UnreliableFragmented);
-        config.NetworkDropThreshold = 80;         //50%
-        config.OverflowDropThreshold = 80;         //10%
+        config.NetworkDropThreshold = 60;   
+        config.OverflowDropThreshold = 60;         
+        config.AckDelay = 200;
+        config.AcksType = ConnectionAcksType.Acks128;
+        config.MaxSentMessageQueueSize = 300;
 
         //NetworkServer.RegisterHandler(37, DoNothing);
     }

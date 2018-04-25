@@ -24209,6 +24209,8 @@ MonoBehaviour:
   onHitAnimation: {fileID: 100672, guid: 7dc0b63f67faaf9479803bcfdff7f71e, type: 2}
   spellSound: {fileID: 8300000, guid: 32a085624b9f652458773be29e8fc6c1, type: 3}
   spellMoves: 1
+  serverSpell: 0
+  _parentCastSpell: {fileID: 0}
 --- !u!135 &135411640216394700
 SphereCollider:
   m_ObjectHideFlags: 1

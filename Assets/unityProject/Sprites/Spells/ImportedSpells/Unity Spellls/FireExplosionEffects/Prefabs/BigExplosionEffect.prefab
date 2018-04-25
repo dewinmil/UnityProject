@@ -408,6 +408,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onHitAnimation: {fileID: 0}
   spellSound: {fileID: 8300000, guid: ae143492ebcfa344d89463a25ffeb64f, type: 3}
+  spellMoves: 0
+  serverSpell: 0
+  _parentCastSpell: {fileID: 0}
 --- !u!198 &198000010667505060
 ParticleSystem:
   m_ObjectHideFlags: 1
