@@ -82,6 +82,7 @@ public class AudioManager : MonoBehaviour
                 float timeRemaining = music.clip.length - music.source.time;
                 if (timeRemaining < 5)
                 {
+                    maxVolume = music.source.volume;
                     music.source.volume = maxVolume / 5 * timeRemaining;
                 }
                 //do nothing
@@ -112,6 +113,8 @@ public class AudioManager : MonoBehaviour
                     sound = "Song4";
                 }
                 music = Array.Find(sounds, item => item.name == sound);
+                music.volume = volumeSlider.value;
+                music.source.volume = volumeSlider.value;
                 Play(music.name);
             }
         }
@@ -155,6 +158,7 @@ public class AudioManager : MonoBehaviour
 
     public void OnValueChanged()
     {
+        music.volume = volumeSlider.value;
         music.source.volume = volumeSlider.value;
         volumeChanged = true;
     }

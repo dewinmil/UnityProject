@@ -19949,7 +19949,7 @@ MonoBehaviour:
   sounds:
   - name: Menu Music
     clip: {fileID: 8300000, guid: fa12cfe749020c74aab8f5e147582c30, type: 3}
-    volume: 0.25
+    volume: 0.15
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
@@ -19967,7 +19967,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Song2
     clip: {fileID: 8300000, guid: 610e8d1ba6c503040950a7e96659c759, type: 3}
-    volume: 0.15
+    volume: 0.1
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
@@ -19976,7 +19976,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Song3
     clip: {fileID: 8300000, guid: 379c9a2d1ec083e479a56925838e5732, type: 3}
-    volume: 0.15
+    volume: 0.1
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
@@ -19985,7 +19985,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Song4
     clip: {fileID: 8300000, guid: 74547fb283ae4fb4396c0ed973b6d719, type: 3}
-    volume: 0.15
+    volume: 0.1
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
@@ -19994,7 +19994,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: endTurnSound
     clip: {fileID: 8300000, guid: 28e9b4a6c3d32174983bf47e70dcb41b, type: 3}
-    volume: 0.15
+    volume: 0.1
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0

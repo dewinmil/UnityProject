@@ -55,6 +55,12 @@ public class GameMaster : NetworkManager
         _initialSpawns.AddRange(_team1SpawnLocations);
         _initialSpawns.AddRange(_team2SpawnLocations);
 
+        ConnectionConfig config = new ConnectionConfig();
+        config.AddChannel(QosType.Unreliable);
+        config.AddChannel(QosType.UnreliableFragmented);
+        config.NetworkDropThreshold = 80;         //50%
+        config.OverflowDropThreshold = 80;         //10%
+
         //NetworkServer.RegisterHandler(37, DoNothing);
     }
 
