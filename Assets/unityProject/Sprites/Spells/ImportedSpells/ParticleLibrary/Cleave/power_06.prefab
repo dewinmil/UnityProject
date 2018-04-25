@@ -24153,7 +24153,7 @@ MonoBehaviour:
   m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TransformSyncMode: 0
+  m_TransformSyncMode: 3
   m_SendInterval: 0.033333335
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
@@ -24177,6 +24177,8 @@ MonoBehaviour:
   onHitAnimation: {fileID: 180950, guid: f2a398acbf213024aa23b14c390770bf, type: 2}
   spellSound: {fileID: 8300000, guid: 32a085624b9f652458773be29e8fc6c1, type: 3}
   spellMoves: 1
+  serverSpell: 0
+  _parentCastSpell: {fileID: 0}
 --- !u!114 &114755018272677202
 MonoBehaviour:
   m_ObjectHideFlags: 1
