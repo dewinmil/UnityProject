@@ -190,6 +190,11 @@ public class GameMaster : NetworkManager
         FindObjectOfType<MainMenu>().RefreshGame();
     }
 
+    public override void OnStopClient()
+    {
+        FindObjectOfType<MainMenu>().RefreshGame();
+    }
+
 
     public override void OnServerConnect(NetworkConnection conn)
     {
