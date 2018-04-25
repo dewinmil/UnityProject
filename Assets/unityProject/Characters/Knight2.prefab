@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 114026808876692104}
   - component: {fileID: 114489616418989910}
   - component: {fileID: 114161048518131866}
+  - component: {fileID: 114044137873881876}
   m_Layer: 5
   m_Name: CharacterUIHealth
   m_TagString: Untagged
@@ -1017,9 +1018,11 @@ GameObject:
   - component: {fileID: 224661517039040020}
   - component: {fileID: 222478073351980868}
   - component: {fileID: 114790208154157150}
+  - component: {fileID: 65413471682236534}
+  - component: {fileID: 54283949498351182}
   m_Layer: 5
   m_Name: Ability Panel
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1307,9 +1310,11 @@ GameObject:
   - component: {fileID: 224305740601359638}
   - component: {fileID: 222660034806970716}
   - component: {fileID: 114297466912507860}
+  - component: {fileID: 54038297155894434}
+  - component: {fileID: 65062059909687408}
   m_Layer: 5
   m_Name: Status Background
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1742,6 +1747,7 @@ GameObject:
   - component: {fileID: 114569255794763270}
   - component: {fileID: 114450576606636412}
   - component: {fileID: 114846538301616810}
+  - component: {fileID: 114894238599023764}
   m_Layer: 5
   m_Name: Character UI
   m_TagString: Untagged
@@ -3503,6 +3509,36 @@ Transform:
   m_Father: {fileID: 4825142350716268}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &54038297155894434
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1647886805087098}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!54 &54283949498351182
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1502472605039236}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!54 &54548762710402896
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -3533,6 +3569,30 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &65062059909687408
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1647886805087098}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 238.35692, y: 29.940067, z: 1}
+  m_Center: {x: -0.24725974, y: 0, z: 0}
+--- !u!65 &65413471682236534
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1502472605039236}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 239.42479, y: 36.82391, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95664564504361432
 Animator:
   serializedVersion: 3
@@ -3715,6 +3775,7 @@ MonoBehaviour:
   _numMoves: 4
   _rigidbody: {fileID: 54956855825684338}
   _costToMove: 2
+  _characterStatus: {fileID: 0}
 --- !u!114 &114035868613972486
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3748,6 +3809,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 20 / 20
+--- !u!114 &114044137873881876
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1025906803212180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 808a5550098bd274686e41f855aa24a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114044807952073550
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5404,6 +5476,17 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114894238599023764
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1859314000422742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 808a5550098bd274686e41f855aa24a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114895241130748768
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5585,6 +5668,7 @@ MonoBehaviour:
   _numMoves: 0
   _rigidbody: {fileID: 54548762710402896}
   _costToMove: 0
+  _characterStatus: {fileID: 0}
 --- !u!114 &114977038948885058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6695,7 +6779,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 110, y: -267.5}
+  m_AnchoredPosition: {x: 110, y: -267.55}
   m_SizeDelta: {x: -780, y: -534.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224689153039382874

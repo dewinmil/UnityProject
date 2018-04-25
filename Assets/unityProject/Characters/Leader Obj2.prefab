@@ -119,6 +119,7 @@ GameObject:
   - component: {fileID: 114621283403640632}
   - component: {fileID: 114618541216916724}
   - component: {fileID: 114657321414284212}
+  - component: {fileID: 114988138847709702}
   m_Layer: 5
   m_Name: CharacterUIHealth
   m_TagString: Untagged
@@ -294,9 +295,11 @@ GameObject:
   - component: {fileID: 224311501020555986}
   - component: {fileID: 222398333539655554}
   - component: {fileID: 114022742537408806}
+  - component: {fileID: 65265900144812050}
+  - component: {fileID: 54959074319548980}
   m_Layer: 5
   m_Name: Ability Panel
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -362,6 +365,7 @@ GameObject:
   - component: {fileID: 114319748987023034}
   - component: {fileID: 114217294766050070}
   - component: {fileID: 114974886728427490}
+  - component: {fileID: 114781081430444462}
   m_Layer: 5
   m_Name: Character UI
   m_TagString: Untagged
@@ -394,9 +398,11 @@ GameObject:
   - component: {fileID: 224010800699081434}
   - component: {fileID: 222610743262479746}
   - component: {fileID: 114251462368077230}
+  - component: {fileID: 54638064475978424}
+  - component: {fileID: 65403368577428760}
   m_Layer: 5
   m_Name: Status Background
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1430,6 +1436,21 @@ Transform:
   m_Father: {fileID: 4166851606032294}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &54638064475978424
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1451746635704140}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!54 &54829286186250826
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -1445,6 +1466,45 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!54 &54959074319548980
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1335364771446862}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!65 &65265900144812050
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1335364771446862}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 239.42479, y: 36.82391, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65403368577428760
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1451746635704140}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 238.35692, y: 29.940067, z: 1}
+  m_Center: {x: -0.24725974, y: 0, z: 0}
 --- !u!95 &95901990949446386
 Animator:
   serializedVersion: 3
@@ -2884,6 +2944,18 @@ MonoBehaviour:
   _numMoves: 4
   _rigidbody: {fileID: 54829286186250826}
   _costToMove: 1
+  _characterStatus: {fileID: 0}
+--- !u!114 &114781081430444462
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1415453738458378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 808a5550098bd274686e41f855aa24a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114782764323199272
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3339,6 +3411,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 114106342842356380}
+--- !u!114 &114988138847709702
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1140900043784084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 808a5550098bd274686e41f855aa24a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114995291615565268
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3992,8 +4075,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 110, y: -268.9}
-  m_SizeDelta: {x: -780, y: -537.5}
+  m_AnchoredPosition: {x: 110, y: -267.55}
+  m_SizeDelta: {x: -780, y: -534.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224321977311088980
 RectTransform:

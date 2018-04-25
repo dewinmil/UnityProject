@@ -78,11 +78,11 @@ public class TileMap : NetworkBehaviour
 
             { 4, 16 }, { 5, 16 }, { 6, 16 }, { 7, 16 }, { 9, 16 }, { 10, 16 }, { 11, 16 }, { 9, 17 }, { 10, 17 }  };
 
-        for(int i = 0; i < envTiles.GetLength(0); i++)
+        for (int i = 0; i < envTiles.GetLength(0); i++)
         {
-            SetTileWalkable(envTiles[i, 0], envTiles[i, 1], false);
+            SetTileWalkable(envTiles[i, 0], envTiles[i, 1], false, null);
         }
-       
+
     }
 
     private void Update()
@@ -93,28 +93,30 @@ public class TileMap : NetworkBehaviour
         }
         if (Input.GetButtonUp("Fire1"))
         {
-            if (EventSystem.current.IsPointerOverGameObject() == false)
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 100))
             {
-                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-                if (Physics.Raycast(ray, out hit, 100))
+                if (hit.collider.tag == "UI")
                 {
-                    if (hit.collider.tag == "Unit")
+                    hit = new RaycastHit();
+                }
+                else if (hit.collider.tag == "Unit")
+                {
+                    if (_selectedUnit.GetComponent<Unit>().moveToggle == false)
                     {
-                        if (_selectedUnit.GetComponent<Unit>().moveToggle == false)
+                        if (wasCasting == false)
                         {
-                            if (wasCasting == false)
-                            {
-                                _selectedUnit = hit.collider.gameObject;
-                            }
-                            else
-                            {
-                                wasCasting = false;
-                            }
+                            _selectedUnit = hit.collider.gameObject;
+                        }
+                        else
+                        {
+                            wasCasting = false;
                         }
                     }
                 }
             }
+
         }
     }
 
@@ -158,7 +160,7 @@ public class TileMap : NetworkBehaviour
 
         //highlight initial spawn locations for units
         foreach (UnitSpawn spawn in _initialSpawns)
-            SetTileWalkable(spawn._x, spawn._z, false);
+            SetTileWalkable(spawn._x, spawn._z, false, null);
     }
 
     private List<UnitSpawn> InitTeam1Spawns()
@@ -415,6 +417,89 @@ public class TileMap : NetworkBehaviour
         _selectedUnit.GetComponent<Unit>()._currentPath = currentPath;
     }
 
+    private bool IsTileInRange(int x, int z, int numMoves)
+    {
+        Dictionary<Node, float> dist = new Dictionary<Node, float>();
+        Dictionary<Node, Node> prev = new Dictionary<Node, Node>();
+
+        //set up list of nodes we have not checked yet
+        List<Node> unvisited = new List<Node>();
+
+        int sourceXPos = _selectedUnit.GetComponent<Unit>().tileX;
+        int sourceZPos = _selectedUnit.GetComponent<Unit>().tileZ;
+
+        Node source = _graph[sourceXPos, sourceZPos];
+        Node target = _graph[x, z];
+
+        dist[source] = 0;
+        prev[source] = null;
+
+        //init everything to have infinite distance, since we don't know any better atm
+        //It's possible some nodes cannot be reached from the source
+        foreach (Node node in _graph)
+        {
+            if (node != source)
+            {
+                dist[node] = Mathf.Infinity;
+                prev[node] = null;
+            }
+
+            unvisited.Add(node);
+        }
+
+        while (unvisited.Count > 0)
+        {
+            //unvisited node with smallest distance
+            Node u = null;
+
+            //find the closest unvisited node
+            foreach (Node possibleUnvisited in unvisited)
+            {
+                if (u == null || dist[possibleUnvisited] < dist[u])
+                    u = possibleUnvisited;
+            }
+
+            //if U is the closest node to our target, then that's the shortest path
+            if (u == target)
+                break;
+
+            unvisited.Remove(u);
+
+            foreach (Node node in u.neighbours)
+            {
+
+                //float alt = dist[u] + u.DistanceTo(node);
+                float alt = dist[u] + CostToEnterTile(node.x, node.z, u.x, u.z);
+                //if this distance is less than the current shortest distance
+                if (alt < dist[node])
+                {
+                    dist[node] = alt;
+                    prev[node] = u;
+                }
+            }
+        }
+
+        //if we get here, we either found the shortest route or there is NO route to the target
+
+        //no route between target and source
+        if (prev[target] == null)
+            return false;
+
+        //there is a route
+        List<Node> currentPath = new List<Node>();
+
+        Node current = target;
+        //step through the prev chain and add it to the path
+        while (current != null)
+        {
+            currentPath.Add(current);
+            current = prev[current];
+        }
+
+        //subtract one from the count to account for the current tile being in the list
+        return (currentPath.Count-1) <= numMoves;
+    }
+
     void GenerateMapData()
     {
         _tiles = new int[_mapSizeX, _mapSizeZ];
@@ -496,7 +581,7 @@ public class TileMap : NetworkBehaviour
         }
     }
 
-    public void SetTileWalkable(int x, int z, bool isWalkable)
+    public void SetTileWalkable(int x, int z, bool isWalkable, GameObject unit)
     {
         //if we pass in true, make the tile walkable (0)
         //if we pass in false, make the tile unwalkable (1)
@@ -505,6 +590,17 @@ public class TileMap : NetworkBehaviour
         string hash = GetHashString(x, z);
         MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
         mesh.material.color = isWalkable ? WALKABLE_TILE_COLOR : UNWALKABLE_TILE_COLOR;
+
+        if (isWalkable == false && unit != null)
+        {
+            ClickableTile ct = _tileObjects[hash].GetComponent<ClickableTile>();
+            ct._occupyingUnit = unit;
+        }
+        else
+        {
+            ClickableTile ct = _tileObjects[hash].GetComponent<ClickableTile>();
+            ct._occupyingUnit = null;
+        }
     }
 
     //Params are current units x/z coords and the number of tiles the unit can move
@@ -528,16 +624,23 @@ public class TileMap : NetworkBehaviour
         else
             neighbors = BuildQuadrantsOdd(playerX, playerZ, (int)num);
 
+        List<Node> toRemove = new List<Node>();
         foreach (Node node in neighbors)
         {
-            if(node.x == _selectedUnit.GetComponent<Unit>().tileX && node.z == _selectedUnit.GetComponent<Unit>().tileZ)
+            if (node.x == _selectedUnit.GetComponent<Unit>().tileX && node.z == _selectedUnit.GetComponent<Unit>().tileZ)
                 continue;
+            else if (!IsTileInRange(node.x, node.z, (int) num))
+            {
+                toRemove.Add(node);
+                continue;
+            }
             string hash = GetHashString(node.x, node.z);
             MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
             mesh.material.color = CURRENT_PATH_TILE_COLOR;
             _highlightedTiles.Add(_tileObjects[hash]);
         }
 
+        toRemove.ForEach(n => neighbors.Remove(n));
         return neighbors;
     }
 
@@ -1160,7 +1263,7 @@ public class TileMap : NetworkBehaviour
             if (!_tileTypes[_tiles[ct.tileX, ct.tileZ]].IsWalkable ||
                 (ct.tileX == unit.tileX && ct.tileZ == unit.tileZ))
                 continue;
-            
+
             MeshRenderer mesh = tile.GetComponent<MeshRenderer>();
             mesh.material.color = WALKABLE_TILE_COLOR;
         }

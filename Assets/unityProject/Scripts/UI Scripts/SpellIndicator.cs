@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 /*
  * This is a class that upon having a spell selected or the movement toggle active
  * creates a pointer rotated towards the target
- */ 
+ */
 public class SpellIndicator : MonoBehaviour
 {
 
@@ -29,6 +30,7 @@ public class SpellIndicator : MonoBehaviour
 
     void Update()
     {
+
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (firstTargetSelected)
         {
@@ -41,16 +43,23 @@ public class SpellIndicator : MonoBehaviour
         {
             if (Physics.Raycast(ray, out hit, 100))
             {
-                if (hit.collider.gameObject.GetComponent<MoveInput>())
+                if (hit.collider.tag == "UI")
                 {
-                    if (usingAbility)
+                    hit = new RaycastHit();
+                }
+                else
+                {
+                    if (hit.collider.gameObject.GetComponent<MoveInput>())
                     {
-                        usingAbility = false;
-                    }
-                    else
-                    {
-                        firstTargetSelected = true;
-                        _selected = hit.collider.gameObject.GetComponent<MoveInput>();
+                        if (usingAbility)
+                        {
+                            usingAbility = false;
+                        }
+                        else
+                        {
+                            firstTargetSelected = true;
+                            _selected = hit.collider.gameObject.GetComponent<MoveInput>();
+                        }
                     }
                 }
             }
@@ -73,121 +82,128 @@ public class SpellIndicator : MonoBehaviour
                         //list[0].transform.GetComponent<MeshRenderer>().enabled = true;
                         if (Physics.Raycast(ray, out hit, 100))
                         {
-                            transform.position = new Vector3(hit.point.x, hit.point.y + (float).02, hit.point.z);
-
-                            float zVal = transform.position.z - _selected.transform.position.z;
-                            float xVal = transform.position.x - _selected.transform.position.x;
-                            float rotation;
-                            float difference;
-                            rotation = 0;
-
-
-                            while (Mathf.Abs(xVal) < 1 || Mathf.Abs(zVal) < 1)
+                            if (hit.collider.tag == "UI")
                             {
-                                xVal = xVal + xVal;
-                                zVal = zVal + zVal;
-                            }
-                            if (Mathf.Abs(xVal) <= Mathf.Abs(zVal))
-                            {
-                                difference = Mathf.Abs(xVal) / Mathf.Abs(zVal);
-                                rotation = 45 * difference;
-                                if (xVal < 0 && zVal < 0)
-                                {
-                                    rotation += 180;
-                                }
-                                else if (xVal < 0)
-                                {
-                                    rotation = 360 - rotation;
-                                }
-                                else if (zVal < 0)
-                                {
-                                    rotation = 180 - rotation;
-                                }
+                                hit = new RaycastHit();
                             }
                             else
                             {
-                                difference = Mathf.Abs(zVal) / Mathf.Abs(xVal);
-                                rotation = 45 + (45 - (45 * difference));
-                                if (xVal < 0 && zVal < 0)
-                                {
-                                    rotation += 180;
-                                }
-                                else if (xVal < 0)
-                                {
-                                    rotation = 360 - rotation;
-                                }
-                                else if (zVal < 0)
-                                {
-                                    rotation = 180 - rotation;
-                                }
-                            }
-                            transform.eulerAngles = new Vector3(transform.eulerAngles.x, rotation, transform.eulerAngles.z);
+                                transform.position = new Vector3(hit.point.x, hit.point.y + (float).02, hit.point.z);
 
-                            float zPos = Mathf.Pow(transform.position.z - _selected.transform.position.z, 2);
-                            float xPos = Mathf.Pow(transform.position.x - _selected.transform.position.x, 2);
-                            float distance = Mathf.Sqrt(zPos + xPos);
-                            if (list.Count >= 1)
-                            {
-                                if (_selected.GetComponent<Unit>().moveToggle)
+                                float zVal = transform.position.z - _selected.transform.position.z;
+                                float xVal = transform.position.x - _selected.transform.position.x;
+                                float rotation;
+                                float difference;
+                                rotation = 0;
+
+
+                                while (Mathf.Abs(xVal) < 1 || Mathf.Abs(zVal) < 1)
                                 {
-                                    transform.GetComponent<SpriteRenderer>().material.color = Color.yellow;
-                                    list[0].transform.GetComponent<Renderer>().material.color = Color.yellow;
+                                    xVal = xVal + xVal;
+                                    zVal = zVal + zVal;
+                                }
+                                if (Mathf.Abs(xVal) <= Mathf.Abs(zVal))
+                                {
+                                    difference = Mathf.Abs(xVal) / Mathf.Abs(zVal);
+                                    rotation = 45 * difference;
+                                    if (xVal < 0 && zVal < 0)
+                                    {
+                                        rotation += 180;
+                                    }
+                                    else if (xVal < 0)
+                                    {
+                                        rotation = 360 - rotation;
+                                    }
+                                    else if (zVal < 0)
+                                    {
+                                        rotation = 180 - rotation;
+                                    }
                                 }
                                 else
                                 {
-                                    transform.GetComponent<SpriteRenderer>().material.color = Color.white;
-                                    list[0].transform.GetComponent<Renderer>().material.color = Color.white;
+                                    difference = Mathf.Abs(zVal) / Mathf.Abs(xVal);
+                                    rotation = 45 + (45 - (45 * difference));
+                                    if (xVal < 0 && zVal < 0)
+                                    {
+                                        rotation += 180;
+                                    }
+                                    else if (xVal < 0)
+                                    {
+                                        rotation = 360 - rotation;
+                                    }
+                                    else if (zVal < 0)
+                                    {
+                                        rotation = 180 - rotation;
+                                    }
                                 }
-                            }
-                            if (distance >= list.Count + 5)
-                            {
-                                list.Add(Instantiate(line));
-                                list.Add(Instantiate(line));
-                                if (_selected.GetComponent<Unit>().moveToggle)
-                                {
-                                    transform.GetComponent<SpriteRenderer>().material.color = Color.yellow;
-                                    list[0].GetComponent<Renderer>().material.color = Color.yellow;
-                                    list[list.Count - 1].GetComponent<Renderer>().material.color = Color.yellow;
-                                    list[list.Count - 2].GetComponent<Renderer>().material.color = Color.yellow;
-                                }
-                                else
-                                {
-                                    transform.GetComponent<SpriteRenderer>().material.color = Color.white;
-                                    list[0].GetComponent<Renderer>().material.color = Color.white;
-                                    list[list.Count - 1].GetComponent<Renderer>().material.color = Color.white;
-                                    list[list.Count - 2].GetComponent<Renderer>().material.color = Color.white;
-                                }
-                            }
-                            if (distance < list.Count + 2 && list.Count >=3)
-                            {
-                                GameObject.Destroy(list[list.Count - 1]);
-                                list.RemoveAt(list.Count - 1);
-                                GameObject.Destroy(list[list.Count - 1]);
-                                list.RemoveAt(list.Count - 1);
-                            }
-                            if(list.Count == 1)
-                            {
-                                //halfway berween transform and _selected (but on the same plane as transform)
+                                transform.eulerAngles = new Vector3(transform.eulerAngles.x, rotation, transform.eulerAngles.z);
 
-                                line.transform.position = new Vector3(_selected.transform.position.x + (transform.position.x - _selected.transform.position.x)/2,
-                                    transform.position.y,
-                                    _selected.transform.position.z + (transform.position.z - _selected.transform.position.z)/2);
-
-                                line.transform.eulerAngles = new Vector3(line.transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
-                            }
-                            else
-                            {
-                                for (int i = 0; i < list.Count; i++)
+                                float zPos = Mathf.Pow(transform.position.z - _selected.transform.position.z, 2);
+                                float xPos = Mathf.Pow(transform.position.x - _selected.transform.position.x, 2);
+                                float distance = Mathf.Sqrt(zPos + xPos);
+                                if (list.Count >= 1)
                                 {
-                                    list[i].transform.position = new Vector3(_selected.transform.position.x + (transform.position.x - _selected.transform.position.x) * ((float)i / (float)list.Count),
+                                    if (_selected.GetComponent<Unit>().moveToggle)
+                                    {
+                                        transform.GetComponent<SpriteRenderer>().material.color = Color.yellow;
+                                        list[0].transform.GetComponent<Renderer>().material.color = Color.yellow;
+                                    }
+                                    else
+                                    {
+                                        transform.GetComponent<SpriteRenderer>().material.color = Color.white;
+                                        list[0].transform.GetComponent<Renderer>().material.color = Color.white;
+                                    }
+                                }
+                                if (distance >= list.Count + 5)
+                                {
+                                    list.Add(Instantiate(line));
+                                    list.Add(Instantiate(line));
+                                    if (_selected.GetComponent<Unit>().moveToggle)
+                                    {
+                                        transform.GetComponent<SpriteRenderer>().material.color = Color.yellow;
+                                        list[0].GetComponent<Renderer>().material.color = Color.yellow;
+                                        list[list.Count - 1].GetComponent<Renderer>().material.color = Color.yellow;
+                                        list[list.Count - 2].GetComponent<Renderer>().material.color = Color.yellow;
+                                    }
+                                    else
+                                    {
+                                        transform.GetComponent<SpriteRenderer>().material.color = Color.white;
+                                        list[0].GetComponent<Renderer>().material.color = Color.white;
+                                        list[list.Count - 1].GetComponent<Renderer>().material.color = Color.white;
+                                        list[list.Count - 2].GetComponent<Renderer>().material.color = Color.white;
+                                    }
+                                }
+                                if (distance < list.Count + 2 && list.Count >= 3)
+                                {
+                                    GameObject.Destroy(list[list.Count - 1]);
+                                    list.RemoveAt(list.Count - 1);
+                                    GameObject.Destroy(list[list.Count - 1]);
+                                    list.RemoveAt(list.Count - 1);
+                                }
+                                if (list.Count == 1)
+                                {
+                                    //halfway berween transform and _selected (but on the same plane as transform)
+
+                                    line.transform.position = new Vector3(_selected.transform.position.x + (transform.position.x - _selected.transform.position.x) / 2,
                                         transform.position.y,
-                                        _selected.transform.position.z + (transform.position.z - _selected.transform.position.z) * ((float)i / (float)list.Count));
+                                        _selected.transform.position.z + (transform.position.z - _selected.transform.position.z) / 2);
 
-                                    list[i].transform.eulerAngles = new Vector3(line.transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
+                                    line.transform.eulerAngles = new Vector3(line.transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < list.Count; i++)
+                                    {
+                                        list[i].transform.position = new Vector3(_selected.transform.position.x + (transform.position.x - _selected.transform.position.x) * ((float)i / (float)list.Count),
+                                            transform.position.y,
+                                            _selected.transform.position.z + (transform.position.z - _selected.transform.position.z) * ((float)i / (float)list.Count));
+
+                                        list[i].transform.eulerAngles = new Vector3(line.transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
+                                    }
                                 }
                             }
                         }
-                        
+
                     }
                     else
                     {
@@ -201,12 +217,13 @@ public class SpellIndicator : MonoBehaviour
                 }
             }
         }
+
     }
 
     public void clearList()
     {
         int max = list.Count;
-        if(max == 1)
+        if (max == 1)
         {
             transform.GetComponent<SpriteRenderer>().enabled = false;
             list[0].transform.GetComponent<MeshRenderer>().enabled = false;

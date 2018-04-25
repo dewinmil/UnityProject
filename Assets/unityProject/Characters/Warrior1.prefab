@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 114827701666537430}
   - component: {fileID: 114764353661135740}
   - component: {fileID: 114375330586808476}
+  - component: {fileID: 114161244278898222}
   m_Layer: 5
   m_Name: Character UI
   m_TagString: Untagged
@@ -264,6 +265,7 @@ GameObject:
   - component: {fileID: 114676676680691010}
   - component: {fileID: 114244522563023900}
   - component: {fileID: 114957027585350634}
+  - component: {fileID: 114712188060411840}
   m_Layer: 5
   m_Name: CharacterUIHealth
   m_TagString: Untagged
@@ -523,9 +525,11 @@ GameObject:
   - component: {fileID: 224029029991147816}
   - component: {fileID: 222221688925848164}
   - component: {fileID: 114213092029803648}
+  - component: {fileID: 65320425696919826}
+  - component: {fileID: 54862888350650420}
   m_Layer: 5
   m_Name: Ability Panel
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -742,9 +746,11 @@ GameObject:
   - component: {fileID: 224883894071418142}
   - component: {fileID: 222467082180925336}
   - component: {fileID: 114799031356544416}
+  - component: {fileID: 54474422511823482}
+  - component: {fileID: 65421624494749184}
   m_Layer: 5
   m_Name: Status Background
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1445,6 +1451,60 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!54 &54474422511823482
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1783212231891330}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!54 &54862888350650420
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1562489292115270}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!65 &65320425696919826
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1562489292115270}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 239.42479, y: 36.82391, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65421624494749184
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1783212231891330}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 238.35692, y: 29.940067, z: 1}
+  m_Center: {x: -0.24725974, y: 0, z: 0}
 --- !u!95 &95200776761091132
 Animator:
   serializedVersion: 3
@@ -1816,6 +1876,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 20 / 20
+--- !u!114 &114161244278898222
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1182197796140846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 808a5550098bd274686e41f855aa24a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114177456599962990
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2484,6 +2555,7 @@ MonoBehaviour:
   _numMoves: 4
   _rigidbody: {fileID: 54286302758806826}
   _costToMove: 1
+  _characterStatus: {fileID: 0}
 --- !u!114 &114548210434935940
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2903,6 +2975,17 @@ MonoBehaviour:
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   delegates: []
+--- !u!114 &114712188060411840
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1234072203000988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 808a5550098bd274686e41f855aa24a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114719463093868750
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3848,8 +3931,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 110, y: -268.53918}
-  m_SizeDelta: {x: -780, y: -536.86}
+  m_AnchoredPosition: {x: 110, y: -267.55}
+  m_SizeDelta: {x: -780, y: -534.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224041354441034340
 RectTransform:

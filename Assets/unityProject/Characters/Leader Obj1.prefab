@@ -204,9 +204,11 @@ GameObject:
   - component: {fileID: 224589637885354246}
   - component: {fileID: 222772682277222242}
   - component: {fileID: 114179662543167334}
+  - component: {fileID: 54459271655217566}
+  - component: {fileID: 65007074064769466}
   m_Layer: 5
   m_Name: Status Background
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -492,9 +494,11 @@ GameObject:
   - component: {fileID: 224608296238721892}
   - component: {fileID: 222360202116952284}
   - component: {fileID: 114398216716859176}
+  - component: {fileID: 65916552421904432}
+  - component: {fileID: 54213608319486106}
   m_Layer: 5
   m_Name: Ability Panel
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -526,6 +530,7 @@ GameObject:
   - component: {fileID: 114907774054700342}
   - component: {fileID: 114558212732613878}
   - component: {fileID: 114356819695545658}
+  - component: {fileID: 114465662046783626}
   m_Layer: 5
   m_Name: CharacterUIHealth
   m_TagString: Untagged
@@ -932,6 +937,8 @@ GameObject:
   - component: {fileID: 114277527243697958}
   - component: {fileID: 114668369026466324}
   - component: {fileID: 114674414794555698}
+  - component: {fileID: 114796371830737720}
+  - component: {fileID: 114165124150473204}
   m_Layer: 5
   m_Name: Character UI
   m_TagString: Untagged
@@ -1430,6 +1437,21 @@ Transform:
   m_Father: {fileID: 4041703374458504}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &54213608319486106
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1392805214274250}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!54 &54330774442555160
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -1445,6 +1467,45 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!54 &54459271655217566
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1119289996060282}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!65 &65007074064769466
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1119289996060282}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 238.35692, y: 29.940067, z: 1}
+  m_Center: {x: -0.24725974, y: 0, z: 0}
+--- !u!65 &65916552421904432
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1392805214274250}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 239.42479, y: 36.82391, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95166488541832012
 Animator:
   serializedVersion: 3
@@ -1882,6 +1943,17 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114165124150473204
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1887346269403288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 808a5550098bd274686e41f855aa24a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114174974370870620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2430,6 +2502,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114465662046783626
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1422021586098020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 808a5550098bd274686e41f855aa24a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114475819773183468
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2565,6 +2648,7 @@ MonoBehaviour:
   _numMoves: 4
   _rigidbody: {fileID: 54330774442555160}
   _costToMove: 1
+  _characterStatus: {fileID: 0}
 --- !u!114 &114558212732613878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3084,6 +3168,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 20 / 20
+--- !u!114 &114796371830737720
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1887346269403288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 808a5550098bd274686e41f855aa24a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114826160912239160
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3290,9 +3385,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 114730142018212340}
-          m_MethodName: setToolTip
-          m_Mode: 3
+        - m_Target: {fileID: 114601226390991994}
+          m_MethodName: set_text
+          m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4147,8 +4242,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 110, y: -268.9}
-  m_SizeDelta: {x: -780, y: -537.5}
+  m_AnchoredPosition: {x: 110, y: -267.55}
+  m_SizeDelta: {x: -780, y: -534.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224620071289153190
 RectTransform:

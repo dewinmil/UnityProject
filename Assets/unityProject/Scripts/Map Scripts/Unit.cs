@@ -24,6 +24,7 @@ public class Unit : NetworkBehaviour
     public bool react;
     [SyncVar]
     public bool dead;
+    public Ray ray;
     //number of tiles the unit can move
     /// /////////////////////////////////////
     //DO NOT CHANGE THIS VALUE IN THIS FILE
@@ -135,22 +136,32 @@ public class Unit : NetworkBehaviour
     {
         if (moveToggle)
         {
-            if (EventSystem.current.IsPointerOverGameObject() == false)
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 100))
             {
-                if (_currentPath == null)
-                    return;
-
-                if (_characterStatus.CanMove(_currentPath.Count - 1, _costToMove))
+                if (hit.collider.tag == "UI")
                 {
-                    _nextTile = _map.TileCoordToWorldCoord(_currentPath[0].x, _currentPath[0].z);
-                    //set their origin tile to be walkable
-                    CmdSetTileWalkable(this.tileX, this.tileZ, true);
-                    MoveToNextTile();
-                    _isMoving = true;
+                    hit = new RaycastHit();
+                }
+                else
+                {
+                    if (_currentPath == null)
+                        return;
 
-                    CmdSynchAnimations(abil, _isMoving, react, dead);
+                    if (_characterStatus.CanMove(_currentPath.Count - 1, _costToMove))
+                    {
+                        _nextTile = _map.TileCoordToWorldCoord(_currentPath[0].x, _currentPath[0].z);
+                        //set their origin tile to be walkable
+                        CmdSetTileWalkable(this.tileX, this.tileZ, true);
+                        MoveToNextTile();
+                        _isMoving = true;
+
+                        CmdSynchAnimations(abil, _isMoving, react, dead);
+                    }
                 }
             }
+            
         }
     }
 
@@ -226,7 +237,7 @@ public class Unit : NetworkBehaviour
     {
         this.tileX = x;
         this.tileZ = z;
-        _map.SetTileWalkable(x, z, isWalkable);
+        _map.SetTileWalkable(x, z, isWalkable, this.gameObject);
         RpcUnitMoved(x, z, isWalkable);
     }
 
@@ -236,7 +247,7 @@ public class Unit : NetworkBehaviour
     {
         this.tileX = x;
         this.tileZ = z;
-        _map.SetTileWalkable(x, z, isWalkable);
+        _map.SetTileWalkable(x, z, isWalkable, this.gameObject);
     }
 
     [Command]

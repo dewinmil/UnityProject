@@ -55,6 +55,12 @@ public class GameMaster : NetworkManager
         _initialSpawns.AddRange(_team1SpawnLocations);
         _initialSpawns.AddRange(_team2SpawnLocations);
 
+        ConnectionConfig config = new ConnectionConfig();
+        config.AddChannel(QosType.Unreliable);
+        config.AddChannel(QosType.UnreliableFragmented);
+        config.NetworkDropThreshold = 80;         //50%
+        config.OverflowDropThreshold = 80;         //10%
+
         //NetworkServer.RegisterHandler(37, DoNothing);
     }
 
@@ -185,6 +191,16 @@ public class GameMaster : NetworkManager
         FindObjectOfType<ToggleActive>().playerConnected();
     }
 
+    public override void OnStopServer()
+    {
+        FindObjectOfType<MainMenu>().RefreshGame();
+    }
+
+    public override void OnStopClient()
+    {
+        FindObjectOfType<MainMenu>().RefreshGame();
+    }
+
 
     public override void OnServerConnect(NetworkConnection conn)
     {
@@ -214,9 +230,6 @@ public class GameMaster : NetworkManager
     private void OnDisconnectedFromServer(NetworkDisconnection info)
     {
         FindObjectOfType<ToggleActive>().playerDisconnected();
-        NetworkManager.Shutdown();
-        SceneManager.LoadScene(0);
-        print("why u no work");
     }
 
     //method used for creating the unit. Set all values here
@@ -231,9 +244,6 @@ public class GameMaster : NetworkManager
 
     public void endTurn()
     {
-        //CharacterStatus _currentStatus = GetComponent("CharacterStatus") as CharacterStatus;
-        //if (_currentStatus.getTeamNum() == turn)
-        //{
         if (turn == 1)
         {
             turn = 2;
