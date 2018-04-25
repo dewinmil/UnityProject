@@ -155,7 +155,7 @@ public class CharacterStatus : NetworkBehaviour {
     public void gainAction()
     {
         // At the beginning of the turn
-        currentAction += 5;
+        currentAction += 8;
     }
 
     public int getTeamNum()
