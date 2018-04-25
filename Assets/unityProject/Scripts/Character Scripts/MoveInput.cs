@@ -119,7 +119,7 @@ public class MoveInput : NetworkBehaviour
                                     if (castingSpell == false)
                                     {
                                         //if we were not trying to move
-                                        if (_unit._isMoving == false)
+                                        if (_unit.moveToggle == false)
                                         {
                                             //de-select this unit
                                             isSelected = false;
