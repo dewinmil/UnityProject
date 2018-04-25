@@ -284,6 +284,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onHitAnimation: {fileID: 0}
   spellSound: {fileID: 8300000, guid: 5543cefa2f8fc9e40bb3b5af6eac40ad, type: 3}
+  spellMoves: 0
+  serverSpell: 0
+  _parentCastSpell: {fileID: 0}
 --- !u!198 &198000010217891986
 ParticleSystem:
   m_ObjectHideFlags: 1
