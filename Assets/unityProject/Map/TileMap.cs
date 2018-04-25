@@ -417,6 +417,89 @@ public class TileMap : NetworkBehaviour
         _selectedUnit.GetComponent<Unit>()._currentPath = currentPath;
     }
 
+    private bool IsTileInRange(int x, int z, int numMoves)
+    {
+        Dictionary<Node, float> dist = new Dictionary<Node, float>();
+        Dictionary<Node, Node> prev = new Dictionary<Node, Node>();
+
+        //set up list of nodes we have not checked yet
+        List<Node> unvisited = new List<Node>();
+
+        int sourceXPos = _selectedUnit.GetComponent<Unit>().tileX;
+        int sourceZPos = _selectedUnit.GetComponent<Unit>().tileZ;
+
+        Node source = _graph[sourceXPos, sourceZPos];
+        Node target = _graph[x, z];
+
+        dist[source] = 0;
+        prev[source] = null;
+
+        //init everything to have infinite distance, since we don't know any better atm
+        //It's possible some nodes cannot be reached from the source
+        foreach (Node node in _graph)
+        {
+            if (node != source)
+            {
+                dist[node] = Mathf.Infinity;
+                prev[node] = null;
+            }
+
+            unvisited.Add(node);
+        }
+
+        while (unvisited.Count > 0)
+        {
+            //unvisited node with smallest distance
+            Node u = null;
+
+            //find the closest unvisited node
+            foreach (Node possibleUnvisited in unvisited)
+            {
+                if (u == null || dist[possibleUnvisited] < dist[u])
+                    u = possibleUnvisited;
+            }
+
+            //if U is the closest node to our target, then that's the shortest path
+            if (u == target)
+                break;
+
+            unvisited.Remove(u);
+
+            foreach (Node node in u.neighbours)
+            {
+
+                //float alt = dist[u] + u.DistanceTo(node);
+                float alt = dist[u] + CostToEnterTile(node.x, node.z, u.x, u.z);
+                //if this distance is less than the current shortest distance
+                if (alt < dist[node])
+                {
+                    dist[node] = alt;
+                    prev[node] = u;
+                }
+            }
+        }
+
+        //if we get here, we either found the shortest route or there is NO route to the target
+
+        //no route between target and source
+        if (prev[target] == null)
+            return false;
+
+        //there is a route
+        List<Node> currentPath = new List<Node>();
+
+        Node current = target;
+        //step through the prev chain and add it to the path
+        while (current != null)
+        {
+            currentPath.Add(current);
+            current = prev[current];
+        }
+
+        //subtract one from the count to account for the current tile being in the list
+        return (currentPath.Count-1) <= numMoves;
+    }
+
     void GenerateMapData()
     {
         _tiles = new int[_mapSizeX, _mapSizeZ];
@@ -541,16 +624,23 @@ public class TileMap : NetworkBehaviour
         else
             neighbors = BuildQuadrantsOdd(playerX, playerZ, (int)num);
 
+        List<Node> toRemove = new List<Node>();
         foreach (Node node in neighbors)
         {
             if (node.x == _selectedUnit.GetComponent<Unit>().tileX && node.z == _selectedUnit.GetComponent<Unit>().tileZ)
                 continue;
+            else if (!IsTileInRange(node.x, node.z, (int) num))
+            {
+                toRemove.Add(node);
+                continue;
+            }
             string hash = GetHashString(node.x, node.z);
             MeshRenderer mesh = _tileObjects[hash].GetComponent<MeshRenderer>();
             mesh.material.color = CURRENT_PATH_TILE_COLOR;
             _highlightedTiles.Add(_tileObjects[hash]);
         }
 
+        toRemove.ForEach(n => neighbors.Remove(n));
         return neighbors;
     }
 
